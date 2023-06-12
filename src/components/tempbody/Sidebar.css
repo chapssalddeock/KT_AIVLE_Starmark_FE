@@ -1,26 +1,29 @@
 .sidebar {
-    width: 200px;
+    width: 350px;
     height: 100%;
     background-color: #ffffff;
     float: left;
   }
   
   .main-content {
-    margin-left: 200px;/* 사이드바의 너비만큼 왼쪽 여백을 주어 메인 콘텐츠를 이동시킴 */
+    margin-left: 380px;/* 사이드바의 너비만큼 왼쪽 여백을 주어 메인 콘텐츠를 이동시킴 */
     margin-top: 0; 
   }
   .search-container {
     display: flex; 
     align-items: center;
-    border-radius: 5px; /* 모서리 둥글게 */
+    border-radius: 15px; /* 모서리 둥글게 */
+    border-color: #808080;
     width: 100%;
     padding: 5px;
     background-color: #f2f2f2; 
     color: rgba(0, 0, 0, 0.7); /* 반투명 */
+    margin-bottom: 15px;
   }
   .search-button{
-    width: 30%;
-    height:100%;
+    order: 1;
+    width: 16%;
+    height: 20px;
     background-color: #f2f2f2;
     border:none;
     background-color: #f2f2f2;
@@ -28,24 +31,33 @@
     color:#f2f2f2;
     outline:none;
     display:inline;
-    margin-left: -10px;
+    margin-left: 10px;
     box-sizing: border-box;
   }
   .search-button{
     background-color: #f2f2f2;
   }
   .search-input{
-    width:70%;
+    order: 2;
+    width:84%;
     height:100%;
     border:none;
     font-size:1em;
-    padding-left: 5px;
+    padding-left: -20px;
     font-style: oblique;
     display:inline;
     outline:none;
     box-sizing: border-box;
-    color:#f2f2f2;
+    background-color: #f2f2f2;
+  }
+  .search-history{
+    display: inline-block;
+    max-width: 350px;
 
   }
-
-
+  .search-record{
+    border: 1px solid #ccc;
+    padding: 2px 5px;
+    border-radius: 10px;
+    margin: 0 8px;
+  }

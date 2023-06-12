@@ -2,27 +2,35 @@
 import { useState } from 'react';
 export default function TempBody() {
     const [searchQuery, setSearchQuery] = useState('');
-
+    const [searchHistory, setSearchHistory] = useState([]);
+    const MAX_HISTORY_LENGTH = 5;
     const handleSearch = () => {
+        if (searchQuery.trim() === '') {
+            return; // 검색어가 비어있으면 동작하지 않음
+          }
     // 검색 로직 구현
         console.log('검색 실행:', searchQuery);
+        const updatedHistory = [searchQuery, ...searchHistory.slice(0, MAX_HISTORY_LENGTH - 1)];
+        setSearchHistory(updatedHistory);
+        setSearchQuery('');
     };
 
     return (
         <div>
             <div className="sidebar">
 
-                <div className="search-container">
-                    <div className="search-input" style={{ backgroundColor: "#f2f2f2" }}>
-                        <input type="text" placeholder="Search" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
-                    </div>
-                    <div className ="search-button">
-                    <input type="image" src="/public/img/search_RG.jpg" alt = 'ss' onClick={handleSearch}/>
-                    </div>
+                <div class="search-container">
+                    <input class="search-input" type="text" placeholder="Search" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />                                        
+                    <input class="search-button" type="image" src="/public/img/search_RG.jpg" alt = 'ss' onClick={handleSearch} />                                          
+                </div>
+                <div class="search-history">
+                {searchHistory.slice(0, MAX_HISTORY_LENGTH).map((query, index) => (
+                    <button key={index} class="search-record">{query}</button>
+                ))}
+                </div>
                         
 
-                
-                </div>
+        
                 <p>사이드바</p>
             </div>
 
