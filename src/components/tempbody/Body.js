@@ -9,6 +9,7 @@ export default function TempBody() {
     const [searchResults, setSearchResults] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
     const MAX_HISTORY_LENGTH = 5;
+    const searchInputRef = useRef(null);
     const suggestedItemsRef = useRef(null);
     const [filteredItems, setFilteredItems] = useState([]);
 
@@ -27,6 +28,7 @@ export default function TempBody() {
     const handleSuggestedItemClick = (value) => {
         setSearchQuery(value);
         searchInputRef.current.focus(); // useRef를 사용하여 DOM 요소에 접근하여 포커스 설정
+        handleSearchHistory(value);
     };
 
     useEffect(() => {
@@ -56,6 +58,11 @@ export default function TempBody() {
         // });
         
     }, [searchQuery]);
+    useEffect(() => {
+        if (searchInputRef.current) {
+          searchInputRef.current.focus();
+        }
+      }, []);
 
         
     
@@ -75,7 +82,7 @@ export default function TempBody() {
             <div className="sidebar">
 
                 <div class="search-container">
-                    <input class="search-input" type="text" placeholder="Search" value={searchQuery} onChange={handleSearchInput} />                                        
+                    <input class="search-input" type="text" placeholder="Search" value={searchQuery} onChange={handleSearchInput} ref={searchInputRef} />                                        
                     <input class="search-button" type="image" src="/public/img/search_RG.jpg" alt = 'ss' onClick={handleSearch} />                                          
                 </div>
                 <div class="search-history">
