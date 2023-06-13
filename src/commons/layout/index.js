@@ -22,8 +22,8 @@ export default function Layout(props) {
 
     return (
         <>
-            {isHidden && <NavBar />}
-            {!isHidden && <NavBar2 />}
+            {!isHidden && <NavBar />}
+            {isHidden && <NavBar2 />}
             <div>{props.children}</div>
             <TempBody />
             <Footer />

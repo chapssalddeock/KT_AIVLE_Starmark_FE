@@ -4,23 +4,32 @@ import { Bell, PersonCircle } from 'react-bootstrap-icons';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NoticeModal from "../NoticeModal/NoticeModal"
-import { Dropdown } from 'react-bootstrap';
+import { Badge, Popconfirm, Dropdown } from 'antd';
 
-import { NotificationOutlined } from '@ant-design/icons';
-import { Badge, Space } from 'antd';
 
 export default function NavBar() {
     const router = useRouter();
     const moveHome = () => {
         router.push("/")
     }
-    // modal 버튼 클릭 유무 저장 state
-    const [noticeModalOpen, setNoticeModalOpen] = useState(false);
-    // modal 버튼 클릭 유무 설정 함수
-    const clickNoticeModal = () => {
-        setNoticeModalOpen(!noticeModalOpen)
-    }
+
+    const items = [
+        {
+            key: '1',
+            label: (
+                <div onClick={moveHome}>
+                    마이페이지
+                </div>
+            ),
+        },
+        {
+            key: '2',
+            label: (
+                <div onClick={moveHome}>
+                    로그아웃
+                </div>
+            ),
+        },];
 
     return (
         <div>
@@ -30,26 +39,40 @@ export default function NavBar() {
                     <Navbar.Collapse className="justify-content-end">
                         <Nav style={{ cursor: "pointer" }} >
                             {/* 알림이 있으면 state로 핸들링하여 Badge 조건부 렌더링 */}
-                            <Badge dot><Bell size="24" onClick={clickNoticeModal} /></Badge>
+                            <Popconfirm
+                                placement="bottom"
+                                title={'크롤링 완료!'}
+                            >
+                                <Badge dot><Bell size="24" /></Badge>
+                            </Popconfirm>
                         </Nav>
-                        {/* 모달 영역입니다. 네비게이션 컴포넌트를 무시하기 위해 portal을 사용해 새로 구현해야할듯 합니다. */}
-                        <Dropdown style={{ cursor: "pointer", marginLeft: '20px' }} >
+                        <Dropdown
+                            menu={{
+                                items,
+                            }}
+                            placement="bottomRight" //여기 보고 적절히 수정
+                            trigger={['click']}
+                            arrow={{
+                                pointAtCenter: true,
+                            }}>
+                            <a onClick={(e) => e.preventDefault()}>
+                                <PersonCircle size="24" style={{ cursor: "pointer", marginLeft: '20px' }} />
+                            </a>
+                        </Dropdown>
+
+                        {/* <Dropdown style={{ cursor: "pointer", marginLeft: '20px' }} >
                             <Dropdown.Toggle id="dropdown-basic" as={PersonCircle} size={24} />
                             <Dropdown.Menu align="end" >
                                 <Dropdown.Item onClick={moveHome}>마이페이지</Dropdown.Item>
                                 <Dropdown.Item onClick={moveHome}>로그아웃</Dropdown.Item>
                             </Dropdown.Menu>
-                        </Dropdown>
+                        </Dropdown> */}
                     </Navbar.Collapse>
 
                 </Container>
             </Navbar >
-            {/* {noticeModalOpen && <NoticeModal clickModal={clickNoticeModal} />} */}
-            {/* {noticeModalOpen && (
-                <NoticeModal
-                    clickNoticeModal={() => setNoticeModalOpen(!noticeModalOpen)} />
-            )} */}
-        </div>
+
+        </div >
 
     );
 }
