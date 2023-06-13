@@ -110,11 +110,15 @@ export default function TempBody() {
                         </div>  */}
                     </div>
                 )}
+                <p>사이드바</p>
+                <footer className="sidebar-footer">
+                    <p>여기는 사이드바 푸터 영역입니다.</p>
+                </footer>
                 
                         
 
         
-                <p>사이드바</p>
+            
             </div>
 
             <div class="main-content">
@@ -122,6 +126,7 @@ export default function TempBody() {
                     <p>여기는 임시로 만든 바디 영역입니다.</p>
                     <p>필요없고 보여주기 식입니다....</p>
                 </div>
+            
             </div>
         </div>
     );
