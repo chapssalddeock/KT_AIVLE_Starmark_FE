@@ -5,24 +5,24 @@ export const Outer = styled.div`
   overflow-y: auto;
   `
 
-export const Inner = styled.div`
-  height: 100vh;
+  const BasicInner = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color : ${(props) => props.bgColor};
 `
 
-export const InnerNav = styled.div`
-  height: calc(100vh - 85.6px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+export const UnderNavInner = styled(BasicInner)`
+  height: calc(100vh - 85.6px); // 76
   background-color : #f7f6cf;
+`
+
+export const ActiveInner = styled(BasicInner)`
+  height: 100vh;
+  background-color : ${(props) => props.bgColor};
 `
 
 export const Divider = styled.div`
   width : 100%;
   height : 1px;
-  background-color : gray;
+  background-color : white;
 `

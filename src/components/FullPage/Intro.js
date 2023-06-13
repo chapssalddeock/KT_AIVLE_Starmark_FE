@@ -1,5 +1,5 @@
-import { Outer, Inner, InnerNav, Divider } from "../../../styles/body_emotion";
-import NavBar from "../../components/navbar/NavBar"
+import { Outer, ActiveInner, UnderNavInner, Divider } from "../../../styles/Intro_Emotion";
+import NavBar from "../navbar/NavBar"
 import { useEffect, useRef } from "react";
 
 const DIVIDER_HEIGHT = 3;
@@ -86,13 +86,13 @@ export default function TempBody() {
   return (
     <Outer ref={outerDivRef} className="outer">
       <NavBar />
-      <InnerNav className="inner">1</InnerNav>
+      <UnderNavInner className="inner">1</UnderNavInner>
       <Divider className="divider"></Divider>
-      <Inner className="inner" bgColor={"#b6d8f2"}>2</Inner>
+      <ActiveInner className="inner" bgColor={"#b6d8f2"}>2</ActiveInner>
       <Divider className="divider"></Divider>
-      <Inner className="inner" bgColor={"#f4cfdf"}>3</Inner>
+      <ActiveInner className="inner" bgColor={"#f4cfdf"}>3</ActiveInner>
       <Divider className="divider"></Divider>
-      <Inner className="inner" bgColor={"#b6d8f2"}>4</Inner>
+      <ActiveInner className="inner" bgColor={"#b6d8f2"}>4</ActiveInner>
     </Outer>
   );
 }
