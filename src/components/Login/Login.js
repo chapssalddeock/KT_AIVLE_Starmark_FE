@@ -1,0 +1,90 @@
+import { CustomerPage, TitleSpace, LoginTitle, ButtonDesign, InputSpace, TopScroll, ClickToTop } 
+from "../../../styles/Login_Emotion"
+import { Checkbox, Form, Input } from 'antd';
+
+const onFinish = (values) => {
+  console.log('Success:', values);
+};
+const onFinishFailed = (errorInfo) => {
+  console.log('Failed:', errorInfo);
+};
+
+
+const LoginPage = ({ scrollToTop }) =>  {
+    return (
+    <CustomerPage>
+      <TitleSpace>
+        <LoginTitle>
+          로그인
+        </LoginTitle>
+      </TitleSpace>
+      <InputSpace>
+      <Form
+        name="basic"
+        labelCol={{span: 7, offset: 0}}
+        wrapperCol={{span: 16,}}
+        style={{ maxWidth: 600,}}
+        initialValues={{remember: true,}}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        autoComplete="off"
+      >
+        <Form.Item
+          label="Username"
+          name="username"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your username!',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your password!',
+            },
+          ]}
+        >
+          <Input.Password />
+        </Form.Item>
+        <Form.Item
+          name="remember"
+          valuePropName="checked"
+          wrapperCol={{
+            offset: 8,
+            span: 16,
+          }}
+        >
+          <Checkbox>Remember me</Checkbox>
+        </Form.Item>
+        <Form.Item
+          wrapperCol={{
+            offset: 3,
+            span: 20,
+          }}
+        >
+        <ButtonDesign type="primary" htmlType="submit" className="login-form-button">
+          Log in
+        </ButtonDesign>
+        Or <a href="">register now!</a>
+        </Form.Item>
+      </Form>
+      </InputSpace>
+      <TopScroll>
+        <ClickToTop onClick={scrollToTop}>맨 위로 이동</ClickToTop>
+      </TopScroll>
+
+      
+    </CustomerPage>
+    );
+
+    
+};
+
+export default LoginPage;

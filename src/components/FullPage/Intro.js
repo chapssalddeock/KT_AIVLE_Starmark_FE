@@ -1,11 +1,17 @@
-import { Outer, ActiveInner, UnderNavInner, Divider } from "../../../styles/Intro_Emotion";
+import { Outer, ActiveInner, UnderNavInner, Divider } from "../../../styles/PageScroll_Emotion";
 import NavBar from "../navbar/NavBar"
+import LoginPage from "../Login/Login";
 import { useEffect, useRef } from "react";
 
 const DIVIDER_HEIGHT = 3;
 
-export default function TempBody() {
+const LoginPageWithScrollToTop = ({ scrollToTop }) => (
+  <LoginPage scrollToTop={scrollToTop} />
+);
+
+export default function PageScroll() {
   const outerDivRef = useRef();
+
   useEffect(() => {
     const wheelHandler = (e) => {
       e.preventDefault();
@@ -82,17 +88,27 @@ export default function TempBody() {
     };
   }, []);
 
+  const scrollToTop = () => {
+    outerDivRef.current.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <Outer ref={outerDivRef} className="outer">
       <NavBar />
-      <UnderNavInner className="inner">1</UnderNavInner>
-      <Divider className="divider"></Divider>
-      <ActiveInner className="inner" bgColor={"#b6d8f2"}>2</ActiveInner>
-      <Divider className="divider"></Divider>
-      <ActiveInner className="inner" bgColor={"#f4cfdf"}>3</ActiveInner>
-      <Divider className="divider"></Divider>
-      <ActiveInner className="inner" bgColor={"#b6d8f2"}>4</ActiveInner>
+      <UnderNavInner className="Inner">1</UnderNavInner>
+      <Divider className="Divider"></Divider>
+      <ActiveInner className="Inner" bgColor={"#b6d8f2"}>2</ActiveInner>
+      <Divider className="Divider"></Divider>
+      <ActiveInner className="Inner" bgColor={"#f4cfdf"}>3</ActiveInner>
+      <Divider className="Divider"></Divider>
+      <ActiveInner className="Inner" bgColor={"#b6d8f2"}>
+        
+        <LoginPageWithScrollToTop scrollToTop={scrollToTop} />
+      </ActiveInner>
     </Outer>
   );
 }

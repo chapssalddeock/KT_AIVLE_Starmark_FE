@@ -5,10 +5,10 @@ export const Outer = styled.div`
   overflow-y: auto;
   `
 
-  const BasicInner = styled.div`
+const BasicInner = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  // align-items: center;
 `
 
 export const UnderNavInner = styled(BasicInner)`
