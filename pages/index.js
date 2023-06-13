@@ -3,7 +3,10 @@
 
 export default function Main() {
   return (
-    <div>
-      메인페이지
-    </div>)
+
+    <body>
+      <div id='root'></div>
+    </body>
+
+  )
 }

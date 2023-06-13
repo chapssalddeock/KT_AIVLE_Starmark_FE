@@ -1,17 +1,15 @@
 import styled from '@emotion/styled';
 
-export const Nav = styled.div`
-  height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: auto;
-  width: 100%;
+export const ModalContent = styled.div`
+    color: white;
+    width: 130px;
+    height: 32px;
+    box-shadow: 0px 0px 6px 0px #00000040;
+    background-color: black;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-  text-decoration: none;
-  padding-left: 0px;
-  padding-right: 20px;
-  color: black;
-
-  background-color: white;
 `
