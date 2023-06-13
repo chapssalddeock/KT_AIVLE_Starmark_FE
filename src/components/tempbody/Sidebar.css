@@ -20,6 +20,7 @@
     color: rgba(0, 0, 0, 0.7); /* 반투명 */
     margin-bottom: 15px;
   }
+
   .search-button{
     order: 1;
     width: 16%;
@@ -61,3 +62,19 @@
     border-radius: 10px;
     margin: 0 8px;
   }
+  #suggestion_box {
+    margin-top: 15px;
+    background: white;
+    padding: 0 10px;
+    height:100px;
+    border: 1px solid black;
+  }
+  #suggested_items{
+    height:100px;
+    width: 250px;
+    overflow: auto; /* 스크롤바 추가 */
+  }
+  .item:hover{
+    color: #fff;
+    background-color: lightgreen;
+}
