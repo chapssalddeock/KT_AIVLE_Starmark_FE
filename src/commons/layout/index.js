@@ -5,10 +5,9 @@ import TempBody from "../../components/tempbody/Body"
 export default function Layout(props) {
     return (
         <>
-            <NavBar />
             <div>{props.children}</div>
             <TempBody />
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }
