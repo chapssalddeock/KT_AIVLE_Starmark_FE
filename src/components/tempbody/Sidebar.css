@@ -79,4 +79,17 @@
     border: 1px solid black;
     overflow: auto;
   }
+  .suggested-item {
+    padding: 10px;
+    margin-bottom: 8px;
+    background-color: #f1f1f1;
+    color: #333;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .suggested-item:hover {
+    background-color: #4285f4; /* 마우스 호버 시 배경색을 파란색으로 변경 */
+  }
   

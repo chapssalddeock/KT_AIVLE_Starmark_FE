@@ -12,6 +12,15 @@ export default function TempBody() {
     const searchInputRef = useRef(null);
     const suggestedItemsRef = useRef(null);
     const [filteredItems, setFilteredItems] = useState([]);
+    const [hoveredItem, setHoveredItem] = useState(null);
+
+    const handleMouseEnter = (item) => {
+        setHoveredItem(item);
+      };
+    
+    const handleMouseLeave = () => {
+        setHoveredItem(null);
+      };
 
 
     const handleSearch = () => {
@@ -32,30 +41,9 @@ export default function TempBody() {
     };
 
     useEffect(() => {
-        const items = ['abc', 'def', 'fqw', 'vxcv', 'bgf', 'dfg'];
+        const items = ['abc', 'def', 'fqw', 'vxcv', 'bgf', 'dfag', 'ax', 'uay',  'a안녕', '2a12312', 'a반가워요', 'aㅁㅁㄴㅇㅁㄴㅇ', 'a한찬규', 'a김채원', 'a박경덕', 'a김민성', 'a황소정', 'a정정해'];
         const filteredItems  = items.filter((item) => item.toLowerCase().includes(searchQuery.toLowerCase()));
         setFilteredItems(filteredItems);
-        // setShowSuggestions(filteredItems.length > 0);
-        // const suggestedItemsElement = suggestedItemsRef.current; // ref로 요소 참조
-        // suggestedItemsElement.innerHTML = '';
-
-        /*const suggestedItems = items
-            .filter((item) => item.startsWith(searchQuery))
-            .map((item, index) => (
-                <div key={index} className="item" onClick={() => handleSuggestedItemClick(item)}>
-                  {item}
-                </div>
-            )); */
-        
-            // 추천 아이템 업데이트
-        //setSuggestedItems(suggestedItems);
-        // filteredItems.forEach((item) => {
-        //     const suggestedItem = document.createElement('div');
-        //     suggestedItem.className = 'item';
-        //     suggestedItem.textContent = item;
-        //     suggestedItem.addEventListener('click', () => handleSearchHistory(item));
-        //     suggestedItemsElement.appendChild(suggestedItem);
-        // });
         
     }, [searchQuery]);
     useEffect(() => {
@@ -97,18 +85,14 @@ export default function TempBody() {
                                 <div
                                     key={index}
                                     className="suggested-item"
+                                    onMouseEnter={() => handleMouseEnter(item)}
+                                    onMouseLeave={handleMouseLeave}
                                     onClick={() => handleSuggestedItemClick(item)}
                                 >
                                     {item}
                                 </div>
                             ))}
-                        {/* <div id="suggested_items" ref={suggestedItemsRef}>
-                            {filteredItems.map((item, index) => (
-                                <div key={index} className="suggested-item" onClick={() => handleSuggestedItemClick(item)}>
-                                    {item}
-                                </div>
-                            ))}
-                        </div>  */}
+            
                     </div>
                     )}
                 </div>
