@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 
-import NavBar from "../../components/navbar/NavBar.js"
-import NavBar2 from "../../components/navbar/NavBar2.js"
+import NavBar from "../../components/NavBar/NavBar"
+import NavBar2 from "../../components/NavBar/NavBar2"
 
 
 import Footer from "../../components/footer/Footer"
@@ -18,14 +18,14 @@ const Hidden = [
 
 export default function Layout(props) {
     const router = useRouter()
-    const isHidden = Hidden.includes(router.asPath)
+    const isOpen = Hidden.includes(router.asPath)
 
     return (
         <>
-            {!isHidden && <NavBar />}
-            {isHidden && <NavBar2 />}
+            {isOpen && <NavBar />}
+            {!isOpen && <NavBar2 />}
             <div>{props.children}</div>
-            <ContentArea />
+            {!isOpen && <ContentArea />}
         </>
     )
 }
