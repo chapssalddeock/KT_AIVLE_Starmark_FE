@@ -8,11 +8,7 @@ export default function ContentArea() {
 
 
     return (
-        <Layout style={{
-            margin: 0,
-            Height: "calc(100vh - 153px)",
-
-        }}>
+        <Layout>
 
             <Layout>
                 <Sider
@@ -41,7 +37,7 @@ export default function ContentArea() {
                         style={{
                             padding: 24,
                             margin: 0,
-                            minHeight: "calc(100vh - 153px)"//'568px',
+                            minHeight: '568px',
 
                         }}
                     >
