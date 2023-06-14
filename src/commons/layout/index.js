@@ -1,8 +1,10 @@
 import { useRouter } from "next/router"
 
-import NavBar from "../../components/NavBar/NavBar.js"
-import NavBar2 from "../../components/NavBar/NavBar2.js"
+import NavBar from "../../components/navbar/NavBar.js"
+import NavBar2 from "../../components/navbar/NavBar2.js"
 
+
+import Footer from "../../components/footer/Footer"
 // 레이아웃 속성 (즉, head body navBar, footer 등등을 여기에 끌어와서 정의)
 
 import ContentArea from "../../components/ContentArea/ContentArea"
