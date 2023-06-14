@@ -36,9 +36,10 @@ export default function TempBody() {
     };
     const handleSuggestedItemClick = (value) => {
         setSearchQuery(value);
-        searchInputRef.current.focus(); // useRef를 사용하여 DOM 요소에 접근하여 포커스 설정
-        handleSearchHistory(value);
+        handleSearch();
     };
+
+
 
     useEffect(() => {
         const items = ['abc', 'def', 'fqw', 'vxcv', 'bgf', 'dfag', 'ax', 'uay',  'a안녕', '2a12312', 'a반가워요', 'aㅁㅁㄴㅇㅁㄴㅇ', 'a한찬규', 'a김채원', 'a박경덕', 'a김민성', 'a황소정', 'a정정해'];
@@ -61,6 +62,7 @@ export default function TempBody() {
     };
     const handleSearchHistory = (query) => {
         setSearchQuery(query);
+        handleSearch();
         setShowSuggestions(false); // 항목 선택 후 가시성 해제
     };
     
@@ -76,28 +78,26 @@ export default function TempBody() {
                 <div className="search-history-container">
                     <div class="search-history">
                     {searchHistory.slice(0, MAX_HISTORY_LENGTH).map((query, index) => (
-                        <button key={index} class="search-record">{query}</button>
+                        <button key={index} class="search-record" onClick={() => handleSearchHistory(query)}>{query}</button>
                     ))}
                     </div>
                     {showSuggestions && (
                         <div id="suggestion-box">
                             {filteredItems.map((item, index) => (
-                                <div
-                                    key={index}
-                                    className="suggested-item"
+                                <div key={index} className="suggested-item"
                                     onMouseEnter={() => handleMouseEnter(item)}
                                     onMouseLeave={handleMouseLeave}
                                     onClick={() => handleSuggestedItemClick(item)}
-                                >
-                                    {item}
-                                </div>
+                                >{item}</div>
                             ))}
             
                     </div>
                     )}
                 </div>
                 
-                <p>사이드바</p>
+                <div className= 'sidebar-main'>
+
+                </div>
                 <footer className="sidebar-footer">
                     <p>여기는 사이드바 푸터 영역입니다.</p>
                 </footer>
@@ -109,7 +109,7 @@ export default function TempBody() {
             </div>
 
             <div class="main-content">
-                <div style={{ border: "solid 1px black"}}>
+                <div class ='main-content-ig'style={{ border: "solid 1px black"}}>
                     <p>여기는 임시로 만든 바디 영역입니다.</p>
                     <p>필요없고 보여주기 식입니다....</p>
                 </div>

@@ -1,13 +1,15 @@
 .sidebar {
-    width: 350px;
-    height: 100%;
+    width: 250px;
+    height: 100vh;
     background-color: #ffffff;
     float: left;
   }
   
-  .main-content {
-    margin-left: 380px;/* 사이드바의 너비만큼 왼쪽 여백을 주어 메인 콘텐츠를 이동시킴 */
-    margin-top: 0; 
+
+  .main-content-ig {
+    margin-left: 270px;/* 사이드바의 너비만큼 왼쪽 여백을 주어 메인 콘텐츠를 이동시킴 */
+    margin-top: 0;
+    height: 100vh;
   }
   .search-container {
     display: flex; 
@@ -74,8 +76,9 @@
     margin-top: 5px;
     background: white;
     padding: 0 5px;
-    height:100px;
-    width: 350px;
+    height:300px;
+    width: 250px;
+    
     border: 1px solid black;
     overflow: auto;
   }
@@ -92,4 +95,9 @@
   .suggested-item:hover {
     background-color: #4285f4; /* 마우스 호버 시 배경색을 파란색으로 변경 */
   }
-  
+  .sidebar-main {
+    width: 250px;
+    height: 70%;
+    background-color: #ffffff;
+    float: left;
+  }
