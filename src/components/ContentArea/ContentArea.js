@@ -2,7 +2,7 @@ import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import React from 'react';
 const { Header, Content, Sider } = Layout;
-
+import ThumbnailView from '../ThumbnailView/ThumbnailView'
 
 export default function ContentArea() {
 
@@ -10,7 +10,7 @@ export default function ContentArea() {
     return (
         <Layout style={{
             margin: 0,
-            Height: "calc(100vh - 153px)",
+            height: "calc(100vh - 76px)"//"calc(100vh - 153px)",
 
         }}>
 
@@ -41,11 +41,11 @@ export default function ContentArea() {
                         style={{
                             padding: 24,
                             margin: 0,
-                            minHeight: "calc(100vh - 153px)"//'568px',
-
+                            //height: "calc(100vh - 153px)",
                         }}
                     >
-                        Content
+                        <ThumbnailView></ThumbnailView>
+
                     </Content>
                 </Layout>
             </Layout>
