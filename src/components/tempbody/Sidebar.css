@@ -51,6 +51,10 @@
     box-sizing: border-box;
     background-color: #f2f2f2;
   }
+  .search-history-container {
+    position: relative;
+    z-index: 1;
+  }
   .search-history{
     display: inline-block;
     max-width: 350px;
@@ -62,19 +66,17 @@
     border-radius: 10px;
     margin: 0 8px;
   }
-  #suggestion_box {
-    margin-top: 15px;
+  #suggestion-box {
+    position: absolute;
+    top: -10px;
+    left: 0;
+    z-index: 2;
+    margin-top: 5px;
     background: white;
-    padding: 0 10px;
+    padding: 0 5px;
     height:100px;
+    width: 350px;
     border: 1px solid black;
+    overflow: auto;
   }
-  #suggested_items{
-    height:100px;
-    width: 250px;
-    overflow: auto; /* 스크롤바 추가 */
-  }
-  .item:hover{
-    color: #fff;
-    background-color: lightgreen;
-}
+  

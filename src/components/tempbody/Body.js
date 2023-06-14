@@ -85,22 +85,23 @@ export default function TempBody() {
                     <input class="search-input" type="text" placeholder="Search" value={searchQuery} onChange={handleSearchInput} ref={searchInputRef} />                                        
                     <input class="search-button" type="image" src="/public/img/search_RG.jpg" alt = 'ss' onClick={handleSearch} />                                          
                 </div>
-                <div class="search-history">
-                {searchHistory.slice(0, MAX_HISTORY_LENGTH).map((query, index) => (
-                    <button key={index} class="search-record">{query}</button>
-                ))}
-                </div>
-                {showSuggestions && (
-                    <div id="suggestion_box">
-                        {filteredItems.map((item, index) => (
-                            <div
-                                key={index}
-                                className="suggested-item"
-                                onClick={() => handleSuggestedItemClick(item)}
-                            >
-                                {item}
-                            </div>
-                        ))}
+                <div className="search-history-container">
+                    <div class="search-history">
+                    {searchHistory.slice(0, MAX_HISTORY_LENGTH).map((query, index) => (
+                        <button key={index} class="search-record">{query}</button>
+                    ))}
+                    </div>
+                    {showSuggestions && (
+                        <div id="suggestion-box">
+                            {filteredItems.map((item, index) => (
+                                <div
+                                    key={index}
+                                    className="suggested-item"
+                                    onClick={() => handleSuggestedItemClick(item)}
+                                >
+                                    {item}
+                                </div>
+                            ))}
                         {/* <div id="suggested_items" ref={suggestedItemsRef}>
                             {filteredItems.map((item, index) => (
                                 <div key={index} className="suggested-item" onClick={() => handleSuggestedItemClick(item)}>
@@ -109,7 +110,9 @@ export default function TempBody() {
                             ))}
                         </div>  */}
                     </div>
-                )}
+                    )}
+                </div>
+                
                 <p>사이드바</p>
                 <footer className="sidebar-footer">
                     <p>여기는 사이드바 푸터 영역입니다.</p>
