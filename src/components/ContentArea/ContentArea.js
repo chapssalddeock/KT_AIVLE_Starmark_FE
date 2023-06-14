@@ -3,6 +3,9 @@ import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import React from 'react';
 const { Header, Content, Sider } = Layout;
 import ThumbnailView from '../ThumbnailView/ThumbnailView'
+import SideBar from '../SideBar/SideBar'
+
+
 
 export default function ContentArea() {
 
@@ -15,13 +18,14 @@ export default function ContentArea() {
         }}>
 
             <Layout>
+                {/* 찬규님 파트 */}
                 <Sider
                     width={300}
                     style={{
                         color: "white",
                     }}
                 >
-                    여기가 찬규님
+                    <SideBar />
 
                 </Sider>
                 <Layout
