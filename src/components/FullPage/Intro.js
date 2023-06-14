@@ -1,6 +1,6 @@
 import { Outer, ActiveInner, UnderNavInner, Divider } from "../../../styles/PageScroll_Emotion";
 import NavBar from "../navbar/NavBar"
-import LoginPage from "../Login/Login";
+import LoginPage from "../login/Login";
 import { useEffect, useRef } from "react";
 
 const DIVIDER_HEIGHT = 3;
