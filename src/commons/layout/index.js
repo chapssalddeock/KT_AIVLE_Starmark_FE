@@ -1,10 +1,8 @@
 import { useRouter } from "next/router"
 
-import NavBar from "../../components/NavBar/NavBar.js"
-import NavBar2 from "../../components/NavBar/NavBar2.js"
-
-// 레이아웃 속성 (즉, head body navBar, footer 등등을 여기에 끌어와서 정의)
-
+// 레이아웃 import 및 구성 정의
+import NavBar from "../../components/NavBar/NavBar"
+import NavBar2 from "../../components/NavBar/NavBar2"
 import ContentArea from "../../components/ContentArea/ContentArea"
 
 
@@ -16,14 +14,14 @@ const Hidden = [
 
 export default function Layout(props) {
     const router = useRouter()
-    const isHidden = Hidden.includes(router.asPath)
+    const isOpen = Hidden.includes(router.asPath)
 
     return (
         <>
-            {!isHidden && <NavBar />}
-            {isHidden && <NavBar2 />}
+            {isOpen && <NavBar />}
+            {!isOpen && <NavBar2 />}
             <div>{props.children}</div>
-            <ContentArea />
+            {!isOpen && <ContentArea />}
         </>
     )
 }

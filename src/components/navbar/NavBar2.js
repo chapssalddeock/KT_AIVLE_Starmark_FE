@@ -34,10 +34,8 @@ export default function NavBar() {
     return (
         <div>
             <Navbar collapseOnSelect bg="white">
-                <Container >
-                    <Nav.Link onClick={moveHome}  >
-                        <img src='img/defalut_logo.png' height={60} ></img>
-                    </Nav.Link>
+                <Container>
+                    <Nav.Link onClick={moveHome}><img src='img/defalut_logo.png' height={60}></img></Nav.Link>
                     <Navbar.Collapse className="justify-content-end">
                         <Nav style={{ cursor: "pointer" }} >
                             {/* 알림이 있으면 state로 핸들링하여 Badge 조건부 렌더링 */}
