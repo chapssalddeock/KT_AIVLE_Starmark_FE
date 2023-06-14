@@ -3,16 +3,14 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-
-
 export default function NavBar() {
     const router = useRouter();
 
     const moveSignIn = () => {
-        router.push("/login")
+        router.push("/")
     }
     const moveSignUp = () => {
-        router.push("/register")
+        router.push("/")
     }
     const moveHome = () => {
         router.push("/")
@@ -20,18 +18,17 @@ export default function NavBar() {
 
     return (
         <>
-            <div style={{ border: "solid 1px black" }}>
-                <Navbar>
-                    <Container>
-                        <img src='C:\Users\User\Desktop\StarMark_front\bigproject\public\img\check.png' width={60} height={60} onClick={moveHome}></img>
-                        <Navbar.Brand onClick={moveHome}>  네비게이션 바 영역 </Navbar.Brand>
+            <Navbar collapseOnSelect bg="white">
+                <Container>
+                    <Nav.Link onClick={moveHome}><img src='img/defalut_logo.png' height={60}></img></Nav.Link>
+                    <Navbar.Collapse className="justify-content-end">
                         <Nav>
-                            <Nav.Link onClick={moveSignIn}>Sign in</Nav.Link>
-                            <Nav.Link eventKey={2} onClick={moveSignUp}>Sign up</Nav.Link>
+                            <Nav.Link onClick={moveSignUp}>Sign-Up</Nav.Link>
+                            <Nav.Link eventKey={2} onClick={moveSignIn}>Sign-In</Nav.Link>
                         </Nav>
-                    </Container>
-                </Navbar >
-            </div>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar >
         </>
     );
 }

@@ -3,6 +3,10 @@
 
 export default function Main() {
   return (
-    <div></div>
-    )
+
+    <body>
+      <div id='root'></div>
+    </body>
+
+  )
 }
