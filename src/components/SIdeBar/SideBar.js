@@ -1,9 +1,12 @@
+import { useState, useEffect, useRef } from 'react';
 
 
-import { useState, useEffect, useRef  } from 'react';
-import styled from 'styled-components';
 
-export default function TempBody() {
+
+
+
+
+export default function SideBar() {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchHistory, setSearchHistory] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
@@ -16,11 +19,11 @@ export default function TempBody() {
 
     const handleMouseEnter = (item) => {
         setHoveredItem(item);
-      };
-    
+    };
+
     const handleMouseLeave = () => {
         setHoveredItem(null);
-      };
+    };
 
 
     const handleSearch = () => {
@@ -42,19 +45,19 @@ export default function TempBody() {
 
 
     useEffect(() => {
-        const items = ['abc', 'def', 'fqw', 'vxcv', 'bgf', 'dfag', 'ax', 'uay',  'a안녕', '2a12312', 'a반가워요', 'aㅁㅁㄴㅇㅁㄴㅇ', 'a한찬규', 'a김채원', 'a박경덕', 'a김민성', 'a황소정', 'a정정해'];
-        const filteredItems  = items.filter((item) => item.toLowerCase().includes(searchQuery.toLowerCase()));
+        const items = ['abc', 'def', 'fqw', 'vxcv', 'bgf', 'dfag', 'ax', 'uay', 'a안녕', '2a12312', 'a반가워요', 'aㅁㅁㄴㅇㅁㄴㅇ', 'a한찬규', 'a김채원', 'a박경덕', 'a김민성', 'a황소정', 'a정정해'];
+        const filteredItems = items.filter((item) => item.toLowerCase().includes(searchQuery.toLowerCase()));
         setFilteredItems(filteredItems);
-        
+
     }, [searchQuery]);
     useEffect(() => {
         if (searchInputRef.current) {
-          searchInputRef.current.focus();
+            searchInputRef.current.focus();
         }
-      }, []);
+    }, []);
 
-        
-    
+
+
     const handleSearchInput = (e) => {
         const input = e.target.value;
         setSearchQuery(input);
@@ -65,21 +68,21 @@ export default function TempBody() {
         handleSearch();
         setShowSuggestions(false); // 항목 선택 후 가시성 해제
     };
-    
+
 
     return (
         <div>
             <div className="sidebar">
 
                 <div class="search-container">
-                    <input class="search-input" type="text" placeholder="Search" value={searchQuery} onChange={handleSearchInput} ref={searchInputRef} />                                        
-                    <input class="search-button" type="image" src="/public/img/search_RG.jpg" alt = 'ss' onClick={handleSearch} />                                          
+                    <input class="search-input" type="text" placeholder="Search" value={searchQuery} onChange={handleSearchInput} ref={searchInputRef} />
+                    <input class="search-button" type="image" src="/public/img/search_RG.jpg" alt='ss' onClick={handleSearch} />
                 </div>
                 <div className="search-history-container">
                     <div class="search-history">
-                    {searchHistory.slice(0, MAX_HISTORY_LENGTH).map((query, index) => (
-                        <button key={index} class="search-record" onClick={() => handleSearchHistory(query)}>{query}</button>
-                    ))}
+                        {searchHistory.slice(0, MAX_HISTORY_LENGTH).map((query, index) => (
+                            <button key={index} class="search-record" onClick={() => handleSearchHistory(query)}>{query}</button>
+                        ))}
                     </div>
                     {showSuggestions && (
                         <div id="suggestion-box">
@@ -90,32 +93,19 @@ export default function TempBody() {
                                     onClick={() => handleSuggestedItemClick(item)}
                                 >{item}</div>
                             ))}
-            
-                    </div>
+
+                        </div>
                     )}
                 </div>
-                
-                <div className= 'sidebar-main'>
+
+                <div className='sidebar-main'>
 
                 </div>
                 <footer className="sidebar-footer">
                     <p>여기는 사이드바 푸터 영역입니다.</p>
                 </footer>
-                
-                        
-
-        
-            
-            </div>
-
-            <div class="main-content">
-                <div class ='main-content-ig'style={{ border: "solid 1px black"}}>
-                    <p>여기는 임시로 만든 바디 영역입니다.</p>
-                    <p>필요없고 보여주기 식입니다....</p>
-                </div>
-            
             </div>
         </div>
     );
-    
+
 }
