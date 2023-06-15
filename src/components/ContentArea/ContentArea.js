@@ -4,7 +4,7 @@ import React from 'react';
 const { Header, Content, Sider } = Layout;
 import ThumbnailView from '../ThumbnailView/ThumbnailView'
 import SideBar from '../SideBar/SideBar'
-
+import MenuBar from '../MenuButton/MenuButton';
 
 
 export default function ContentArea() {
@@ -35,11 +35,11 @@ export default function ContentArea() {
                 >
                     <div
                         style={{
-                            margin: '16px 0',
+                            margin: '16px 0  ',
                         }}
                     >
-                        여기는 민성님
-
+                        {/* 민성님 파트 */}
+                        <MenuBar />
                     </div>
                     <Content
                         style={{
