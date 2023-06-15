@@ -1,6 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 
-import { FaSearch } from 'react-icons/fa';
+//import { FaSearch } from 'react-icons/fa';
+
+import { Search } from 'react-bootstrap-icons';
+
+
+
+
+
 export default function SideBar() {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchHistory, setSearchHistory] = useState([]);
@@ -79,7 +86,7 @@ export default function SideBar() {
                 <div className="search-container">
                     <input className="search-input" type="text" placeholder="Search" value={searchQuery} onChange={handleSearchInput} ref={searchInputRef} />
                     <button className="search-button" type="button" onClick={handleSearch}>
-                        <FaSearch />
+                        <Search />
                     </button>
                 </div>
                 <div className="search-history-container">
@@ -112,7 +119,7 @@ export default function SideBar() {
                         <div>CONTACT US</div>
                     </footer>
                 </div>
-        
+
             </div>
         </div>
     );
