@@ -10,7 +10,7 @@ export default function NavBar() {
         router.push("/")
     }
     const moveSignUp = () => {
-        router.push("/")
+        router.push("/join")
     }
     const moveHome = () => {
         router.push("/")

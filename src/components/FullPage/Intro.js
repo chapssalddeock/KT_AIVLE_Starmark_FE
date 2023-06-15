@@ -1,6 +1,8 @@
 import { Outer, ActiveInner, UnderNavInner, Divider } from "../../../styles/PageScroll_Emotion";
 import LoginPage from "../login/Login";
 import { useEffect, useRef } from "react";
+import NavBar from '../NavBar/NavBar';
+
 
 const DIVIDER_HEIGHT = 3;
 
@@ -97,6 +99,7 @@ export default function PageScroll() {
 
   return (
     <Outer ref={outerDivRef} className="outer">
+      <NavBar />
       <UnderNavInner className="Inner">1</UnderNavInner>
       <Divider className="Divider"></Divider>
       <ActiveInner className="Inner" bgColor={"#b6d8f2"}>2</ActiveInner>
