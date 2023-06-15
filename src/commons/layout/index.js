@@ -8,7 +8,7 @@ import ContentArea from "../../components/ContentArea/ContentArea"
 
 // 어느 페이지에서 없애는 조건부 렌더링을 할 건지 경로 정의
 const Hidden = [
-    "/"
+    "/", "/join"
 ]
 
 
