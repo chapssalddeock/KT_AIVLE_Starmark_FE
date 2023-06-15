@@ -1,11 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-
-
-
-
-
-
+import { FaSearch } from 'react-icons/fa';
 export default function SideBar() {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchHistory, setSearchHistory] = useState([]);
@@ -40,6 +35,10 @@ export default function SideBar() {
     const handleSuggestedItemClick = (value) => {
         setSearchQuery(value);
         handleSearch();
+        setShowSuggestions(false);
+        const updatedHistory = [value, ...searchHistory.slice(0, MAX_HISTORY_LENGTH - 1)];
+        setSearchHistory(updatedHistory);
+
     };
 
 
@@ -64,9 +63,12 @@ export default function SideBar() {
         setShowSuggestions(input !== '');
     };
     const handleSearchHistory = (query) => {
-        setSearchQuery(query);
         handleSearch();
         setShowSuggestions(false); // 항목 선택 후 가시성 해제
+        if (!searchHistory.includes(query)) {
+            const updatedHistory = [query, ...searchHistory.slice(0, MAX_HISTORY_LENGTH - 1)];
+            setSearchHistory(updatedHistory);
+        }
     };
 
 
@@ -76,7 +78,9 @@ export default function SideBar() {
 
                 <div class="search-container">
                     <input class="search-input" type="text" placeholder="Search" value={searchQuery} onChange={handleSearchInput} ref={searchInputRef} />
-                    <input class="search-button" type="image" src="/public/img/search_RG.jpg" alt='ss' onClick={handleSearch} />
+                    <button className="search-button" type="button" onClick={handleSearch}>
+                        <FaSearch />
+                    </button>
                 </div>
                 <div className="search-history-container">
                     <div class="search-history">
@@ -99,7 +103,7 @@ export default function SideBar() {
                 </div>
 
                 <div className='sidebar-main'>
-
+                    
                 </div>
                 <footer className="sidebar-footer">
                     <p>여기는 사이드바 푸터 영역입니다.</p>

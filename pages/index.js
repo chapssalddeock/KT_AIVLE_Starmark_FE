@@ -2,7 +2,6 @@
 // 여기에 작업보단 나는 components에 메인으로 쓸 만한걸 나눠놓는게 좋음
 import PageScroll from '../src/components/FullPage/Intro'
 
-
 export default function Main() {
   return (
     <>
