@@ -97,8 +97,75 @@
     background-color: #4285f4; /* 마우스 호버 시 배경색을 파란색으로 변경 */
   }
   .sidebar-main {
+  
     width: 300px;
-    height: 50%;
+    height: 83%;
     background-color: #ffffff;
     float: left;
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar-footer {
+    margin-top: auto;
+    width: 300px;
+    height: 200px;
+    background-color: #f2f2f2;
+    display: grid;
+    grid-template-rows: 2fr 2fr 1.5fr 1.5fr 1.5fr 1.5fr;
+    grid-gap: 1px; /* 기본 열 사이의 간격은 1px */
+    overflow: hidden;
+    
+  }
+  .sidebar-footer > * {
+    border-bottom: 1px solid black; /* 구분선의 색상을 검은색(#000)으로 설정 */
+    
+  }
+  
+  .sidebar-footer > *:nth-child(1) {
+    position: relative;
+    margin-top: 2px;
+    font-size: 20px;
+    font-weight: bold;
+    left: -160px;
+    right: 0px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: black;
+    
+  }
+  .sidebar-footer > *:nth-child(2) {
+    position: relative;
+    left: 50px;
+    right: 0;
+    margin-top: auto;
+    color: black; /* 두 번째 줄을 아래쪽에 위치시키기 위해 margin-top을 auto로 설정 */
+  }
+  .sidebar-footer > *:nth-child(3) {
+    position: relative;
+    left: 50px;
+    right: 0;
+    margin-top: auto;
+    color: black; /* 두 번째 줄을 아래쪽에 위치시키기 위해 margin-top을 auto로 설정 */
+  }
+  .sidebar-footer > *:nth-child(4) {
+    position: relative;
+    left: 50px;
+    right: 0;
+    margin-top: auto;
+    color: black; /* 두 번째 줄을 아래쪽에 위치시키기 위해 margin-top을 auto로 설정 */
+  }
+  .sidebar-footer > *:nth-child(5) {
+    position: relative;
+    left: 50px;
+    right: 0;
+    margin-top: auto;
+    color: black; /* 두 번째 줄을 아래쪽에 위치시키기 위해 margin-top을 auto로 설정 */
+  }
+  .sidebar-footer > *:nth-child(6) {
+    position: relative;
+    left: 50px;
+    right: 0;
+    margin-top: auto;
+    color: black; /* 두 번째 줄을 아래쪽에 위치시키기 위해 margin-top을 auto로 설정 */
   }

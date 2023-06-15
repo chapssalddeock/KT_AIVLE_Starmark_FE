@@ -76,8 +76,8 @@ export default function SideBar() {
         <div>
             <div className="sidebar">
 
-                <div class="search-container">
-                    <input class="search-input" type="text" placeholder="Search" value={searchQuery} onChange={handleSearchInput} ref={searchInputRef} />
+                <div className="search-container">
+                    <input className="search-input" type="text" placeholder="Search" value={searchQuery} onChange={handleSearchInput} ref={searchInputRef} />
                     <button className="search-button" type="button" onClick={handleSearch}>
                         <FaSearch />
                     </button>
@@ -103,11 +103,16 @@ export default function SideBar() {
                 </div>
 
                 <div className='sidebar-main'>
-                    
+                    <footer className="sidebar-footer">
+                        <div>Information</div>
+                        <div>ABOUT US</div>
+                        <div>이용약관</div>
+                        <div>개인정보 취급방침</div>
+                        <div>이메일 무단수집거부</div>
+                        <div>CONTACT US</div>
+                    </footer>
                 </div>
-                <footer className="sidebar-footer">
-                    <p>여기는 사이드바 푸터 영역입니다.</p>
-                </footer>
+        
             </div>
         </div>
     );
