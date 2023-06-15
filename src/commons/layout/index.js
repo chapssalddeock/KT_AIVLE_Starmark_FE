@@ -1,8 +1,8 @@
 import { useRouter } from "next/router"
 
 // 레이아웃 import 및 구성 정의
-import NavBar from "../../components/navbar/NavBar"
-import NavBar2 from "../../components/navbar/NavBar2"
+import NavBar from "../../components/NavBar/NavBar"
+import NavBar2 from "../../components/NavBar/NavBar2"
 import ContentArea from "../../components/ContentArea/ContentArea"
 
 
@@ -18,7 +18,6 @@ export default function Layout(props) {
 
     return (
         <>
-            {isOpen && <NavBar />}
             {!isOpen && <NavBar2 />}
             <div>{props.children}</div>
             {!isOpen && <ContentArea />}
