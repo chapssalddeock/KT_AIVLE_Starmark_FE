@@ -4,101 +4,6 @@
     background-color: #ffffff;
     float: left;
   }
-  .main-content {
-    margin-left: 380px;/* 사이드바의 너비만큼 왼쪽 여백을 주어 메인 콘텐츠를 이동시킴 */
-    margin-top: 0; 
-    display: 'flex'
-  }
-
-  .search-container {
-    display: flex; 
-    align-items: center;
-    justify-content: center;
-    border-radius: 15px; /* 모서리 둥글게 */
-    border-color: #808080;
-    width: 90%;
-    padding: 5px;
-    background-color: #f2f2f2; 
-    color: rgba(0, 0, 0, 0.7); /* 반투명 */
-    margin-bottom: 15px;
-    
-  }
-
-  .search-button{
-    position: relative;
-    order: 1;
-    width: 16%;
-    height: 20px;
-    border:none;
-    /* background-color: #f2f2f2; */
-    font-size:1em;
-    outline:none;
-    display:inline;
-    margin-left: 10px;
-    box-sizing: border-box;
-    top: -3px;
-    left: -2px;
-  }
-  .search-button{
-    background-color: #f2f2f2;
-  }
-  .search-input{
-    order: 2;
-    width:85%;
-    height:100%;
-    border:none;
-    font-size:1em;
-    padding-left: -20px;
-    font-style: oblique;
-    display:inline;
-    outline:none;
-    box-sizing: border-box;
-    background-color: #f2f2f2;
-    
-  }
-  .search-history-container {
-    position: relative;
-    z-index: 1;
-  }
-  .search-history{
-    display: inline-block;
-    max-width: 350px;
-    align-items: center;
-
-  }
-  .search-record{
-    border: 1px solid #ccc;
-    padding: 2px 5px;
-    border-radius: 10px;
-    margin: 0 8px;
-  }
-  #suggestion-box {
-    position: absolute;
-    top: -10px;
-    left: 0;
-    z-index: 2;
-    margin-top: 5px;
-    background: white;
-    padding: 0 5px;
-    height:300px;
-    width: 250px;
-    
-    border: 1px solid black;
-    overflow: auto;
-  }
-  .suggested-item {
-    padding: 10px;
-    margin-bottom: 8px;
-    background-color: #f1f1f1;
-    color: #333;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .suggested-item:hover {
-    background-color: #4285f4; /* 마우스 호버 시 배경색을 파란색으로 변경 */
-  }
   .sidebar-main {
   
     width: 300px;
@@ -109,6 +14,7 @@
     flex-direction: column;
   }
   .sidebar-footer {
+    position: fixed;
     margin-top: auto;
     width: 300px;
     height: 200px;
@@ -172,37 +78,13 @@
     margin-top: auto;
     color: black; /* 두 번째 줄을 아래쪽에 위치시키기 위해 margin-top을 auto로 설정 */
   }
-  .mpsidebar {
-    width: 300px;
-    height: 100vh;
-    background-color: #ffffff;
-    float: left;
-  }
-
-  .mpsidebar-menu {
-    width: 300px;
-    height: 70%;
-    background-color: #ffffff;
-    
-  }
 
 
-  .mpsidebar-main {
-    position: fixed;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    height: 20%;
-    background-color: #ffffff;
-    float: left;
-    display: flex;
-    flex-direction: column;
-  }
+
 
 
   .mpsidebar-footer {
-    
+    position: fixed;
     margin-top: auto;
     width: 300px;
     height: 200px;
@@ -266,9 +148,3 @@
     margin-top: auto;
     color: black; /* 두 번째 줄을 아래쪽에 위치시키기 위해 margin-top을 auto로 설정 */
   }
-  #mynetwork {
-    width: 600px;
-    height: 400px;
-    border: 1px solid lightgray;
-  }
-  
