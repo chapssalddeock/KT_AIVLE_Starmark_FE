@@ -73,9 +73,9 @@
 
 import { Grid3x3GapFill, List } from 'react-bootstrap-icons';
 import Container from 'react-bootstrap/Container';
-import { Button, Select, Space } from 'antd';
-
-
+import { Button, Select, Space, Segmented } from 'antd';
+import { useState } from 'react';
+import SubmitForm from '../SubmitForm/SubmitForm';
 
 const handleChange = (value) => {
     console.log(`selected ${value}`);
@@ -92,24 +92,51 @@ const data = [
     },
     {
         value: 3,
-        label: '뭐뭐예요?',
+        label: '정렬하기인데 일단 냅둬',
     },
 ]
 
 
+
+
+
 export default function MenuBar() {
+
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+    const handleOpenDrawer = () => {
+        setIsDrawerOpen(true);
+    };
+
+    const handleCloseDrawer = () => {
+        setIsDrawerOpen(false);
+    };
 
 
     return (
 
         <Container style={{ display: 'flex', }}>
             <Space wrap style={{ flex: 1, justifyContent: 'flex-start', marginLeft: 0 }}>
-                <Button classNames='add' size="large" style={{ width: 100, height: 35, borderRadius: 20 }}>ADD</Button>
+                <Button classNames='add' size="large" onClick={handleOpenDrawer} style={{ width: 100, height: 35, borderRadius: 20 }}>ADD</Button>
+                <SubmitForm isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
             </Space>
             <Space wrap style={{ flex: 1, justifyContent: 'flex-end', }}>
                 <Select defaultValue="셀렉트 박스" style={{ width: 120, height: 35, }} onChange={handleChange} options={data}></Select>
                 <Button type='text' style={{ width: 35, height: 35 }} icon={<List size="30" />}></Button>
                 <Button type='text' style={{ width: 35, height: 35 }} icon={<Grid3x3GapFill size="24" />}></Button>
+                {/*  <Segmented
+    options={[
+      {
+        value: 'List',
+        icon: <List />,
+      },
+      {
+        value: 'Kanban',
+        icon: <Grid3x3GapFill />,
+      },
+    ]}
+  /> */}
+                {/* 위 코드로 바꿀지 고민중 */}
             </Space >
         </Container >
 
