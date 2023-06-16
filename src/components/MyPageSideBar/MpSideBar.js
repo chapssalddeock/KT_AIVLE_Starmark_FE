@@ -1,84 +1,82 @@
 import { useState, useEffect, useRef } from 'react';
-
+import { Menu } from 'antd';
 import { Search } from 'react-bootstrap-icons';
 
+import { MailOutlined, SettingOutlined, AppstoreOutlined } from '@ant-design/icons';
+function getItem(label, key, icon, children, type) {
+    return {
+      key,
+      icon,
+      children,
+      label,
+      type,
+    };
+  }
 export default function Mpsidebar() {
-    const [searchQuery, setSearchQuery] = useState('');
-    const [searchHistory, setSearchHistory] = useState([]);
-    const [searchResults, setSearchResults] = useState([]);
-    const [showSuggestions, setShowSuggestions] = useState(false);
-    const MAX_HISTORY_LENGTH = 5;
-    const searchInputRef = useRef(null);
-    const suggestedItemsRef = useRef(null);
-    const [filteredItems, setFilteredItems] = useState([]);
-    const [hoveredItem, setHoveredItem] = useState(null);
-
-    const handleMouseEnter = (item) => {
-        setHoveredItem(item);
+    const [selectedItem, setSelectedItem] = useState('Navigation One');
+    const [submenuHeight, setSubmenuHeight] = useState(150);
+    const items = [
+        getItem('Navigation One', 'sub1', <MailOutlined />),
+        getItem('Navigation Two', 'sub2', <AppstoreOutlined />),
+        getItem('Navigation Three', 'sub4', <SettingOutlined />),
+    ];
+    const rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
+    const handleMenuItemClick = (key) => {
+        setSelectedItem(key);
     };
+    const App = () => {
+        const [openKeys, setOpenKeys] = useState(['sub1']);
+        const onOpenChange = (keys) => {
+            const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
+        
+            if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+              setOpenKeys(keys);
+            } else {
+              setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+            }
+          };
+    
 
-    const handleMouseLeave = () => {
-        setHoveredItem(null);
-    };
-
-
-    const handleSearch = () => {
-        if (searchQuery.trim() === '') {
-            return; // 검색어가 비어있으면 동작하지 않음
-        }
-        // 검색 로직 구현
-        console.log('검색 실행:', searchQuery);
-        const updatedHistory = [searchQuery, ...searchHistory.slice(0, MAX_HISTORY_LENGTH - 1)];
-        setSearchHistory(updatedHistory);
-        setSearchQuery('');
-        setShowSuggestions(false);
-    };
-    const handleSuggestedItemClick = (value) => {
-        setSearchQuery(value);
-        handleSearch();
-        setShowSuggestions(false);
-        const updatedHistory = [value, ...searchHistory.slice(0, MAX_HISTORY_LENGTH - 1)];
-        setSearchHistory(updatedHistory);
-
-    };
-
-
-
-    useEffect(() => {
-        const items = ['abc', 'def', 'fqw', 'vxcv', 'bgf', 'dfag', 'ax', 'uay', 'a안녕', '2a12312', 'a반가워요', 'aㅁㅁㄴㅇㅁㄴㅇ', 'a한찬규', 'a김채원', 'a박경덕', 'a김민성', 'a황소정', 'a정정해'];
-        const filteredItems = items.filter((item) => item.toLowerCase().includes(searchQuery.toLowerCase()));
-        setFilteredItems(filteredItems);
-
-    }, [searchQuery]);
-    useEffect(() => {
-        if (searchInputRef.current) {
-            searchInputRef.current.focus();
-        }
-    }, []);
-
-
-
-    const handleSearchInput = (e) => {
-        const input = e.target.value;
-        setSearchQuery(input);
-        setShowSuggestions(input !== '');
-    };
-    const handleSearchHistory = (query) => {
-        handleSearch();
-        setShowSuggestions(false); // 항목 선택 후 가시성 해제
-        if (!searchHistory.includes(query)) {
-            const updatedHistory = [query, ...searchHistory.slice(0, MAX_HISTORY_LENGTH - 1)];
-            setSearchHistory(updatedHistory);
-        }
-    };
+          return (
+            <Menu
+              mode="inline"
+              openKeys={openKeys}
+              onOpenChange={onOpenChange}
+              style={{
+                width: 300,
+              }}
+            >
+              {items.map((item) => {
+                if (item.children) {
+                  return (
+                    <Menu.SubMenu key={item.key} icon={item.icon} title={item.label} >
+                      {item.children.map((child) => (
+                        <Menu.Item key={child.key}>{child.label}</Menu.Item>
+                      ))}
+                    </Menu.SubMenu>
+                  );
+                }
+        
+                return (
+                  <Menu.Item key={item.key} icon={item.icon} style={{  fontSize: '18px', height: 100 }}>
+                    {item.label}
+                  </Menu.Item>
+                );
+              })}
+            </Menu>
+          );
+        };
+    
+        
     return (
-        <div>
-            <div className="sidebar">
+        <div style = {{ display: 'flex' }}>
+            <div className="mpsidebar">
+                <div className="mpsidebar-menu" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <App />
+                </div>
 
-                
-
-                <div className='sidebar-main'>
-                    <footer className="sidebar-footer">
+                <div className='mpsidebar-main'>
+                    <footer className="mpsidebar-footer">
                         <div>Information</div>
                         <div>ABOUT US</div>
                         <div>이용약관</div>
@@ -89,6 +87,12 @@ export default function Mpsidebar() {
                 </div>
 
             </div>
+            <div class="main-content" style={{ flex: 1 }}>
+                <div>
+                    <p>여기는 임시로 만든 바디 영역입니다.</p>
+                    <p>필요없고 보여주기 식입니다....</p>
+                </div>
+            </div> 
         </div>
     );
 }

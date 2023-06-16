@@ -438,7 +438,7 @@ ansi-styles@^3.2.1:
 
 antd@^5.6.1:
   version "5.6.1"
-  resolved "https://registry.npmjs.org/antd/-/antd-5.6.1.tgz"
+  resolved "https://registry.yarnpkg.com/antd/-/antd-5.6.1.tgz#ded8aa4431c41e09c7065f8202ba2f8fdd13153e"
   integrity sha512-ZuY6MATmONRCrHL53BwM3t/GruwhNcPJsKtRQLyo6TWJFkdPBd4gASfHsgKWRlXnN767IG8ioxDS5hlV6GsGHg==
   dependencies:
     "@ant-design/colors" "^7.0.0"
