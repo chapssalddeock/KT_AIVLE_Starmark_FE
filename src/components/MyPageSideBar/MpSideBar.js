@@ -1,8 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu } from 'antd';
 import { Search } from 'react-bootstrap-icons';
-
 import { MailOutlined, SettingOutlined, AppstoreOutlined } from '@ant-design/icons';
+import { Network } from 'vis-network/';
+import { DataSet } from 'vis-data/';
+
+
 function getItem(label, key, icon, children, type) {
     return {
       key,
@@ -23,7 +26,47 @@ function getItem(label, key, icon, children, type) {
     const handleMenuItemClick = (key) => {
       setSelectedItem(key);
     };
-  
+    const networkRef = useRef(null);
+    useEffect(() => {
+        // create nodes
+        if (selectedItem === 'sub1') {
+            const nodes = new DataSet([
+            { id: 1, label: 'Node 1' },
+            { id: 2, label: 'Node 2' },
+            { id: 3, label: 'Node 3' },
+            { id: 4, label: 'Node 4' },
+            { id: 5, label: 'Node 5' },
+            ]);
+        
+            // create edges
+            const edges = new DataSet([
+            { from: 1, to: 3 },
+            { from: 1, to: 2 },
+            { from: 2, to: 4 },
+            { from: 2, to: 5 },
+            { from: 3, to: 3 },
+            ]);
+        
+            // create data object
+            const data = {
+            nodes: nodes,
+            edges: edges,
+            };
+        
+            // create options object
+            const options = {};
+        
+            // Initialize network or update data if it already exists
+            if (!networkRef.current) {
+            const container = document.getElementById('mynetwork');
+            networkRef.current = new Network(container, data, options);
+            } else {
+            networkRef.current.setData(data);
+          // Update network configuration or data if needed
+            }
+        }
+      }, [selectedItem]);
+    
     return (
       <div style={{ display: 'flex' }}>
         <div className="mpsidebar">
@@ -59,6 +102,7 @@ function getItem(label, key, icon, children, type) {
           {selectedItem === 'sub1' && (
             <div>
               <p>Navigation One의 내용입니다.</p>
+              <div id="mynetwork"></div>
             </div>
           )}
           {selectedItem === 'sub2' && (
