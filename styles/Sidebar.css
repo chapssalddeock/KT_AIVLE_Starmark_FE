@@ -1,5 +1,5 @@
 .sidebar {
-    width: 250px;
+    width: 300px;
     height: 100vh;
     background-color: #ffffff;
     float: left;
@@ -7,42 +7,45 @@
   
 
   .main-content-ig {
-    margin-left: 270px;/* 사이드바의 너비만큼 왼쪽 여백을 주어 메인 콘텐츠를 이동시킴 */
+    margin-left: 300px;/* 사이드바의 너비만큼 왼쪽 여백을 주어 메인 콘텐츠를 이동시킴 */
     margin-top: 0;
     height: 100vh;
   }
   .search-container {
     display: flex; 
     align-items: center;
+    justify-content: center;
     border-radius: 15px; /* 모서리 둥글게 */
     border-color: #808080;
-    width: 100%;
+    width: 90%;
     padding: 5px;
     background-color: #f2f2f2; 
     color: rgba(0, 0, 0, 0.7); /* 반투명 */
     margin-bottom: 15px;
+    
   }
 
   .search-button{
+    position: relative;
     order: 1;
     width: 16%;
     height: 20px;
-    background-color: #f2f2f2;
     border:none;
-    background-color: #f2f2f2;
+    /* background-color: #f2f2f2; */
     font-size:1em;
-    color:#f2f2f2;
     outline:none;
     display:inline;
     margin-left: 10px;
     box-sizing: border-box;
+    top: -3px;
+    left: -2px;
   }
   .search-button{
     background-color: #f2f2f2;
   }
   .search-input{
     order: 2;
-    width:84%;
+    width:85%;
     height:100%;
     border:none;
     font-size:1em;
@@ -52,6 +55,7 @@
     outline:none;
     box-sizing: border-box;
     background-color: #f2f2f2;
+    
   }
   .search-history-container {
     position: relative;
@@ -60,6 +64,7 @@
   .search-history{
     display: inline-block;
     max-width: 350px;
+    align-items: center;
 
   }
   .search-record{
@@ -96,8 +101,75 @@
     background-color: #4285f4; /* 마우스 호버 시 배경색을 파란색으로 변경 */
   }
   .sidebar-main {
-    width: 250px;
-    height: 70%;
+  
+    width: 300px;
+    height: 83%;
     background-color: #ffffff;
     float: left;
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar-footer {
+    margin-top: auto;
+    width: 300px;
+    height: 200px;
+    background-color: #f2f2f2;
+    display: grid;
+    grid-template-rows: 2fr 2fr 1.5fr 1.5fr 1.5fr 1.5fr;
+    grid-gap: 1px; /* 기본 열 사이의 간격은 1px */
+    overflow: hidden;
+    
+  }
+  .sidebar-footer > * {
+    border-bottom: 1px solid black; /* 구분선의 색상을 검은색(#000)으로 설정 */
+    
+  }
+  
+  .sidebar-footer > *:nth-child(1) {
+    position: relative;
+    margin-top: 2px;
+    font-size: 20px;
+    font-weight: bold;
+    left: -160px;
+    right: 0px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: black;
+    
+  }
+  .sidebar-footer > *:nth-child(2) {
+    position: relative;
+    left: 50px;
+    right: 0;
+    margin-top: auto;
+    color: black; /* 두 번째 줄을 아래쪽에 위치시키기 위해 margin-top을 auto로 설정 */
+  }
+  .sidebar-footer > *:nth-child(3) {
+    position: relative;
+    left: 50px;
+    right: 0;
+    margin-top: auto;
+    color: black; /* 두 번째 줄을 아래쪽에 위치시키기 위해 margin-top을 auto로 설정 */
+  }
+  .sidebar-footer > *:nth-child(4) {
+    position: relative;
+    left: 50px;
+    right: 0;
+    margin-top: auto;
+    color: black; /* 두 번째 줄을 아래쪽에 위치시키기 위해 margin-top을 auto로 설정 */
+  }
+  .sidebar-footer > *:nth-child(5) {
+    position: relative;
+    left: 50px;
+    right: 0;
+    margin-top: auto;
+    color: black; /* 두 번째 줄을 아래쪽에 위치시키기 위해 margin-top을 auto로 설정 */
+  }
+  .sidebar-footer > *:nth-child(6) {
+    position: relative;
+    left: 50px;
+    right: 0;
+    margin-top: auto;
+    color: black; /* 두 번째 줄을 아래쪽에 위치시키기 위해 margin-top을 auto로 설정 */
   }

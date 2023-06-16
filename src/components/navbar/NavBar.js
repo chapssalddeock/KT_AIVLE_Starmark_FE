@@ -3,6 +3,9 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
+
+
+
 export default function NavBar() {
     const router = useRouter();
 
@@ -10,7 +13,7 @@ export default function NavBar() {
         router.push("/")
     }
     const moveSignUp = () => {
-        router.push("/")
+        router.push("/join")
     }
     const moveHome = () => {
         router.push("/")
