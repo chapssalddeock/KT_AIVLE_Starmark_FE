@@ -49,8 +49,8 @@ export default function ContentArea() {
                             //height: "calc(100vh - 153px)",
                         }}
                     >
-                        {/* <ThumbnailView></ThumbnailView> */}
-                        <ListView></ListView>
+                        <ThumbnailView></ThumbnailView>
+                        {/* <ListView></ListView> */}
 
                     </Content>
                 </Layout>
