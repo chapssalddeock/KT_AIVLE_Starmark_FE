@@ -3,6 +3,7 @@ import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import React from 'react';
 const { Header, Content, Sider } = Layout;
 import ThumbnailView from '../ThumbnailView/ThumbnailView'
+import ListView from '../ListView/ListView'
 import SideBar from '../SideBar/SideBar'
 import MenuBar from '../MenuButton/MenuButton';
 
@@ -48,7 +49,8 @@ export default function ContentArea() {
                             //height: "calc(100vh - 153px)",
                         }}
                     >
-                        <ThumbnailView></ThumbnailView>
+                        {/* <ThumbnailView></ThumbnailView> */}
+                        <ListView></ListView>
 
                     </Content>
                 </Layout>
