@@ -16,7 +16,20 @@ function getItem(label, key, icon, children, type) {
     };
   }
   export default function Mpsidebar() {
+    const [profileImage, setProfileImage] = useState(null);
     const [selectedItem, setSelectedItem] = useState('Navigation One');
+    const handleProfileImageUpload = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+    
+        reader.onloadend = () => {
+          setProfileImage(reader.result);
+        };
+    
+        if (file) {
+          reader.readAsDataURL(file);
+        }
+    };
     const items = [
       getItem('Navigation One', 'sub1', <MailOutlined />),
       getItem('Navigation Two', 'sub2', <AppstoreOutlined />),
@@ -28,44 +41,90 @@ function getItem(label, key, icon, children, type) {
     };
     const networkRef = useRef();
     useEffect(() => {
-        // create nodes
+        const container = document.getElementById('mynetwork');
+        const container2 = document.getElementById('mynetwork_2');
+      
         if (selectedItem === 'sub1') {
-            const nodes = new DataSet([
+          const nodes = new DataSet([
             { id: 1, label: 'Node 1' },
             { id: 2, label: 'Node 2' },
             { id: 3, label: 'Node 3' },
             { id: 4, label: 'Node 4' },
             { id: 5, label: 'Node 5' },
-            ]);
-        
-            // create edges
-            const edges = new DataSet([
+          ]);
+      
+          const edges = new DataSet([
             { from: 1, to: 3 },
             { from: 1, to: 2 },
             { from: 2, to: 4 },
             { from: 2, to: 5 },
             { from: 3, to: 3 },
-            ]);
-        
-            // create data object
-            const data = {
+          ]);
+      
+          const data = {
             nodes: nodes,
             edges: edges,
-            };
-        
-            // create options object
-            const options = {};
-            
-            // Initialize network or update data if it already exists
+          };
+      
+          const options = {};
+      
+          if (container) {
             if (!networkRef.current) {
-                const container = document.getElementById('mynetwork');
-                networkRef.current = new Network(container, data, options);
+              networkRef.current = new Network(container, data, options);
             } else {
-            networkRef.current.setData(data);
-          // Update network configuration or data if needed
+              networkRef.current.setData(data);
             }
+          }
+      
+          if (container2 && networkRef.current) {
+            networkRef.current.destroy();
+          }
+        } else if (selectedItem === 'sub2') {
+          const nodes = new DataSet([
+            { id: 1, label: 'Node 1' },
+            { id: 2, label: 'Node 2' },
+            { id: 3, label: 'Node 3' },
+            { id: 4, label: 'Node 4' },
+            { id: 5, label: 'Node 5' },
+          ]);
+      
+          const edges = new DataSet([
+            { from: 1, to: 3 },
+            { from: 1, to: 2 },
+            { from: 2, to: 4 },
+            { from: 2, to: 5 },
+            { from: 3, to: 3 },
+          ]);
+      
+          const data = {
+            nodes: nodes,
+            edges: edges,
+          };
+      
+          const options = {};
+      
+          if (container2) {
+            if (!networkRef.current) {
+              networkRef.current = new Network(container2, data, options);
+            } else {
+              networkRef.current.setData(data);
+            }
+          }
+      
+          if (container && networkRef.current) {
+            networkRef.current.destroy();
+          }
+        } else {
+          if (container && networkRef.current) {
+            networkRef.current.destroy();
+          }
+      
+          if (container2 && networkRef.current) {
+            networkRef.current.destroy();
+          }
         }
-      }, [selectedItem, networkRef.current]);
+      }, [selectedItem]);
+    
     
     return (
       <div style={{ display: 'flex' }}>
@@ -99,15 +158,25 @@ function getItem(label, key, icon, children, type) {
         </div>
   
         <div className="main-content" style={{ flex: 1 }}>
+            <p> 여기가 무엇일까요?</p>
           {selectedItem === 'sub1' && (
             <div>
               <p>Navigation One의 내용입니다.</p>
+              {profileImage ? (
+              <img src={profileImage} alt="프로필 사진" />
+                ) : (
+              <div>
+                <p>프로필 사진을 업로드하세요.</p>
+                <input type="file" onChange={handleProfileImageUpload} />
+              </div>
+                )}
               <div id="mynetwork"></div>
             </div>
           )}
           {selectedItem === 'sub2' && (
             <div>
               <p>Navigation Two의 내용입니다.</p>
+              <div id="mynetwork_2"></div>
             </div>
           )}
           {selectedItem === 'sub3' && (
