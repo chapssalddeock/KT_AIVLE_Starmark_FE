@@ -26,7 +26,7 @@ function getItem(label, key, icon, children, type) {
     const handleMenuItemClick = (key) => {
       setSelectedItem(key);
     };
-    const networkRef = useRef(null);
+    const networkRef = useRef();
     useEffect(() => {
         // create nodes
         if (selectedItem === 'sub1') {
@@ -55,17 +55,17 @@ function getItem(label, key, icon, children, type) {
         
             // create options object
             const options = {};
-        
+            
             // Initialize network or update data if it already exists
             if (!networkRef.current) {
-            const container = document.getElementById('mynetwork');
-            networkRef.current = new Network(container, data, options);
+                const container = document.getElementById('mynetwork');
+                networkRef.current = new Network(container, data, options);
             } else {
             networkRef.current.setData(data);
           // Update network configuration or data if needed
             }
         }
-      }, [selectedItem]);
+      }, [selectedItem, networkRef.current]);
     
     return (
       <div style={{ display: 'flex' }}>
