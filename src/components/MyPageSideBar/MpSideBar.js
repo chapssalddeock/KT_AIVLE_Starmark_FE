@@ -31,9 +31,9 @@ function getItem(label, key, icon, children, type) {
         }
     };
     const items = [
-      getItem('Navigation One', 'sub1', <MailOutlined />),
-      getItem('Navigation Two', 'sub2', <AppstoreOutlined />),
-      getItem('Navigation Three', 'sub3', <SettingOutlined />),
+      getItem('Profile', 'sub1', <MailOutlined />),
+      getItem('Follow', 'sub2', <AppstoreOutlined />),
+      getItem('Interest', 'sub3', <SettingOutlined />),
     ];
   
     const handleMenuItemClick = (key) => {
@@ -166,6 +166,7 @@ function getItem(label, key, icon, children, type) {
               <img src={profileImage} alt="프로필 사진" />
                 ) : (
               <div>
+                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
                 <p>프로필 사진을 업로드하세요.</p>
                 <input type="file" onChange={handleProfileImageUpload} />
               </div>
