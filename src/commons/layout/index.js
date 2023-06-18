@@ -14,18 +14,22 @@ const HiddenMain = [
 const HiddenJoin = [
     "/join",
 ]
+const HiddenMp = [
+    "/mypage"
+]
 
 
 export default function Layout(props) {
     const router = useRouter()
     const isOpenMain = HiddenMain.includes(router.asPath)
     const isOpenJoin = HiddenJoin.includes(router.asPath)
+    const isHiddenMp = HiddenMp.includes(router.asPath)
 
     return (
         <>
             {!isOpenMain && <NavBar2 />}
             <div>{props.children}</div>
-            {!isOpenMain && !isOpenJoin && <ContentArea />}
+            {!isOpenMain && !isOpenJoin && !isHiddenMp && <ContentArea />}
         </>
     )
 }
