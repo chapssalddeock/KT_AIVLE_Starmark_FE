@@ -4,7 +4,7 @@ import { Search, PlusCircle  } from 'react-bootstrap-icons';
 import { MailOutlined, SettingOutlined, AppstoreOutlined } from '@ant-design/icons';
 import { Network } from 'vis-network/';
 import { DataSet } from 'vis-data/';
-
+import { Button, Form, Input } from 'antd';
 
 function getItem(label, key, icon, children, type) {
     return {
@@ -16,6 +16,22 @@ function getItem(label, key, icon, children, type) {
     };
   }
   export default function Mpsidebar() {
+    const handlePasswordChange = (values) => {
+      const { currentPassword, newPassword, confirmPassword } = values;
+    
+      // 현재 비밀번호, 새로운 비밀번호, 비밀번호 확인을 확인하고 로직을 구현합니다.
+      if (currentPassword === '현재 비밀번호' && newPassword === confirmPassword) {
+        // 비밀번호 변경 로직을 여기에 구현합니다.
+        // 현재 비밀번호와 새로운 비밀번호를 사용하여 비밀번호를 변경하는 API 호출이나
+        // 기타 비밀번호 변경 관련 작업을 수행합니다.
+    
+        // 비밀번호 변경이 성공적으로 완료되었을 때 사용자에게 알림을 보여줄 수 있습니다.
+        message.success('비밀번호가 성공적으로 변경되었습니다.');
+      } else {
+        // 현재 비밀번호가 일치하지 않거나 새로운 비밀번호와 확인 비밀번호가 일치하지 않을 때 에러 처리를 수행합니다.
+        message.error('비밀번호 변경에 실패했습니다. 입력한 정보를 확인해주세요.');
+      }
+    };
     const [profileImage, setProfileImage] = useState(null);
     const [selectedItem, setSelectedItem] = useState('Navigation One');
     const handleProfileImageUpload = (event) => {
@@ -207,6 +223,76 @@ function getItem(label, key, icon, children, type) {
           {selectedItem === 'sub3' && (
             <div>
               <p>Navigation Three의 내용입니다.</p>
+              <Form
+                name="changePassword"
+                onFinish={handlePasswordChange}
+                labelCol={{
+                  flex: '110px',
+                }}
+                labelAlign="left"
+                labelWrap
+                wrapperCol={{
+                  flex: 1,
+                }}
+                colon={false}
+                style={{
+                  maxWidth: 600,
+                }}
+              >
+                <Form.Item
+                  label="현재 비밀번호"
+                  name="currentPassword"
+                  rules={[
+                    {
+                        required: true,
+                        message: '현재 비밀번호를 입력해주세요.',
+                    },
+                  ]}
+                >
+                  <Input.Password />
+                </Form.Item>
+
+                <Form.Item
+                  label="새로운 비밀번호"
+                  name="newPassword"
+                  rules={[
+                    {
+                      required: true,
+                      message: '새로운 비밀번호를 입력해주세요.',
+                    },
+                  ]}
+                >
+                  <Input.Password />
+                </Form.Item>
+
+                <Form.Item
+                  label="비밀번호 확인"
+                  name="confirmPassword"
+                  dependencies={['newPassword']}
+                  rules={[
+                    {
+                      required: true,
+                      message: '비밀번호 확인을 입력해주세요.',
+                    },
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        if (!value || getFieldValue('newPassword') === value) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(new Error('비밀번호가 일치하지 않습니다.'));
+                      },
+                    }),
+                  ]}
+                >
+                  <Input.Password />
+                </Form.Item>
+
+                <Form.Item label=" ">
+                  <Button type="primary" htmlType="submit">
+                    비밀번호 변경
+                  </Button>
+                </Form.Item>
+              </Form>
             </div>
           )}
         </div>
