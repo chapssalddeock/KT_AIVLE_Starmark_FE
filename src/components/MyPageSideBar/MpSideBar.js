@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu } from 'antd';
-import { Search } from 'react-bootstrap-icons';
+import { Search, PlusCircle  } from 'react-bootstrap-icons';
 import { MailOutlined, SettingOutlined, AppstoreOutlined } from '@ant-design/icons';
 import { Network } from 'vis-network/';
 import { DataSet } from 'vis-data/';
@@ -162,15 +162,36 @@ function getItem(label, key, icon, children, type) {
           {selectedItem === 'sub1' && (
             <div>
               <p>Navigation One의 내용입니다.</p>
-              {profileImage ? (
-              <img src={profileImage} alt="프로필 사진" />
-                ) : (
-              <div>
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
-                <p>프로필 사진을 업로드하세요.</p>
-                <input type="file" onChange={handleProfileImageUpload} />
-              </div>
-                )}
+              <div style={{ position: 'relative', width: '140px', height: '140px' }}>
+              <svg
+                className="bd-placeholder-img rounded-circle"
+                width="140"
+                height="140"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-label="Placeholder"
+                preserveAspectRatio="xMidYMid slice"
+                focusable="false"
+                style={{
+                  borderRadius: '50%',
+                  border: '2px solid var(--bs-primary-color)',
+                }}
+              >
+                <title>Placeholder</title>
+                <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
+              </svg>
+              {profileImage && (
+                <img
+                  src={profileImage}
+                  alt="프로필 사진"
+                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%', border: '2px solid var(--bs-primary-color)'}}
+                />
+              )}
+              <label htmlFor="profileImageUpload" style={{ position: 'absolute', bottom: '8px', right: '8px', cursor: 'pointer' }}>
+                <PlusCircle size={24} color="#ffffff" />
+              </label>
+              <input type="file" id="profileImageUpload" onChange={handleProfileImageUpload} style={{ display: 'none' }} />
+            </div>
               <div id="mynetwork"></div>
             </div>
           )}
