@@ -157,42 +157,45 @@ function getItem(label, key, icon, children, type) {
           </div>
         </div>
   
-        <div className="main-content" style={{ flex: 1 }}>
+        <div className="main-content">
             <p> 여기가 무엇일까요?</p>
           {selectedItem === 'sub1' && (
-            <div>
+            <div className='user_profile' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
               <p>Navigation One의 내용입니다.</p>
-              <div style={{ position: 'relative', width: '140px', height: '140px' }}>
-              <svg
-                className="bd-placeholder-img rounded-circle"
-                width="140"
-                height="140"
-                xmlns="http://www.w3.org/2000/svg"
-                role="img"
-                aria-label="Placeholder"
-                preserveAspectRatio="xMidYMid slice"
-                focusable="false"
-                style={{
-                  borderRadius: '50%',
-                  border: '2px solid var(--bs-primary-color)',
-                }}
-              >
-                <title>Placeholder</title>
-                <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
-              </svg>
-              {profileImage && (
-                <img
-                  src={profileImage}
-                  alt="프로필 사진"
-                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%', border: '2px solid var(--bs-primary-color)'}}
-                />
-              )}
-              <label htmlFor="profileImageUpload" style={{ position: 'absolute', bottom: '8px', right: '8px', cursor: 'pointer' }}>
-                <PlusCircle size={24} color="#ffffff" />
-              </label>
-              <input type="file" id="profileImageUpload" onChange={handleProfileImageUpload} style={{ display: 'none' }} />
-            </div>
-              <div id="mynetwork"></div>
+              <div>
+                <div style={{ position: 'relative', width: '140px', height: '140px'}}>
+                  <svg
+                    className="bd-placeholder-img rounded-circle"
+                    width="140"
+                    height="140"
+                    xmlns="http://www.w3.org/2000/svg"
+                    role="img"
+                    aria-label="Placeholder"
+                    preserveAspectRatio="xMidYMid slice"
+                    focusable="false"
+                    style={{
+                      borderRadius: '50%',
+                      border: '2px solid var(--bs-primary-color)',
+                    }}
+                  >
+                    <title>Placeholder</title>
+                    <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
+                  </svg>
+                  {profileImage && (
+                    <img
+                      src={profileImage}
+                      alt="프로필 사진"
+                      style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%', border: '2px solid var(--bs-primary-color)'}}
+                    />
+                  )}
+                  <label htmlFor="profileImageUpload" style={{ position: 'absolute', bottom: '8px', right: '8px', cursor: 'pointer' }}>
+                    <PlusCircle size={24} color="#ffffff" />
+                  </label>
+                  <input type="file" id="profileImageUpload" onChange={handleProfileImageUpload} style={{ display: 'none' }} />
+                </div>
+              </div>
+              
+              <div id="mynetwork" ></div>
             </div>
           )}
           {selectedItem === 'sub2' && (
