@@ -1,7 +1,6 @@
 import { useRouter } from "next/router"
 
 // 레이아웃 import 및 구성 정의
-import NavBar from "../../components/NavBar/NavBar"
 import NavBar2 from "../../components/NavBar/NavBar2"
 import ContentArea from "../../components/ContentArea/ContentArea"
 
@@ -14,22 +13,19 @@ const HiddenMain = [
 const HiddenJoin = [
     "/join",
 ]
-const HiddenMp = [
-    "/mypage"
-]
 
 
 export default function Layout(props) {
     const router = useRouter()
     const isOpenMain = HiddenMain.includes(router.asPath)
     const isOpenJoin = HiddenJoin.includes(router.asPath)
-    const isHiddenMp = HiddenMp.includes(router.asPath)
+
 
     return (
         <>
             {!isOpenMain && <NavBar2 />}
             <div>{props.children}</div>
-            {!isOpenMain && !isOpenJoin && !isHiddenMp && <ContentArea />}
+            {!isOpenMain && !isOpenJoin &&  <ContentArea />}
         </>
     )
 }
