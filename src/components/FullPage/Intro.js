@@ -1,5 +1,5 @@
 import { Outer, ActiveInner, UnderNavInner, Divider } from "../../../styles/PageScroll_Emotion";
-import LoginPage from "../login/Login";
+import LoginPage from "../login/Login_proxy";
 import { useEffect, useRef } from "react";
 
 const DIVIDER_HEIGHT = 3;
@@ -20,11 +20,11 @@ export default function PageScroll() {
 
       //스크롤 내림
       if (deltaY > 0) {
-        console.log(scrollTop);
-        console.log(pageHeight); // 722
+        // console.log(scrollTop);
+        // console.log(pageHeight); // 722
         //1 page
         if (scrollTop >= 0 && scrollTop < pageHeight) {
-          console.log("1page,down");
+          // console.log("1page,down");
           outerDivRef.current.scrollTo({
             top: pageHeight + DIVIDER_HEIGHT, //721.99999
             left: 0,
@@ -33,7 +33,7 @@ export default function PageScroll() {
         }
         else if (scrollTop >= pageHeight && scrollTop < pageHeight * 2) {
           // 2page
-          console.log("2 page down");
+          // console.log("2 page down");
           outerDivRef.current.scrollTo({
             top: pageHeight * 2 + DIVIDER_HEIGHT * 2,
             left: 0,
@@ -42,7 +42,7 @@ export default function PageScroll() {
         }
         else if (scrollTop >= pageHeight * 2 && scrollTop < pageHeight * 3) {
           // 3page
-          console.log("3 page down");
+          // console.log("3 page down");
           outerDivRef.current.scrollTo({
             top: pageHeight * 3 + DIVIDER_HEIGHT * 3,
             left: 0,
@@ -53,7 +53,7 @@ export default function PageScroll() {
       //스크롤 올림
       else {
         if (scrollTop >= pageHeight && scrollTop < pageHeight * 2) {
-          console.log("2페이지, up");
+          // console.log("2페이지, up");
           outerDivRef.current.scrollTo({
             top: 0,
             left: 0,
@@ -61,7 +61,7 @@ export default function PageScroll() {
           });
         }
         else if (scrollTop >= pageHeight * 2 && scrollTop < pageHeight * 3) {
-          console.log("3페이지, up");
+          // console.log("3페이지, up");
           outerDivRef.current.scrollTo({
             top: pageHeight + DIVIDER_HEIGHT,
             left: 0,
@@ -69,7 +69,7 @@ export default function PageScroll() {
           });
         }
         else if (scrollTop >= pageHeight * 3 && scrollTop < pageHeight * 4) {
-          console.log("4페이지, up");
+          // console.log("4페이지, up");
           outerDivRef.current.scrollTo({
             top: pageHeight * 2 + DIVIDER_HEIGHT * 2,
             left: 0,
