@@ -16,6 +16,20 @@ function getItem(label, key, icon, children, type) {
     };
   }
   export default function Mpsidebar() {
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const handleProfileImageUpload = () => {
+      setIsConfirmOpen(true);
+    };
+    
+    const handleConfirmUpload = () => {
+      // 프로필 사진 업로드 실행
+      setIsConfirmOpen(false);
+    };
+    
+    const handleCancelUpload = () => {
+      // 업로드 취소
+      setIsConfirmOpen(false);
+    };
     const handlePasswordChange = (values) => {
       const { currentPassword, newPassword, confirmPassword } = values;
     
@@ -33,23 +47,23 @@ function getItem(label, key, icon, children, type) {
       }
     };
     const [profileImage, setProfileImage] = useState(null);
-    const [selectedItem, setSelectedItem] = useState('Navigation One');
-    const handleProfileImageUpload = (event) => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
+    const [selectedItem, setSelectedItem] = useState('sub1');
+    // const handleProfileImageUpload = (event) => {
+    //     const file = event.target.files[0];
+    //     const reader = new FileReader();
     
-        reader.onloadend = () => {
-          setProfileImage(reader.result);
-        };
+    //     reader.onloadend = () => {
+    //       setProfileImage(reader.result);
+    //     };
     
-        if (file) {
-          reader.readAsDataURL(file);
-        }
-    };
+    //     if (file) {
+    //       reader.readAsDataURL(file);
+    //     }
+    // };
     const items = [
-      getItem('Profile', 'sub1', <MailOutlined />),
+      getItem('User', 'sub1', <MailOutlined />),
       getItem('Follow', 'sub2', <AppstoreOutlined />),
-      getItem('Interest', 'sub3', <SettingOutlined />),
+      getItem('Modify', 'sub3', <SettingOutlined />),
     ];
   
     const handleMenuItemClick = (key) => {
@@ -174,50 +188,65 @@ function getItem(label, key, icon, children, type) {
         </div>
   
         <div className="main-content" >
-            <div></div>
+            
           {selectedItem === 'sub1' && (
-            <div className='user_profile' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-              <p>Navigation One의 내용입니다.</p>
-              <div>
-                <div style={{ position: 'relative', width: '140px', height: '140px'}}>
-                  <svg
-                    className="bd-placeholder-img rounded-circle"
-                    width="140"
-                    height="140"
-                    xmlns="http://www.w3.org/2000/svg"
-                    role="img"
-                    aria-label="Placeholder"
-                    preserveAspectRatio="xMidYMid slice"
-                    focusable="false"
-                    style={{
-                      borderRadius: '50%',
-                      border: '2px solid var(--bs-primary-color)',
-                    }}
-                  >
-                    <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
-                  </svg>
-                  {profileImage && (
-                    <img
-                      src={profileImage}
-                      alt="프로필 사진"
-                      style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%', border: '2px solid var(--bs-primary-color)'}}
-                    />
-                  )}
-                  <label htmlFor="profileImageUpload" style={{ position: 'absolute', bottom: '8px', right: '8px', cursor: 'pointer' }}>
-                    <PlusCircle size={24} color="#ffffff" />
-                  </label>
-                  <input type="file" id="profileImageUpload" onChange={handleProfileImageUpload} style={{ display: 'none' }} />
+            
+  
+              <div className='user_container' style = {{marginLeft:'-75px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                <div className='image_container' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+
+                  <div className = 'user_image' style={{ position: 'relative', height: '300px', width: '300px'}}>
+                    <div style={{ position: 'relative', width: '250px', height: '250px'}}>
+                      <svg
+                        className="bd-placeholder-img rounded-circle"
+                        width="100%"
+                        height="100%"
+                        xmlns="http://www.w3.org/2000/svg"
+                        role="img"
+                        aria-label="Placeholder"
+                        preserveAspectRatio="xMidYMid slice"
+                        focusable="false"
+                        style={{
+                          borderRadius: '50%',
+                          border: '2px solid var(--bs-primary-color)',
+                        }}
+                      >
+                        
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="skyblue"></rect>
+                        <image
+                          href="/img/User.jpg"
+                          width="99%"
+                          height="95%"
+                          preserveAspectRatio="xMidYMid slice"
+                        />
+                      </svg>
+                      {profileImage && (
+                        <img
+                          src={profileImage}
+                          alt="프로필 사진"
+                          style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%', border: '2px solid var(--bs-primary-color)'}}
+                        />
+                      )}
+                      <div className="user_info" style={{ marginTop: '20px', textAlign: 'center' }}>
+                        <h4>유저 이름</h4>
+                        <p>추가 정보 표시</p>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div id="mynetwork" style={{ marginTop:'50px',position: 'relative', width: '1000px', height: '500px'}}></div>
                 </div>
               </div>
               
-              <div id="mynetwork" ></div>
-            </div>
+              
+           
           )}
           {selectedItem === 'sub2' && (
             <div>
               <p>Navigation Two의 내용입니다.</p>
-              <div id="mynetwork_2"></div>
+              
             </div>
           )}
           {selectedItem === 'sub3' && (
@@ -244,6 +273,12 @@ function getItem(label, key, icon, children, type) {
                     >
                       <title>Placeholder</title>
                       <rect width="100%" height="100%" fill="skyblue"></rect>
+                      <image
+                          href="/img/User.jpg"
+                          width="100%"
+                          height="100%"
+                          preserveAspectRatio="xMidYMid slice"
+                      />
                     </svg>
                     {profileImage && (
                       <img
@@ -254,8 +289,16 @@ function getItem(label, key, icon, children, type) {
                     )}
                     <label htmlFor="profileImageUpload" style={{ position: 'absolute', bottom: '8px', right: '8px', cursor: 'pointer' }}>
                       <PlusCircle size={24} color="black" />
+                      
                     </label>
                     <input type="file" id="profileImageUpload" onChange={handleProfileImageUpload} style={{ display: 'none' }} />
+                    {isConfirmOpen && (
+                      <div>
+                        <p>프로필 사진을 변경하시겠습니까?</p>
+                        <button onClick={handleConfirmUpload}>확인</button>
+                        <button onClick={handleCancelUpload}>취소</button>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <Form
