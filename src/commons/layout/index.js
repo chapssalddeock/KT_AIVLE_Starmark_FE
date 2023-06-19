@@ -14,10 +14,6 @@ const HiddenJoin = [
     "/join",
 ]
 
-const HiddenSocial = [
-    "/social",
-]
-
 
 export default function Layout(props) {
     const router = useRouter()

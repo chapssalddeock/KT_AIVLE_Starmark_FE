@@ -56,7 +56,7 @@ const data = [
 ];
 
 
-export default function App() {
+export default function ListView() {
 
     return (
         <Table columns={columns} dataSource={data} pagination={false} />
