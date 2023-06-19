@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Segmented, Button, Col, Drawer, Form, Input, Row, Select, Space } from 'antd';
-const { Option } = Select;
+//const { Option } = Select;
 
 export default function SubmitForm({ isOpen, onClose }) {
 

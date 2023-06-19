@@ -75,7 +75,7 @@ import { Grid3x3GapFill, List } from 'react-bootstrap-icons';
 import Container from 'react-bootstrap/Container';
 import { Button, Select, Space, Segmented } from 'antd';
 import { useState } from 'react';
-import SubmitForm from '../SubmitForm/SubmitForm';
+import SubmitForm from '../Modal/SubmitForm';
 
 
 const handleChange = (value) => {
