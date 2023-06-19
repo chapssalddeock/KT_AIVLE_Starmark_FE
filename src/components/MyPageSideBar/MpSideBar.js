@@ -143,7 +143,7 @@ function getItem(label, key, icon, children, type) {
     
     
     return (
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', height: '100vh', width: '100vw' }}>
         <div className="mpsidebar">
           <div className="mpsidebar-menu" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Menu
@@ -173,8 +173,8 @@ function getItem(label, key, icon, children, type) {
           </div>
         </div>
   
-        <div className="main-content">
-            <p> 여기가 무엇일까요?</p>
+        <div className="main-content" >
+            <div></div>
           {selectedItem === 'sub1' && (
             <div className='user_profile' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
               <p>Navigation One의 내용입니다.</p>
@@ -222,77 +222,133 @@ function getItem(label, key, icon, children, type) {
           )}
           {selectedItem === 'sub3' && (
             <div>
-              <p>Navigation Three의 내용입니다.</p>
-              <Form
-                name="changePassword"
-                onFinish={handlePasswordChange}
-                labelCol={{
-                  flex: '110px',
-                }}
-                labelAlign="left"
-                labelWrap
-                wrapperCol={{
-                  flex: 1,
-                }}
-                colon={false}
-                style={{
-                  maxWidth: 600,
-                }}
-              >
-                <Form.Item
-                  label="현재 비밀번호"
-                  name="currentPassword"
-                  rules={[
-                    {
+              <div className ='PM_container' style={{marginLeft: '170px', marginTop:'150px', height: '1400px', width: '450px'}}>
+                
+              
+                <div className= 'profile_modify' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                  <div className = 'profile_image' style={{ position: 'relative', height: '200px', width: '200px'}}>
+                    <svg
+                      className="bd-placeholder-img rounded-circle"
+                      width="100%"
+                      height="100%"
+                      xmlns="http://www.w3.org/2000/svg"
+                      role="img"
+                      aria-label="Placeholder"
+                      preserveAspectRatio="xMidYMid slice"
+                      focusable="false"
+                      style={{
+                        borderRadius: '50%',
+                        border: '2px solid var(--bs-primary-color)',
+                        fill: 'black',
+                      }}
+                    >
+                      <title>Placeholder</title>
+                      <rect width="100%" height="100%" fill="skyblue"></rect>
+                    </svg>
+                    {profileImage && (
+                      <img
+                        src={profileImage}
+                        alt="프로필 사진"
+                        style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%', border: '2px solid var(--bs-primary-color)'}}
+                      />
+                    )}
+                    <label htmlFor="profileImageUpload" style={{ position: 'absolute', bottom: '8px', right: '8px', cursor: 'pointer' }}>
+                      <PlusCircle size={24} color="black" />
+                    </label>
+                    <input type="file" id="profileImageUpload" onChange={handleProfileImageUpload} style={{ display: 'none' }} />
+                  </div>
+                </div>
+                <Form
+                  name="changePassword"
+                  onFinish={handlePasswordChange}
+                  labelCol={{
+                    flex: '110px',
+                  }}
+                  labelAlign="left"
+                  labelWrap
+                  wrapperCol={{
+                    flex: 1,
+                  }}
+                  colon={false}
+                  style={{
+                    maxWidth: 600,
+                    marginTop: '50px',
+                    height: '50%'
+                  }}
+                >
+                  <Form.Item
+                    label="닉네임"
+                    name="nickname"
+                    rules={[
+                      {
                         required: true,
-                        message: '현재 비밀번호를 입력해주세요.',
-                    },
-                  ]}
-                >
-                  <Input.Password />
-                </Form.Item>
-
-                <Form.Item
-                  label="새로운 비밀번호"
-                  name="newPassword"
-                  rules={[
-                    {
-                      required: true,
-                      message: '새로운 비밀번호를 입력해주세요.',
-                    },
-                  ]}
-                >
-                  <Input.Password />
-                </Form.Item>
-
-                <Form.Item
-                  label="비밀번호 확인"
-                  name="confirmPassword"
-                  dependencies={['newPassword']}
-                  rules={[
-                    {
-                      required: true,
-                      message: '비밀번호 확인을 입력해주세요.',
-                    },
-                    ({ getFieldValue }) => ({
-                      validator(_, value) {
-                        if (!value || getFieldValue('newPassword') === value) {
-                          return Promise.resolve();
-                        }
-                        return Promise.reject(new Error('비밀번호가 일치하지 않습니다.'));
+                        message: '닉네임을 입력해주세요.',
                       },
-                    }),
-                  ]}
-                >
-                  <Input.Password />
-                </Form.Item>
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
 
-                <Form.Item label=" ">
-                  <Button type="primary" htmlType="submit">
-                    비밀번호 변경
-                  </Button>
-                </Form.Item>
-              </Form>
+                  <Form.Item
+                    label="현재 비밀번호"
+                    name="currentPassword"
+                    rules={[
+                      {
+                          required: true,
+                          message: '현재 비밀번호를 입력해주세요.',
+                      },
+                    ]}
+                  >
+                    <Input.Password />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="새로운 비밀번호"
+                    name="newPassword"
+                    rules={[
+                      {
+                        required: true,
+                        message: '새로운 비밀번호를 입력해주세요.',
+                      },
+                    ]}
+                  >
+                    <Input.Password />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="비밀번호 확인"
+                    name="confirmPassword"
+                    dependencies={['newPassword']}
+                    rules={[
+                      {
+                        required: true,
+                        message: '비밀번호 확인을 입력해주세요.',
+                      },
+                      ({ getFieldValue }) => ({
+                        validator(_, value) {
+                          if (!value || getFieldValue('newPassword') === value) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject(new Error('비밀번호가 일치하지 않습니다.'));
+                        },
+                      }),
+                    ]}
+                  >
+                    <Input.Password />
+                  </Form.Item>
+
+                  <Form.Item label=" ">
+                    <div style={{ marginTop: '30px', display: 'flex', marginLeft: '-110px', justifyContent: 'center', alignItems: 'center' }}>
+                      <Button type="primary" htmlType="submit" style={{ marginRight: '30px' }}>
+                        modify
+                      </Button>
+                      <Button type="primary" htmlType="submit">
+                        cancel
+                      </Button>
+                    </div>
+                  </Form.Item>
+                </Form>
+              </div>
             </div>
           )}
         </div>
