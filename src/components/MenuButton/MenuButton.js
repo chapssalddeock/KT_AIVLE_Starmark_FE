@@ -88,7 +88,7 @@ const options = [
 ]
 
 
-export default function MenuBar() {
+export default function MenuBar({ onSegmentedChange }) {
     ///////////////////////////////////// 폼 관련'
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -97,6 +97,10 @@ export default function MenuBar() {
     };
     const handleCloseDrawer = () => {
         setIsDrawerOpen(false);
+    };
+
+    const handleSegmentedChange = (value) => {
+        onSegmentedChange(value); // 변경된 값을 상위 컴포넌트로 전달
     };
 
 
@@ -110,13 +114,13 @@ export default function MenuBar() {
             </Space>
             <Space wrap style={{ flex: 1, justifyContent: 'flex-end', }}>
                 <Select defaultValue="최신순" style={{ width: 120, height: 35, }} onChange={handleChange} options={options}></Select>
-                <Segmented style={{ height: 35, }}
+                <Segmented onChange={handleSegmentedChange} style={{ height: 35, }}
                     options={[{
                         value: 'List',
                         icon: <List size='24' />,
                     },
                     {
-                        value: 'Kanban',
+                        value: 'Thumbnail',
                         icon: <Grid3x3GapFill size='20' />,
                     },]} />
             </Space >
