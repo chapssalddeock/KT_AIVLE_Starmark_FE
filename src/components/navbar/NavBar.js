@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router.js';
-import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+
+
+
 
 export default function NavBar() {
     const router = useRouter();
@@ -10,7 +12,7 @@ export default function NavBar() {
         router.push("/")
     }
     const moveSignUp = () => {
-        router.push("/")
+        router.push("/join")
     }
     const moveHome = () => {
         router.push("/")
@@ -19,15 +21,13 @@ export default function NavBar() {
     return (
         <>
             <Navbar collapseOnSelect bg="white">
-                <Container>
-                    <Nav.Link onClick={moveHome}><img src='img/defalut_logo.png' height={60}></img></Nav.Link>
-                    <Navbar.Collapse className="justify-content-end">
-                        <Nav>
-                            <Nav.Link onClick={moveSignUp}>Sign-Up</Nav.Link>
-                            <Nav.Link eventKey={2} onClick={moveSignIn}>Sign-In</Nav.Link>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
+                <Nav.Link onClick={moveHome} style={{ marginLeft: 20 }} > <img src='img/defalut_logo.png' height={60}></img></Nav.Link>
+                <Navbar.Collapse className="justify-content-end" style={{ marginRight: 50 }}>
+                    <Nav>
+                        <Nav.Link onClick={moveSignUp}>Sign-Up</Nav.Link>
+                        <Nav.Link eventKey={2} onClick={moveSignIn}>Sign-In</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
             </Navbar >
         </>
     );
