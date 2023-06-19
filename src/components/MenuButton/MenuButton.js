@@ -75,8 +75,7 @@ import { Grid3x3GapFill, List } from 'react-bootstrap-icons';
 import Container from 'react-bootstrap/Container';
 import { Button, Select, Space, Segmented } from 'antd';
 import { useState } from 'react';
-import SubmitForm from '../SubmitForm/SubmitForm';
-
+import SubmitForm from '../Modal/SubmitForm';
 
 const handleChange = (value) => {
     console.log(`selected ${value}`);
@@ -88,7 +87,7 @@ const options = [
 ]
 
 
-export default function MenuBar() {
+export default function MenuBar({ onSegmentedChange }) {
     ///////////////////////////////////// 폼 관련'
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -97,6 +96,10 @@ export default function MenuBar() {
     };
     const handleCloseDrawer = () => {
         setIsDrawerOpen(false);
+    };
+
+    const handleSegmentedChange = (value) => {
+        onSegmentedChange(value); // 변경된 값을 상위 컴포넌트로 전달
     };
 
 
@@ -110,20 +113,15 @@ export default function MenuBar() {
             </Space>
             <Space wrap style={{ flex: 1, justifyContent: 'flex-end', }}>
                 <Select defaultValue="최신순" style={{ width: 120, height: 35, }} onChange={handleChange} options={options}></Select>
-                {/* <Button type='text' style={{ width: 35, height: 35 }} icon={<List size="30" />}></Button>
-                <Button type='text' style={{ width: 35, height: 35 }} icon={<Grid3x3GapFill size="24" />}></Button> */}
-                {/* <MySegmented icons={icons} onChange={handleOptionChange} /> */}
-                <Segmented style={{ height: 35, }}
+                <Segmented onChange={handleSegmentedChange} style={{ height: 35, }}
                     options={[{
                         value: 'List',
-                        icon: <List size='24' />,
+                        icon: <List size='25' />,
                     },
                     {
-                        value: 'Kanban',
+                        value: 'Thumbnail',
                         icon: <Grid3x3GapFill size='20' />,
                     },]} />
-                {/* 여기에 컨텐츠들 레이아웃을 박아버리...기엔 이미 결정된 레이아웃이 파괴될듯... 그전엔 컨텐츠랑 Menu를 동급취급했는데
-                이젠 자식으로 하던가 해야함.......근데 또 여기 박으면 side바에 따라 변경이 어려움 */}
             </Space >
         </Container >
 

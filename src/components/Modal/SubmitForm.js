@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Segmented, Button, Col, Drawer, Form, Input, Row, Select, Space } from 'antd';
-const { Option } = Select;
+//const { Option } = Select;
 
 export default function SubmitForm({ isOpen, onClose }) {
 
+    // URL , HTML 택 1 해서 폼 바꾸는 state
     const [selectedOption, setSelectedOption] = useState('URL');
 
     const handleOptionChange = (value) => {
