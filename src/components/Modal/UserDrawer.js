@@ -3,35 +3,32 @@ import { Button, Col, Drawer, Form, Row, Space, Input } from 'antd';
 
 //const { Option } = Select;
 
-export default function UserDrawer({ open, onClose }) {
+export default function UserDrawer({ isOpen, onClose }) {
 
+  // onClose={onClose}
+  // open={isOpen}
+  return (
+    <>
+      <Drawer
+        width={720}
+        onClose={onClose}
+        open={isOpen}
+        bodyStyle={{
+          paddingBottom: 80,
+        }}
+      >
 
-    return (
-        <>
-            <Drawer
-                title="유저 확인하기"
-                width={720}
-                onClose={onClose}
-                open={open}
-                bodyStyle={{
-                    paddingBottom: 80,
-                }} extra={
-                    <Space>
-                        <Button onClick={onClose}>Cancel</Button>
-                    </Space>
-                }
-            >
-
-                <Form layout="vertical" >
-                    <Row gutter={16}>
-                        <Col span={12}>
-                            아 왜 배경 검정임????????
-                        </Col>
-                    </Row>
-                </Form>
-            </Drawer>
-        </>
-    );
+        <p
+          className="site-description-item-profile-p"
+          style={{
+            marginBottom: 24,
+          }}
+        >
+          어라 성공
+        </p>
+      </Drawer>
+    </>
+  );
 };
 
 

@@ -35,20 +35,20 @@ export default function SocialListView() {
 
 
     // 유저 프로필 보기 관련
-    const [open, setOpen] = useState(false);
-    const showDrawer = () => {
-        setOpen(true);
-    };
-    const onClose = () => {
-        setOpen(false);
-    };
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
+    const handleOpenDrawer = () => {
+        setIsDrawerOpen(true);
+    };
+    const handleCloseDrawer = () => {
+        setIsDrawerOpen(false);
+    };
 
 
 
     return (
         <>
-            <List size='large' style={{ marginLeft: 40, marginRight: 30, width: 1050 }}>
+            <List bordered size='large' style={{ marginLeft: 40, marginRight: 30, width: 1050 }}>
                 <VirtualList
                     data={data}
                     height={ContainerHeight}
@@ -58,9 +58,10 @@ export default function SocialListView() {
                 >
                     {(item) => (
                         <List.Item key={item.email} actions={[
-                            <a onClick={showDrawer} key={`a-${item.email}`}>
+                            <a onClick={handleOpenDrawer} key={`a-${item.email}`}>
                                 View Profile
                             </a>,
+
                         ]}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <List.Item.Meta
@@ -86,9 +87,9 @@ export default function SocialListView() {
                         </List.Item>
                     )}
                 </VirtualList>
-
             </List >
-
+            <UserDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
+            {/* 여기에 Drawer 넣기....이유: 클릭시 key가 누구인지 모를듯하여... 아닌가... 보내줄수있나? */}
         </>
     );
 };
