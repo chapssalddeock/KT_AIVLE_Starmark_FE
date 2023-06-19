@@ -12,8 +12,10 @@ import { Badge, Popconfirm, Dropdown } from 'antd';
 
 export default function Notification() {
 
-    const moveHome = () => {
-        router.push("/")
+    const router = useRouter();
+
+    const moveMyPage = () => {
+        router.push("/mypage")
     }
 
 
@@ -21,7 +23,7 @@ export default function Notification() {
         {
             key: '1',
             label: (
-                <div onClick={moveHome}>
+                <div onClick={moveMyPage}>
                     마이페이지
                 </div>
             ),
@@ -29,7 +31,7 @@ export default function Notification() {
         {
             key: '2',
             label: (
-                <div onClick={moveHome}>
+                <div onClick={moveMyPage}>
                     로그아웃
                 </div>
             ),
