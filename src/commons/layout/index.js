@@ -14,6 +14,10 @@ const HiddenJoin = [
     "/join",
 ]
 
+const HiddenSocial = [
+    "/social",
+]
+
 
 export default function Layout(props) {
     const router = useRouter()
@@ -25,7 +29,7 @@ export default function Layout(props) {
         <>
             {!isOpenMain && <NavBar2 />}
             <div>{props.children}</div>
-            {!isOpenMain && !isOpenJoin &&  <ContentArea />}
+            {!isOpenMain && !isOpenJoin && <ContentArea />}
         </>
     )
 }
