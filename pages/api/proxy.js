@@ -3,7 +3,7 @@ import axios from 'axios';
 export default async (req, res) => {
   try {
     const { method, body, query, headers } = req;
-    const url = 'http://kt-aivle.iptime.org:40170/api/token/'; // 프록시할 백엔드 서버 URL
+    const url = 'http://kt-aivle.iptime.org:40170/api/token2/'; // 프록시할 백엔드 서버 URL
 
     const response = await axios({
       method,

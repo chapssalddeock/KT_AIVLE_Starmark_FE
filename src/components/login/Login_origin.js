@@ -7,7 +7,7 @@ import { useState, useEffect, useContext } from "react";
 import AuthContext from "../../context/AuthProvider";
 import axios from "../../api/axios";
 // import axios from 'axios';
-const LOGIN_URL = 'api/token/';
+const LOGIN_URL = 'api/token2/';
 
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
