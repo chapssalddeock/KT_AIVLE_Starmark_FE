@@ -1,7 +1,7 @@
 import { Layout } from 'antd';
 import React from 'react';
 const { Content, Sider } = Layout;
-import SocialListView from '../SocialListView.js/SocialListView';
+import SocialListView from '../SocialListView/SocialListView';
 
 export default function SocialContentArea() {
 
