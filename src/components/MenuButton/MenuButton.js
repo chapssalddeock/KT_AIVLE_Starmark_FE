@@ -77,7 +77,6 @@ import { Button, Select, Space, Segmented } from 'antd';
 import { useState } from 'react';
 import SubmitForm from '../Modal/SubmitForm';
 
-
 const handleChange = (value) => {
     console.log(`selected ${value}`);
 };
@@ -117,7 +116,7 @@ export default function MenuBar({ onSegmentedChange }) {
                 <Segmented onChange={handleSegmentedChange} style={{ height: 35, }}
                     options={[{
                         value: 'List',
-                        icon: <List size='24' />,
+                        icon: <List size='25' />,
                     },
                     {
                         value: 'Thumbnail',
