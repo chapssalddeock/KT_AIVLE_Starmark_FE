@@ -18,7 +18,7 @@ export default function SideBar() {
     const suggestedItemsRef = useRef(null);
     const [filteredItems, setFilteredItems] = useState([]);
     const [hoveredItem, setHoveredItem] = useState(null);
-
+    const [showHiddenRecords, setShowHiddenRecords] = useState(false);
     const handleMouseEnter = (item) => {
         setHoveredItem(item);
     };
@@ -77,7 +77,7 @@ export default function SideBar() {
             setSearchHistory(updatedHistory);
         }
     };
-
+    
 
     return (
         <div>
@@ -91,9 +91,13 @@ export default function SideBar() {
                 </div>
                 <div className="search-history-container">
                     <div class="search-history">
-                        {searchHistory.slice(0, MAX_HISTORY_LENGTH).map((query, index) => (
-                            <button key={index} class="search-record" onClick={() => handleSearchHistory(query)}>{query}</button>
-                        ))}
+                        <div className="search-record-wrapper">
+                          {searchHistory.slice(0, MAX_HISTORY_LENGTH).map((query, index) => (
+                            <button key={index} className="search-record" onClick={() => handleSearchHistory(query)}>
+                              {query}
+                            </button>
+                          ))}
+                        </div>
                     </div>
                     {showSuggestions && (
                         <div id="suggestion-box">

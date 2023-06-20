@@ -1,10 +1,10 @@
-import Mpsidebar from "../../src/components/MyPageSideBar/MpSideBar"
+import MpContentArea from "../../src/components/ContentArea/MpContentArea"
 
 
 export default function MyPage() {
     return (
         <>
-            <Mpsidebar />
+            <MpContentArea />
         </>
 
     )
