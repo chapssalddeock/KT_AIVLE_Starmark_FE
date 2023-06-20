@@ -218,8 +218,10 @@
 
 
   .mpsidebar-footer {
-    
+    position: fixed;
     margin-top: auto;
+    z-index: 9000;
+    bottom: 0;
     width: 300px;
     height: 200px;
     background-color: #f2f2f2;
