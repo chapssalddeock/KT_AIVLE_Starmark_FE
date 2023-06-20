@@ -1,8 +1,11 @@
 .sidebar {
+    display: flex;
+    flex-direction: column;
     width: 300px;
     height: 100vh;
     background-color: #ffffff;
     float: left;
+    overflow: hidden;
   }
   .main-content {
     margin-left: 400px;/* 사이드바의 너비만큼 왼쪽 여백을 주어 메인 콘텐츠를 이동시킴 */
@@ -60,6 +63,9 @@
   .search-history-container {
     position: relative;
     z-index: 1;
+    max-height: 210px; /* 원하는 높이로 설정 */
+    overflow-y: visible; /* 내용이 넘칠 때 스크롤바 표시 */
+    flex: 1;
   }
   .search-history{
     display: inline-block;
@@ -78,6 +84,7 @@
     border-radius: 10px;
     margin: 0 8px;
   }
+  
   #suggestion-box {
     position: absolute;
     top: -10px;
@@ -88,7 +95,7 @@
     padding: 0 5px;
     height:300px;
     width: 250px;
-    
+    margin-left: 20px;
     border: 1px solid black;
     overflow: auto;
   }
@@ -106,16 +113,19 @@
     background-color: #4285f4; /* 마우스 호버 시 배경색을 파란색으로 변경 */
   }
   .sidebar-main {
-  
+    flex-shrink: 0;
     width: 300px;
-    height: 80%;
+    height: 50%;
     background-color: #ffffff;
     float: left;
     display: flex;
     flex-direction: column;
   }
   .sidebar-footer {
+    position: fixed;
     margin-top: auto;
+    z-index: 9000;
+    bottom: 0;
     width: 300px;
     height: 200px;
     background-color: #f2f2f2;
