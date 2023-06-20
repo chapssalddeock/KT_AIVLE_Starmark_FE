@@ -150,18 +150,18 @@ function getItem(label, key, icon, children, type) {
           </div>
         </div>
   
-        <div className="main-content" >
+        <div className="main-content" style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}} >
             
           {selectedItem === 'sub1' && (
             
             
 
             
-              <div className='user_container' style = {{marginLeft:'-75px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+              <div className='user_container' style = {{marginLeft:'-300px', marginTop: '-700px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 <div className='image_container' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
-                  <div className = 'user_image' style={{ position: 'relative', height: '300px', width: '300px'}}>
-                    <div style={{ position: 'relative', width: '250px', height: '250px'}}>
+                  <div className = 'user_image' style={{ position: 'relative', height: '250px', width: '250px'}}>
+                    <div style={{ position: 'relative', width: '200px', height: '200px'}}>
                       <svg
                         className="bd-placeholder-img rounded-circle"
                         width="100%"
@@ -201,7 +201,7 @@ function getItem(label, key, icon, children, type) {
                   </div>
 
                   <animated.div style={springProps}>
-                    <div id="mynetwork" style={{ marginTop:'50px',position: 'relative', width: '1000px', height: '500px'}}></div>
+                    <div id="mynetwork" style={{ border: '1px solid transparent', marginTop:'30px',position: 'relative', width: '1000px', height: '300px'}}></div>
                   </animated.div>  
                 </div>
               </div>
@@ -217,11 +217,11 @@ function getItem(label, key, icon, children, type) {
           )}
           {selectedItem === 'sub3' && (
             <div>
-              <div className ='PM_container' style={{marginLeft: '170px', marginTop:'150px', height: '1400px', width: '450px'}}>
+              <div className ='PM_container' style={{marginLeft: '-90px', marginTop:'150px', height: '1400px', width: '1236px'}}>
                 
               
-                <div className= 'profile_modify' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                  <div className = 'profile_image' style={{ position: 'relative', height: '200px', width: '200px'}}>
+                <div className= 'profile_modify' style={{ }}>
+                  <div className = 'profile_image' style={{ marginLeft: '125px', position: 'relative', height: '200px', width: '200px'}}>
                     <svg
                       className="bd-placeholder-img rounded-circle"
                       width="100%"
@@ -280,7 +280,7 @@ function getItem(label, key, icon, children, type) {
                   }}
                   colon={false}
                   style={{
-                    maxWidth: 600,
+                    maxWidth: 450,
                     marginTop: '50px',
                     height: '50%'
                   }}
