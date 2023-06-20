@@ -1,8 +1,8 @@
 import { Avatar, List, message, Tag, Button } from 'antd';
 import VirtualList from 'rc-virtual-list';
 import { useEffect, useState } from 'react';
-import { SearchOutlined } from '@ant-design/icons';
-
+import axios from 'axios';
+import FollowButton from '../Modal/FollowButton';
 import UserDrawer from '../Modal/UserDrawer';
 
 const fakeDataUrl = 'https://randomuser.me/api/?results=20&inc=name,gender,email,nat,picture&noinfo';
@@ -10,6 +10,8 @@ const ContainerHeight = 750;
 
 
 export default function SocialListView() {
+
+    // 유저 리스트 불러오기 관련
     const [data, setData] = useState([]);
 
     const appendData = () => {
@@ -34,15 +36,31 @@ export default function SocialListView() {
     };
 
 
-    // 유저 프로필 보기 관련
+    // 유저 프로필 보기 관련 (View Profile)
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [userProfile, setUserProfile] = useState(null);
 
-    const handleOpenDrawer = () => {
-        setIsDrawerOpen(true);
+    const handleOpenDrawer = async (email) => {
+        try {
+            const response = await axios.get(`/api/userinfo/${email}`);
+
+            if (response.status === 200) {
+                setUserProfile(response.data);
+                setIsDrawerOpen(true);
+            } else {
+                console.error('Failed to fetch user profile');
+            }
+        } catch (error) {
+            console.error(error);
+        }
     };
+
     const handleCloseDrawer = () => {
         setIsDrawerOpen(false);
     };
+
+    // 유저 팔로우 관련 (Follow 버튼)
+
 
 
 
@@ -58,7 +76,8 @@ export default function SocialListView() {
                 >
                     {(item) => (
                         <List.Item key={item.email} actions={[
-                            <a onClick={handleOpenDrawer} key={`a-${item.email}`}>
+                            // <a onClick={handleOpenDrawer} key={`a-${item.email}`}> 원본
+                            < a onClick={() => handleOpenDrawer(item.email)} key={`a-${item.email}`}>
                                 View Profile
                             </a>,
 
@@ -81,15 +100,14 @@ export default function SocialListView() {
                                     <div>구독자 수</div>
                                 </div>
                                 <div style={{ marginLeft: 30 }}>
-                                    팔로우 버튼
+                                    <FollowButton userId={item.email} />
                                 </div>
                             </div>
                         </List.Item>
                     )}
-                </VirtualList>
+                </VirtualList >
             </List >
-            <UserDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
-            {/* 여기에 Drawer 넣기....이유: 클릭시 key가 누구인지 모를듯하여... 아닌가... 보내줄수있나? */}
+            <UserDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} userProfile={userProfile} />
         </>
     );
 };
