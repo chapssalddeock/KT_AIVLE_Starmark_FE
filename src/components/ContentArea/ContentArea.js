@@ -28,7 +28,7 @@ export default function ContentArea() {
                         <MenuBar onSegmentedChange={handleSegmentedChange} />
                     </div>
                     <Content style={{ padding: 24, margin: 0, }}>
-                        {viewMode === 'List' ? <ListView /> : <ThumbnailView />} {/* 조건에 따라 썸네c일 뷰 또는 리스트 뷰 렌더링 */}
+                        {viewMode === 'List' ? <ListView /> : <ThumbnailView />} {/* 조건에 따라 썸네일 뷰 또는 리스트 뷰 렌더링 */}
                     </Content>
                 </Layout>
             </Layout>

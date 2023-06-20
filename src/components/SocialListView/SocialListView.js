@@ -1,8 +1,7 @@
 import { Avatar, List, message, Tag, Button } from 'antd';
 import VirtualList from 'rc-virtual-list';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-// import FollowButton from '../Modal/FollowButton';
+import axios from 'axios'; import FollowButton from '../Modal/FollowButton';
 import UserDrawer from '../Modal/UserDrawer';
 
 const fakeDataUrl = 'https://randomuser.me/api/?results=20&inc=name,gender,email,nat,picture&noinfo';
@@ -44,16 +43,17 @@ export default function SocialListView() {
         try {
             const config = {
                 headers: {
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg3MjQzMjU3LCJpYXQiOjE2ODcyMzcyNTcsImp0aSI6ImE0ZTRmOWU0ZTIxYTRhODU5NGFjZDZhYzE3MDJhNmEzIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWM3NzRcdWM1OGZcdWQ2MzgifQ.ac9t8q2uJ9ddor756qa-y1sAIljmCN_LilEv13Yde18'
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQyMzU4LCJpYXQiOjE2ODcyNDYzNTgsImp0aSI6ImI2YTU0OWJkOWQxYTQzMWFhNDE3NmFmMmFmMjVjYjQ2IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.cTZokEPKCxNTo6S-BXdv2pRakGRlnIBqzWAGHQKI6Nk'
                 },
                 params: {
                     user_id: user_id
                 }
             };
 
-            const response = await axios.get('http://kt-aivle.iptime.org:40170/api/follows/', config);
+            const response = await axios.get('http://kt-aivle.iptime.org:40170/api/userinfo/', config);
 
             if (response.status === 200) {
+                console.log(response.data)
                 setUserProfile(response.data);
                 setIsDrawerOpen(true);
             } else {
@@ -64,47 +64,20 @@ export default function SocialListView() {
         }
     };
 
-
-    // const handleOpenDrawer = async (user_id) => {
-    //     try {
-    //         const config = {
-    //             headers: {
-    //                 Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg3MjQyMDY2LCJpYXQiOjE2ODcyMzYwNjYsImp0aSI6ImQ3ZDU1OTI2NDc2YTQ2YzdhNTZiODc2NzI3ZWYyZTg1IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWM3NzRcdWM1OGZcdWQ2MzgifQ.Y5fjwQwcfkqhR6B7f5PWgwQ7cSbqs1Y3s6LGSu0NJkY'
-    //             },
-
-    //         };
-
-    //         const response = await axios.get('http://kt-aivle.iptime.org:40170/api/userinfo/', config, {
-    //             'user_id': user_id
-    //         });
-
-    //         if (response.status === 200) {
-    //             setUserProfile(response.data);
-    //             setIsDrawerOpen(true);
-    //         } else {
-    //             console.error('Failed to fetch user profile');
-    //         }
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
-
     const handleCloseDrawer = () => {
         setIsDrawerOpen(false);
     };
 
 
-    // 받는 데이터는 리스트 안의 json 형태임, 그래서 data를 태그에 줘야함
 
+    // 받는 데이터는 리스트 안의 json 형태임, 그래서 data를 태그에 줘야함 (더미 데이터)
     const data = [{
-        user_id: '0'
+        user_id: '2'
     },
     {
         user_id: '1'
     },
-    {
-        user_id: '2'
-    },
+
     ]
 
     return (
@@ -120,7 +93,6 @@ export default function SocialListView() {
                     {(item) => (
                         <List.Item key={item.email} actions={[
                             // <a onClick={handleOpenDrawer} key={`a-${item.email}`}> 원본
-                            // < a onClick={() => handleOpenDrawer(item.email)} key={`a-${item.email}`}>
                             < a onClick={() => handleOpenDrawer(item.user_id)} key={`a-${item.user_id}`}>
                                 View Profile
                             </a>,
@@ -128,9 +100,9 @@ export default function SocialListView() {
                         ]}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <List.Item.Meta
-                                    // avatar={<Avatar src={item.picture.large} size={80} />}
-                                    // title={<div style={{ fontSize: '20px', marginTop: 2 }}>{item.name.last}</div>}
-                                    description={<div style={{ fontSize: '16px' }}>{item.user_id}</div>}
+                                    avatar={<Avatar src={item.profile_image} size={80} />}
+                                    title={<div style={{ fontSize: '20px', marginTop: 2 }}>{item.username}</div>}
+                                    description={<div style={{ fontSize: '16px' }}>{item.email}</div>}
                                 />
 
                                 <div style={{ marginLeft: 400 }}>
@@ -144,7 +116,7 @@ export default function SocialListView() {
                                     <div>구독자 수</div>
                                 </div>
                                 <div style={{ marginLeft: 30 }}>
-                                    {/* <FollowButton userId={item.email} /> */}
+                                    <FollowButton userId={item.user_id} />
                                 </div>
                             </div>
                         </List.Item>

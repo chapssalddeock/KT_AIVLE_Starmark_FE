@@ -19,7 +19,7 @@ export default function UserDrawer({ isOpen, onClose, userProfile }) {
         {userProfile && (
           <div>
             <div className="site-description-item-profile-p">
-              <Avatar src={userProfile.profile_image} size={80} />
+              <Avatar src={'http://kt-aivle.iptime.org:40170' + userProfile.profile_image} size={80} />
               <span style={{ marginLeft: 10 }}>{userProfile.username}</span>
             </div>
             <div>
