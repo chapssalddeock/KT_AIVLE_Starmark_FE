@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Drawer, Avatar } from 'antd';
-;
+import FollowButton from '../Modal/FollowButton';
 
 
 export default function UserDrawer({ isOpen, onClose, userProfile }) {
@@ -27,6 +27,9 @@ export default function UserDrawer({ isOpen, onClose, userProfile }) {
             </div>
             <div>
               <strong>Email:</strong> {userProfile.email}
+              <div>
+                <FollowButton userId={userProfile.user_id} />
+              </div>
             </div>
             {/* 추가적인 유저 정보를 표시하는 코드를 작성하세요 */}
           </div>

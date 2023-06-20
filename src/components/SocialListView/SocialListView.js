@@ -1,26 +1,69 @@
-import { Avatar, List, message, Tag, Button } from 'antd';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+import { Avatar, List } from 'antd';
 import VirtualList from 'rc-virtual-list';
-import { useEffect, useState } from 'react';
-import axios from 'axios'; import FollowButton from '../Modal/FollowButton';
 import UserDrawer from '../Modal/UserDrawer';
 
-const fakeDataUrl = 'https://randomuser.me/api/?results=20&inc=name,gender,email,nat,picture&noinfo';
+//const fakeDataUrl = 'https://randomuser.me/api/?results=20&inc=name,gender,email,nat,picture&noinfo';
 const ContainerHeight = 750;
 
 
 export default function SocialListView() {
 
-    // 유저 리스트 불러오기 관련
-    // const [data, setData] = useState([]);
+    // 유저 전체 리스트 불러오기 관련
+    const [data, setData] = useState([]);
 
-    // const appendData = () => {
-    //     fetch(fakeDataUrl)
-    //         .then((res) => res.json())
-    //         .then((body) => {
-    //             setData(data.concat(body.results));
-    //             message.success(`${body.results.length} more items loaded!`);
-    //         });
-    // };
+    useEffect(() => {
+        appendUserData();
+    }, []);
+
+    const appendUserData = async () => {
+        try {
+            const config = {
+                headers: {
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQ2MDEyLCJpYXQiOjE2ODcyNTAwMTIsImp0aSI6IjYxNmFkNDdiYzYxODQ0ODdiZmUwOGVmOWI0YTdkMjEzIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.b7B0bXuErh5znc32FkAEln2MbX3k8bouqYX0nnjb3TM'
+                },
+                params: {
+                    tag: [sample]
+                }
+            }
+            const response = await axios.get('http://kt-aivle.iptime.org:40170/api/search/', config);
+
+            if (response.status === 200) {
+                const body = response.data;
+                setData(data.concat(body.results));
+            }
+            else { console.error('Error fetching data:', response.status); }
+
+        }
+        catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+
+
+
+    //     if (response.status === 200) {
+    //         const body = response.data;
+    //         setData(data.concat(body.results));
+    //         //setData((prevData) => prevData.concat(body.results));
+    //         message.success(`${body.results.length} more user loaded!`);
+    //     } else {
+    //         console.error('Error fetching data:', response.status);
+    //     }
+
+    // } catch (error) {
+    //     console.error('Error fetching data:', error);
+    // }
+
+    // fetch(fakeDataUrl)
+    //     .then((res) => res.json())
+    //     .then((body) => {
+    //         setData(data.concat(body.results));
+    //         message.success(`${body.results.length} more items loaded!`);
+    //     });
 
 
     // useEffect(() => {
@@ -33,6 +76,8 @@ export default function SocialListView() {
     //         appendData();
     //     }
     // };
+
+
 
 
     // 유저 프로필 보기 관련 (View Profile)
@@ -70,16 +115,7 @@ export default function SocialListView() {
 
 
 
-    // 받는 데이터는 리스트 안의 json 형태임, 그래서 data를 태그에 줘야함 (더미 데이터)
-    const data = [{
-        user_id: '2'
-    },
-    {
-        user_id: '1'
-    },
-
-    ]
-
+    // 받는 데이터는 리스트 안의 json 형태임 data = [{},{},...], 그래서 data를 태그에 줘야함 
     return (
         <>
             <List bordered size='large' style={{ marginLeft: 40, marginRight: 30, width: 1050 }}>
@@ -87,8 +123,8 @@ export default function SocialListView() {
                     data={data}
                     height={ContainerHeight}
                     itemHeight={80}
-                    itemKey="email"
-                // onScroll={onScroll}
+                    itemKey="user_id"
+                //onScroll={onScroll}
                 >
                     {(item) => (
                         <List.Item key={item.email} actions={[
@@ -115,9 +151,9 @@ export default function SocialListView() {
                                 <div style={{ marginLeft: 30 }}>
                                     <div>구독자 수</div>
                                 </div>
-                                <div style={{ marginLeft: 30 }}>
+                                {/* <div style={{ marginLeft: 30 }}>
                                     <FollowButton userId={item.user_id} />
-                                </div>
+                                </div> */}
                             </div>
                         </List.Item>
                     )}
