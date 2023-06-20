@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Drawer } from 'antd';
-
+import { Drawer, Avatar } from 'antd';
+;
 
 
 export default function UserDrawer({ isOpen, onClose, userProfile }) {
@@ -19,11 +19,11 @@ export default function UserDrawer({ isOpen, onClose, userProfile }) {
         {userProfile && (
           <div>
             <div className="site-description-item-profile-p">
-              <Avatar src={userProfile.picture.large} size={80} />
-              <span style={{ marginLeft: 10 }}>{userProfile.name.last}</span>
+              <Avatar src={userProfile.profile_image} size={80} />
+              <span style={{ marginLeft: 10 }}>{userProfile.username}</span>
             </div>
             <div>
-              <strong>UserName:</strong> {userProfile.name}
+              <strong>UserName:</strong> {userProfile.username}
             </div>
             <div>
               <strong>Email:</strong> {userProfile.email}
