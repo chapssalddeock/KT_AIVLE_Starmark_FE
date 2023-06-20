@@ -1,4 +1,4 @@
-import { Outer, ActiveInner, UnderNavInner, Divider } from "../../../styles/PageScroll_Emotion";
+import { Outer, ActiveInner2, ActiveInner3, ActiveInner4, UnderNavInner, Divider } from "../../../styles/PageScroll_Emotion";
 import LoginPage from "../login/Login";
 import { useEffect, useRef } from "react";
 import NavBar from '../NavBar/NavBar';
@@ -100,16 +100,16 @@ export default function PageScroll() {
   return (
     <Outer ref={outerDivRef} className="outer">
       <NavBar />
-      <UnderNavInner className="Inner">1</UnderNavInner>
+      <UnderNavInner className="Inner"></UnderNavInner>
       <Divider className="Divider"></Divider>
-      <ActiveInner className="Inner" bgColor={"#b6d8f2"}>2</ActiveInner>
+      <ActiveInner2 className="Inner" ></ActiveInner2>
       <Divider className="Divider"></Divider>
-      <ActiveInner className="Inner" bgColor={"#f4cfdf"}>3</ActiveInner>
+      <ActiveInner3 className="Inner" ></ActiveInner3>
       <Divider className="Divider"></Divider>
-      <ActiveInner className="Inner" bgColor={"#b6d8f2"}>
+      <ActiveInner4 className="Inner" bgColor={"#b6d8f2"}>
 
         <LoginPageWithScrollToTop scrollToTop={scrollToTop} />
-      </ActiveInner>
+      </ActiveInner4>
     </Outer>
   );
 }
