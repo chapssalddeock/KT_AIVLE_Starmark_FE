@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
-import { Menu } from 'antd';
+import { Menu, Modal } from 'antd';
 import { Search, PlusCircle  } from 'react-bootstrap-icons';
 import { MailOutlined, SettingOutlined, AppstoreOutlined } from '@ant-design/icons';
 import { Network } from 'vis-network/';
 import { DataSet } from 'vis-data/';
 import { Button, Form, Input } from 'antd';
+import { useSpring, animated, config } from 'react-spring';
 
 function getItem(label, key, icon, children, type) {
     return {
@@ -17,8 +18,13 @@ function getItem(label, key, icon, children, type) {
   }
   export default function Mpsidebar() {
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedNode, setSelectedNode] = useState(null);
     const handleProfileImageUpload = () => {
       setIsConfirmOpen(true);
+    };
+    const closeModal = () => {
+      setIsModalOpen(false);
     };
     
     const handleConfirmUpload = () => {
@@ -70,9 +76,10 @@ function getItem(label, key, icon, children, type) {
       setSelectedItem(key);
     };
     const networkRef = useRef();
+    const springProps = useSpring({ opacity: 1, from: { opacity: 0 } });
     useEffect(() => {
         const container = document.getElementById('mynetwork');
-        const container2 = document.getElementById('mynetwork_2');
+        
       
         if (selectedItem === 'sub1') {
           const nodes = new DataSet([
@@ -82,79 +89,35 @@ function getItem(label, key, icon, children, type) {
             { id: 4, label: 'Node 4' },
             { id: 5, label: 'Node 5' },
           ]);
-      
-          const edges = new DataSet([
-            { from: 1, to: 3 },
-            { from: 1, to: 2 },
-            { from: 2, to: 4 },
-            { from: 2, to: 5 },
-            { from: 3, to: 3 },
-          ]);
-      
-          const data = {
-            nodes: nodes,
-            edges: edges,
-          };
-      
-          const options = {};
-      
-          if (container) {
-            if (!networkRef.current) {
-              networkRef.current = new Network(container, data, options);
-            } else {
-              networkRef.current.setData(data);
-            }
-          }
-      
-          if (container2 && networkRef.current) {
-            networkRef.current.destroy();
-          }
-        } else if (selectedItem === 'sub2') {
-          const nodes = new DataSet([
-            { id: 1, label: 'Node 1' },
-            { id: 2, label: 'Node 2' },
-            { id: 3, label: 'Node 3' },
-            { id: 4, label: 'Node 4' },
-            { id: 5, label: 'Node 5' },
-          ]);
-      
-          const edges = new DataSet([
-            { from: 1, to: 3 },
-            { from: 1, to: 2 },
-            { from: 2, to: 4 },
-            { from: 2, to: 5 },
-            { from: 3, to: 3 },
-          ]);
-      
-          const data = {
-            nodes: nodes,
-            edges: edges,
-          };
-      
-          const options = {};
-      
-          if (container2) {
-            if (!networkRef.current) {
-              networkRef.current = new Network(container2, data, options);
-            } else {
-              networkRef.current.setData(data);
-            }
-          }
-      
-          if (container && networkRef.current) {
-            networkRef.current.destroy();
-          }
-        } else {
-          if (container && networkRef.current) {
-            networkRef.current.destroy();
-          }
-      
-          if (container2 && networkRef.current) {
-            networkRef.current.destroy();
-          }
-        }
-      }, [selectedItem]);
     
+          const edges = new DataSet([
+            { from: 1, to: 2 },
+            { from: 1, to: 3 },
+            { from: 2, to: 4 },
+            { from: 2, to: 5 },
+          ]);
+    
+          const data = { nodes, edges };
+          const options = {};
+    
+          const network = new Network(container, data, options);
+          networkRef.current = network;
+          networkRef.current.on('click', (event) => {
+            if (event.nodes.length > 0) {
+              const nodeId = event.nodes[0];
+              const selectedNode = nodes.get(nodeId);
+              setSelectedNode(selectedNode);
+              setIsModalOpen(true);
+            }
+          });
+          
+        } else {
+          networkRef.current = null;
+        }
+        
+    }, [selectedItem]);
+    
+     
     
     return (
       <div style={{ display: 'flex', height: '100vh', width: '100vw' }}>
@@ -191,7 +154,9 @@ function getItem(label, key, icon, children, type) {
             
           {selectedItem === 'sub1' && (
             
-  
+            
+
+            
               <div className='user_container' style = {{marginLeft:'-75px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 <div className='image_container' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
@@ -235,8 +200,9 @@ function getItem(label, key, icon, children, type) {
                     </div>
                   </div>
 
-
-                  <div id="mynetwork" style={{ marginTop:'50px',position: 'relative', width: '1000px', height: '500px'}}></div>
+                  <animated.div style={springProps}>
+                    <div id="mynetwork" style={{ marginTop:'50px',position: 'relative', width: '1000px', height: '500px'}}></div>
+                  </animated.div>  
                 </div>
               </div>
               
@@ -395,6 +361,14 @@ function getItem(label, key, icon, children, type) {
             </div>
           )}
         </div>
+        <Modal
+        visible={isModalOpen}
+        onCancel={closeModal}
+        onOk={closeModal}
+        title={selectedNode ? selectedNode.label : ''}
+      >
+        {selectedNode && <p>Node ID: {selectedNode.id}</p>}
+      </Modal>
       </div>
     );
   }
