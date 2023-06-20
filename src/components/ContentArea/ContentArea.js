@@ -1,5 +1,5 @@
-import { Layout, Menu, theme } from 'antd';
-import React from 'react';
+import { Layout } from 'antd';
+import React, { useState } from 'react';
 const { Content, Sider } = Layout;
 import ThumbnailView from '../ThumbnailView/ThumbnailView'
 import ListView from '../ListView/ListView'
@@ -8,6 +8,13 @@ import MenuBar from '../MenuButton/MenuButton';
 
 
 export default function ContentArea() {
+
+    const [viewMode, setViewMode] = useState('List'); // 초기값으로 'List' 설정
+
+    // Segmented 변경 이벤트 핸들러
+    const handleSegmentedChange = (value) => {
+        setViewMode(value);
+    };
 
 
     return (
@@ -18,11 +25,10 @@ export default function ContentArea() {
                 </Sider>
                 <Layout style={{ padding: '0 24px 24px', }}>
                     <div style={{ margin: '16px 0  ', }}>
-                        <MenuBar />
+                        <MenuBar onSegmentedChange={handleSegmentedChange} />
                     </div>
                     <Content style={{ padding: 24, margin: 0, }}>
-                        <ThumbnailView></ThumbnailView>
-                        {/* <ListView></ListView> */}
+                        {viewMode === 'List' ? <ListView /> : <ThumbnailView />} {/* 조건에 따라 썸네일 뷰 또는 리스트 뷰 렌더링 */}
                     </Content>
                 </Layout>
             </Layout>
