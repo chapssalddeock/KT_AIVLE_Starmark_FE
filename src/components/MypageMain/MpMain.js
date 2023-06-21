@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu, Modal } from 'antd';
-import { Search, PlusCircle  } from 'react-bootstrap-icons';
+import { Search, PlusCircle, SlCamera } from 'react-bootstrap-icons';
+import { BsCamera } from 'react-icons/bs';
 import { Network } from 'vis-network/';
 import { DataSet } from 'vis-data/';
 import { Button, Form, Input, Drawer, Radio, Space } from 'antd';
@@ -189,7 +190,7 @@ export default function MpMain({ selectedItem }) {
             )}
             {selectedItem === 'sub3' && (
               <div>
-                <div className ='PM_container' style={{marginLeft: '10px', marginTop:'-550px', height: '1400px', width: '900px'}}>
+                <div className ='PM_container' style={{marginLeft: '10px', marginTop:'-550px', height: '1400px', width: '800px'}}>
                   
           
                 
@@ -323,8 +324,33 @@ export default function MpMain({ selectedItem }) {
                         />
                       )}
                       <label htmlFor="profileImageUpload" style={{ position: 'absolute', bottom: '8px', right: '8px', cursor: 'pointer' }}>
-                        <PlusCircle size={24} color="black" />
-                        
+                        <span
+                          style={{
+                            backgroundColor: 'white',
+                            borderRadius: '50%',
+                            display: 'inline-flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            width: '48px',
+                            height: '48px',
+                          }}
+                        >
+                          <div
+                            style={{
+                              backgroundColor: 'white',
+                              borderRadius: '50%',
+                              width: '40px',
+                              height: '40px',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                            }}
+                          >
+                            <BsCamera size={24} color="black" />
+                          </div>
+                        </span>
+                          
+
                       </label>
                       <input type="file" id="profileImageUpload" onChange={handleProfileImageUpload} style={{ display: 'none' }} />
                       {isConfirmOpen && (

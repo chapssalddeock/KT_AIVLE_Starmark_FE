@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu, Modal } from 'antd';
 import { Search, PlusCircle  } from 'react-bootstrap-icons';
-import { MailOutlined, SettingOutlined, AppstoreOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined, TeamOutlined } from '@ant-design/icons';
 import { Network } from 'vis-network/';
 import { DataSet } from 'vis-data/';
 import { Button, Form, Input } from 'antd';
@@ -19,9 +19,9 @@ function getItem(label, key, icon, children, type) {
   export default function MpSideBar ( { handleMenuItemClick } ) {
     
     const items = [
-      getItem('User', 'sub1', <MailOutlined />),
-      getItem('Follow', 'sub2', <AppstoreOutlined />),
-      getItem('Modify', 'sub3', <SettingOutlined />),
+      getItem('User', 'sub1', <UserOutlined />),
+      getItem('Follow', 'sub2', <TeamOutlined />),
+      getItem('Modify', 'sub3', <LockOutlined />),
     ];
     const [selectedItem, setSelectedItem] = useState('sub1');
     const handleMenuClick  = (key) => {
