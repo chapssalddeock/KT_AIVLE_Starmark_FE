@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 // add
 // import AuthContext from "../../context/AuthProvider";
 import { useState, useEffect } from "react";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../AuthHooks/useAuth";
 
 const LoginPage = ({ scrollToTop }) => {
   // add

@@ -4,7 +4,7 @@ import { Form, Input } from 'antd';
 
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useState, useEffect, useContext } from "react";
-import AuthContext from "../../context/AuthProvider";
+import AuthContext from "../../AuthContext/AuthProvider";
 import axios from 'axios';
 import { useRouter } from "next/router";
 // import axios from "../../api/axios";
