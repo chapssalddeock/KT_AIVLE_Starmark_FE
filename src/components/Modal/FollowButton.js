@@ -3,37 +3,15 @@ import axios from 'axios';
 import { Button } from 'antd';
 
 
-// 팔로우 여부 정보가 API에서 완성이 아직 안됨, 이걸 받고 END 시키기
-const FollowButton = ({ userId }) => {
-    const [isFollowing, setIsFollowing] = useState(false);
+export default function FollowButton({ user_isFollowing, user_id }) {
+    const [isFollowing, setIsFollowing] = useState([]);
 
     useEffect(() => {
-        // 팔로우 상태를 서버에서 가져오는 API 호출
+        const fetchFollowStatus = async () => {
+            setIsFollowing(user_isFollowing);
+        };
         fetchFollowStatus();
-    }, []);
-
-    const fetchFollowStatus = async () => {
-        try {
-
-
-            const config = {
-                headers: {
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQyMzU4LCJpYXQiOjE2ODcyNDYzNTgsImp0aSI6ImI2YTU0OWJkOWQxYTQzMWFhNDE3NmFmMmFmMjVjYjQ2IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.cTZokEPKCxNTo6S-BXdv2pRakGRlnIBqzWAGHQKI6Nk'
-                },
-                params: {
-                    user_id: userId
-                }
-            }
-            const response = await axios.get('http://kt-aivle.iptime.org:40170/api/follows/', config);
-            const followStatus = response.data.isFollowing;
-            setIsFollowing(followStatus);
-
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-
+    }, [user_id]);
 
 
     const handleFollowToggle = async () => {
@@ -41,20 +19,26 @@ const FollowButton = ({ userId }) => {
             const config = {
                 headers: {
                     Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQyMzU4LCJpYXQiOjE2ODcyNDYzNTgsImp0aSI6ImI2YTU0OWJkOWQxYTQzMWFhNDE3NmFmMmFmMjVjYjQ2IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.cTZokEPKCxNTo6S-BXdv2pRakGRlnIBqzWAGHQKI6Nk',
+                    'Content-Type': 'application/json'
                 },
-                params: {
-                    user_id: userId,
-                },
+                data: JSON.stringify({ user_id: user_id })
+                // body: {
+                //     user_id: user_id
+                // }
             };
+            console.log(config)
 
             if (isFollowing) {
                 // 언팔로우 API 호출
-                await axios.delete('http://kt-aivle.iptime.org:40170/api/follows/', config);
+                const response = await axios.delete('http://kt-aivle.iptime.org:40170/api/follows/', config);
+                console.log(response.data.message);
                 setIsFollowing(false);
             } else {
                 // 팔로우 API 호출
-                await axios.post('http://kt-aivle.iptime.org:40170/api/follows/', config);
+                const response = await axios.post('http://kt-aivle.iptime.org:40170/api/follows/', config);
+                console.log(response.data.message);
                 setIsFollowing(true);
+
             }
         } catch (error) {
             console.error(error);
@@ -64,9 +48,32 @@ const FollowButton = ({ userId }) => {
 
     return (
         <Button onClick={handleFollowToggle}>
-            {isFollowing ? 'UnFollow' : 'Follow'}
+            {isFollowing ? 'Following' : 'Follow'}
         </Button>
     );
 };
 
-export default FollowButton;
+
+
+            // state로 처리하면 되니까 굳이 통신할 필요 없는듯.....이 코드는 원래 fetchFollowStatus안에 들어가는 코드였음.
+            // try {
+            //     const config = {
+            //         headers: {
+            //             Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQyMzU4LCJpYXQiOjE2ODcyNDYzNTgsImp0aSI6ImI2YTU0OWJkOWQxYTQzMWFhNDE3NmFmMmFmMjVjYjQ2IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.cTZokEPKCxNTo6S-BXdv2pRakGRlnIBqzWAGHQKI6Nk',
+            //         },
+
+            //     };
+
+            //     const response = await axios.get('http://kt-aivle.iptime.org:40170/api/follows/', config);
+            //     if (response.status === 200) {
+            //         // const followingList = response.data.following;
+            //         // const isUserFollowing = followingList.some(item => item.id === user_id);
+            //         setIsFollowing(user_isFollowing);
+
+            //     }
+            //     else {
+            //         console.error('Failed to fetch user profile');
+            //     }
+            // } catch (error) {
+            //     console.error(error);
+            // }

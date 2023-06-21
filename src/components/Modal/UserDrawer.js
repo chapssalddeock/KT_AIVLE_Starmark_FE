@@ -3,7 +3,10 @@ import { Drawer, Avatar } from 'antd';
 import FollowButton from '../Modal/FollowButton';
 
 
+
+// id, email, username, profile_image, is_following, following_cnt, follower_cnt, bookmark_cnt 넘어옴
 export default function UserDrawer({ isOpen, onClose, userProfile }) {
+
 
   return (
     <>
@@ -27,7 +30,8 @@ export default function UserDrawer({ isOpen, onClose, userProfile }) {
             <div>
               <strong>Email:</strong> {userProfile.email}
               <div>
-                <FollowButton userId={userProfile.user_id} />
+                <FollowButton user_isFollowing={userProfile.is_following} user_id={userProfile.id} />
+                {/* 여기서 버튼에게 뭔갈 줘야함 */}
               </div>
             </div>
             {/* 추가적인 유저 정보를 표시하는 코드를 작성하세요 */}

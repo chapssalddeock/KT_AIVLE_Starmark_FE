@@ -32,6 +32,7 @@ export default function SocialListView() {
                 }
             }
             const response = await axios.get('http://kt-aivle.iptime.org:40170/api/search/', config);
+            // api/search/에서는 id, email, username, profile_image, following_cnt, follower_cnt, bookmark_cnt 리턴
 
             if (response.status === 200) {
                 const userList = response.data;
@@ -64,6 +65,7 @@ export default function SocialListView() {
             };
 
             const response = await axios.get('http://kt-aivle.iptime.org:40170/api/userinfo/', config);
+            // api/userinfo/에서는 id, email, username, profile_image, is_following, following_cnt, follower_cnt, bookmark_cnt 리턴
 
             if (response.status === 200) {
                 setUserProfile(response.data);
@@ -80,7 +82,7 @@ export default function SocialListView() {
         setIsDrawerOpen(false);
     };
 
-    console.log(users);
+
 
 
     return (
