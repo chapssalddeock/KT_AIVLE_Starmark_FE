@@ -3,12 +3,31 @@ import { Menu, Modal } from 'antd';
 import { Search, PlusCircle  } from 'react-bootstrap-icons';
 import { Network } from 'vis-network/';
 import { DataSet } from 'vis-data/';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Drawer, Radio, Space } from 'antd';
+
 import { useSpring, animated, config } from 'react-spring';
 import MpFollowView from '../MyPageFollow/MpFollow';
 import MpSideBar from '../MyPageSideBar/MpSideBar';
 export default function MpMain({ selectedItem }) {
-    
+  const [open, setOpen] = useState(false);
+  const [placement, setPlacement] = useState('right');
+
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onChange = (e) => {
+    setPlacement(e.target.value);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
+  // 추가: 편집 버튼을 눌렀을 때 Drawer를 활성화
+  const handleEditButtonClick = () => {
+    setOpen(true);
+  };
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedNode, setSelectedNode] = useState(null);
@@ -133,6 +152,24 @@ export default function MpMain({ selectedItem }) {
                           <p>추가 정보 표시</p>
                         </div>
                       </div>
+                      <button
+                        className="edit_button"
+                        style={{
+                          position: 'absolute',
+                          bottom: '0',
+                          right: '0',
+                          width: '30px',
+                          height: '30px',
+                          borderRadius: '50%',
+                          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                          color: 'white',
+                          border: 'none',
+                          cursor: 'pointer',
+                        }}
+                          onClick={handleEditButtonClick} // 추가: 편집 버튼 클릭 이벤트 핸들러
+                      >
+                        편집
+                      </button>
                     </div>
   
                     <animated.div style={springProps}>
@@ -152,61 +189,15 @@ export default function MpMain({ selectedItem }) {
             )}
             {selectedItem === 'sub3' && (
               <div>
-                <div className ='PM_container' style={{marginLeft: '10px', marginTop:'-670px', height: '1400px', width: '900px'}}>
+                <div className ='PM_container' style={{marginLeft: '10px', marginTop:'-550px', height: '1400px', width: '900px'}}>
                   
+          
                 
-                  <div className= 'profile_modify' style={{ }}>
-                    <div className = 'profile_image' style={{ marginLeft: '125px', position: 'relative', height: '200px', width: '200px'}}>
-                      <svg
-                        className="bd-placeholder-img rounded-circle"
-                        width="100%"
-                        height="100%"
-                        xmlns="http://www.w3.org/2000/svg"
-                        role="img"
-                        aria-label="Placeholder"
-                        preserveAspectRatio="xMidYMid slice"
-                        focusable="false"
-                        style={{
-                          borderRadius: '50%',
-                          border: '2px solid var(--bs-primary-color)',
-                          fill: 'black',
-                        }}
-                      >
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="skyblue"></rect>
-                        <image
-                            href="/img/User.jpg"
-                            width="100%"
-                            height="100%"
-                            preserveAspectRatio="xMidYMid slice"
-                        />
-                      </svg>
-                      {profileImage && (
-                        <img
-                          src={profileImage}
-                          alt="프로필 사진"
-                          style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%', border: '2px solid var(--bs-primary-color)'}}
-                        />
-                      )}
-                      <label htmlFor="profileImageUpload" style={{ position: 'absolute', bottom: '8px', right: '8px', cursor: 'pointer' }}>
-                        <PlusCircle size={24} color="black" />
-                        
-                      </label>
-                      <input type="file" id="profileImageUpload" onChange={handleProfileImageUpload} style={{ display: 'none' }} />
-                      {isConfirmOpen && (
-                        <div>
-                          <p>프로필 사진을 변경하시겠습니까?</p>
-                          <button onClick={handleConfirmUpload}>확인</button>
-                          <button onClick={handleCancelUpload}>취소</button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
                   <Form
                     name="changePassword"
                     onFinish={handlePasswordChange}
                     labelCol={{
-                      flex: '110px',
+                      flex: '150px',
                     }}
                     labelAlign="left"
                     labelWrap
@@ -220,19 +211,7 @@ export default function MpMain({ selectedItem }) {
                       height: '50%'
                     }}
                   >
-                    <Form.Item
-                      label="닉네임"
-                      name="nickname"
-                      rules={[
-                        {
-                          required: true,
-                          message: '닉네임을 입력해주세요.',
-                        },
-                      ]}
-                    >
-                      <Input />
-                    </Form.Item>
-  
+              
                     <Form.Item
                       label="현재 비밀번호"
                       name="currentPassword"
@@ -296,6 +275,100 @@ export default function MpMain({ selectedItem }) {
               </div>
             )}
           </div>
+          <Drawer
+            title="Drawer with extra actions"
+            placement={placement}
+            width={500}
+            onClose={onClose}
+            open={open}
+            extra={
+              <Space>
+                <Button onClick={onClose}>Cancel</Button>
+                <Button type="primary" onClick={onClose}>
+                  OK
+                </Button>
+              </Space>
+            }
+          >
+            <div className = 'profile_image' style={{ marginLeft: '125px', position: 'relative', height: '200px', width: '200px'}}>
+                      <svg
+                        className="bd-placeholder-img rounded-circle"
+                        width="100%"
+                        height="100%"
+                        xmlns="http://www.w3.org/2000/svg"
+                        role="img"
+                        aria-label="Placeholder"
+                        preserveAspectRatio="xMidYMid slice"
+                        focusable="false"
+                        style={{
+                          borderRadius: '50%',
+                          border: '2px solid var(--bs-primary-color)',
+                          fill: 'black',
+                        }}
+                      >
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="skyblue"></rect>
+                        <image
+                            href="/img/User.jpg"
+                            width="100%"
+                            height="100%"
+                            preserveAspectRatio="xMidYMid slice"
+                        />
+                      </svg>
+                      {profileImage && (
+                        <img
+                          src={profileImage}
+                          alt="프로필 사진"
+                          style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%', border: '2px solid var(--bs-primary-color)'}}
+                        />
+                      )}
+                      <label htmlFor="profileImageUpload" style={{ position: 'absolute', bottom: '8px', right: '8px', cursor: 'pointer' }}>
+                        <PlusCircle size={24} color="black" />
+                        
+                      </label>
+                      <input type="file" id="profileImageUpload" onChange={handleProfileImageUpload} style={{ display: 'none' }} />
+                      {isConfirmOpen && (
+                        <div>
+                          <p>프로필 사진을 변경하시겠습니까?</p>
+                          <button onClick={handleConfirmUpload}>확인</button>
+                          <button onClick={handleCancelUpload}>취소</button>
+                        </div>
+                      )}
+                    </div>
+            <Form
+                    name="changePassword"
+                    onFinish={handlePasswordChange}
+                    labelCol={{
+                      flex: '110px',
+                    }}
+                    labelAlign="left"
+                    labelWrap
+                    wrapperCol={{
+                      flex: 1,
+                    }}
+                    colon={false}
+                    style={{
+                      maxWidth: 450,
+                      marginTop: '50px',
+                      height: '50%'
+                    }}
+                  >
+                    <Form.Item
+                      label="닉네임"
+                      name="nickname"
+                      rules={[
+                        {
+                          required: true,
+                          message: '닉네임을 입력해주세요.',
+                        },
+                      ]}
+                    >
+                      <Input />
+                    </Form.Item>
+             </Form>
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+          </Drawer>
           <Modal
           visible={isModalOpen}
           onCancel={closeModal}
