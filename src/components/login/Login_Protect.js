@@ -1,58 +1,49 @@
 import { CustomerPage, TitleSpace, LoginTitle, ButtonDesign, InputSpace, TopScroll, ClickToTop }
   from "../../../styles/Login_Emotion"
-import { Form, Input } from 'antd';
+import { Form, Input, message } from 'antd';
 
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { useState, useEffect, useContext } from "react";
-import AuthContext from "../../context/AuthProvider";
-import axios from 'axios';
 import { useRouter } from "next/router";
-// import axios from "../../api/axios";
-// const LOGIN_URL = 'api/token2/';
+const LOGIN_URL = 'api/token2/';
 
+import DataPOST from "../../api/AxiosPOST";
+
+// add
+import { useState, useEffect } from "react";
+import useAuth from "../../hooks/useAuth";
 
 const LoginPage = ({ scrollToTop }) => {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
+  
   const [errMsg, setErrMsg] = useState(''); //에러 메세지 상태 변수 생성, 상태 변환 함수 생성
   const [success, setSuccess] = useState(false); // 성공 메세지 변수 생성, 상태 변환 함수 생성
   const [form] = Form.useForm();
   const router = useRouter();
-
-  // 잘못된 아이디, 비밀번호를 입력받아 놓고 에러 메세지 반환
-  // useEffect(() => {
-  //   setErrMsg('');
-  // }, [form.getFieldValue("email"), form.getFieldValue("password")]);
-
-
-
+  
   const handleSubmit = async (values) => {
-    try {
-      const response = await axios.post('/api/proxy', {
-        email: values.email,
-        password: values.password,
-      }, {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true,
-      });
+    const jsonData = { email: values.email, password: values.password };
+    const accessToken = '';
+    const response = await DataPOST('api/token2/', jsonData, accessToken);
 
-      console.log(response.data);
-      const accessToken = response?.data?.access;
-      setAuth({ ...values, accessToken });
-      console.log({ ...values, accessToken });
+    if (response.error) {
+      // Handle error message
+      // console.log(response.error);
+      // console.log(response?.error?.data?.error[0].message);
+      if (response?.error?.data){
+        setErrMsg(response?.error?.data?.error[0].message);
+      } else {
+        setErrMsg(response?.error);
+      }
+    } else {
+      // Handle response data
+      // console.log(response.data);
+      accessToken = response?.data?.access;
+      const accessExpire = response?.data?.access_expires;
+      const refreshToken = response?.data?.refresh;
+      const refreshExpire = response?.data?.refresh_expires;
+      setAuth({ accessToken, refreshToken, accessExpire, refreshExpire });
       form.resetFields();
       setSuccess(true);
-
-    } catch (err) {
-      console.log(err);
-      if (!err?.response) {
-        setErrMsg('No Server Response');
-      } else if (err.response?.status === 400) {
-        setErrMsg('Missing Username or Password');
-      } else if (err.response?.status === 401) {
-        setErrMsg('Unauthorized');
-      } else {
-        setErrMsg('Login Failed');
-      }
     }
   }
 

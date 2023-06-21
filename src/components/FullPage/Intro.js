@@ -1,5 +1,5 @@
 import { Outer, ActiveInner, UnderNavInner, Divider } from "../../../styles/PageScroll_Emotion";
-import LoginPage from "../login/Login_proxy";
+import LoginPage from "../login/Login_Protect";
 import { useEffect, useRef } from "react";
 import NavBar from '../NavBar/NavBar';
 

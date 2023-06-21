@@ -32,7 +32,7 @@ const LoginPage = ({ scrollToTop }) => {
         JSON.stringify({ email: values.email, password: values.password }),
         {
           headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
+          // withCredentials: true, // 현재 이 코드때문에 cors 오류가 났다
         }
       );
       console.log(JSON.stringify(response));

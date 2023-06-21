@@ -3,27 +3,23 @@ import { CustomerPage, TitleSpace, LoginTitle, ButtonDesign, InputSpace, TopScro
 import { Form, Input } from 'antd';
 
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { useState, useEffect, useContext } from "react";
-import AuthContext from "../../context/AuthProvider";
 import axios from 'axios';
 import { useRouter } from "next/router";
-// import axios from "../../api/axios";
-// const LOGIN_URL = 'api/token2/';
 
+// add
+// import AuthContext from "../../context/AuthProvider";
+import { useState, useEffect } from "react";
+import useAuth from "../../hooks/useAuth";
 
 const LoginPage = ({ scrollToTop }) => {
-  const { setAuth } = useContext(AuthContext);
+  // add
+  // const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
+  
   const [errMsg, setErrMsg] = useState(''); //에러 메세지 상태 변수 생성, 상태 변환 함수 생성
   const [success, setSuccess] = useState(false); // 성공 메세지 변수 생성, 상태 변환 함수 생성
   const [form] = Form.useForm();
   const router = useRouter();
-
-  // 잘못된 아이디, 비밀번호를 입력받아 놓고 에러 메세지 반환
-  // useEffect(() => {
-  //   setErrMsg('');
-  // }, [form.getFieldValue("email"), form.getFieldValue("password")]);
-
-
 
   const handleSubmit = async (values) => {
     try {
