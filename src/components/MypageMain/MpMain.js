@@ -5,14 +5,27 @@ import { BsCamera } from 'react-icons/bs';
 import { Network } from 'vis-network/';
 import { DataSet } from 'vis-data/';
 import { Button, Form, Input, Drawer, Radio, Space } from 'antd';
-
+import { EditOutlined } from '@ant-design/icons';
 import { useSpring, animated, config } from 'react-spring';
 import MpFollowView from '../MyPageFollow/MpFollow';
 import MpSideBar from '../MyPageSideBar/MpSideBar';
 export default function MpMain({ selectedItem }) {
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState('right');
+  const [isEditing, setIsEditing] = useState(false);
+  const [userName, setUserName] = useState('John Doe');
+  const [editedUserName, setEditedUserName] = useState('');
 
+  const handleEditButtonClick = () => {
+    if (isEditing) {
+      setUserName(editedUserName);
+    }
+    setIsEditing(!isEditing);
+  };
+
+  const handleUserNameChange = (e) => {
+    setEditedUserName(e.target.value);
+  };
   const showDrawer = () => {
     setOpen(true);
   };
@@ -26,9 +39,7 @@ export default function MpMain({ selectedItem }) {
   };
 
   // 추가: 편집 버튼을 눌렀을 때 Drawer를 활성화
-  const handleEditButtonClick = () => {
-    setOpen(true);
-  };
+  
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedNode, setSelectedNode] = useState(null);
@@ -148,29 +159,50 @@ export default function MpMain({ selectedItem }) {
                             style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%', border: '2px solid var(--bs-primary-color)'}}
                           />
                         )}
-                        <div className="user_info" style={{ marginTop: '20px', textAlign: 'center' }}>
-                          <h4>유저 이름</h4>
-                          <p>추가 정보 표시</p>
+                        <label htmlFor="profileImageUpload" style={{ position: 'absolute', bottom: '8px', right: '8px', cursor: 'pointer' }}>
+                          <span
+                            style={{
+                              backgroundColor: 'white',
+                              borderRadius: '50%',
+                              display: 'inline-flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              width: '48px',
+                              height: '48px',
+                            }}
+                          >
+                            <div
+                              style={{
+                                backgroundColor: 'white',
+                                borderRadius: '50%',
+                                width: '40px',
+                                height: '40px',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                              }}
+                            >
+                              <BsCamera size={24} color="black" />
+                            </div>
+                          </span>
+                          
+
+                      </label>
+                        <div className="user_info" style={{ marginTop: '20px', display: 'flex', alignItems: 'center' }}>
+                          <div style={{ flex: '1', textAlign: 'center' }}>
+                            {isEditing ? (
+                              <Input value={editedUserName} onChange={handleUserNameChange} style={{ width: '120px' }} />
+                            ) : (
+                              <h4>{userName}</h4>
+                            )}
+                            <p>추가 정보 표시</p>
+                          </div>
+                          <div className="edit_button" style={{ marginLeft: 'auto' }}>
+                            <EditOutlined style={{ fontSize: '16px', color: 'black', cursor: 'pointer' }} onClick={handleEditButtonClick} />
+                          </div>
                         </div>
                       </div>
-                      <button
-                        className="edit_button"
-                        style={{
-                          position: 'absolute',
-                          bottom: '0',
-                          right: '0',
-                          width: '30px',
-                          height: '30px',
-                          borderRadius: '50%',
-                          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                          color: 'white',
-                          border: 'none',
-                          cursor: 'pointer',
-                        }}
-                          onClick={handleEditButtonClick} // 추가: 편집 버튼 클릭 이벤트 핸들러
-                      >
-                        편집
-                      </button>
+                      
                     </div>
   
                     <animated.div style={springProps}>
@@ -291,107 +323,8 @@ export default function MpMain({ selectedItem }) {
               </Space>
             }
           >
-            <div className = 'profile_image' style={{ marginLeft: '125px', position: 'relative', height: '200px', width: '200px'}}>
-                      <svg
-                        className="bd-placeholder-img rounded-circle"
-                        width="100%"
-                        height="100%"
-                        xmlns="http://www.w3.org/2000/svg"
-                        role="img"
-                        aria-label="Placeholder"
-                        preserveAspectRatio="xMidYMid slice"
-                        focusable="false"
-                        style={{
-                          borderRadius: '50%',
-                          border: '2px solid var(--bs-primary-color)',
-                          fill: 'black',
-                        }}
-                      >
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="skyblue"></rect>
-                        <image
-                            href="/img/User.jpg"
-                            width="100%"
-                            height="100%"
-                            preserveAspectRatio="xMidYMid slice"
-                        />
-                      </svg>
-                      {profileImage && (
-                        <img
-                          src={profileImage}
-                          alt="프로필 사진"
-                          style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%', border: '2px solid var(--bs-primary-color)'}}
-                        />
-                      )}
-                      <label htmlFor="profileImageUpload" style={{ position: 'absolute', bottom: '8px', right: '8px', cursor: 'pointer' }}>
-                        <span
-                          style={{
-                            backgroundColor: 'white',
-                            borderRadius: '50%',
-                            display: 'inline-flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            width: '48px',
-                            height: '48px',
-                          }}
-                        >
-                          <div
-                            style={{
-                              backgroundColor: 'white',
-                              borderRadius: '50%',
-                              width: '40px',
-                              height: '40px',
-                              display: 'flex',
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                            }}
-                          >
-                            <BsCamera size={24} color="black" />
-                          </div>
-                        </span>
-                          
-
-                      </label>
-                      <input type="file" id="profileImageUpload" onChange={handleProfileImageUpload} style={{ display: 'none' }} />
-                      {isConfirmOpen && (
-                        <div>
-                          <p>프로필 사진을 변경하시겠습니까?</p>
-                          <button onClick={handleConfirmUpload}>확인</button>
-                          <button onClick={handleCancelUpload}>취소</button>
-                        </div>
-                      )}
-                    </div>
-            <Form
-                    name="changePassword"
-                    onFinish={handlePasswordChange}
-                    labelCol={{
-                      flex: '110px',
-                    }}
-                    labelAlign="left"
-                    labelWrap
-                    wrapperCol={{
-                      flex: 1,
-                    }}
-                    colon={false}
-                    style={{
-                      maxWidth: 450,
-                      marginTop: '50px',
-                      height: '50%'
-                    }}
-                  >
-                    <Form.Item
-                      label="닉네임"
-                      name="nickname"
-                      rules={[
-                        {
-                          required: true,
-                          message: '닉네임을 입력해주세요.',
-                        },
-                      ]}
-                    >
-                      <Input />
-                    </Form.Item>
-             </Form>
+            
+            
             <p>Some contents...</p>
             <p>Some contents...</p>
           </Drawer>
