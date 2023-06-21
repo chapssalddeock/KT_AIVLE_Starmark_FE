@@ -2,7 +2,7 @@ import { Layout } from 'antd';
 import React from 'react';
 const { Content, Sider } = Layout;
 import SocialListView from '../SocialListView/SocialListView';
-
+import SocialSideBar from '../SocialSideBar/ScSideBar';
 export default function SocialContentArea() {
 
 
@@ -11,6 +11,7 @@ export default function SocialContentArea() {
             <Layout>
                 <Sider width={300} style={{ color: "white", }}>
                     {/* 여기에 새로운 기능의 사이드바 */}
+                    <SocialSideBar></SocialSideBar>
                 </Sider>
                 <Layout style={{ padding: '0 24px 24px', }}>
                     <div style={{ margin: '16px 0  ', }}>
