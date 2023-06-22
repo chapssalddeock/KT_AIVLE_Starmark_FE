@@ -119,99 +119,195 @@ export default function MpMain({ selectedItem }) {
 
     return(
         <>
-            <div className="main-content" style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}} >
+            <div className="main-content" style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '50%', height: '100vh'}} >
             
             {selectedItem === 'sub1' && (
-              
-                <div className='user_container' style = {{marginLeft:'-300px', marginTop: '-700px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                  <div className='image_container' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-  
-                    <div className = 'user_image' style={{ position: 'relative', height: '250px', width: '250px'}}>
-                      <div style={{ position: 'relative', width: '200px', height: '200px'}}>
-                        <svg
-                          className="bd-placeholder-img rounded-circle"
-                          width="100%"
-                          height="100%"
-                          xmlns="http://www.w3.org/2000/svg"
-                          role="img"
-                          aria-label="Placeholder"
-                          preserveAspectRatio="xMidYMid slice"
-                          focusable="false"
-                          style={{
-                            borderRadius: '50%',
-                            border: '2px solid var(--bs-primary-color)',
-                          }}
-                        >
-                          
-                          <title>Placeholder</title>
-                          <rect width="100%" height="100%" fill="skyblue"></rect>
-                          <image
-                            href="/img/User.jpg"
-                            width="99%"
-                            height="95%"
+                <div className='main' style={{display: 'flex', marginTop: '-1590px', width: '100%', height: '90vh' , justifyContent: 'center', alignItems: 'center'}}>
+                  <div className='user_container' style = {{ flex:'1'}}>
+                    <div className='image_container' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+    
+                      <div className = 'user_image' style={{ position: 'relative', height: '250px', width: '250px'}}>
+                        <div style={{ position: 'relative', width: '200px', height: '200px'}}>
+                          <svg  
+                            className="bd-placeholder-img rounded-circle"
+                            width="100%"
+                            height="100%"
+                            xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-label="Placeholder"
                             preserveAspectRatio="xMidYMid slice"
-                          />
-                        </svg>
-                        {profileImage && (
-                          <img
-                            src={profileImage}
-                            alt="프로필 사진"
-                            style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%', border: '2px solid var(--bs-primary-color)'}}
-                          />
-                        )}
-                        <label htmlFor="profileImageUpload" style={{ position: 'absolute', bottom: '8px', right: '8px', cursor: 'pointer' }}>
-                          <span
+                            focusable="false"
                             style={{
-                              backgroundColor: 'white',
                               borderRadius: '50%',
-                              display: 'inline-flex',
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                              width: '48px',
-                              height: '48px',
+                              border: '2px solid var(--bs-primary-color)',
                             }}
                           >
-                            <div
+                            
+                            <title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="skyblue"></rect>
+                            <image
+                              href="/img/User.jpg"
+                              width="99%"
+                              height="95%"
+                              preserveAspectRatio="xMidYMid slice"
+                            />
+                          </svg>
+                          {profileImage && (
+                            <img
+                              src={profileImage}
+                              alt="프로필 사진"
+                              style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%', border: '2px solid var(--bs-primary-color)'}}
+                            />
+                          )}
+                          <label htmlFor="profileImageUpload" style={{ position: 'absolute', bottom: '8px', right: '8px', cursor: 'pointer' }}>
+                            <span
                               style={{
                                 backgroundColor: 'white',
                                 borderRadius: '50%',
-                                width: '40px',
-                                height: '40px',
-                                display: 'flex',
+                                display: 'inline-flex',
                                 justifyContent: 'center',
                                 alignItems: 'center',
+                                width: '48px',
+                                height: '48px',
                               }}
                             >
-                              <BsCamera size={24} color="black" />
-                            </div>
-                          </span>
-                          
+                              <div
+                                style={{
+                                  backgroundColor: 'white',
+                                  borderRadius: '50%',
+                                  width: '40px',
+                                  height: '40px',
+                                  display: 'flex',
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                }}
+                              >
+                                <BsCamera size={24} color="black" />
+                              </div>
+                            </span>
+                            
 
-                      </label>
-                        <div className="user_info" style={{ marginTop: '20px', display: 'flex', alignItems: 'center' }}>
-                          <div style={{ flex: '1', textAlign: 'center' }}>
-                            {isEditing ? (
-                              <Input value={editedUserName} onChange={handleUserNameChange} style={{ width: '120px' }} />
-                            ) : (
-                              <h4>{userName}</h4>
-                            )}
-                            <p>추가 정보 표시</p>
-                          </div>
-                          <div className="edit_button" style={{ marginLeft: 'auto' }}>
-                            <EditOutlined style={{ fontSize: '16px', color: 'black', cursor: 'pointer' }} onClick={handleEditButtonClick} />
-                          </div>
+                          </label>
+                            <div className="user_info" style={{ marginTop: '20px', display: 'flex', alignItems: 'center' }}>
+                              <div style={{ flex: '1', textAlign: 'center' }}>
+                                {isEditing ? (
+                                  <Input value={editedUserName} onChange={handleUserNameChange} style={{ width: '120px' }} />
+                                ) : (
+                                  <h4>{userName}</h4>
+                                )}
+                                
+                              </div>
+                              <div className="edit_button" style={{ marginLeft: 'auto' }}>
+                                <EditOutlined style={{ fontSize: '16px', color: 'black', cursor: 'pointer' }} onClick={handleEditButtonClick} />
+                              </div>
+                            </div>
                         </div>
+                        
+                        
                       </div>
+                    </div>
+                    
+                  </div>
+                  <div className='userinfo' style={{flex: '1.5'}}>
+                  <div>
+                    <div className ='email' style={{width: '800px'}}>
                       
+              
+                    
+                      <Form
+                        name="changePassword"
+                        onFinish={handlePasswordChange}
+                        labelCol={{
+                          flex: '150px',
+                        }}
+                        labelAlign="left"
+                        labelWrap
+                        wrapperCol={{
+                          flex: 1,
+                        }}
+                        colon={false}
+                        style={{
+                          maxWidth: 450,
+                          marginTop: '50px',
+                          height: '50%'
+                        }}
+                      >
+                  
+                        <Form.Item
+                          label="email"
+                          name="currentPassword"
+                          rules={[
+                            {
+                                required: true,
+                                message: '현재 비밀번호를 입력해주세요.',
+                            },
+                          ]}
+                        >
+                          <Input.Password />
+                        </Form.Item>
+      
+                        <Form.Item
+                          label="북마크 수"
+                          name="newPassword"
+                          rules={[
+                            {
+                              required: true,
+                              message: '새로운 비밀번호를 입력해주세요.',
+                            },
+                          ]}
+                        >
+                          <Input.Password />
+                        </Form.Item>
+      
+                        <Form.Item
+                          label="팔로워 수"
+                          name="confirmPassword"
+                          dependencies={['newPassword']}
+                          rules={[
+                            {
+                              required: true,
+                              message: '비밀번호 확인을 입력해주세요.',
+                            },
+                            ({ getFieldValue }) => ({
+                              validator(_, value) {
+                                if (!value || getFieldValue('newPassword') === value) {
+                                  return Promise.resolve();
+                                }
+                                return Promise.reject(new Error('비밀번호가 일치하지 않습니다.'));
+                              },
+                            }),
+                          ]}
+                        >
+                          <Input.Password />
+                        </Form.Item>
+      
+                        <Form.Item label=" ">
+                          <div style={{ marginTop: '30px', display: 'flex', marginLeft: '-110px', justifyContent: 'center', alignItems: 'center' }}>
+                            <Button type="primary" htmlType="submit" style={{ marginRight: '30px' }}>
+                              modify
+                            </Button>
+                            <Button type="primary" htmlType="submit">
+                              cancel
+                            </Button>
+                          </div>
+                        </Form.Item>
+                      </Form>
                     </div>
                   </div>
+
+                  </div>
                 </div>
+
+                
+                
+                
+                
                 
                 
              
             )}
             {selectedItem === 'sub2' && (
-              <div style={{marginLeft: '-500px', marginTop:'-647px'}}>
+              <div style={{marginLeft: '-430px', marginTop:'-1513px'}}>
                 <MpFollowView></MpFollowView>
                 {/* <p>표시 되나여?</p> */}
               </div>
@@ -305,7 +401,7 @@ export default function MpMain({ selectedItem }) {
             )}
             {selectedItem === 'sub4' && (
               
-              <div className='user_container' style = {{marginLeft:'-300px', marginTop: '-700px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+              <div className='user_container' style = {{marginLeft: '-430px', marginTop:'-1513px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 <div className='image_container' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                   <animated.div style={springProps}>
                     <div id="mynetwork" style={{ border: '1px solid transparent', marginTop:'30px',position: 'relative', width: '1000px', height: '300px'}}></div>
