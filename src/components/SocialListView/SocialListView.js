@@ -96,7 +96,6 @@ export default function SocialListView() {
                 >
                     {(item) => (
                         <List.Item key={item.email} actions={[
-                            // <a onClick={handleOpenDrawer} key={`a-${item.user_id}`}> 원본
                             < a onClick={() => handleOpenDrawer(item.id)}  >
                                 View Profile
                             </a>,
