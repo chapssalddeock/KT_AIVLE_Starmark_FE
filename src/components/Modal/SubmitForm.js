@@ -1,37 +1,59 @@
 import React, { useState } from 'react';
-import { Segmented, Button, Drawer, Form, Input, Row, Space, message, Upload } from 'antd';
+import { Segmented, Button, Drawer, Form, Input, Row, Space, message, Upload, Select } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import axios from 'axios';
 
+const handleChange = (value) => {
+    console.log(`선택된 값: ${value}`);
+};
+
+const options = [
+    { value: true, label: '공개' },
+    { value: false, label: '비공개' },
+];
 
 export default function SubmitForm({ isOpen, onClose }) {
-
-    // URL , HTML 택 1 해서 폼 바꾸는 state
     const [selectedOption, setSelectedOption] = useState('URL');
-    // formData 보내는 state
     const [fileList, setFileList] = useState([]);
 
     const handleOptionChange = (value) => {
         setSelectedOption(value);
     };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const formData = new FormData();
-        formData.append('file', fileList)  //서버전달용
+    const handleSubmit = async (values) => {
+        let formData = null;
+        const config = {
+            headers: {
+                Authorization:
+                    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQyMzU4LCJpYXQiOjE2ODcyNDYzNTgsImp0aSI6ImI2YTU0OWJkOWQxYTQzMWFhNDE3NmFmMmFmMjVjYjQ2IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.cTZokEPKCxNTo6S-BXdv2pRakGRlnIBqzWAGHQKI6Nk',
+                'Content-Type': 'application/json',
+            },
+        }
+
+        if (selectedOption === 'URL') {
+            formData = {
+                type: 'string',
+                title: values.title,
+                url: values.url,
+                is_public: values.is_public
+            };
+        } else if (selectedOption === 'HTML') {
+            formData = new FormData();
+            formData.append('file', fileList[0]);
+        }
 
         try {
-            const response = await axios.post('여기 우리 서버 API', formData, {
-                headers: { "Content-Type": "multipart/form-data", }, // 헤더 추가
-            });
-            if (response.status === 200) {
-                console.log('이미지 전송 성공', response.data);
+            const response = await axios.post('http://kt-aivle.iptime.org:40170/api/bookmark/', formData, config);
+
+            if (String(response.status)[0] === '2') {
+                console.log('전송 성공', response.data);
             } else {
-                console.log('이미지 전송 실패');
+                console.log('전송 실패', response.status);
             }
-        } catch (event) {
-            console.error('이미지 전송 실패', event)
-        };
-    }
+        } catch (error) {
+            console.error('전송 실패', error);
+        }
+    };
 
     const handleFileChange = (event) => {
         const files = event.target.files;
@@ -39,7 +61,6 @@ export default function SubmitForm({ isOpen, onClose }) {
         setFileList(newFileList);
         console.log(newFileList);
     };
-
 
     const props = {
         name: 'file',
@@ -52,9 +73,9 @@ export default function SubmitForm({ isOpen, onClose }) {
                 console.log(info.file, info.fileList);
             }
             if (info.file.status === 'done') {
-                message.success(`${info.file.name} file uploaded successfully`);
+                message.success(`${info.file.name} 파일이 성공적으로 업로드되었습니다.`);
             } else if (info.file.status === 'error') {
-                message.error(`${info.file.name} file upload failed.`);
+                message.error(`${info.file.name} 파일 업로드에 실패했습니다.`);
             }
         },
         progress: {
@@ -66,9 +87,6 @@ export default function SubmitForm({ isOpen, onClose }) {
             format: (percent) => percent && `${parseFloat(percent.toFixed(2))}%`,
         },
     };
-
-
-
 
     return (
         <>
@@ -82,96 +100,64 @@ export default function SubmitForm({ isOpen, onClose }) {
                 }}
                 extra={
                     <Space>
-                        <Button onClick={onClose}>Cancel</Button>
+                        <Button onClick={onClose}>취소</Button>
                         <Button form="submitForm" key="submit" htmlType="submit" type="primary">
-                            Submit
+                            제출
                         </Button>
                     </Space>
                 }
             >
-                <Segmented
-                    options={[{ label: 'URL', value: 'URL', }, { label: 'HTML', value: 'HTML', },]} onChange={handleOptionChange}
-                    style={{ marginBottom: 30 }} />
-
+                <div style={{ marginBottom: 30 }}>
+                    <Segmented
+                        options={[{ label: 'URL', value: 'URL' }, { label: 'HTML', value: 'HTML' }]}
+                        onChange={handleOptionChange}
+                    />
+                </div>
 
                 <Form layout="vertical" onFinish={handleSubmit} id="submitForm">
-
-
                     {selectedOption === 'URL' && (
                         <>
                             <Row gutter={16}>
-                                <Form.Item
-                                    name="name"
-                                    label="Name"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please enter Bookmark Name',
-                                        },
-                                    ]}
-                                >
-                                    <Input
-                                        style={{
-                                            width: '100%',
-                                        }}
-                                        placeholder="Please enter Bookmark Name"
-                                    />
-                                </Form.Item>
+                                <Input
+                                    name="title"
+                                    placeholder="북마크 이름을 입력하세요."
+                                    style={{ width: '100%' }}
+                                    required
+                                />
                             </Row>
                             <Row gutter={16}>
-                                <Form.Item
+                                <Input
                                     name="url"
-                                    label="Url"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please enter url',
-                                        },
-                                    ]}
-                                >
-                                    <Input
-                                        style={{
-                                            width: '100%',
-                                        }}
-                                        placeholder="Please enter url"
-                                    />
-                                </Form.Item>
+                                    placeholder="URL을 입력하세요."
+                                    style={{ width: '100%' }}
+                                    required
+                                />
                             </Row>
-
+                            <Row gutter={16}>
+                                <Select
+                                    name="is_public"
+                                    defaultValue="선택"
+                                    style={{ width: '100%' }}
+                                    onChange={handleChange}
+                                    options={options}
+                                    required
+                                />
+                            </Row>
                         </>
                     )}
 
-                    {selectedOption === 'HTML' && (<Upload {...props}>
-                        <Button icon={<UploadOutlined />} onChange={handleFileChange}>Click to Upload</Button>
-                    </Upload>)}
+                    {selectedOption === 'HTML' && (
+                        <>
+                            <Upload {...props}>
+                                <Button icon={<UploadOutlined />} onChange={handleFileChange}>
+                                    파일 업로드
+                                </Button>
+                            </Upload>
+                        </>
+                    )}
 
                 </Form>
             </Drawer>
         </>
     );
-};
-
-
-{/* <label htmlFor="file-upload">
-                        <div style={{ width: '400px', height: '200px', backgroundColor: 'gray', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                            <UploadOutlined style={{ fontSize: '56px' }} />
-                            <p style={{ marginTop: '10px' }}>Click to HTML Upload</p>
-                            <input id="file-upload" type="file" accept="image/*" onChange={handleFileChange} style={{ display: 'none' }} />
-                        </div>
-                    </label> */}
-
-{/* <Form.Item
-                        name="html"
-                        label="Html"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please enter Html',
-                            },
-                        ]}
-                    >
-                        <Input.TextArea
-                            rows={4}
-                            placeholder="Please enter HTML"
-                        />
-                    </Form.Item> */}
+}
