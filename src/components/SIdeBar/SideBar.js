@@ -132,10 +132,10 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
                     <footer className="sidebar-footer">
                         <div>Information</div>
                         <div>ABOUT US</div>
-                        <div>이용약관</div>
+                        
                         <div>개인정보 취급방침</div>
-                        <div>이메일 무단수집거부</div>
-                        <div>CONTACT US</div>
+                        
+                        <div>@ KT aivle  3rd, big-pjt, team 42</div>
                     </footer>
                 </div>
 
