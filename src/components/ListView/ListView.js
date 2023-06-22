@@ -101,9 +101,10 @@ export default function ListView() {
         });
 
         // `dataSource` is useless since `pageSize` changed
-        if (pagination.pageSize !== tableParams.pagination?.pageSize) {
-            setData([]);
-        }
+        // if (pagination.pageSize !== tableParams.pagination?.pageSize) {
+        //     console.log(pagination.pageSize);
+        //     setData([]);
+        // }
     };
 
 
