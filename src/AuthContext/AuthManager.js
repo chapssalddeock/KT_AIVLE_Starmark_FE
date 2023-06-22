@@ -34,12 +34,10 @@ export const AuthManager = () => {
             setAuth(response.data);
             localStorage.setItem("TokenData", JSON.stringify(response.data));
 
-
+            // 서비스 페이지로 이동
             router.push("/service");
-
         } catch (error) {
             console.log(error);
-            console.log();
 
             const temp = error.response.data.error[0].message
 
@@ -49,6 +47,22 @@ export const AuthManager = () => {
             throw { error, message: temp }; 
         }
 
+    };
+
+    const EmailCheck = async (values) => {
+      let response;
+        try {
+            response = await axios.post('http://kt-aivle.iptime.org:40170/api/email_check/', {
+                email: values,
+            }, {
+                headers: { 'Content-Type': 'application/json' },
+                //withCredentials: true, 이것이 없어야 cors 오류 발생 안함
+            })
+        } catch (error) {
+            const temp = error.response.data.error[0].message;
+            throw { error, message: temp };
+            // 에러 메세지 조건 추가 
+        }
     };
 
     const Register = () => {
@@ -82,6 +96,7 @@ export const AuthManager = () => {
 
     return {
         LogIn,
+        EmailCheck,
         Register,
         LogOut,
         AlertComponent,

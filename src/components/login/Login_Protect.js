@@ -5,7 +5,6 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import DataPOST from "../../Axios/AxiosPOST";
 import useAuth from "../../AuthHooks/useAuth";
 
 import AuthManager from "../../AuthContext/AuthManager";
@@ -35,13 +34,6 @@ const LoginPage = ({ scrollToTop }) => {
       // 에러 메세지 추가 작업
     }
   }
-
-  useEffect(() => {
-    if (success) {
-      router.push("/service");
-    }
-  }, [success]);
-
 
   return (
         <CustomerPage>
