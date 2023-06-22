@@ -25,7 +25,7 @@ export default function Layout(props) {
         <>
             {!isOpenMain && <NavBar2 />}
             <div>{props.children}</div>
-            {!isOpenMain && !isOpenJoin &&  <ContentArea />}
+            {!isOpenMain && !isOpenJoin && <ContentArea />}
         </>
     )
 }

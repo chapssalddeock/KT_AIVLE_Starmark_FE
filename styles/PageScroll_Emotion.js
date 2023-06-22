@@ -12,13 +12,30 @@ const BasicInner = styled.div`
 `
 
 export const UnderNavInner = styled(BasicInner)`
-  height: calc(100vh - 85.6px); // 76
-  background-color : #f7f6cf;
+  
+  background-image: url(/img/Intro_BG1.jpg);
+  background-size: 1400px;
+  height: calc(100vh - 76px); // 76
 `
 
-export const ActiveInner = styled(BasicInner)`
+export const ActiveInner2 = styled(BasicInner)`
   height: 100vh;
-  background-color : ${(props) => props.bgColor};
+  background-image: url(/img/Intro_BG2.jpg);
+  background-size: 100% ;
+  
+`
+
+export const ActiveInner3 = styled(BasicInner)`
+  height: 100vh;
+  background-image: url(/img/Intro_BG3.png);
+  background-size: 100% ;
+`
+
+export const ActiveInner4 = styled(BasicInner)`
+  height: 100vh;
+  background-image: url(/img/Login_BG.png);
+  background-size: 1550px ;
+  
 `
 
 export const Divider = styled.div`

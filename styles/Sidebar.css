@@ -1,17 +1,20 @@
 .sidebar {
+    display: flex;
+    flex-direction: column;
     width: 300px;
     height: 100vh;
     background-color: #ffffff;
     float: left;
+    overflow: hidden;
   }
   .main-content {
-    margin-left: 380px;/* 사이드바의 너비만큼 왼쪽 여백을 주어 메인 콘텐츠를 이동시킴 */
-    margin-top: 0; 
+    margin-left: 400px;/* 사이드바의 너비만큼 왼쪽 여백을 주어 메인 콘텐츠를 이동시킴 */
+    margin-top: 700px; 
     display: 'flex'
   }
 
   .search-container {
-    display: flex; 
+    display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 15px; /* 모서리 둥글게 */
@@ -21,6 +24,7 @@
     background-color: #f2f2f2; 
     color: rgba(0, 0, 0, 0.7); /* 반투명 */
     margin-bottom: 15px;
+    margin-left: 15px;
     
   }
 
@@ -59,12 +63,20 @@
   .search-history-container {
     position: relative;
     z-index: 1;
+    max-height: 210px; /* 원하는 높이로 설정 */
+    overflow-y: visible; /* 내용이 넘칠 때 스크롤바 표시 */
+    flex: 1;
   }
   .search-history{
     display: inline-block;
     max-width: 350px;
     align-items: center;
-
+    margin-left: 15px;
+  }
+  .search-record-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* search-record가 너비를 벗어나면 줄 바꿈이 되도록 함 */
   }
   .search-record{
     border: 1px solid #ccc;
@@ -72,6 +84,7 @@
     border-radius: 10px;
     margin: 0 8px;
   }
+  
   #suggestion-box {
     position: absolute;
     top: -10px;
@@ -82,7 +95,7 @@
     padding: 0 5px;
     height:300px;
     width: 250px;
-    
+    margin-left: 20px;
     border: 1px solid black;
     overflow: auto;
   }
@@ -100,16 +113,19 @@
     background-color: #4285f4; /* 마우스 호버 시 배경색을 파란색으로 변경 */
   }
   .sidebar-main {
-  
+    flex-shrink: 0;
     width: 300px;
-    height: 83%;
+    height: 50%;
     background-color: #ffffff;
     float: left;
     display: flex;
     flex-direction: column;
   }
   .sidebar-footer {
+    position: fixed;
     margin-top: auto;
+    z-index: 9000;
+    bottom: 0;
     width: 300px;
     height: 200px;
     background-color: #f2f2f2;
@@ -193,7 +209,7 @@
     display: flex;
     flex-direction: column;
     width: 300px;
-    height: 20%;
+    height: 28%;
     background-color: #ffffff;
     float: left;
     display: flex;
@@ -202,8 +218,10 @@
 
 
   .mpsidebar-footer {
-    
+    position: fixed;
     margin-top: auto;
+    z-index: 9000;
+    bottom: 0;
     width: 300px;
     height: 200px;
     background-color: #f2f2f2;
@@ -267,6 +285,11 @@
     color: black; /* 두 번째 줄을 아래쪽에 위치시키기 위해 margin-top을 auto로 설정 */
   }
   #mynetwork {
+    width: 600px;
+    height: 400px;
+    border: 1px solid lightgray;
+  }
+  #mynetwork_2 {
     width: 600px;
     height: 400px;
     border: 1px solid lightgray;

@@ -23,6 +23,9 @@ export default function NavBar() {
         router.push("/social")
     }
 
+    const moveService = () => {
+        router.push("/service")
+    }
 
     return (
         <div>
@@ -30,7 +33,8 @@ export default function NavBar() {
                 <Nav.Link onClick={moveHome} style={{ marginLeft: 20 }}><img src='img/defalut_logo.png' height={60}></img></Nav.Link>
 
                 <Navbar.Collapse className="justify-content-end" style={{ marginRight: 50 }}>
-                    {!isOpenJoin && <Nav.Link style={{ marginRight: 30 }} onClick={moveSocial}>SOCIAL</Nav.Link>}
+                    {!isOpenJoin && <Nav.Link style={{ marginRight: 15 }} onClick={moveSocial}>SOCIAL</Nav.Link>}
+                    {!isOpenJoin && <Nav.Link style={{ marginRight: 30 }} onClick={moveService}>SERVICE</Nav.Link>}
                     {!isOpenJoin && <Notification />}
                 </Navbar.Collapse>
             </Navbar >
