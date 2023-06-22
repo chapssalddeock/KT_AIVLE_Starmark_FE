@@ -11,7 +11,7 @@ export default function UserDrawer({ isOpen, onClose, userProfile }) {
   return (
     <>
       <Drawer
-        width={720}
+        width={500}
         onClose={onClose}
         open={isOpen}
         bodyStyle={{
