@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu, Modal } from 'antd';
 import { Search, PlusCircle  } from 'react-bootstrap-icons';
-import { MailOutlined, SettingOutlined, AppstoreOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined, TeamOutlined, PieChartOutlined } from '@ant-design/icons';
 import { Network } from 'vis-network/';
 import { DataSet } from 'vis-data/';
 import { Button, Form, Input } from 'antd';
@@ -19,9 +19,10 @@ function getItem(label, key, icon, children, type) {
   export default function MpSideBar ( { handleMenuItemClick } ) {
     
     const items = [
-      getItem('User', 'sub1', <MailOutlined />),
-      getItem('Follow', 'sub2', <AppstoreOutlined />),
-      getItem('Modify', 'sub3', <SettingOutlined />),
+      getItem('User', 'sub1', <UserOutlined />),
+      getItem('Follow', 'sub2', <TeamOutlined />),
+      getItem('Modify', 'sub3', <LockOutlined />),
+      getItem('DashBoard', 'sub4', <PieChartOutlined />),
     ];
     const [selectedItem, setSelectedItem] = useState('sub1');
     const handleMenuClick  = (key) => {
@@ -33,12 +34,13 @@ function getItem(label, key, icon, children, type) {
       <div style={{ display: 'flex', height: '100vh', width: '100vw' }}>
         <div className="mpsidebar">
           <div className="mpsidebar-menu" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          
             <Menu
               mode="inline"
               defaultSelectedKeys={['sub1']}
               selectedKeys={[selectedItem]}
               onClick={({ key }) => handleMenuClick(key)}
-              style={{ width: 300 }}
+              style={{ width: 300,  borderTop: '1px solid #f2f2f2' }}
             >
               {items.map((item) => (
                 <Menu.Item key={item.key} icon={item.icon} style={{ fontSize: '18px', height: 100 }}>
@@ -52,10 +54,10 @@ function getItem(label, key, icon, children, type) {
             <footer className="mpsidebar-footer">
               <div>Information</div>
               <div>ABOUT US</div>
-              <div>이용약관</div>
+              
               <div>개인정보 취급방침</div>
-              <div>이메일 무단수집거부</div>
-              <div>CONTACT US</div>
+              
+              <div>@ KT aivle  3rd, big-pjt, team 42</div>
             </footer>
           </div>
         </div>
