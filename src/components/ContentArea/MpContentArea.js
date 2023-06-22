@@ -8,6 +8,8 @@ import { useSpring, animated, config } from 'react-spring';
 import SocialListView from '../SocialListView/SocialListView';
 import MpSideBar  from '../MyPageSideBar/MpSideBar';
 import MpMain from '../MypageMain/MpMain';
+import NavBar from '../navbar/NavBar2';
+import MenuBar from '../MenuButton/MenuButton';
 import { Layout } from 'antd';
 const { Content, Sider } = Layout;
 export default function MpContentArea() {
@@ -18,14 +20,16 @@ export default function MpContentArea() {
 
 
     return (
-        <Layout style={{ margin: 0, height: "calc(100vh - 76px)", }}>
+        <Layout style={{ marginTop: 0, height: "calc(100vh - 0px)", }}>
+            <NavBar></NavBar>
             <Layout>
                 <Sider width={300} style={{ color: "white", }}>
                     <MpSideBar handleMenuItemClick={handleMenuClick} />
                 </Sider>
-                <Layout style={{ padding: '0 24px 24px', }}>
+                <Layout style={{ padding: '0 25px 25px', }}>
                     <div style={{ margin: '16px 0  ', }}>
                         {/* 메뉴바 필요없으니 날림 */}
+                        
                     </div>
                     <Content style={{ padding: 24, margin: 0, }}>
                         

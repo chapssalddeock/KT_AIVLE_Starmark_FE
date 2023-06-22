@@ -81,7 +81,7 @@ export default function MpMain({ selectedItem }) {
         const container = document.getElementById('mynetwork');
             
         
-        if (selectedItem === 'sub1') {
+        if (selectedItem === 'sub4') {
             const nodes = new DataSet([
                 { id: 1, label: 'Node 1' },
                 { id: 2, label: 'Node 2' },
@@ -204,10 +204,6 @@ export default function MpMain({ selectedItem }) {
                       </div>
                       
                     </div>
-  
-                    <animated.div style={springProps}>
-                      <div id="mynetwork" style={{ border: '1px solid transparent', marginTop:'30px',position: 'relative', width: '1000px', height: '300px'}}></div>
-                    </animated.div>  
                   </div>
                 </div>
                 
@@ -307,6 +303,19 @@ export default function MpMain({ selectedItem }) {
                 </div>
               </div>
             )}
+            {selectedItem === 'sub4' && (
+              
+              <div className='user_container' style = {{marginLeft:'-300px', marginTop: '-700px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                <div className='image_container' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                  <animated.div style={springProps}>
+                    <div id="mynetwork" style={{ border: '1px solid transparent', marginTop:'30px',position: 'relative', width: '1000px', height: '300px'}}></div>
+                  </animated.div>  
+                </div>
+              </div>
+              
+              
+           
+          )}
           </div>
           <Drawer
             title="Drawer with extra actions"
