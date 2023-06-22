@@ -142,7 +142,7 @@ export default function SubmitForm({ isOpen, onClose }) {
                     )}
 
                     {selectedOption === 'HTML' && (<Upload {...props}>
-                        <Button icon={<UploadOutlined />} >Click to Upload</Button>
+                        <Button icon={<UploadOutlined />} onChange={handleFileChange}>Click to Upload</Button>
                     </Upload>)}
 
                 </Form>
