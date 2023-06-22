@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-
-import { Card, Col, Row, Tag, Pagination, Spin, List } from 'antd';
+import { Card, Col, Tag, Pagination, List, Spin } from 'antd';
 const { Meta } = Card;
+import PerfectScrollbar from 'react-perfect-scrollbar';
 
 
 // 반복되는 카드 컴포넌트 새로 정의
 const CustomCard = ({ title, description, url, tags, link }) => (
-    <Col span={8}>
+    <Col span={6}>
         <Card
             hoverable
-            style={{ width: 280, height: 420, margin: 10 }}
+            style={{ width: 280, height: 420, marginLeft: 10 }}
             cover={
                 <img
                     style={{ margin: 10, marginBottom: 0, width: 260, height: 200, borderRadius: 10 }}
@@ -35,6 +35,78 @@ const CustomCard = ({ title, description, url, tags, link }) => (
     </Col>
 );
 
+
+
+export default function ThumbnailView() {
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize, setPageSize] = useState(6);
+
+    const fetchData = async () => {
+        setLoading(true); // 데이터를 가져오기 전에 로딩 상태를 true로 설정
+        try {
+            //   const response = await fetch('https://api.example.com/data');
+            //   const result = await response.json();
+            setData(dummydata);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+        setLoading(false); // 데이터를 가져온 후에 로딩 상태를 false로 설정
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, [currentPage, pageSize]); // currentPage와 pageSize가 변경될 때마다 데이터 가져오기
+
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    const currentPageData = data.slice(startIndex, endIndex);
+
+    return (
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ flex: 1, marginBottom: '20px' }}>
+                <List
+                    grid={{ column: 3 }}
+                    style={{ height: 384, overflowY: 'scroll' }}
+                    dataSource={currentPageData}
+                    renderItem={(item, index) => (
+                        <List.Item>
+                            <CustomCard
+                                key={index}
+                                title={item.title}
+                                description={item.description}
+                                url={item.url}
+                                tags={item.tags}
+                                link={item.link}
+                            />
+                        </List.Item>
+                    )}
+                />
+
+                {loading && (
+                    <div style={{ textAlign: 'center', marginTop: 20 }}>
+                        <Spin />
+                    </div>
+                )}
+            </div>
+
+            <div style={{ alignSelf: 'flex-end', marginRight: 0, marginTop: 0 }}>
+                <Pagination
+                    showSizeChanger={false}
+                    current={currentPage}
+                    pageSize={pageSize}
+                    total={data.length}
+                    onChange={(page, pageSize) => {
+                        setCurrentPage(page);
+                        setPageSize(pageSize);
+                    }}
+                />
+            </div>
+        </div>
+
+    );
+}
 
 // 더미 데이터 정의, 이 부분 백엔에서 받아오면 됨
 const dummydata = [
@@ -400,78 +472,6 @@ const dummydata = [
     },
 
 ];
-
-
-export default function ThumbnailView() {
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(6);
-
-    const fetchData = async () => {
-        setLoading(true); // 데이터를 가져오기 전에 로딩 상태를 true로 설정
-        try {
-            //   const response = await fetch('https://api.example.com/data');
-            //   const result = await response.json();
-            setData(dummydata);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-        setLoading(false); // 데이터를 가져온 후에 로딩 상태를 false로 설정
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, [currentPage, pageSize]); // currentPage와 pageSize가 변경될 때마다 데이터 가져오기
-
-    const startIndex = (currentPage - 1) * pageSize;
-    const endIndex = startIndex + pageSize;
-    const currentPageData = data.slice(startIndex, endIndex);
-
-    return (
-        <>
-            <List
-                grid={{ gutter: 16, column: 3 }}
-                style={{ height: 'calc(100vh - 250px)', overflowY: 'scroll' }}
-                dataSource={currentPageData}
-                loading={loading}
-                renderItem={(item, index) => (
-                    <List.Item>
-                        <CustomCard
-                            key={index}
-                            title={item.title}
-                            description={item.description}
-                            url={item.url}
-                            tags={item.tags}
-                            link={item.link}
-                        />
-                    </List.Item>
-                )}
-            />
-
-            <Pagination
-                showSizeChanger={false}
-                style={{ marginTop: 20, marginLeft: 20 }}
-                current={currentPage}
-                pageSize={pageSize}
-                total={data.length}
-                onChange={(page, pageSize) => {
-                    setCurrentPage(page);
-                    setPageSize(pageSize);
-                }}
-            />
-
-            {loading && (
-                <div style={{ marginTop: 20, marginLeft: 20 }}>
-                    <Spin />
-                </div>
-            )}
-
-        </>
-    );
-}
-
-
 // <Row gutter={16} style={{ marginTop: 20, marginLeft: 20, height: 'calc(100vh - 200px)', overflowY: 'scroll' }}>
 //                 {loading && <Spin style={{ marginTop: 20, marginLeft: 20 }} />}
 //                 {currentPageData.map((item, index) => (
