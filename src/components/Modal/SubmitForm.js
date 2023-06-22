@@ -1,27 +1,79 @@
 import React, { useState } from 'react';
-import { Segmented, Button, Col, Drawer, Form, Input, Row, Select, Space } from 'antd';
-//const { Option } = Select;
+import { Segmented, Button, Drawer, Form, Input, Row, Space, message, Upload } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+
 
 export default function SubmitForm({ isOpen, onClose }) {
 
     // URL , HTML 택 1 해서 폼 바꾸는 state
     const [selectedOption, setSelectedOption] = useState('URL');
+    // formData 보내는 state
+    const [fileList, setFileList] = useState([]);
 
     const handleOptionChange = (value) => {
         setSelectedOption(value);
     };
 
-    const handleSubmit = (values) => {
-        // Form 데이터 처리 로직 추가
-        console.log(values);
-        onClose();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append('file', fileList)  //서버전달용
+
+        try {
+            const response = await axios.post('여기 우리 서버 API', formData, {
+                headers: { "Content-Type": "multipart/form-data", }, // 헤더 추가
+            });
+            if (response.status === 200) {
+                console.log('이미지 전송 성공', response.data);
+            } else {
+                console.log('이미지 전송 실패');
+            }
+        } catch (event) {
+            console.error('이미지 전송 실패', event)
+        };
+    }
+
+    const handleFileChange = (event) => {
+        const files = event.target.files;
+        const newFileList = Array.from(files);
+        setFileList(newFileList);
+        console.log(newFileList);
     };
+
+
+    const props = {
+        name: 'file',
+        action: 'http://localhost:3000/',
+        headers: {
+            authorization: 'authorization-text',
+        },
+        onChange(info) {
+            if (info.file.status !== 'uploading') {
+                console.log(info.file, info.fileList);
+            }
+            if (info.file.status === 'done') {
+                message.success(`${info.file.name} file uploaded successfully`);
+            } else if (info.file.status === 'error') {
+                message.error(`${info.file.name} file upload failed.`);
+            }
+        },
+        progress: {
+            strokeColor: {
+                '0%': '#108ee9',
+                '100%': '#87d068',
+            },
+            strokeWidth: 3,
+            format: (percent) => percent && `${parseFloat(percent.toFixed(2))}%`,
+        },
+    };
+
+
 
 
     return (
         <>
             <Drawer
-                title="북마크 제출하기"
+                title="북마크 입력"
                 width={500}
                 onClose={onClose}
                 open={isOpen}
@@ -89,8 +141,26 @@ export default function SubmitForm({ isOpen, onClose }) {
                         </>
                     )}
 
-                    {/* 여기 부분은 HTML 파일을 올릴 수 있도록 합당하게 수정 예정입니다. */}
-                    {selectedOption === 'HTML' && (<Form.Item
+                    {selectedOption === 'HTML' && (<Upload {...props}>
+                        <Button icon={<UploadOutlined />} >Click to Upload</Button>
+                    </Upload>)}
+
+                </Form>
+            </Drawer>
+        </>
+    );
+};
+
+
+{/* <label htmlFor="file-upload">
+                        <div style={{ width: '400px', height: '200px', backgroundColor: 'gray', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                            <UploadOutlined style={{ fontSize: '56px' }} />
+                            <p style={{ marginTop: '10px' }}>Click to HTML Upload</p>
+                            <input id="file-upload" type="file" accept="image/*" onChange={handleFileChange} style={{ display: 'none' }} />
+                        </div>
+                    </label> */}
+
+{/* <Form.Item
                         name="html"
                         label="Html"
                         rules={[
@@ -104,12 +174,4 @@ export default function SubmitForm({ isOpen, onClose }) {
                             rows={4}
                             placeholder="Please enter HTML"
                         />
-                    </Form.Item>)}
-
-
-                </Form>
-            </Drawer>
-        </>
-    );
-};
-
+                    </Form.Item> */}
