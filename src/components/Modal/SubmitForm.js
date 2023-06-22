@@ -22,7 +22,7 @@ export default function SubmitForm({ isOpen, onClose }) {
         <>
             <Drawer
                 title="북마크 제출하기"
-                width={720}
+                width={500}
                 onClose={onClose}
                 open={isOpen}
                 bodyStyle={{
@@ -38,68 +38,78 @@ export default function SubmitForm({ isOpen, onClose }) {
                 }
             >
                 <Segmented
-                    options={[{ label: 'URL', value: 'URL', }, { label: 'HTML', value: 'HTML', },]} onChange={handleOptionChange} />
+                    options={[{ label: 'URL', value: 'URL', }, { label: 'HTML', value: 'HTML', },]} onChange={handleOptionChange}
+                    style={{ marginBottom: 30 }} />
 
 
                 <Form layout="vertical" onFinish={handleSubmit} id="submitForm">
-                    <Row gutter={16}>
-                        <Col span={12}>
-                            {selectedOption === 'URL' && (<Form.Item
-                                name="url"
-                                label="Url"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: 'Please enter url',
-                                    },
-                                ]}
-                            >
-                                <Input
-                                    style={{
-                                        width: '100%',
-                                    }}
-                                    addonBefore="http://"
-                                    addonAfter=".com"
-                                    placeholder="Please enter url"
-                                />
-                            </Form.Item>)}
-                            {/* 여기 부분은 HTML 파일을 올릴 수 있도록 합당하게 수정 예정입니다. */}
-                            {selectedOption === 'HTML' && (<Form.Item
-                                name="html"
-                                label="Html"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: 'Please enter Html',
-                                    },
-                                ]}
-                            >
-                                <Input.TextArea
-                                    rows={4}
-                                    placeholder="Please enter HTML"
-                                />
-                            </Form.Item>)}
-                        </Col>
-                    </Row>
+
+
+                    {selectedOption === 'URL' && (
+                        <>
+                            <Row gutter={16}>
+                                <Form.Item
+                                    name="name"
+                                    label="Name"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Please enter Bookmark Name',
+                                        },
+                                    ]}
+                                >
+                                    <Input
+                                        style={{
+                                            width: '100%',
+                                        }}
+                                        placeholder="Please enter Bookmark Name"
+                                    />
+                                </Form.Item>
+                            </Row>
+                            <Row gutter={16}>
+                                <Form.Item
+                                    name="url"
+                                    label="Url"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Please enter url',
+                                        },
+                                    ]}
+                                >
+                                    <Input
+                                        style={{
+                                            width: '100%',
+                                        }}
+                                        placeholder="Please enter url"
+                                    />
+                                </Form.Item>
+                            </Row>
+
+                        </>
+                    )}
+
+                    {/* 여기 부분은 HTML 파일을 올릴 수 있도록 합당하게 수정 예정입니다. */}
+                    {selectedOption === 'HTML' && (<Form.Item
+                        name="html"
+                        label="Html"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please enter Html',
+                            },
+                        ]}
+                    >
+                        <Input.TextArea
+                            rows={4}
+                            placeholder="Please enter HTML"
+                        />
+                    </Form.Item>)}
+
+
                 </Form>
             </Drawer>
         </>
     );
 };
 
-
-
-    // const [isOpen, setIsOpen] = useState(false);
-
-    // 리액트 무한루프 렌더링
-    //setIsOpen(props.fromState);
-    // 핸들링 시 useEffect 사용
-    // useEffect(() => {
-    //     setIsOpen(props.fromState);
-    //     console.log(props.fromState);
-    // }, [props.fromState]);
-
-
-    // const onClose = () => {
-    //     setIsOpen(false);
-    // };

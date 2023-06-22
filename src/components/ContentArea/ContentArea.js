@@ -20,7 +20,7 @@ export default function ContentArea() {
     return (
         <Layout style={{ margin: 0, height: "calc(100vh - 76px)", }}>
             <Layout>
-                <Sider width={300} style={{ color: "white", }}>
+                <Sider width={300} style={{ color: "white" }}>
                     <SideBar />
                 </Sider>
                 <Layout style={{ padding: '0 24px 24px', }}>
