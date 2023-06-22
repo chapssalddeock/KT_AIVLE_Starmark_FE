@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Card, Col, Tag, Pagination, List, Spin } from 'antd';
 const { Meta } = Card;
-import PerfectScrollbar from 'react-perfect-scrollbar';
-
+import axios from 'axios';
 
 // 반복되는 카드 컴포넌트 새로 정의
 const CustomCard = ({ title, description, url, tags, link }) => (
@@ -30,34 +29,36 @@ const CustomCard = ({ title, description, url, tags, link }) => (
             <a href={link} style={{ fontSize: 16, fontWeight: 'bold', position: 'absolute', bottom: 20, right: 30 }}>
                 GO
             </a>
-
         </Card>
     </Col>
 );
-
-
 
 export default function ThumbnailView() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(6);
+    const pageSize = 6;
 
     const fetchData = async () => {
-        setLoading(true); // 데이터를 가져오기 전에 로딩 상태를 true로 설정
+        setLoading(true);
         try {
-            //   const response = await fetch('https://api.example.com/data');
-            //   const result = await response.json();
-            setData(dummydata);
+            const config = {
+                headers: {
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQyMzU4LCJpYXQiOjE2ODcyNDYzNTgsImp0aSI6ImI2YTU0OWJkOWQxYTQzMWFhNDE3NmFmMmFmMjVjYjQ2IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.cTZokEPKCxNTo6S-BXdv2pRakGRlnIBqzWAGHQKI6Nk'
+                },
+            }
+            const response = await axios.get('http://kt-aivle.iptime.org:40170/api/bookmark/', config);
+            if (response.status === 200) {
+                setData(response.data);
+            }
         } catch (error) {
             console.error('Error fetching data:', error);
         }
-        setLoading(false); // 데이터를 가져온 후에 로딩 상태를 false로 설정
+        setLoading(false);
     };
-
     useEffect(() => {
         fetchData();
-    }, [currentPage, pageSize]); // currentPage와 pageSize가 변경될 때마다 데이터 가져오기
+    }, [currentPage]); // currentPage가 변경될 때마다 데이터 가져오기
 
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
@@ -97,458 +98,9 @@ export default function ThumbnailView() {
                     current={currentPage}
                     pageSize={pageSize}
                     total={data.length}
-                    onChange={(page, pageSize) => {
-                        setCurrentPage(page);
-                        setPageSize(pageSize);
-                    }}
+                    onChange={(page) => setCurrentPage(page)}
                 />
             </div>
         </div>
-
     );
 }
-
-// 더미 데이터 정의, 이 부분 백엔에서 받아오면 됨
-const dummydata = [
-    {
-        title: '1페이지', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: '2페이지', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: '3페이지', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: '4페이지', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: '5페이지', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: '6페이지', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: '7페이지', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: '8페이지', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: '9페이지', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: '10페이지', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-    {
-        title: 'Django', description: '장고에 대한 설명 어쩌구 저쩌구....',
-        url: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        , link: 'https://example.com/django',
-        tags: ['Framework', 'Python'],
-    },
-
-];
-// <Row gutter={16} style={{ marginTop: 20, marginLeft: 20, height: 'calc(100vh - 200px)', overflowY: 'scroll' }}>
-//                 {loading && <Spin style={{ marginTop: 20, marginLeft: 20 }} />}
-//                 {currentPageData.map((item, index) => (
-//                     <CustomCard key={index} title={item.title} description={item.description} url={item.url} tags={item.tags} link={item.link} />
-//                 ))}
-//                 <Pagination
-//                     style={{ marginTop: 20, marginLeft: 20 }}
-//                     current={currentPage}
-//                     pageSize={pageSize}
-//                     total={data.length}
-//                     onChange={(page, pageSize) => {
-//                         setCurrentPage(page);
-//                         setPageSize(pageSize);
-//                     }}
-//                 />
-//             </Row>
-
-
-
-
-
-// export default function ThumbnailView() {
-//     const [data, setData] = useState([]); // 데이터 배열
-//     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호
-//     const [pageSize, setPageSize] = useState(6); // 페이지당 데이터 개수
-
-//     // 데이터 가져오는 비동기 함수
-//     const fetchData = async () => {
-//         try {
-//             setData(dummydata);
-//             // const response = await fetch('https://api.example.com/data'); // 데이터를 가져오는 API 엔드포인트
-//             // const result = await response.json();
-//             // setData(result);
-//         } catch (error) {
-//             console.error('Error fetching data:', error);
-//         }
-//     };
-
-//     useEffect(() => {
-//         fetchData();
-//     }, []); // 컴포넌트가 마운트되었을 때 데이터 가져오기
-
-//     // 현재 페이지에 해당하는 데이터 추출
-//     const startIndex = (currentPage - 1) * pageSize;
-//     const endIndex = startIndex + pageSize;
-//     const currentPageData = data.slice(startIndex, endIndex);
-
-//     return (
-//         <>
-//             <Row gutter={16} style={{ marginTop: 20, marginLeft: 20, height: 'calc(100vh - 200px)', overflowY: 'scroll' }}>
-//                 {currentPageData.map((item, index) => (
-//                     <CustomCard key={index} title={item.title} description={item.description} url={item.url} tags={item.tags} link={item.link} />
-//                 ))}
-//                 <Pagination
-//                     style={{ marginTop: 20, marginLeft: 20 }}
-//                     current={currentPage}
-//                     pageSize={pageSize}
-//                     total={data.length}
-//                     onChange={(page, pageSize) => {
-//                         setCurrentPage(page);
-//                         setPageSize(pageSize);
-//                     }}
-//                 />
-//             </Row>
-
-
-//             {/* <Row gutter={16}
-//                 style={{ marginTop: 20, marginLeft: 20, height: "calc(100vh - 200px)", overflowY: 'scroll' }}>
-//                 {data.map((item, index) => (
-//                     <CustomCard key={index} title={item.title}
-//                         description={item.description} url={item.url}
-//                         tags={item.tags} link={item.link} />
-//                 ))}
-//             </Row> */}
-
-//         </>
-//     )
-
-// }
-
