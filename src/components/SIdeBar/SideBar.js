@@ -8,7 +8,7 @@ import { Search } from 'react-bootstrap-icons';
 
 
 
-export default function SideBar() {
+export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchHistory, setSearchHistory] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
@@ -38,6 +38,7 @@ export default function SideBar() {
         setSearchHistory(updatedHistory);
         setSearchQuery('');
         setShowSuggestions(false);
+        onSearch(searchQuery);
     };
     const handleSuggestedItemClick = (value) => {
         setSearchQuery(value);
@@ -45,17 +46,13 @@ export default function SideBar() {
         setShowSuggestions(false);
         const updatedHistory = [value, ...searchHistory.slice(0, MAX_HISTORY_LENGTH - 1)];
         setSearchHistory(updatedHistory);
+        onSuggestedItemClick(value);
 
     };
 
 
+    const items = ['abc', 'def', 'fqw', 'vxcv', 'bgf', 'dfag', 'ax', 'uay', 'a안녕', '2a12312', 'a반가워요', 'aㅁㅁㄴㅇㅁㄴㅇ', 'a한찬규', 'a김채원', 'a박경덕', 'a김민성', 'a황소정', 'a정정해'];
 
-    useEffect(() => {
-        const items = ['abc', 'def', 'fqw', 'vxcv', 'bgf', 'dfag', 'ax', 'uay', 'a안녕', '2a12312', 'a반가워요', 'aㅁㅁㄴㅇㅁㄴㅇ', 'a한찬규', 'a김채원', 'a박경덕', 'a김민성', 'a황소정', 'a정정해'];
-        const filteredItems = items.filter((item) => item.toLowerCase().includes(searchQuery.toLowerCase()));
-        setFilteredItems(filteredItems);
-
-    }, [searchQuery]);
     useEffect(() => {
         if (searchInputRef.current) {
             searchInputRef.current.focus();
@@ -69,14 +66,32 @@ export default function SideBar() {
         setSearchQuery(input);
         setShowSuggestions(input !== '');
     };
-    const handleSearchHistory = (query) => {
-        handleSearch();
-        setShowSuggestions(false); // 항목 선택 후 가시성 해제
-        if (!searchHistory.includes(query)) {
-            const updatedHistory = [query, ...searchHistory.slice(0, MAX_HISTORY_LENGTH - 1)];
-            setSearchHistory(updatedHistory);
+    useEffect(() => {
+        let timerId;
+      
+        if (searchQuery.trim() !== '') {
+          timerId = setTimeout(() => {
+            const filteredItems = items.filter(
+              (item) => item.toLowerCase().startsWith(searchQuery.toLowerCase())
+            );
+            setFilteredItems(filteredItems);
+          }, 100); // 1초의 딜레이 후에 자동완성 요청을 보냅니다.
+        } else {
+          setFilteredItems([]); // 검색어가 비어있을 경우 filteredItems를 초기화합니다.
         }
-    };
+      
+        return () => {
+          clearTimeout(timerId);
+        };
+      }, [searchQuery]);
+      const handleSearchHistory = (query) => {
+        handleSearch();
+        const updatedHistory = [query, ...searchHistory.slice(0, MAX_HISTORY_LENGTH - 1)];
+        setSearchHistory(updatedHistory);
+        ToggleClick(query);
+      };
+      
+     
     
 
     return (
@@ -90,7 +105,7 @@ export default function SideBar() {
                     </button>
                 </div>
                 <div className="search-history-container">
-                    <div class="search-history">
+                    <div className="search-history">
                         <div className="search-record-wrapper">
                           {searchHistory.slice(0, MAX_HISTORY_LENGTH).map((query, index) => (
                             <button key={index} className="search-record" onClick={() => handleSearchHistory(query)}>

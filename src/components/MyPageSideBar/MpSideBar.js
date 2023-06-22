@@ -40,7 +40,7 @@ function getItem(label, key, icon, children, type) {
               defaultSelectedKeys={['sub1']}
               selectedKeys={[selectedItem]}
               onClick={({ key }) => handleMenuClick(key)}
-              style={{ width: 300,  borderTop: '3px solid #f2f2f2' }}
+              style={{ width: 300,  borderTop: '1px solid #f2f2f2' }}
             >
               {items.map((item) => (
                 <Menu.Item key={item.key} icon={item.icon} style={{ fontSize: '18px', height: 100 }}>

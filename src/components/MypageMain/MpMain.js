@@ -13,7 +13,7 @@ export default function MpMain({ selectedItem }) {
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState('right');
   const [isEditing, setIsEditing] = useState(false);
-  const [userName, setUserName] = useState('John Doe');
+  const [userName, setUserName] = useState('John Doe Han');
   const [editedUserName, setEditedUserName] = useState('');
 
   const handleEditButtonClick = () => {
@@ -119,7 +119,7 @@ export default function MpMain({ selectedItem }) {
 
     return(
         <>
-            <div className="main-content" style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '50%', height: '100vh'}} >
+            <div className="main-content" style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '45%', height: '100vh'}} >
             
             {selectedItem === 'sub1' && (
                 <div className='main' style={{display: 'flex', marginTop: '-1590px', width: '100%', height: '90vh' , justifyContent: 'center', alignItems: 'center'}}>
@@ -239,11 +239,11 @@ export default function MpMain({ selectedItem }) {
                           rules={[
                             {
                                 required: true,
-                                message: '현재 비밀번호를 입력해주세요.',
+                                
                             },
                           ]}
                         >
-                          <Input.Password />
+                          
                         </Form.Item>
       
                         <Form.Item
@@ -252,11 +252,11 @@ export default function MpMain({ selectedItem }) {
                           rules={[
                             {
                               required: true,
-                              message: '새로운 비밀번호를 입력해주세요.',
+                              
                             },
                           ]}
                         >
-                          <Input.Password />
+                          
                         </Form.Item>
       
                         <Form.Item
@@ -266,7 +266,7 @@ export default function MpMain({ selectedItem }) {
                           rules={[
                             {
                               required: true,
-                              message: '비밀번호 확인을 입력해주세요.',
+                              
                             },
                             ({ getFieldValue }) => ({
                               validator(_, value) {
@@ -278,17 +278,12 @@ export default function MpMain({ selectedItem }) {
                             }),
                           ]}
                         >
-                          <Input.Password />
+                          
                         </Form.Item>
       
                         <Form.Item label=" ">
                           <div style={{ marginTop: '30px', display: 'flex', marginLeft: '-110px', justifyContent: 'center', alignItems: 'center' }}>
-                            <Button type="primary" htmlType="submit" style={{ marginRight: '30px' }}>
-                              modify
-                            </Button>
-                            <Button type="primary" htmlType="submit">
-                              cancel
-                            </Button>
+                            
                           </div>
                         </Form.Item>
                       </Form>
@@ -307,7 +302,7 @@ export default function MpMain({ selectedItem }) {
              
             )}
             {selectedItem === 'sub2' && (
-              <div style={{marginLeft: '-430px', marginTop:'-1513px'}}>
+              <div style={{marginLeft: '-360px', marginTop:'-1513px'}}>
                 <MpFollowView></MpFollowView>
                 {/* <p>표시 되나여?</p> */}
               </div>
