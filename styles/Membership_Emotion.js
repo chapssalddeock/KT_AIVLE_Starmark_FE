@@ -6,8 +6,8 @@ export const BackgroundPage = styled.div`
 
 export const SignUpFrame = styled.div`
   border : solid;
-  width :  35%;
-  height : 55%;
+  width :  40%;
+  height : 65%;
 
   position : relative;
   left : 50%; 
@@ -31,9 +31,16 @@ export const SingUpTitle = styled.div`
 `
 
 export const InputSpace = styled.div`
-    width : 80%;
-    height : 75%;
-    float : right;
-    // border : solid red;
+  width: 100%;
+  height: 75%;
+  display: flex;
+  flex-direction: column; // 수직 방향으로 정렬
+  align-items: center; // 세로 중앙 정렬
+  justify-content: center; // 가로 중앙 정렬
+  border : solid red;
+  p {
+    margin: 0;
+    text-align: center;
+  }
     
 `
