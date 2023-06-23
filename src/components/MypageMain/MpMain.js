@@ -39,25 +39,32 @@ export default function MpMain({ selectedItem }) {
   };
 
   // 추가: 편집 버튼을 눌렀을 때 Drawer를 활성화
-  
+    const [userImage, setUserImage] = useState(null);
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedNode, setSelectedNode] = useState(null);
     const handleProfileImageUpload = () => {
-        setIsConfirmOpen(true);
+      const fileInput = document.getElementById('profileImageUpload');
+      fileInput.click(); // 파일 선택 대화상자 열기
     };
+    
+    
     const closeModal = () => {
         setIsModalOpen(false);
       };
-    const handleConfirmUpload = () => {
-        // 프로필 사진 업로드 실행
-        setIsConfirmOpen(false);
+    const handleImageUpload = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+    
+        reader.onloadend = () => {
+          setUserImage(reader.result);
+        };
+    
+        if (file) {
+          reader.readAsDataURL(file);
+        }
     };
-      
-    const handleCancelUpload = () => {
-        // 업로드 취소
-        setIsConfirmOpen(false);
-    };
+    
     const handlePasswordChange = (values) => {
         const { currentPassword, newPassword, confirmPassword } = values;
       
@@ -145,12 +152,14 @@ export default function MpMain({ selectedItem }) {
                             
                             <title>Placeholder</title>
                             <rect width="100%" height="100%" fill="skyblue"></rect>
-                            <image
-                              href="/img/User.jpg"
-                              width="99%"
-                              height="95%"
-                              preserveAspectRatio="xMidYMid slice"
-                            />
+                            {userImage && (
+                              <image
+                                href={userImage}
+                                width="100%"
+                                height="100%"
+                                preserveAspectRatio="xMidYMid slice"
+                              />
+                            )}
                           </svg>
                           {profileImage && (
                             <img
@@ -181,10 +190,18 @@ export default function MpMain({ selectedItem }) {
                                   justifyContent: 'center',
                                   alignItems: 'center',
                                 }}
+                                
                               >
                                 <BsCamera size={24} color="black" />
                               </div>
                             </span>
+                            <input
+                              id="profileImageUpload"
+                              type="file"
+                              accept="image/*"
+                              style={{ display: 'none' }}
+                              onChange={handleImageUpload}
+                            />
                             
 
                           </label>
@@ -396,10 +413,10 @@ export default function MpMain({ selectedItem }) {
             )}
             {selectedItem === 'sub4' && (
               
-              <div className='user_container' style = {{marginLeft: '-430px', marginTop:'-1513px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+              <div className='user_container' style = {{marginLeft: '-180px', marginTop:'-1550px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 <div className='image_container' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                   <animated.div style={springProps}>
-                    <div id="mynetwork" style={{ border: '1px solid transparent', marginTop:'30px',position: 'relative', width: '1000px', height: '300px'}}></div>
+                    <div id="mynetwork" style={{ border: '1px solid black', marginTop:'30px',position: 'relative', width: '1000px', height: '500px'}}></div>
                   </animated.div>  
                 </div>
               </div>
