@@ -6,8 +6,6 @@ import useAuth from "../AuthHooks/useAuth";
 
 let errorMessage = "";
 
-
-
 export const AuthManager = () => {
     const router = useRouter();
     const { setAuth } = useAuth();
@@ -37,8 +35,6 @@ export const AuthManager = () => {
             // 서비스 페이지로 이동
             router.push("/service");
         } catch (error) {
-            console.log(error);
-
             const temp = error.response.data.error[0].message
 
             // 로그인 에러시 텍스트 전달 (나중에 필히 수정)
@@ -50,23 +46,44 @@ export const AuthManager = () => {
     };
 
     const EmailCheck = async (values) => {
-      let response;
         try {
-            response = await axios.post('http://kt-aivle.iptime.org:40170/api/email_check/', {
+            const response = await axios.post('http://kt-aivle.iptime.org:40170/api/email_check/', {
                 email: values,
             }, {
                 headers: { 'Content-Type': 'application/json' },
                 //withCredentials: true, 이것이 없어야 cors 오류 발생 안함
             })
         } catch (error) {
-            const temp = error.response.data.error[0].message;
-            throw { error, message: temp };
-            // 에러 메세지 조건 추가 
+            let errMsg;
+            if (!error?.response) {
+                errMsg = error.message;
+            } else {
+                errMsg = error.response.data.error[0].message;
+            }            
+            throw { error, message: errMsg };
         }
     };
 
-    const Register = () => {
-
+    const Register = async (values) => {
+        try {
+            const response = await axios.post('http://kt-aivle.iptime.org:40170/api/signup/', {
+                email: values.email,
+                username: values.nickname,
+                password: values.password,
+                password2: values.confirm
+            }, {
+                headers: { 'Content-Type': 'application/json' },
+                //withCredentials: true, 이것이 없어야 cors 오류 발생 안함
+            })
+        } catch (error) {  
+            let errMsg;
+            if (!error?.response) {
+                errMsg = error.message;
+            } else {
+                errMsg = error.response.data.error[0].message;
+            }            
+            throw { error, message: errMsg };
+        }
     }
 
     const LogOut = () => {
