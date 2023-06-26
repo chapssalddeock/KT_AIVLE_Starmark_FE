@@ -19,6 +19,7 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
     const [filteredItems, setFilteredItems] = useState([]);
     const [hoveredItem, setHoveredItem] = useState(null);
     const [showHiddenRecords, setShowHiddenRecords] = useState(false);
+    const [tags, setTags] = useState([]);
     const handleMouseEnter = (item) => {
         setHoveredItem(item);
     };
@@ -71,7 +72,7 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
 
         if (searchQuery.trim() !== '') {
             timerId = setTimeout(() => {
-                const filteredItems = items.filter(
+                const filteredItems = tags.filter(
                     (item) => item.toLowerCase().startsWith(searchQuery.toLowerCase())
                 );
                 setFilteredItems(filteredItems);
@@ -90,6 +91,30 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
         setSearchHistory(updatedHistory);
         ToggleClick(query);
     };
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQyMzE0LCJpYXQiOjE2ODcyNDYzMTQsImp0aSI6IjcwZWRlMGZmYWYyMTRhYmI4ZTdlY2RkMGFmNzczZGVhIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.Q4vPGRu5nxVu_94fn3JeTZlsxXSLKY9GYgiRkscIRqw';
+
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            };
+            const response = await axios.get('http://kt-aivle.iptime.org:40170/api/bookmark/', config);
+            const tags = response.data.map(item => item.tags).flat();
+            const uniqueTags = [...new Set(tags)];
+            setTags(uniqueTags);
+            console.log('Tags:', tags);
+            // 데이터를 처리하는 로직 작성
+          } catch (error) {
+            console.error('API Error:', error);
+            // 오류 처리 로직 작성
+          }
+        };
+    
+        fetchData();
+      }, []);
 
 
 
