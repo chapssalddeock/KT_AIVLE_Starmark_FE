@@ -26,10 +26,9 @@ export default function ContentArea() {
             return; // 검색어가 비어있으면 동작하지 않음
         }
         // 검색 로직 구현
-        console.log('검색 실행:', searchQuery);
+        
         const updatedHistory = [searchQuery, ...searchHistory.slice(0, MAX_HISTORY_LENGTH - 1)];
         setSearchHistory(updatedHistory);
-        setSearchQuery('');
         setShowSuggestions(false);
         setSearchResult([searchQuery]); //배열 설정
 
@@ -68,6 +67,7 @@ export default function ContentArea() {
                         <MenuBar onSegmentedChange={handleSegmentedChange} />
                     </div>
                     <Content style={{ padding: 24, margin: 0, }}>
+        
                         {viewMode === 'List' ? <ListView searchResult={searchResult} /> : <ThumbnailView searchResult={searchResult} />} {/* 조건에 따라 썸네일 뷰 또는 리스트 뷰 렌더링 */}
                     </Content>
                 </Layout>

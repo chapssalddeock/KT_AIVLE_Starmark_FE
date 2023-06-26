@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 
 import { Search } from 'react-bootstrap-icons';
 
-
+import axios from 'axios';
 
 
 
@@ -33,12 +33,12 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
             return; // 검색어가 비어있으면 동작하지 않음
         }
         // 검색 로직 구현
-        console.log('검색 실행:', searchQuery);
+        ;
         const updatedHistory = [searchQuery, ...searchHistory.slice(0, MAX_HISTORY_LENGTH - 1)];
         setSearchHistory(updatedHistory);
-        setSearchQuery('');
         setShowSuggestions(false);
         onSearch(searchQuery);
+        setSearchQuery('');
     };
     const handleSuggestedItemClick = (value) => {
         setSearchQuery(value);
