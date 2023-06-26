@@ -33,32 +33,46 @@ const CustomCard = ({ title, desc, img, url, tags }) => (
     </Col>
 );
 
-export default function ThumbnailView() {
+export default function ThumbnailView({ searchResult }) {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 6;
 
-    const fetchData = async () => {
+    const fetchData = async (searchResult) => {
+        console.log(searchResult);
         setLoading(true);
         try {
             const config = {
                 headers: {
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQyMzU4LCJpYXQiOjE2ODcyNDYzNTgsImp0aSI6ImI2YTU0OWJkOWQxYTQzMWFhNDE3NmFmMmFmMjVjYjQ2IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.cTZokEPKCxNTo6S-BXdv2pRakGRlnIBqzWAGHQKI6Nk'
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQyMzU4LCJpYXQiOjE2ODcyNDYzNTgsImp0aSI6ImI2YTU0OWJkOWQxYTQzMWFhNDE3NmFmMmFmMjVjYjQ2IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.cTZokEPKCxNTo6S-BXdv2pRakGRlnIBqzWAGHQKI6Nk',
                 },
+            };
+
+            if (searchResult && searchResult.length > 0) {
+                config.params = {};
+                searchResult.forEach((item, index) => {
+                    config.params['data'] = item;
+                });
             }
+
+
+            console.log(config);
+
             const response = await axios.get('http://kt-aivle.iptime.org:40170/api/bookmark/', config);
             if (response.status === 200) {
                 setData(response.data);
+                console.log(response.data);
             }
         } catch (error) {
             console.error('Error fetching data:', error);
         }
         setLoading(false);
     };
+
     useEffect(() => {
-        fetchData();
-    }, [currentPage]); // currentPage가 변경될 때마다 데이터 가져오기
+        fetchData(searchResult);
+    }, [currentPage, searchResult]);
 
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;

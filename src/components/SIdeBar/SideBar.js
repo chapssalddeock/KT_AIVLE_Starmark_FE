@@ -51,7 +51,7 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
     };
 
 
-    const items = ['abc', 'def', 'fqw', 'vxcv', 'bgf', 'dfag', 'ax', 'uay', 'a안녕', '2a12312', 'a반가워요', 'aㅁㅁㄴㅇㅁㄴㅇ', 'a한찬규', 'a김채원', 'a박경덕', 'a김민성', 'a황소정', 'a정정해'];
+    const items = ['수학', 'abc', 'def', 'fqw', 'vxcv', 'bgf', 'dfag', 'ax', 'uay', 'a안녕', '2a12312', 'a반가워요', 'aㅁㅁㄴㅇㅁㄴㅇ', 'a한찬규', 'a김채원', 'a박경덕', 'a김민성', 'a황소정', 'a정정해'];
 
     useEffect(() => {
         if (searchInputRef.current) {
@@ -91,7 +91,7 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
         ToggleClick(query);
     };
 
-    
+
 
 
     return (
