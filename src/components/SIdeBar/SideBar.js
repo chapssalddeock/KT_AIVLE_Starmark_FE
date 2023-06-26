@@ -51,7 +51,7 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
     };
 
 
-    const items = ['abc', 'def', 'fqw', 'vxcv', 'bgf', 'dfag', 'ax', 'uay', 'a안녕', '2a12312', 'a반가워요', 'aㅁㅁㄴㅇㅁㄴㅇ', 'a한찬규', 'a김채원', 'a박경덕', 'a김민성', 'a황소정', 'a정정해'];
+    const items = ['수학', 'abc', 'def', 'fqw', 'vxcv', 'bgf', 'dfag', 'ax', 'uay', 'a안녕', '2a12312', 'a반가워요', 'aㅁㅁㄴㅇㅁㄴㅇ', 'a한찬규', 'a김채원', 'a박경덕', 'a김민성', 'a황소정', 'a정정해'];
 
     useEffect(() => {
         if (searchInputRef.current) {
@@ -68,31 +68,31 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
     };
     useEffect(() => {
         let timerId;
-      
+
         if (searchQuery.trim() !== '') {
-          timerId = setTimeout(() => {
-            const filteredItems = items.filter(
-              (item) => item.toLowerCase().startsWith(searchQuery.toLowerCase())
-            );
-            setFilteredItems(filteredItems);
-          }, 100); // 1초의 딜레이 후에 자동완성 요청을 보냅니다.
+            timerId = setTimeout(() => {
+                const filteredItems = items.filter(
+                    (item) => item.toLowerCase().startsWith(searchQuery.toLowerCase())
+                );
+                setFilteredItems(filteredItems);
+            }, 100); // 1초의 딜레이 후에 자동완성 요청을 보냅니다.
         } else {
-          setFilteredItems([]); // 검색어가 비어있을 경우 filteredItems를 초기화합니다.
+            setFilteredItems([]); // 검색어가 비어있을 경우 filteredItems를 초기화합니다.
         }
-      
+
         return () => {
-          clearTimeout(timerId);
+            clearTimeout(timerId);
         };
-      }, [searchQuery]);
-      const handleSearchHistory = (query) => {
+    }, [searchQuery]);
+    const handleSearchHistory = (query) => {
         handleSearch();
         const updatedHistory = [query, ...searchHistory.slice(0, MAX_HISTORY_LENGTH - 1)];
         setSearchHistory(updatedHistory);
         ToggleClick(query);
-      };
-      
-     
-    
+    };
+
+
+
 
     return (
         <div>
@@ -107,11 +107,11 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
                 <div className="search-history-container">
                     <div className="search-history">
                         <div className="search-record-wrapper">
-                          {searchHistory.slice(0, MAX_HISTORY_LENGTH).map((query, index) => (
-                            <button key={index} className="search-record" onClick={() => handleSearchHistory(query)}>
-                              {query}
-                            </button>
-                          ))}
+                            {searchHistory.slice(0, MAX_HISTORY_LENGTH).map((query, index) => (
+                                <button key={index} className="search-record" onClick={() => handleSearchHistory(query)}>
+                                    {query}
+                                </button>
+                            ))}
                         </div>
                     </div>
                     {showSuggestions && (
@@ -132,9 +132,9 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
                     <footer className="sidebar-footer">
                         <div>Information</div>
                         <div>ABOUT US</div>
-                        
+
                         <div>개인정보 취급방침</div>
-                        
+
                         <div>@ KT aivle  3rd, big-pjt, team 42</div>
                     </footer>
                 </div>

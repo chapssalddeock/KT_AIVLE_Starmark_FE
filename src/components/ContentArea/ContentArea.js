@@ -13,13 +13,14 @@ export default function ContentArea() {
     const [searchHistory, setSearchHistory] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [searchResult, setSearchResult] = useState('');
+
     const MAX_HISTORY_LENGTH = 5;
+
     // Segmented 변경 이벤트 핸들러
     const handleSegmentedChange = (value) => {
         setViewMode(value);
-        
-        
     };
+
     const handleSearch = () => {
         if (searchQuery.trim() === '') {
             return; // 검색어가 비어있으면 동작하지 않음
@@ -30,8 +31,8 @@ export default function ContentArea() {
         setSearchHistory(updatedHistory);
         setSearchQuery('');
         setShowSuggestions(false);
-        setSearchResult(searchQuery);
-        
+        setSearchResult([searchQuery]); //배열 설정
+
     };
     const handleSuggestedItemClick = (value) => {
         setSearchQuery(value);
@@ -39,27 +40,28 @@ export default function ContentArea() {
         setShowSuggestions(false);
         const updatedHistory = [value, ...searchHistory.slice(0, MAX_HISTORY_LENGTH - 1)];
         setSearchHistory(updatedHistory);
-        setSearchResult(value);
-        
-        
+        setSearchResult([value]); //배열 설정
+
+
 
     };
     const handleSearchHistory = (query) => {
         handleSearch();
         const updatedHistory = [query, ...searchHistory.slice(0, MAX_HISTORY_LENGTH - 1)];
         setSearchHistory(updatedHistory);
-        setSearchResult(query);
-        
-      };
-    
+        setSearchResult([query]); //배열 설정
 
-        
+    };
+
+
+
+
 
     return (
         <Layout style={{ margin: 0, height: "calc(100vh - 76px)", }}>
             <Layout>
                 <Sider width={300} style={{ color: "white", }}>
-                    <SideBar onSearch={handleSearch} onSuggestedItemClick={handleSuggestedItemClick} ToggleClick={handleSearchHistory}/>
+                    <SideBar onSearch={handleSearch} onSuggestedItemClick={handleSuggestedItemClick} ToggleClick={handleSearchHistory} />
                 </Sider>
                 <Layout style={{ padding: '0 24px 24px', }}>
                     <div style={{ margin: '16px 0  ', }}>

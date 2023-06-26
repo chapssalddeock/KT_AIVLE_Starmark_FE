@@ -4,7 +4,7 @@ const { Meta } = Card;
 import axios from 'axios';
 
 // 반복되는 카드 컴포넌트 새로 정의
-const CustomCard = ({ title, description, url, tags, link }) => (
+const CustomCard = ({ title, desc, img, url, tags }) => (
     <Col span={6}>
         <Card
             hoverable
@@ -13,7 +13,7 @@ const CustomCard = ({ title, description, url, tags, link }) => (
                 <img
                     style={{ margin: 10, marginBottom: 0, width: 260, height: 200, borderRadius: 10 }}
                     alt="example"
-                    src={url}
+                    src={img}
                 />
             }
         >
@@ -25,40 +25,54 @@ const CustomCard = ({ title, description, url, tags, link }) => (
                 ))}
             </div>
 
-            <Meta title={title} description={description} />
-            <a href={link} style={{ fontSize: 16, fontWeight: 'bold', position: 'absolute', bottom: 20, right: 30 }}>
+            <Meta title={title} description={desc} />
+            <a href={url} style={{ fontSize: 16, fontWeight: 'bold', position: 'absolute', bottom: 20, right: 30 }}>
                 GO
             </a>
         </Card>
     </Col>
 );
 
-export default function ThumbnailView() {
+export default function ThumbnailView({ searchResult }) {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 6;
 
-    const fetchData = async () => {
+    const fetchData = async (searchResult) => {
+        console.log(searchResult);
         setLoading(true);
         try {
             const config = {
                 headers: {
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQyMzU4LCJpYXQiOjE2ODcyNDYzNTgsImp0aSI6ImI2YTU0OWJkOWQxYTQzMWFhNDE3NmFmMmFmMjVjYjQ2IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.cTZokEPKCxNTo6S-BXdv2pRakGRlnIBqzWAGHQKI6Nk'
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQyMzU4LCJpYXQiOjE2ODcyNDYzNTgsImp0aSI6ImI2YTU0OWJkOWQxYTQzMWFhNDE3NmFmMmFmMjVjYjQ2IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.cTZokEPKCxNTo6S-BXdv2pRakGRlnIBqzWAGHQKI6Nk',
                 },
+            };
+
+            if (searchResult && searchResult.length > 0) {
+                config.params = {};
+                searchResult.forEach((item, index) => {
+                    config.params['data'] = item;
+                });
             }
+
+
+            console.log(config);
+
             const response = await axios.get('http://kt-aivle.iptime.org:40170/api/bookmark/', config);
             if (response.status === 200) {
                 setData(response.data);
+                console.log(response.data);
             }
         } catch (error) {
             console.error('Error fetching data:', error);
         }
         setLoading(false);
     };
+
     useEffect(() => {
-        fetchData();
-    }, [currentPage]); // currentPage가 변경될 때마다 데이터 가져오기
+        fetchData(searchResult);
+    }, [currentPage, searchResult]);
 
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
@@ -76,10 +90,10 @@ export default function ThumbnailView() {
                             <CustomCard
                                 key={index}
                                 title={item.title}
-                                description={item.description}
-                                url={item.url}
+                                desc={item.desc}
+                                img={item.img}
                                 tags={item.tags}
-                                link={item.link}
+                                url={item.url}
                             />
                         </List.Item>
                     )}
