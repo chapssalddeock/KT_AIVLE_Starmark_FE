@@ -4,7 +4,7 @@ const { Meta } = Card;
 import axios from 'axios';
 
 // 반복되는 카드 컴포넌트 새로 정의
-const CustomCard = ({ title, description, url, tags, link }) => (
+const CustomCard = ({ title, desc, img, url, tags }) => (
     <Col span={6}>
         <Card
             hoverable
@@ -13,7 +13,7 @@ const CustomCard = ({ title, description, url, tags, link }) => (
                 <img
                     style={{ margin: 10, marginBottom: 0, width: 260, height: 200, borderRadius: 10 }}
                     alt="example"
-                    src={url}
+                    src={img}
                 />
             }
         >
@@ -25,8 +25,8 @@ const CustomCard = ({ title, description, url, tags, link }) => (
                 ))}
             </div>
 
-            <Meta title={title} description={description} />
-            <a href={link} style={{ fontSize: 16, fontWeight: 'bold', position: 'absolute', bottom: 20, right: 30 }}>
+            <Meta title={title} description={desc} />
+            <a href={url} style={{ fontSize: 16, fontWeight: 'bold', position: 'absolute', bottom: 20, right: 30 }}>
                 GO
             </a>
         </Card>
@@ -76,10 +76,10 @@ export default function ThumbnailView() {
                             <CustomCard
                                 key={index}
                                 title={item.title}
-                                description={item.description}
-                                url={item.url}
+                                desc={item.desc}
+                                img={item.img}
                                 tags={item.tags}
-                                link={item.link}
+                                url={item.url}
                             />
                         </List.Item>
                     )}
