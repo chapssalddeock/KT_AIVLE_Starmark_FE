@@ -129,10 +129,12 @@ export default function MpMain({ selectedItem }) {
             <div className="main-content" style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '45%', height: '100vh'}} >
             
             {selectedItem === 'sub1' && (
-                <div className='main' style={{display: 'flex', marginTop: '-1590px', width: '100%', height: '90vh' , justifyContent: 'center', alignItems: 'center'}}>
+                <div className='main' style={{display: 'flex', marginTop: '-1730px', width: '100%', height: '90vh' , justifyContent: 'center', alignItems: 'center'}}>
+                  
                   <div className='user_container' style = {{ flex:'1'}}>
+                  
                     <div className='image_container' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-    
+                    
                       <div className = 'user_image' style={{ position: 'relative', height: '250px', width: '250px'}}>
                         <div style={{ position: 'relative', width: '200px', height: '200px'}}>
                           <svg  
@@ -319,7 +321,7 @@ export default function MpMain({ selectedItem }) {
              
             )}
             {selectedItem === 'sub2' && (
-              <div style={{marginLeft: '-360px', marginTop:'-1513px'}}>
+              <div style={{marginLeft: '-550px', marginTop:'-500px'}}>
                 <MpFollowView></MpFollowView>
                 {/* <p>표시 되나여?</p> */}
               </div>
@@ -413,7 +415,7 @@ export default function MpMain({ selectedItem }) {
             )}
             {selectedItem === 'sub4' && (
               
-              <div className='user_container' style = {{marginLeft: '-180px', marginTop:'-1550px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+              <div className='user_container' style = {{marginLeft: '-400px', marginTop:'-500px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 <div className='image_container' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                   <animated.div style={springProps}>
                     <div id="mynetwork" style={{ border: '1px solid black', marginTop:'30px',position: 'relative', width: '1000px', height: '500px'}}></div>
