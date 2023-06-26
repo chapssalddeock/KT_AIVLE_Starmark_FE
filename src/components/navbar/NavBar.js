@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 
 
 
-export default function NavBar() {
+export default function NavBar({ onSignIn }) {
     const router = useRouter();
 
     const moveSignIn = () => {
@@ -25,7 +25,7 @@ export default function NavBar() {
                 <Navbar.Collapse className="justify-content-end" style={{ marginRight: 50 }}>
                     <Nav>
                         <Nav.Link onClick={moveSignUp}>Sign-Up</Nav.Link>
-                        <Nav.Link eventKey={2} onClick={moveSignIn}>Sign-In</Nav.Link>
+                        <Nav.Link eventKey={2} onClick={onSignIn}>Sign-In</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar >
