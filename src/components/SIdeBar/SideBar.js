@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 
 import { Search } from 'react-bootstrap-icons';
 
-
+import axios from 'axios';
 
 
 
@@ -33,12 +33,12 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
             return; // 검색어가 비어있으면 동작하지 않음
         }
         // 검색 로직 구현
-        console.log('검색 실행:', searchQuery);
+        ;
         const updatedHistory = [searchQuery, ...searchHistory.slice(0, MAX_HISTORY_LENGTH - 1)];
         setSearchHistory(updatedHistory);
-        setSearchQuery('');
         setShowSuggestions(false);
         onSearch(searchQuery);
+        setSearchQuery('');
     };
     const handleSuggestedItemClick = (value) => {
         setSearchQuery(value);
@@ -84,13 +84,27 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
           clearTimeout(timerId);
         };
       }, [searchQuery]);
-      const handleSearchHistory = (query) => {
+    const handleSearchHistory = (query) => {
         handleSearch();
         const updatedHistory = [query, ...searchHistory.slice(0, MAX_HISTORY_LENGTH - 1)];
         setSearchHistory(updatedHistory);
         ToggleClick(query);
-      };
-      
+    };
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axios.get('http://kt-aivle.iptime.org:/api/tag/?data=심령');
+            console.log('API Response:', response.data);
+            // 데이터를 처리하는 로직 작성
+          } catch (error) {
+            console.error('API Error:', error);
+            // 오류 처리 로직 작성
+          }
+        };
+    
+        fetchData();
+      }, []);
+    
      
     
 
