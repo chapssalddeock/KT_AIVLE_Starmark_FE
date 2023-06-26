@@ -5,7 +5,7 @@ import { Form, Input } from 'antd';
 
 import { useState, useEffect, useContext } from "react";
 import AuthContext from "../../AuthContext/AuthProvider";
-import axios from "../../Axios/axios";
+import axios from "../../axios/Axios";
 // import axios from 'axios';
 const LOGIN_URL = 'api/token2/';
 

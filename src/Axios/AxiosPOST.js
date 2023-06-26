@@ -1,4 +1,4 @@
-import axios from "./axios";
+import axios from "./Axios";
 
 const DataPOST = async (endpoint, jsonFile, accessToken) => {
     try {
