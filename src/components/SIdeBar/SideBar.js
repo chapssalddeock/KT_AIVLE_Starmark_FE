@@ -60,27 +60,39 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
     const handleSearchInput = (e) => {
         const input = e.target.value;
         setSearchQuery(input);
-        setShowSuggestions(input !== '');
+        setShowSuggestions(false);
     };
-
+    const [config, setconfig] = useState({});
     useEffect(() => {
         let timerId;
-
-        if (searchQuery.trim() !== '') {
-            timerId = setTimeout(() => {
-                const filteredItems = tags.filter(
-                    (item) => item.toLowerCase().startsWith(searchQuery.toLowerCase())
-                );
-                setFilteredItems(filteredItems);
-            }, 100); // 1초의 딜레이 후에 자동완성 요청을 보냅니다.
-        } else {
-            setFilteredItems([]); // 검색어가 비어있을 경우 filteredItems를 초기화합니다.
-        }
-
-        return () => {
+        const delayShowSuggestions = () => {
             clearTimeout(timerId);
+            timerId = setTimeout(() => {
+              setShowSuggestions(true); // 0.5초 후에 suggestions 보여줌
+            }, 500);
+          };
+        const fetchData = async () => {
+          const config = {
+            params: {
+              data: searchQuery,
+            },
+          };
+      
+          await getfetchData('/tag', config);
+          delayShowSuggestions();
         };
-    }, [searchQuery]);
+      
+        const delayFetchData = () => {
+          clearTimeout(timerId);
+          timerId = setTimeout(fetchData, 100);
+        };
+      
+        delayFetchData();
+      
+        return () => {
+          clearTimeout(timerId);
+        };
+      }, [searchQuery]);
 
     const handleSearchHistory = (query) => {
         handleSearch();
@@ -88,22 +100,28 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
         setSearchHistory(updatedHistory);
         ToggleClick(query);
     };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            await getfetchData('/bookmark');
-        };
     
-        fetchData();
-      }, []);
+    // useEffect(() => {
+    //     const config = {
+    //         params : {
+    //             data: searchQuery,
+    //         }
+    //     }
+    //     const fetchData = async () => {
+    //         await getfetchData('/tag', config);
+    //     };
+    
+    //     fetchData();
+    //   }, []);
     
     
       
       useEffect(() => {
         if (getTagData) {
-            const tags = getTagData.map(item => item.tags).flat();
-            const uniqueTags = [...new Set(tags)];
-            setTags(uniqueTags);
+            console.log('abc', getTagData)
+            const tags = getTagData
+            
+            setTags(tags);
             console.log('Tags:', tags);
         } else if (getTagError) {
             console.error(getTagError);
@@ -131,9 +149,9 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
                             ))}
                         </div>
                     </div>
-                    {showSuggestions && (
+                    {showSuggestions && searchQuery !== '' && (
                         <div id="suggestion-box">
-                            {filteredItems.map((item, index) => (
+                            {tags.map((item, index) => (
                                 <div key={index} className="suggested-item"
                                     onMouseEnter={() => handleMouseEnter(item)}
                                     onMouseLeave={handleMouseLeave}
