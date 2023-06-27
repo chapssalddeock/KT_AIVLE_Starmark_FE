@@ -48,7 +48,7 @@ export const AuthManager = () => {
 
     const EmailCheck = async (values) => {
         try {
-            const response = await axios.post( `${BASE_URL}/token2/`, {
+            const response = await axios.post( `${BASE_URL}/email_check/`, {
                 email: values,
             }, {
                 headers: { 'Content-Type': 'application/json' },
