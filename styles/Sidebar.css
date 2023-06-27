@@ -2,16 +2,16 @@
     display: flex;
     flex-direction: column;
     width: 300px;
-    height: 100vh;
+    height: 90vh;
     background-color: #ffffff;
     float: left;
     overflow: hidden;
   }
-  .main-content {
-    margin-left: 400px;/* 사이드바의 너비만큼 왼쪽 여백을 주어 메인 콘텐츠를 이동시킴 */
+  /* .main-content {
+    margin-left: 400px;
     margin-top: 700px; 
     display: 'flex'
-  }
+  } */
 
   .search-container {
     display: flex;
@@ -121,76 +121,23 @@
     display: flex;
     flex-direction: column;
   }
-  .sidebar-footer {
-    position: fixed;
-    margin-top: auto;
-    z-index: 500;
-    bottom: 0;
-    width: 300px;
-    height: 105px;
-    background-color: #f2f2f2;
-    display: grid;
-    grid-template-rows: 2fr 2fr 1.5fr 1.5fr 1.5fr 1.5fr;
-    grid-gap: 1px; /* 기본 열 사이의 간격은 1px */
-    overflow: hidden;
-    
-  }
-  .sidebar-footer > * {
-    border-bottom: 1px solid white; /* 구분선의 색상을 검은색(#000)으로 설정 */
-    
-  }
   
-  .sidebar-footer > *:nth-child(1) {
-    position: relative;
-    margin-top: 2px;
-    font-size: 20px;
-    font-weight: bold;
-    left: -160px;
-    right: 0px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    color: black;
-    
-  }
-  .sidebar-footer > *:nth-child(2) {
-    position: relative;
-    left: 50px;
-    right: 0;
-    margin-top: auto;
-    color: black; /* 두 번째 줄을 아래쪽에 위치시키기 위해 margin-top을 auto로 설정 */
-  }
-  .sidebar-footer > *:nth-child(3) {
-    position: relative;
-    left: 50px;
-    right: 0;
-    margin-top: auto;
-    color: black; /* 두 번째 줄을 아래쪽에 위치시키기 위해 margin-top을 auto로 설정 */
-  }
-  .sidebar-footer > *:nth-child(4) {
-    position: relative;
-    left: 50px;
-    right: 0;
-    margin-top: auto;
-    color: black; /* 두 번째 줄을 아래쪽에 위치시키기 위해 margin-top을 auto로 설정 */
-    font-size: 13px;
-  }
   .mpsidebar {
     width: 300px;
-    height: 80vh;
+    height: 90vh;
     background-color: #ffffff;
     float: left;
   }
 
   .mpsidebar-menu {
     width: 300px;
-    height: 70%;
+    height: 62%;
     background-color: #ffffff;
     
   }
 
 
-  .mpsidebar-main {
+  /* .mpsidebar-main {
     position: fixed;
     flex: 1;
     display: flex;
@@ -201,10 +148,66 @@
     float: left;
     display: flex;
     flex-direction: column;
+  } */
+  .mpsidebar-main {
+    flex-shrink: 0;
+    width: 300px;
+    height: 50%;
+    background-color: #ffffff;
+    float: left;
+    display: flex;
+    flex-direction: column;
   }
+  
+  .additional_menu {
+    position: absolute;
+    bottom: 2%;
+    left: 5%;
+    width: 90%;
+    margin: auto;
+    margin-top: auto;
+    font-size: 14px;
+    text-align: center;
+    padding: 10px;
+    background-color: #e7e7e7;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.additional_menu a {
+    color: #333;
+    text-decoration: none;
+}
+
+.additional_menu a:hover {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.additional_menu span {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #555;
+}
+
+.additional_menu hr {
+    border-color: black; /* 원하는 색상으로 변경 */
+    border-style: dashed; /* 보더 스타일 변경 */
+    border-width: 1px; /* 보더 너비 변경 */
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
 
 
-  .mpsidebar-footer {
+
+  /* .mpsidebar-footer {
     position: fixed;
     margin-top: auto;
     z-index: 500;
@@ -214,12 +217,12 @@
     background-color: #f2f2f2;
     display: grid;
     grid-template-rows: 2fr 2fr 1.5fr 1.5fr 1.5fr 1.5fr;
-    grid-gap: 1px; /* 기본 열 사이의 간격은 1px */
+    grid-gap: 1px; /* 기본 열 사이의 간격은 1px 
     overflow: hidden;
     
   }
   .mpsidebar-footer > * {
-    border-bottom: 1px solid white; /* 구분선의 색상을 검은색(#000)으로 설정 */
+    border-bottom: 1px solid white; // 구분선의 색상을 검은색(#000)으로 설정 
     
   }
   
@@ -241,23 +244,23 @@
     left: 50px;
     right: 0;
     margin-top: auto;
-    color: black; /* 두 번째 줄을 아래쪽에 위치시키기 위해 margin-top을 auto로 설정 */
+    color: black; 
   }
   .mpsidebar-footer > *:nth-child(3) {
     position: relative;
     left: 50px;
     right: 0;
     margin-top: auto;
-    color: black; /* 두 번째 줄을 아래쪽에 위치시키기 위해 margin-top을 auto로 설정 */
+    color: black;         
   }
   .mpsidebar-footer > *:nth-child(4) {
     position: relative;
     left: 50px;
     right: 0;
     margin-top: auto;
-    color: black; /* 두 번째 줄을 아래쪽에 위치시키기 위해 margin-top을 auto로 설정 */
+    color: black;    
     font-size: 13px;
-  }
+  } */
   
 
   
