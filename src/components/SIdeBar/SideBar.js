@@ -96,7 +96,9 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
     
         fetchData();
       }, []);
-
+    
+    
+      
       useEffect(() => {
         if (getTagData) {
             const tags = getTagData.map(item => item.tags).flat();
