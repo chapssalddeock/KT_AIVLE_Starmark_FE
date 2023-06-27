@@ -44,11 +44,13 @@ export default function MpFollowView() {
         setIsDrawerOpen(false);
     };
 
-
+    
 
     return (
         <>
             <List bordered size='large' style={{ marginLeft: 40, marginRight: 30, width: 1050 }}>
+                
+                
                 <VirtualList
                     data={data}
                     height={ContainerHeight}
@@ -56,6 +58,7 @@ export default function MpFollowView() {
                     itemKey="email"
                     onScroll={onScroll}
                 >
+                    
                     {(item) => (
                         <List.Item key={item.email} actions={[
                             <a onClick={handleOpenDrawer} key={`a-${item.email}`}>
@@ -69,6 +72,7 @@ export default function MpFollowView() {
                                     title={<div style={{ fontSize: '20px', marginTop: 2 }}>{item.name.last}</div>}
                                     description={<div style={{ fontSize: '16px' }}>{item.email}</div>}
                                 />
+
 
                                 <div style={{ marginLeft: 400 }}>
                                     <div>주요 태그</div>
