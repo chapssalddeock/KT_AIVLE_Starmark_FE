@@ -1,10 +1,14 @@
 // 보여지는 메인 홈 페이지.
 import PageScroll from '../src/components/FullPage/Intro'
+import RequireAuth from '../src/AuthContext/RequireAuth'
 
 export default function Main() {
   return (
     <>
-      <PageScroll />
+      <RequireAuth>
+        <PageScroll />
+      </RequireAuth>
+
     </>
 
   )
