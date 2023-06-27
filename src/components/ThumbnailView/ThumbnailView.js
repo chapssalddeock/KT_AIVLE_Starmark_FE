@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Card, Col, Tag, Pagination, List, Spin } from 'antd';
 const { Meta } = Card;
-import axios from 'axios';
+import useGET from '../../axios/GET';
 
 // 반복되는 카드 컴포넌트 새로 정의
 const CustomCard = ({ title, desc, img, url, tags }) => (
@@ -37,38 +37,33 @@ export default function ThumbnailView({ searchResult }) {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
+    const { fetchData : getFetchData, data: getData, error: getError } = useGET();
     const pageSize = 6;
 
     const fetchData = async (searchResult) => {
         console.log(searchResult);
         setLoading(true);
-        try {
-            const config = {
-                headers: {
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQyMzU4LCJpYXQiOjE2ODcyNDYzNTgsImp0aSI6ImI2YTU0OWJkOWQxYTQzMWFhNDE3NmFmMmFmMjVjYjQ2IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.cTZokEPKCxNTo6S-BXdv2pRakGRlnIBqzWAGHQKI6Nk',
-                },
-            };
+        const config = {};
 
-            if (searchResult && searchResult.length > 0) {
-                config.params = {};
-                searchResult.forEach((item, index) => {
-                    config.params['data'] = item;
-                });
-            }
-
-
-            console.log(config);
-
-            const response = await axios.get('http://kt-aivle.iptime.org:40170/api/bookmark/', config);
-            if (response.status === 200) {
-                setData(response.data);
-                console.log(response.data);
-            }
-        } catch (error) {
-            console.error('Error fetching data:', error);
+        if (searchResult && searchResult.length > 0) {
+            config.params = {};
+            searchResult.forEach((item, index) => {
+                config.params['data'] = item;
+            });
         }
+
+        console.log(config);
+        await getFetchData('/bookmark', config);
         setLoading(false);
     };
+
+    useEffect(() => {
+        if (getData) {
+            setData(getData);
+        } else if (getError) {
+            console.error(getError);
+        }
+    }, [getData, getError]);
 
     useEffect(() => {
         fetchData(searchResult);
