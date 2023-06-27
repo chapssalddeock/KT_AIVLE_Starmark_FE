@@ -61,7 +61,7 @@ export default function ListView({ searchResult }) {
         }
 
         console.log(config);
-        await getFetchData('/bookmark', config);
+        await getFetchData('/bookmark/', config);
         setLoading(false);
     };
 
