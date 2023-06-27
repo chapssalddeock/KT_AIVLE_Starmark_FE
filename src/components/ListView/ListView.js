@@ -96,11 +96,11 @@ export default function ListView({ searchResult }) {
                 rowKey={(_, index) => index}
             />
 
-            {loading && (
+            {/* {loading && (
                 <div style={{ textAlign: 'center', marginTop: 20 }}>
                     <Spin />
                 </div>
-            )}
+            )} */}
 
             <Pagination
                 style={{ marginTop: 20, textAlign: 'right' }}

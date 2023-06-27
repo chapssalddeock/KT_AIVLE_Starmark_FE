@@ -82,6 +82,8 @@ export default function ThumbnailView({ searchResult }) {
         <div style={{ display: 'flex', flexDirection: 'column' }}>
             <div style={{ flex: 1, marginBottom: '20px' }}>
                 <List
+
+                    loading={loading}
                     grid={{ column: 3 }}
                     style={{ height: 384, overflowY: 'scroll' }}
                     dataSource={currentPageData}
@@ -99,11 +101,11 @@ export default function ThumbnailView({ searchResult }) {
                     )}
                 />
 
-                {loading && (
+                {/* {loading && (
                     <div style={{ textAlign: 'center', marginTop: 20 }}>
                         <Spin />
                     </div>
-                )}
+                )} */}
             </div>
 
             <div style={{ alignSelf: 'flex-end', marginRight: 0, marginTop: 0 }}>

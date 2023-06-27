@@ -6,9 +6,8 @@ import axios from 'axios';
 
 export default function Notification() {
     const router = useRouter();
-    const [notifications, setNotifications] = useState([]);
-    const [unreadCount, setUnreadCount] = useState(0);
-    const [store, setStore] = useState([]);
+    const [notifications, setNotifications] = useState();
+
 
     const moveMyPage = () => {
         router.push("/mypage");
@@ -44,15 +43,20 @@ export default function Notification() {
 
                 const response = await axios.get('http://kt-aivle.iptime.org:40170/api/notice/', config);
                 if (response.status === 200) {
+
                     const data = response.data;
-                    setNotifications(data);
-                    const unreadNotifications = data.filter((notification) => !notification.is_read);
-                    setUnreadCount(unreadNotifications.length);
+
                     const storeData = data.map((notification) => ({
                         key: String(notification.id),
-                        label: notification.content,
+                        label: (
+                            <div onClick={moveMyPage}>
+                                {notification.content}
+                            </div>),
                     }));
-                    setStore(storeData);
+                    setNotifications(storeData);
+
+
+
                 } else {
                     console.log(response.status);
                 }
@@ -61,7 +65,7 @@ export default function Notification() {
             }
         };
 
-        const interval = setInterval(fetchNotifications, 60000);
+        const interval = setInterval(fetchNotifications, 5000);
 
         fetchNotifications();
 
@@ -70,19 +74,15 @@ export default function Notification() {
         };
     }, []);
 
+
+
+
+
+
     return (
         <>
-            <Dropdown
-                overlay={
-                    <Menu>
-                        {store.map((item) => (
-                            //이 부분 onClick 상황 맞게 수정
-                            <Menu.Item key={item.key} onClick={moveMyPage}>
-                                {item.label}
-                            </Menu.Item>
-                        ))}
-                    </Menu>
-                }
+            < Dropdown
+                menu={{ items: notifications }}
                 placement="bottomRight"
                 trigger={['click']}
                 arrow={{
@@ -90,21 +90,15 @@ export default function Notification() {
                 }}
             >
                 <a onClick={(e) => e.preventDefault()}>
-                    <Badge dot={unreadCount > 0}>
-                        <Bell size="24" style={{ cursor: "pointer", marginLeft: '20px' }} />
-                    </Badge>
+                    <div>
+                        <Badge dot>
+                            <Bell size="24" style={{ cursor: "pointer", marginLeft: '20px' }} />
+                        </Badge>
+                    </div>
                 </a>
-            </Dropdown>
+            </Dropdown >
             <Dropdown
-                overlay={
-                    <Menu>
-                        {items.map((item) => (
-                            <Menu.Item key={item.key} onClick={item.label.props.onClick}>
-                                {item.label}
-                            </Menu.Item>
-                        ))}
-                    </Menu>
-                }
+                menu={{ items }}
                 placement="bottomRight"
                 trigger={['click']}
                 arrow={{
@@ -114,7 +108,7 @@ export default function Notification() {
                 <a onClick={(e) => e.preventDefault()}>
                     <PersonCircle size="24" style={{ cursor: "pointer", marginLeft: '20px' }} />
                 </a>
-            </Dropdown>
+            </Dropdown >
         </>
     );
 }
