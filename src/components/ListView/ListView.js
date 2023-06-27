@@ -46,8 +46,7 @@ export default function ListView({ searchResult }) {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-
-     const { fetchData : getFetchData, data: getData, error: getError } = useGET();
+    const { fetchData : getFetchData, data: getData, error: getError } = useGET();
 
     const fetchData = async (searchResult) => {
         console.log(searchResult);
