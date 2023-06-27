@@ -1,12 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 
 //import { FaSearch } from 'react-icons/fa';
-
 import { Search } from 'react-bootstrap-icons';
-
-import axios from 'axios';
-
-
+import useGET from '../../axios/GET';
 
 export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick }) {
     const [searchQuery, setSearchQuery] = useState('');
@@ -20,6 +16,8 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
     const [hoveredItem, setHoveredItem] = useState(null);
     const [showHiddenRecords, setShowHiddenRecords] = useState(false);
     const [tags, setTags] = useState([]);
+    const { fetchData : getfetchData, data: getTagData, error: getTagError } = useGET();
+
     const handleMouseEnter = (item) => {
         setHoveredItem(item);
     };
@@ -27,7 +25,6 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
     const handleMouseLeave = () => {
         setHoveredItem(null);
     };
-
 
     const handleSearch = () => {
         if (searchQuery.trim() === '') {
@@ -41,6 +38,7 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
         onSearch(searchQuery);
         setSearchQuery('');
     };
+
     const handleSuggestedItemClick = (value) => {
         setSearchQuery(value);
         handleSearch();
@@ -51,7 +49,6 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
 
     };
 
-
     // const items = ['수학', 'abc', 'def', 'fqw', 'vxcv', 'bgf', 'dfag', 'ax', 'uay', 'a안녕', '2a12312', 'a반가워요', 'aㅁㅁㄴㅇㅁㄴㅇ', 'a한찬규', 'a김채원', 'a박경덕', 'a김민성', 'a황소정', 'a정정해'];
 
     useEffect(() => {
@@ -60,13 +57,12 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
         }
     }, []);
 
-
-
     const handleSearchInput = (e) => {
         const input = e.target.value;
         setSearchQuery(input);
         setShowSuggestions(input !== '');
     };
+
     useEffect(() => {
         let timerId;
 
@@ -85,38 +81,32 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
             clearTimeout(timerId);
         };
     }, [searchQuery]);
+
     const handleSearchHistory = (query) => {
         handleSearch();
         const updatedHistory = [query, ...searchHistory.slice(0, MAX_HISTORY_LENGTH - 1)];
         setSearchHistory(updatedHistory);
         ToggleClick(query);
     };
+
     useEffect(() => {
         const fetchData = async () => {
-          try {
-            const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQyMzE0LCJpYXQiOjE2ODcyNDYzMTQsImp0aSI6IjcwZWRlMGZmYWYyMTRhYmI4ZTdlY2RkMGFmNzczZGVhIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.Q4vPGRu5nxVu_94fn3JeTZlsxXSLKY9GYgiRkscIRqw';
-
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            };
-            const response = await axios.get('http://kt-aivle.iptime.org:40170/api/bookmark/', config);
-            const tags = response.data.map(item => item.tags).flat();
-            const uniqueTags = [...new Set(tags)];
-            setTags(uniqueTags);
-            console.log('Tags:', tags);
-            // 데이터를 처리하는 로직 작성
-          } catch (error) {
-            console.error('API Error:', error);
-            // 오류 처리 로직 작성
-          }
+            await getfetchData('/bookmark');
         };
     
         fetchData();
       }, []);
 
-
+      useEffect(() => {
+        if (getTagData) {
+            const tags = getTagData.map(item => item.tags).flat();
+            const uniqueTags = [...new Set(tags)];
+            setTags(uniqueTags);
+            console.log('Tags:', tags);
+        } else if (getTagError) {
+            console.error(getTagError);
+        }
+    }, [getTagData, getTagError]);
 
 
     return (

@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-
 import { Avatar, List } from 'antd';
 import VirtualList from 'rc-virtual-list';
 import UserDrawer from '../Modal/UserDrawer';
