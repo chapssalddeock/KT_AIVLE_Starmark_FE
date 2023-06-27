@@ -21,6 +21,8 @@ export default function SubmitForm({ isOpen, onClose }) {
     };
 
     const handleSubmit = async (values) => {
+        console.log("*******************")
+        console.log(values);
         let formData = null;
         const config = {
             headers: {
@@ -31,6 +33,7 @@ export default function SubmitForm({ isOpen, onClose }) {
         }
 
         if (selectedOption === 'URL') {
+            
             formData = {
                 type: 'string',
                 title: values.title,
@@ -113,8 +116,40 @@ export default function SubmitForm({ isOpen, onClose }) {
                         onChange={handleOptionChange}
                     />
                 </div>
-
                 <Form layout="vertical" onFinish={handleSubmit} id="submitForm">
+                    {selectedOption === 'URL' && (
+                        <>
+                            <Row gutter={16}>
+                                <Form.Item
+                                    name="title"
+                                    label="북마크 이름"
+                                    rules={[{ required: true, message: '북마크 이름을 입력하세요.' }]}
+                                >
+                                    <Input placeholder="북마크 이름을 입력하세요." />
+                                </Form.Item>
+                            </Row>
+                            <Row gutter={16}>
+                                <Form.Item
+                                    name="url"
+                                    label="URL"
+                                    rules={[{ required: true, message: 'URL을 입력하세요.' }]}
+                                >
+                                    <Input placeholder="URL을 입력하세요." />
+                                </Form.Item>
+                            </Row>
+                            <Row gutter={16}>
+                                <Form.Item
+                                    name="is_public"
+                                    label="공개 여부"
+                                    rules={[{ required: true, message: '공개 여부를 선택하세요.' }]}
+                                >
+                                    <Select placeholder="선택" options={options} onChange={handleChange} />
+                                </Form.Item>
+                            </Row>
+                        </>
+                    )}
+
+                    {/* <Form layout="vertical" onFinish={(values) => handleSubmit(values)} id="submitForm">
                     {selectedOption === 'URL' && (
                         <>
                             <Row gutter={16}>
@@ -143,8 +178,8 @@ export default function SubmitForm({ isOpen, onClose }) {
                                     required
                                 />
                             </Row>
-                        </>
-                    )}
+                        </> */}
+                    {/* )} */}
 
                     {selectedOption === 'HTML' && (
                         <>

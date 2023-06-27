@@ -68,6 +68,23 @@ export default function SocialListView() {
     const handleCloseDrawer = () => {
         setIsDrawerOpen(false);
     };
+    const handleItemClick = (item) => {
+        
+        handleOpenDrawer(item.id);
+      };
+    
+    
+    const [hoveredItem, setHoveredItem] = useState(null);
+
+    const handleMouseEnter = (item) => {
+        setHoveredItem(item);
+    };
+
+    const handleMouseLeave = () => {
+        setHoveredItem(null);
+    };
+
+
 
     return (
         <>
@@ -77,14 +94,21 @@ export default function SocialListView() {
                     height={ContainerHeight}
                     itemHeight={80}
                     itemKey="email"
+                    
                 >
                     {(item) => (
                         <List.Item key={item.email} actions={[
-                            < a onClick={() => handleOpenDrawer(item.id)}  >
+                            < a >
                                 View Profile
                             </a>,
 
-                        ]}>
+                            ]}
+                            onClick={() => handleOpenDrawer(item.id)}
+                            onMouseEnter={() => handleMouseEnter(item)}
+                            onMouseLeave={handleMouseLeave}
+                            className={hoveredItem === item ? 'active' : ''}
+                            style={{ backgroundColor: hoveredItem === item ? 'skyblue' : 'inherit', transition: 'background-color 0.3s ease', }}
+                        >
                             <List.Item.Meta
                                 avatar={<Avatar src={'http://kt-aivle.iptime.org:40170' + item.profile_image} size={80} />}
                                 title={<div style={{ fontSize: '24px', marginTop: '8px' }}>{item.username}</div>}

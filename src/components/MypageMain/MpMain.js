@@ -9,6 +9,7 @@ import { EditOutlined } from '@ant-design/icons';
 import { useSpring, animated, config } from 'react-spring';
 import MpFollowView from '../MyPageFollow/MpFollow';
 import MpSideBar from '../MyPageSideBar/MpSideBar';
+import axios from 'axios';
 export default function MpMain({ selectedItem }) {
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState('right');
@@ -39,25 +40,34 @@ export default function MpMain({ selectedItem }) {
   };
 
   // 추가: 편집 버튼을 눌렀을 때 Drawer를 활성화
-  
+    const [userImage, setUserImage] = useState(null);
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedNode, setSelectedNode] = useState(null);
+    const [tags, setTags] = useState([]);
+    const [wordCounts, setWordCounts] = useState({});
     const handleProfileImageUpload = () => {
-        setIsConfirmOpen(true);
+      const fileInput = document.getElementById('profileImageUpload');
+      fileInput.click(); // 파일 선택 대화상자 열기
     };
+    
+    
     const closeModal = () => {
         setIsModalOpen(false);
       };
-    const handleConfirmUpload = () => {
-        // 프로필 사진 업로드 실행
-        setIsConfirmOpen(false);
+    const handleImageUpload = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+    
+        reader.onloadend = () => {
+          setUserImage(reader.result);
+        };
+    
+        if (file) {
+          reader.readAsDataURL(file);
+        }
     };
-      
-    const handleCancelUpload = () => {
-        // 업로드 취소
-        setIsConfirmOpen(false);
-    };
+    
     const handlePasswordChange = (values) => {
         const { currentPassword, newPassword, confirmPassword } = values;
       
@@ -77,37 +87,35 @@ export default function MpMain({ selectedItem }) {
       const [profileImage, setProfileImage] = useState(null);
       const networkRef = useRef();
       const springProps = useSpring({ opacity: 1, from: { opacity: 0 } });
+    
+    
     useEffect(() => {
         const container = document.getElementById('mynetwork');
             
         
         if (selectedItem === 'sub4') {
-            const nodes = new DataSet([
-                { id: 1, label: 'Node 1' },
-                { id: 2, label: 'Node 2' },
-                { id: 3, label: 'Node 3' },
-                { id: 4, label: 'Node 4' },
-                { id: 5, label: 'Node 5' },
-            ]);
+            const tags = Object.keys(wordCounts);
+            const maxCount = Math.max(...Object.values(wordCounts));
+          
+            const nodesData = Object.keys(wordCounts).map((tag, index) => ({
+              id: index + 1,
+              label: tag,
+              value: wordCounts[tag] / maxCount // 빈도수에 따라 Node의 크기 조절
+            }));
         
-            const edges = new DataSet([
-                { from: 1, to: 2 },
-                { from: 1, to: 3 },
-                { from: 2, to: 4 },
-                { from: 2, to: 5 },
-            ]);
-        
+            const nodes = new DataSet(nodesData);
+            const edges = new DataSet([]);
             const data = { nodes, edges };
             const options = {};
-        
+            
             const network = new Network(container, data, options);
             networkRef.current = network;
             networkRef.current.on('click', (event) => {
                 if (event.nodes.length > 0) {
                     const nodeId = event.nodes[0];
                     const selectedNode = nodes.get(nodeId);
-                setSelectedNode(selectedNode);
-                setIsModalOpen(true);
+                    setSelectedNode(selectedNode);
+                    setIsModalOpen(true);
                 }
             });
             
@@ -115,17 +123,52 @@ export default function MpMain({ selectedItem }) {
             networkRef.current = null;
             }
             
-    }, [selectedItem]);
+    }, [selectedItem, wordCounts]);
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQyMzE0LCJpYXQiOjE2ODcyNDYzMTQsImp0aSI6IjcwZWRlMGZmYWYyMTRhYmI4ZTdlY2RkMGFmNzczZGVhIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.Q4vPGRu5nxVu_94fn3JeTZlsxXSLKY9GYgiRkscIRqw';
+
+          const config = {
+              headers: {
+                  Authorization: `Bearer ${token}`
+              }
+          };
+          const response = await axios.get('http://kt-aivle.iptime.org:40170/api/bookmark/', config);
+          const tags = response.data.map(item => item.tags).flat();
+          const wordCounts = {};
+
+          tags.forEach((tag) => {
+            if (wordCounts[tag]) {
+              wordCounts[tag] += 1;
+            } else {
+              wordCounts[tag] = 1;
+            }
+          });
+          setWordCounts(wordCounts);
+          setTags(tags);
+          console.log('Tags:', tags);
+          // 데이터를 처리하는 로직 작성
+        } catch (error) {
+          console.error('API Error:', error);
+          // 오류 처리 로직 작성
+        }
+      };
+  
+      fetchData();
+    }, []);
 
     return(
         <>
             <div className="main-content" style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '45%', height: '100vh'}} >
             
             {selectedItem === 'sub1' && (
-                <div className='main' style={{display: 'flex', marginTop: '-1590px', width: '100%', height: '90vh' , justifyContent: 'center', alignItems: 'center'}}>
+                <div className='main' style={{display: 'flex', marginTop: '-1730px', width: '100%', height: '90vh' , justifyContent: 'center', alignItems: 'center'}}>
+                  
                   <div className='user_container' style = {{ flex:'1'}}>
+                  
                     <div className='image_container' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-    
+                    
                       <div className = 'user_image' style={{ position: 'relative', height: '250px', width: '250px'}}>
                         <div style={{ position: 'relative', width: '200px', height: '200px'}}>
                           <svg  
@@ -145,12 +188,14 @@ export default function MpMain({ selectedItem }) {
                             
                             <title>Placeholder</title>
                             <rect width="100%" height="100%" fill="skyblue"></rect>
-                            <image
-                              href="/img/User.jpg"
-                              width="99%"
-                              height="95%"
-                              preserveAspectRatio="xMidYMid slice"
-                            />
+                            {userImage && (
+                              <image
+                                href={userImage}
+                                width="100%"
+                                height="100%"
+                                preserveAspectRatio="xMidYMid slice"
+                              />
+                            )}
                           </svg>
                           {profileImage && (
                             <img
@@ -181,10 +226,18 @@ export default function MpMain({ selectedItem }) {
                                   justifyContent: 'center',
                                   alignItems: 'center',
                                 }}
+                                
                               >
                                 <BsCamera size={24} color="black" />
                               </div>
                             </span>
+                            <input
+                              id="profileImageUpload"
+                              type="file"
+                              accept="image/*"
+                              style={{ display: 'none' }}
+                              onChange={handleImageUpload}
+                            />
                             
 
                           </label>
@@ -302,7 +355,7 @@ export default function MpMain({ selectedItem }) {
              
             )}
             {selectedItem === 'sub2' && (
-              <div style={{marginLeft: '-360px', marginTop:'-1513px'}}>
+              <div style={{marginLeft: '-550px', marginTop:'-500px'}}>
                 <MpFollowView></MpFollowView>
                 {/* <p>표시 되나여?</p> */}
               </div>
@@ -396,10 +449,10 @@ export default function MpMain({ selectedItem }) {
             )}
             {selectedItem === 'sub4' && (
               
-              <div className='user_container' style = {{marginLeft: '-430px', marginTop:'-1513px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+              <div className='user_container' style = {{marginLeft: '-400px', marginTop:'-500px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 <div className='image_container' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                   <animated.div style={springProps}>
-                    <div id="mynetwork" style={{ border: '1px solid transparent', marginTop:'30px',position: 'relative', width: '1000px', height: '300px'}}></div>
+                    <div id="mynetwork" style={{ border: '1px solid black', marginTop:'30px',position: 'relative', width: '1000px', height: '500px'}}></div>
                   </animated.div>  
                 </div>
               </div>

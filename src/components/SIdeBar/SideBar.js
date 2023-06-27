@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 
 import { Search } from 'react-bootstrap-icons';
 
-
+import axios from 'axios';
 
 
 
@@ -19,6 +19,7 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
     const [filteredItems, setFilteredItems] = useState([]);
     const [hoveredItem, setHoveredItem] = useState(null);
     const [showHiddenRecords, setShowHiddenRecords] = useState(false);
+    const [tags, setTags] = useState([]);
     const handleMouseEnter = (item) => {
         setHoveredItem(item);
     };
@@ -33,12 +34,12 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
             return; // 검색어가 비어있으면 동작하지 않음
         }
         // 검색 로직 구현
-        console.log('검색 실행:', searchQuery);
+        ;
         const updatedHistory = [searchQuery, ...searchHistory.slice(0, MAX_HISTORY_LENGTH - 1)];
         setSearchHistory(updatedHistory);
-        setSearchQuery('');
         setShowSuggestions(false);
         onSearch(searchQuery);
+        setSearchQuery('');
     };
     const handleSuggestedItemClick = (value) => {
         setSearchQuery(value);
@@ -51,7 +52,7 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
     };
 
 
-    const items = ['abc', 'def', 'fqw', 'vxcv', 'bgf', 'dfag', 'ax', 'uay', 'a안녕', '2a12312', 'a반가워요', 'aㅁㅁㄴㅇㅁㄴㅇ', 'a한찬규', 'a김채원', 'a박경덕', 'a김민성', 'a황소정', 'a정정해'];
+    // const items = ['수학', 'abc', 'def', 'fqw', 'vxcv', 'bgf', 'dfag', 'ax', 'uay', 'a안녕', '2a12312', 'a반가워요', 'aㅁㅁㄴㅇㅁㄴㅇ', 'a한찬규', 'a김채원', 'a박경덕', 'a김민성', 'a황소정', 'a정정해'];
 
     useEffect(() => {
         if (searchInputRef.current) {
@@ -68,31 +69,55 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
     };
     useEffect(() => {
         let timerId;
-      
+
         if (searchQuery.trim() !== '') {
-          timerId = setTimeout(() => {
-            const filteredItems = items.filter(
-              (item) => item.toLowerCase().startsWith(searchQuery.toLowerCase())
-            );
-            setFilteredItems(filteredItems);
-          }, 100); // 1초의 딜레이 후에 자동완성 요청을 보냅니다.
+            timerId = setTimeout(() => {
+                const filteredItems = tags.filter(
+                    (item) => item.toLowerCase().startsWith(searchQuery.toLowerCase())
+                );
+                setFilteredItems(filteredItems);
+            }, 100); // 1초의 딜레이 후에 자동완성 요청을 보냅니다.
         } else {
-          setFilteredItems([]); // 검색어가 비어있을 경우 filteredItems를 초기화합니다.
+            setFilteredItems([]); // 검색어가 비어있을 경우 filteredItems를 초기화합니다.
         }
-      
+
         return () => {
-          clearTimeout(timerId);
+            clearTimeout(timerId);
         };
-      }, [searchQuery]);
-      const handleSearchHistory = (query) => {
+    }, [searchQuery]);
+    const handleSearchHistory = (query) => {
         handleSearch();
         const updatedHistory = [query, ...searchHistory.slice(0, MAX_HISTORY_LENGTH - 1)];
         setSearchHistory(updatedHistory);
         ToggleClick(query);
-      };
-      
-     
+    };
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQyMzE0LCJpYXQiOjE2ODcyNDYzMTQsImp0aSI6IjcwZWRlMGZmYWYyMTRhYmI4ZTdlY2RkMGFmNzczZGVhIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.Q4vPGRu5nxVu_94fn3JeTZlsxXSLKY9GYgiRkscIRqw';
+
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            };
+            const response = await axios.get('http://kt-aivle.iptime.org:40170/api/bookmark/', config);
+            const tags = response.data.map(item => item.tags).flat();
+            const uniqueTags = [...new Set(tags)];
+            setTags(uniqueTags);
+            console.log('Tags:', tags);
+            // 데이터를 처리하는 로직 작성
+          } catch (error) {
+            console.error('API Error:', error);
+            // 오류 처리 로직 작성
+          }
+        };
     
+        fetchData();
+      }, []);
+
+
+
 
     return (
         <div>
@@ -107,11 +132,11 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
                 <div className="search-history-container">
                     <div className="search-history">
                         <div className="search-record-wrapper">
-                          {searchHistory.slice(0, MAX_HISTORY_LENGTH).map((query, index) => (
-                            <button key={index} className="search-record" onClick={() => handleSearchHistory(query)}>
-                              {query}
-                            </button>
-                          ))}
+                            {searchHistory.slice(0, MAX_HISTORY_LENGTH).map((query, index) => (
+                                <button key={index} className="search-record" onClick={() => handleSearchHistory(query)}>
+                                    {query}
+                                </button>
+                            ))}
                         </div>
                     </div>
                     {showSuggestions && (
@@ -132,9 +157,9 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
                     <footer className="sidebar-footer">
                         <div>Information</div>
                         <div>ABOUT US</div>
-                        
+
                         <div>개인정보 취급방침</div>
-                        
+
                         <div>@ KT aivle  3rd, big-pjt, team 42</div>
                     </footer>
                 </div>
