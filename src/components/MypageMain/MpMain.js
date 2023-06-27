@@ -9,6 +9,7 @@ import { EditOutlined } from '@ant-design/icons';
 import { useSpring, animated, config } from 'react-spring';
 import MpFollowView from '../MyPageFollow/MpFollow';
 import MpSideBar from '../MyPageSideBar/MpSideBar';
+import axios from 'axios';
 export default function MpMain({ selectedItem }) {
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState('right');
@@ -43,6 +44,8 @@ export default function MpMain({ selectedItem }) {
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedNode, setSelectedNode] = useState(null);
+    const [tags, setTags] = useState([]);
+    const [wordCounts, setWordCounts] = useState({});
     const handleProfileImageUpload = () => {
       const fileInput = document.getElementById('profileImageUpload');
       fileInput.click(); // 파일 선택 대화상자 열기
@@ -84,37 +87,35 @@ export default function MpMain({ selectedItem }) {
       const [profileImage, setProfileImage] = useState(null);
       const networkRef = useRef();
       const springProps = useSpring({ opacity: 1, from: { opacity: 0 } });
+    
+    
     useEffect(() => {
         const container = document.getElementById('mynetwork');
             
         
         if (selectedItem === 'sub4') {
-            const nodes = new DataSet([
-                { id: 1, label: 'Node 1' },
-                { id: 2, label: 'Node 2' },
-                { id: 3, label: 'Node 3' },
-                { id: 4, label: 'Node 4' },
-                { id: 5, label: 'Node 5' },
-            ]);
+            const tags = Object.keys(wordCounts);
+            const maxCount = Math.max(...Object.values(wordCounts));
+          
+            const nodesData = Object.keys(wordCounts).map((tag, index) => ({
+              id: index + 1,
+              label: tag,
+              value: wordCounts[tag] / maxCount // 빈도수에 따라 Node의 크기 조절
+            }));
         
-            const edges = new DataSet([
-                { from: 1, to: 2 },
-                { from: 1, to: 3 },
-                { from: 2, to: 4 },
-                { from: 2, to: 5 },
-            ]);
-        
+            const nodes = new DataSet(nodesData);
+            const edges = new DataSet([]);
             const data = { nodes, edges };
             const options = {};
-        
+            
             const network = new Network(container, data, options);
             networkRef.current = network;
             networkRef.current.on('click', (event) => {
                 if (event.nodes.length > 0) {
                     const nodeId = event.nodes[0];
                     const selectedNode = nodes.get(nodeId);
-                setSelectedNode(selectedNode);
-                setIsModalOpen(true);
+                    setSelectedNode(selectedNode);
+                    setIsModalOpen(true);
                 }
             });
             
@@ -122,7 +123,40 @@ export default function MpMain({ selectedItem }) {
             networkRef.current = null;
             }
             
-    }, [selectedItem]);
+    }, [selectedItem, wordCounts]);
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQyMzE0LCJpYXQiOjE2ODcyNDYzMTQsImp0aSI6IjcwZWRlMGZmYWYyMTRhYmI4ZTdlY2RkMGFmNzczZGVhIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.Q4vPGRu5nxVu_94fn3JeTZlsxXSLKY9GYgiRkscIRqw';
+
+          const config = {
+              headers: {
+                  Authorization: `Bearer ${token}`
+              }
+          };
+          const response = await axios.get('http://kt-aivle.iptime.org:40170/api/bookmark/', config);
+          const tags = response.data.map(item => item.tags).flat();
+          const wordCounts = {};
+
+          tags.forEach((tag) => {
+            if (wordCounts[tag]) {
+              wordCounts[tag] += 1;
+            } else {
+              wordCounts[tag] = 1;
+            }
+          });
+          setWordCounts(wordCounts);
+          setTags(tags);
+          console.log('Tags:', tags);
+          // 데이터를 처리하는 로직 작성
+        } catch (error) {
+          console.error('API Error:', error);
+          // 오류 처리 로직 작성
+        }
+      };
+  
+      fetchData();
+    }, []);
 
     return(
         <>
