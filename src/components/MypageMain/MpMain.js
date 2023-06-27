@@ -160,7 +160,7 @@ export default function MpMain({ selectedItem }) {
       <div className="main-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '45%', height: '100vh' }} >
 
         {selectedItem === 'sub1' && (
-          <div className='main' style={{ display: 'flex', marginLeft:'1000px', marginTop: '-330px', width: '100%', height: '90vh', justifyContent: 'center', alignItems: 'center' }}>
+          <div className='main' style={{ display: 'flex', marginLeft:'1000px', marginTop: '-300px', width: '100%', height: '90vh', justifyContent: 'center', alignItems: 'center' }}>
 
             <div className='user_container' style={{ flex: '1' }}>
 
