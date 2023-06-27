@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Button } from 'antd';
 import usePOST from '../../axios/POST';
 import useDELETE from '../../axios/DELETE';
-import axios from 'axios';
 
 export default function FollowButton({ user_isFollowing, user_id }) {
     const [isFollowing, setIsFollowing] = useState([]);
