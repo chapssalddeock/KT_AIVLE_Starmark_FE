@@ -2,15 +2,20 @@ import React, { useEffect } from 'react';
 import { BackgroundPage, MainBlock, AlertPart, Content, ButtonBlock } from '../../../styles/Complete_Emotion';
 import { Button } from 'antd';
 import { useRouter } from 'next/router';
-import useGET from '../../axios/GET';
+import usePOST from '../../axios/POST';
 
 const Complete = () => {
   const router = useRouter();
-  const { data, error } = useGET('/bookmark');
+  const { data, error, fetchData } = usePOST();
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     // Handle the response data as needed
     console.log("button");
+    const config = {
+      title : 'test',
+      content: 'input test'
+    }
+    await fetchData('/notice/', config);
   };
 
   useEffect(() => {
@@ -18,7 +23,10 @@ const Complete = () => {
       // Perform actions with the response data
       console.log(data);
     }
-  }, [data]);
+    else{
+      console.log(error);
+    }
+  }, [data, error]);
 
   if (error) {
     console.log(error);
