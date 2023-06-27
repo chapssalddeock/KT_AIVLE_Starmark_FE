@@ -9,7 +9,7 @@ const useDELETE = () => {
 
   const fetchData = async (endurl, parameter) => {
     try {
-      const response = await axiosInstance.post(endurl, parameter);
+      const response = await axiosInstance.delete(endurl, parameter);
       setData(response.data);
     } catch (error) {
       setError(error);
