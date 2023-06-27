@@ -145,12 +145,14 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
 
                 <div className='sidebar-main'>
                     <footer className="sidebar-footer">
-                        <div>Information</div>
-                        <div>ABOUT US</div>
-
-                        <div>개인정보 취급방침</div>
-
-                        <div>@ KT aivle  3rd, big-pjt, team 42</div>
+                        <div className="additional_menu mt-4 p-3">
+                            <div className="links">
+                                <a href="#">About</a>
+                                <a href="#">개인정보보호방침</a>
+                            </div>
+                            <hr className="my-2 py-0 w-100" />
+                            <span>&copy; 2023 Aivle, 11, 42</span>
+                        </div>
                     </footer>
                 </div>
 
