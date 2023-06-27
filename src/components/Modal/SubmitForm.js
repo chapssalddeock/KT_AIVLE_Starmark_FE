@@ -33,6 +33,7 @@ export default function SubmitForm({ isOpen, onClose }) {
         }
 
         if (selectedOption === 'URL') {
+            
             formData = {
                 type: 'string',
                 title: values.title,
