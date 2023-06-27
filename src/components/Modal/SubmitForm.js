@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Segmented, Button, Drawer, Form, Input, Row, Space, message, Upload, Select } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import axios from 'axios';
+import usePOST from '../../axios/POST';
 
 const handleChange = (value) => {
     console.log(`선택된 값: ${value}`);
@@ -15,6 +15,7 @@ const options = [
 export default function SubmitForm({ isOpen, onClose }) {
     const [selectedOption, setSelectedOption] = useState('URL');
     const [fileList, setFileList] = useState([]);
+    const { fetchData : postFetchData, data: postData, error: postError } = usePOST();
 
     const handleOptionChange = (value) => {
         setSelectedOption(value);
@@ -24,13 +25,6 @@ export default function SubmitForm({ isOpen, onClose }) {
         console.log("*******************")
         console.log(values);
         let formData = null;
-        const config = {
-            headers: {
-                Authorization:
-                    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQyMzU4LCJpYXQiOjE2ODcyNDYzNTgsImp0aSI6ImI2YTU0OWJkOWQxYTQzMWFhNDE3NmFmMmFmMjVjYjQ2IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.cTZokEPKCxNTo6S-BXdv2pRakGRlnIBqzWAGHQKI6Nk',
-                'Content-Type': 'application/json',
-            },
-        }
 
         if (selectedOption === 'URL') {
             
@@ -45,18 +39,17 @@ export default function SubmitForm({ isOpen, onClose }) {
             formData.append('file', fileList[0]);
         }
 
-        try {
-            const response = await axios.post('http://kt-aivle.iptime.org:40170/api/bookmark/', formData, config);
-
-            if (String(response.status)[0] === '2') {
-                console.log('전송 성공', response.data);
-            } else {
-                console.log('전송 실패', response.status);
-            }
-        } catch (error) {
-            console.error('전송 실패', error);
-        }
+        await postFetchData('/bookmark/', formData);
     };
+
+    useEffect(() => {
+        if (postData) {
+            console.log('전송 성공', postData);
+        } else if (postError) {
+            console.log(postError);
+            console.log('전송 실패', postError);
+        }
+    }, [postData, postError]);
 
     const handleFileChange = (event) => {
         const files = event.target.files;
