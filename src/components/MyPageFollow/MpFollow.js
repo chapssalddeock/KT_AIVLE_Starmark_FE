@@ -44,7 +44,43 @@ export default function MpFollowView() {
         setIsDrawerOpen(false);
     };
 
-    
+    // const columns = [
+    //     {
+    //         title: 'NickName',
+    //         dataIndex: 'NickName',
+    //         key: 'NickName',
+    //     },
+    //     {
+    //         title: 'Tags',
+    //         key: 'tags',
+    //         dataIndex: 'tags',
+    //         render: (_, { tags }) => (
+    //             <>
+    //                 {tags.map((tag) => (
+    //                     <Tag key={tag} style={{ borderRadius: 20, height: 25 }}>
+    //                         {tag}
+    //                     </Tag>
+    //                 ))}
+    //             </>
+    //         ),
+    //     },
+    //     {
+    //         title: 'Desc',
+    //         dataIndex: 'desc',
+    //         key: 'desc',
+    //     },
+    //     {
+    //         title: 'Opts',
+    //         key: 'opts',
+    //         render: (_, { url }) => (
+    //             <Space size="middle">
+    //                 <a href={url}>
+    //                     <BoxArrowUpRight />
+    //                 </a>
+    //             </Space>
+    //         ),
+    //     },
+    // ];
 
     return (
         <>
