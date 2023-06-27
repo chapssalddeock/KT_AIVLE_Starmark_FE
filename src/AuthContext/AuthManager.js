@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import useAuth from "../AuthHooks/useAuth";
 
 let errorMessage = "";
+const BASE_URL = "http://kt-aivle.iptime.org:40170/api";
 
 export const AuthManager = () => {
     const router = useRouter();
@@ -20,7 +21,7 @@ export const AuthManager = () => {
     const LogIn = async (values) => {
         let response;
         try {
-            response = await axios.post('http://kt-aivle.iptime.org:40170/api/token2/', {
+            response = await axios.post(`${BASE_URL}/token2/`, {
                 email: values.email,
                 password: values.password,
             }, {
@@ -47,7 +48,7 @@ export const AuthManager = () => {
 
     const EmailCheck = async (values) => {
         try {
-            const response = await axios.post('http://kt-aivle.iptime.org:40170/api/email_check/', {
+            const response = await axios.post( `${BASE_URL}/token2/`, {
                 email: values,
             }, {
                 headers: { 'Content-Type': 'application/json' },
@@ -66,7 +67,7 @@ export const AuthManager = () => {
 
     const Register = async (values) => {
         try {
-            const response = await axios.post('http://kt-aivle.iptime.org:40170/api/signup/', {
+            const response = await axios.post( `${BASE_URL}/signup/` , {
                 email: values.email,
                 username: values.nickname,
                 password: values.password,
@@ -106,10 +107,6 @@ export const AuthManager = () => {
       
       </div>
     );
-
-
-
-    
 
     return {
         LogIn,
