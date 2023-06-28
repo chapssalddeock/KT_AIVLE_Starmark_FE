@@ -118,6 +118,15 @@ export default function PageScroll() {
     <Outer ref={outerDivRef} className="outer">
       <NavBar onSignIn={handleSignIn} />
       <UnderNavInner className="Inner">
+        {/* <h1 class="animate__animated animate__bounce">An animated element</h1>
+
+        <div
+          id="animatedDiv"
+          className={`animate__animated animate__${isFadeIn ? 'fadeInUp' : 'fadeOutUp'}`}
+          onAnimationEnd={handleAnimationEnd}
+        >
+          <p>애니메이션 콘텐츠</p>
+        </div> */}
 
         <PageBackGround>
           <Wave>
