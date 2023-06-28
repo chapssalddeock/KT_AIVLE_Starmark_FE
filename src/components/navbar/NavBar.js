@@ -20,7 +20,7 @@ export default function NavBar({ onSignIn }) {
 
     return (
         <>
-            <Navbar collapseOnSelect bg="white">
+            <Navbar collapseOnSelect bg="white" style={{ boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)' }}>
                 <Nav.Link onClick={moveHome} style={{ marginLeft: 20 }} > <img src='img/defalut_logo.png' height={60}></img></Nav.Link>
                 <Navbar.Collapse className="justify-content-end" style={{ marginRight: 50 }}>
                     <Nav>
