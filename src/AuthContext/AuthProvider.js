@@ -9,6 +9,8 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {      
         const getToken = localStorage.getItem("TokenData");
         if (getToken) {
+            // 여기에다가 require Auth expires 확인
+            // 만약 유효기간이 지났으면 localStorage, auth 모두 비움
             console.log("ifprovide");
             setAuth(JSON.parse(getToken));
         }

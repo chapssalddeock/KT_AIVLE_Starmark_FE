@@ -14,9 +14,17 @@ export const SignUpFrame = styled.div`
   top : 15%;
 `
 
+export const AlertSpace = styled.div`
+  width : 100%;
+  height : 10%;
+  float : right;
+  align-items: center;
+`
+
+
 export const TitleSpace = styled.div`
-    width : 80%;
-    height : 25%;
+    width : 100%;
+    height : 15%;
     float : right;
     align-items: center;
     // border : solid yellow;
@@ -38,9 +46,5 @@ export const InputSpace = styled.div`
   align-items: center; // 세로 중앙 정렬
   justify-content: center; // 가로 중앙 정렬
   border : solid red;
-  p {
-    margin: 0;
-    text-align: center;
-  }
     
 `
