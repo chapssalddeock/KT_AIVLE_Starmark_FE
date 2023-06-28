@@ -3,6 +3,9 @@ import { useState, useCallback } from 'react';
 import { SignUpFrame, BackgroundPage, InputSpace, TitleSpace, SingUpTitle, AlertSpace } from "../../../styles/Membership_Emotion"
 
 import AuthManager from "../../AuthContext/AuthManager";
+import Agreement from '../Modal/Agreement';
+
+
 
 const formItemLayout = {
   labelCol: { xs: { span: 24, }, sm: { span: 8, }, },
@@ -21,7 +24,7 @@ const tailFormItemLayout = {
 const SignUp = ({ onSubmit }) => {
   const [form] = Form.useForm();
 
-  const {EmailCheck, Register } = AuthManager();
+  const { EmailCheck, Register } = AuthManager();
   const [errorMessage, setErrorMessage] = useState(null);
   const [showFeedback, setShowFeedback] = useState(false); // 성공 실패 마크 표시 저장
   const [catchError, setCatchError] = useState(false); // 에러 메세지 받은 것 확인
@@ -92,21 +95,31 @@ const SignUp = ({ onSubmit }) => {
     return Promise.resolve();
   };
 
+
+
+  // 약관동의 모달 관련
+  const [modalOpen, setModalOpen] = useState(false);
+  // 모달창 노출
+  const showModal = () => {
+    setModalOpen(true);
+  };
+
+
   return (
     <BackgroundPage>
       <SignUpFrame>
         <AlertSpace>
-        <>
-          {errorMessage !== null && (
-          <Alert
-            message={errorMessage}
-            type="error"
-            closable
-            afterClose={handleClose}
-            showIcon
-          />
-          )}
-        </>
+          <>
+            {errorMessage !== null && (
+              <Alert
+                message={errorMessage}
+                type="error"
+                closable
+                afterClose={handleClose}
+                showIcon
+              />
+            )}
+          </>
         </AlertSpace>
         <TitleSpace>
           <SingUpTitle>
@@ -126,25 +139,25 @@ const SignUp = ({ onSubmit }) => {
               name="email"
               label="E-mail"
               rules={[
-                { required: true,  message: 'E-mail을 입력해 주세요'},
+                { required: true, message: 'E-mail을 입력해 주세요' },
                 { validator: validateEmail }
               ]}
               hasFeedback={showFeedback}
-              validateStatus={showFeedback  ? (catchError ? 'error' : 'success')  : ''}              
+              validateStatus={showFeedback ? (catchError ? 'error' : 'success') : ''}
             >
-               <Input  allowClear onFocus={() => handleFocusChange(true)} onBlur={() => handleFocusChange(false)} />
+              <Input allowClear onFocus={() => handleFocusChange(true)} onBlur={() => handleFocusChange(false)} />
             </Form.Item>
 
             <Form.Item
               name="password"
               label="Password"
               rules={[
-                {required: true, message: 'password를 입력해 주세요',},
+                { required: true, message: 'password를 입력해 주세요', },
                 { validator: validatePassword }
               ]}
               hasFeedback
             >
-              <Input.Password  allowClear />
+              <Input.Password allowClear />
             </Form.Item>
 
             <Form.Item
@@ -167,7 +180,7 @@ const SignUp = ({ onSubmit }) => {
                 }),
               ]}
             >
-              <Input.Password  allowClear />
+              <Input.Password allowClear />
             </Form.Item>
             <Form.Item
               name="nickname"
@@ -181,7 +194,7 @@ const SignUp = ({ onSubmit }) => {
                 },
               ]}
             >
-              <Input  allowClear />
+              <Input allowClear />
             </Form.Item>
 
             <Form.Item
@@ -196,8 +209,10 @@ const SignUp = ({ onSubmit }) => {
               {...tailFormItemLayout}
             >
               <Checkbox>
-                I have read the <a href="">agreement</a>
+                I have read the <a href="#" onClick={showModal}>agreement</a>
+                {modalOpen && <Agreement modalOpen={modalOpen} setModalOpen={setModalOpen} />}
               </Checkbox>
+              {/* 모달 관련 추가 */}
             </Form.Item>
             <Form.Item {...tailFormItemLayout}>
               <Button type="primary" htmlType="submit">
