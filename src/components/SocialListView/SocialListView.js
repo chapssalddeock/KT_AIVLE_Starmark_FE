@@ -11,41 +11,60 @@ export default function SocialListView({ searchResult }) {
     // 태그를 토글선택하면 tag : []에 추가하도록 로직을 짜면 될듯함
     // 즉, 사이드바에서 이벤트 발생하면 SocialListView로 넘어오도록!
     // 공통되는 통신 부분 및 config 함수화 필요
-
+    
+    
     const [users, setUsers] = useState([]);
     const { fetchData, data, error } = useGET();
     const { fetchData : AllfetchData, data: userListData, error: userListError } = useGET();
     const { fetchData : BookfetchData, data : userBookData, error: userBookError } = useGET();
-
+    const { fetchData : getFetchBookData, data: getBookData, error: getBookError } = useGET();
+    useEffect(() => {
+        const fetchBookMark = async () => {
+            await getFetchBookData('/bookmark');
+        };
+    
+        fetchBookMark();
+      }, []);
+    
+    //   useEffect(() => {
+    //     if (getBookData) {
+    //         const tags = getTagData.map(item => item.tags);
+    //         const uniqueTags = [...new Set(tags)];
+    //         setTags(uniqueTags);
+    //         console.log('Tags:', tags);
+    //     } else if (getTagError) {
+    //         console.error(getTagError);
+    //     }
+    // }, [getTagData, getTagError]);
+    console.log('tag', searchResult[0])
     useEffect(() => {
         fetchUserList();
     }, []);
-
-    const fetchUserList = async (searchResult) => {
-        const config = {};
-        console.log('test', searchResult)
-        if (searchResult && searchResult.length > 0) {
-            config.params = {};
-            searchResult.forEach((item, index) => {
-                config.params['tag'] = item;
-            });
-        }
-            
+    
+    
+    const fetchUserList = async () => {
+        const searchString = searchResult[0];
+        const config = {
+            params: {
+            data: searchString,
+            },
+        };
         
         await AllfetchData('/search', config);
     };
-    useEffect(() => {
-        fetchUserBook();
-    }, []);
-
-    const fetchUserBook = async () => {
-        const config = {
-            params: {
-                tag: []
-            }
-        }
-        await BookfetchData('/bookmark', config);
-    };
+    // useEffect(() => {
+    //     fetchUserBook();
+    // }, []);
+    
+    
+    // const fetchUserBook = async () => {
+    //     const config = {
+    //         params: {
+    //             tag: []
+    //         }
+    //     }
+    //     await BookfetchData('/bookmark', config);
+    // };  추후에 일치하는 Tag들을 고를ㄸ ㅐ사용
     
     
     useEffect(() => {
@@ -55,7 +74,7 @@ export default function SocialListView({ searchResult }) {
             console.error(userListError);
         }
     }, [userListData, userListError]);
-
+    
 
     // 유저 프로필 보기 관련 (View Profile)
     // user_id를 기준으로 작동
@@ -70,6 +89,20 @@ export default function SocialListView({ searchResult }) {
         };
         await fetchData('/userinfo', config);
     };
+    const config_2 = {
+        params: {
+          tags: [],
+        },
+      };
+      
+      if (data && data.bookmark_list) {
+        const bookmarkList = data.bookmark_list;
+        // bookmark_list를 사용하는 추가 작업 수행
+        const tags = bookmarkList.map((item) => item.tags);
+        const urls = bookmarkList.map((item) => item.url);
+      }
+      
+    
     
     useEffect(() => {
         if (data) {

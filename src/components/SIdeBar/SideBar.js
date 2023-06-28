@@ -75,6 +75,7 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
           const config = {
             params: {
               data: searchQuery,
+              target: 'in' ,
             },
           };
       
