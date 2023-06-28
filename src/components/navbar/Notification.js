@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import { Bell, PersonCircle } from 'react-bootstrap-icons';
 import { Badge, Dropdown } from 'antd';
 import axios from 'axios';
+import usePUT from '../../axios/PUT';
+import useGET from '../../axios/GET';
 
 export default function Notification() {
     const router = useRouter();
@@ -10,6 +12,8 @@ export default function Notification() {
     const [isBellClickable, setIsBellClickable] = useState(true);
     const [isDropdownDisabled, setIsDropdownDisabled] = useState(false);
     const [isDotVisible, setIsDotVisible] = useState(true);
+    const { fetchData : putFetchData, data: putData, error: putError } = usePUT();
+    const { fetchData : getFetchData, data: getData, error: getError } = useGET();
 
     const moveMyPage = () => {
         router.push("/mypage");
@@ -36,69 +40,24 @@ export default function Notification() {
 
     // 알림 전체 읽기
     const handleReadAllNotifications = async () => {
-        try {
-            const data = { msg_id: '0' }; // 전송할 데이터 객체
-            const config = {
-                headers: {
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQ2MDEyLCJpYXQiOjE2ODcyNTAwMTIsImp0aSI6IjYxNmFkNDdiYzYxODQ0ODdiZmUwOGVmOWI0YTdkMjEzIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.b7B0bXuErh5znc32FkAEln2MbX3k8bouqYX0nnjb3TM',
-                    'Content-Type': 'application/json',
-                },
-            }
-
-            const response = await axios.put('http://kt-aivle.iptime.org:40170/api/notice/', data, config);
-
-            if (response.status === 200) {
-                setIsBellClickable(false); // 벨 아이콘 클릭 비활성화
-                setIsDropdownDisabled(true); // 드롭다운 클릭 비활성화
-                setIsDotVisible(false); // 도트 숨김
-                setNotifications([]);
-            } else {
-                console.log(response.status);
-            }
-        } catch (error) {
-            console.error('알림 전체 읽기 처리 실패', error);
-        }
+        const data = { msg_id: '0' }; // 전송할 데이터 객체
+        await putFetchData('/notice/', data);   
     };
 
     useEffect(() => {
+        if (putData) {
+            setIsBellClickable(false); // 벨 아이콘 클릭 비활성화
+            setIsDropdownDisabled(true); // 드롭다운 클릭 비활성화
+            setIsDotVisible(false); // 도트 숨김
+            setNotifications([]);
+        } else if (putError) {
+            console.log(putError);
+        }
+    }, [putData, putError]);
+
+    useEffect(() => {
         const fetchNotifications = async () => {
-            try {
-                const config = {
-                    headers: {
-                        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQ2MDEyLCJpYXQiOjE2ODcyNTAwMTIsImp0aSI6IjYxNmFkNDdiYzYxODQ0ODdiZmUwOGVmOWI0YTdkMjEzIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.b7B0bXuErh5znc32FkAEln2MbX3k8bouqYX0nnjb3TM',
-                    },
-                };
-
-                const response = await axios.get('http://kt-aivle.iptime.org:40170/api/notice/', config);
-                if (response.status === 200) {
-                    const data = response.data;
-                    console.log(data);
-                    // 위는 확인용
-                    if (data.length === 0) {
-                        setIsBellClickable(false); // 벨 아이콘 클릭 비활성화
-                        setIsDropdownDisabled(true); // 드롭다운 클릭 비활성화
-                        setIsDotVisible(false); // 도트 숨김
-                    } else {
-                        setIsBellClickable(true); // 벨 아이콘 클릭 활성화
-                        setIsDropdownDisabled(false); // 드롭다운 클릭 활성화
-                        setIsDotVisible(true); // 도트 표시
-
-                        const storeData = data.map((notification) => ({
-                            key: String(notification.id),
-                            label: (
-                                <div onClick={moveMyPage}>
-                                    {notification.content}
-                                </div>
-                            ),
-                        }));
-                        setNotifications(storeData);
-                    }
-                } else {
-                    console.log(response.status);
-                }
-            } catch (error) {
-                console.error('알림을 불러오는데 실패했습니다:', error);
-            }
+            await getFetchData('/notice/');
         };
 
         const interval = setInterval(fetchNotifications, 60000);
@@ -108,6 +67,35 @@ export default function Notification() {
             clearInterval(interval);
         };
     }, []);
+
+    useEffect(() => {
+        if (getData) {
+            console.log(getData);
+
+            if (getData.length === 0) {
+                setIsBellClickable(false); // 벨 아이콘 클릭 비활성화
+                setIsDropdownDisabled(true); // 드롭다운 클릭 비활성화
+                setIsDotVisible(false); // 도트 숨김
+            } else {
+                setIsBellClickable(true); // 벨 아이콘 클릭 활성화
+                setIsDropdownDisabled(false); // 드롭다운 클릭 활성화
+                setIsDotVisible(true); // 도트 표시
+
+                const storeData = getData.map((notification) => ({
+                    key: String(notification.id),
+                    label: (
+                        <div onClick={moveMyPage}>
+                            {notification.content}
+                        </div>
+                    ),
+                }));
+                setNotifications(storeData);
+            }
+
+        } else if (getError) {
+            console.log(getError);
+        }
+    }, [getData, getError]);
 
 
     return (
