@@ -1,6 +1,6 @@
 // GET.js
 import React, { useEffect, useState } from 'react';
-import { AXIOS } from './Axios';
+import { AXIOS } from './axios';
 
 const GET = () => {
   const [data, setData] = useState(null);

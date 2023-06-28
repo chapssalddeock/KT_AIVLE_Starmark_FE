@@ -3,7 +3,6 @@ import React from "react";
 import { BackgroundPage, MainBlock, AlertPart, Content, ButtonBlock } from "../../../styles/Complete_Emotion";
 import { Button } from 'antd';
 import { useRouter } from 'next/router';
-// import GET from "../../axios/AxiosGET_component";
 
 const Complete = () => {
   const router = useRouter();

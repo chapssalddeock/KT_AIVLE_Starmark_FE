@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 import { Bell, PersonCircle } from 'react-bootstrap-icons';
 import { Badge, Dropdown } from 'antd';
-import axios from 'axios';
-import usePUT from '../../axios/PUT';
-import useGET from '../../axios/GET';
+import usePUT from '../../AuthCommunicate/PUT';
+import useGET from '../../AuthCommunicate/GET';
 
 export default function Notification() {
     const router = useRouter();

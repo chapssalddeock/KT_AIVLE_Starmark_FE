@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 
 //import { FaSearch } from 'react-icons/fa';
 import { Search } from 'react-bootstrap-icons';
-import useGET from '../../axios/GET';
+import useGET from '../../AuthCommunicate/GET';
 
 export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick }) {
     const [searchQuery, setSearchQuery] = useState('');

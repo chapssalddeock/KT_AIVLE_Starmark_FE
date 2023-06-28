@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Card, Col, Tag, Pagination, List, Spin } from 'antd';
 const { Meta } = Card;
-import useGET from '../../axios/GET';
+import useGET from '../../AuthCommunicate/GET';
 
 // 반복되는 카드 컴포넌트 새로 정의
 const CustomCard = ({ title, desc, img, url, tags }) => (

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Segmented, Button, Drawer, Form, Input, Row, Space, message, Upload, Select } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import usePOST from '../../axios/POST';
+import usePOST from '../../AuthCommunicate/POST';
 
 const handleChange = (value) => {
     console.log(`선택된 값: ${value}`);
