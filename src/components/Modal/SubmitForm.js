@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { Segmented, Button, Drawer, Form, Input, Row, Space, message, Upload, Select } from 'antd';
+import { Segmented, Spin, Button, Drawer, Form, Input, Row, message, Upload, Select } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import usePOST from '../../AuthCommunicate/POST';
 
@@ -14,19 +13,19 @@ const options = [
 ];
 
 export default function SubmitForm({ isOpen, onClose }) {
-    const router = useRouter();
-
     const [selectedOption, setSelectedOption] = useState('URL');
     const [fileList, setFileList] = useState([]);
     const { fetchData: postFetchData, data: postData, error: postError } = usePOST();
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [form] = Form.useForm(); // Add form instance
 
     const handleOptionChange = (value) => {
         setSelectedOption(value);
     };
 
     const handleSubmit = async (values) => {
-        console.log('*******************');
-        console.log(values);
+        setIsSubmitting(true);
+
         let formData = null;
 
         if (selectedOption === 'URL') {
@@ -42,15 +41,16 @@ export default function SubmitForm({ isOpen, onClose }) {
         }
 
         await postFetchData('/bookmark/', formData);
+        form.resetFields(); // Reset the form fields
     };
 
     useEffect(() => {
         if (postData) {
             console.log('전송 성공', postData);
-            router.reload(); // 페이지 새로고침
+            setIsSubmitting(false); // Reset the submission state
         } else if (postError) {
-            console.log(postError);
             console.log('전송 실패', postError);
+            setIsSubmitting(false); // Reset the submission state
         }
     }, [postData, postError]);
 
@@ -88,7 +88,7 @@ export default function SubmitForm({ isOpen, onClose }) {
     };
 
     const handleCancel = () => {
-        router.reload(); // 페이지 새로고침
+        onClose();
     };
 
     return (
@@ -96,24 +96,26 @@ export default function SubmitForm({ isOpen, onClose }) {
             <Drawer
                 title="북마크 입력"
                 width={500}
-                onClose={onClose}
+                onClose={handleCancel}
                 open={isOpen}
                 bodyStyle={{
                     paddingBottom: 80,
                 }}
                 extra={
-                    <Space>
-                        <Button onClick={handleCancel}>취소</Button>
-                        <Button form="submitForm" key="submit" htmlType="submit" type="primary">
+                    <div style={{ textAlign: 'right' }}>
+                        <Button onClick={handleCancel} style={{ marginRight: 8 }}>
+                            취소
+                        </Button>
+                        <Button form="submitForm" key="submit" htmlType="submit" type="primary" loading={isSubmitting}>
                             제출
                         </Button>
-                    </Space>
+                    </div>
                 }
             >
                 <div style={{ marginBottom: 30 }}>
                     <Segmented options={[{ label: 'URL', value: 'URL' }, { label: 'HTML', value: 'HTML' }]} onChange={handleOptionChange} />
                 </div>
-                <Form layout="vertical" onFinish={handleSubmit} id="submitForm">
+                <Form layout="vertical" onFinish={handleSubmit} id="submitForm" form={form}> {/* Pass form instance to the Form */}
                     {selectedOption === 'URL' && (
                         <>
                             <Row gutter={16}>
@@ -145,6 +147,24 @@ export default function SubmitForm({ isOpen, onClose }) {
                     )}
                 </Form>
             </Drawer>
+            {isSubmitting && (
+                <div
+                    style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        background: 'rgba(0, 0, 0, 0.1)',
+                        zIndex: 9999,
+                    }}
+                >
+                    <Spin size="large" />
+                </div>
+            )}
         </>
     );
 }
@@ -152,11 +172,17 @@ export default function SubmitForm({ isOpen, onClose }) {
 
 
 
+
+
+
+
+
+
 // import React, { useState, useEffect } from 'react';
-// import { useRouter } from "next/router"
+// import { useRouter } from 'next/router';
 // import { Segmented, Button, Drawer, Form, Input, Row, Space, message, Upload, Select } from 'antd';
 // import { UploadOutlined } from '@ant-design/icons';
-// import usePOST from '../../axios/POST';
+// import usePOST from '../../AuthCommunicate/POST';
 
 // const handleChange = (value) => {
 //     console.log(`선택된 값: ${value}`);
@@ -168,9 +194,7 @@ export default function SubmitForm({ isOpen, onClose }) {
 // ];
 
 // export default function SubmitForm({ isOpen, onClose }) {
-
 //     const router = useRouter();
-
 
 //     const [selectedOption, setSelectedOption] = useState('URL');
 //     const [fileList, setFileList] = useState([]);
@@ -181,17 +205,15 @@ export default function SubmitForm({ isOpen, onClose }) {
 //     };
 
 //     const handleSubmit = async (values) => {
-//         console.log("*******************")
-//         console.log(values);
+
 //         let formData = null;
 
 //         if (selectedOption === 'URL') {
-
 //             formData = {
 //                 type: 'string',
 //                 title: values.title,
 //                 url: values.url,
-//                 is_public: values.is_public
+//                 is_public: values.is_public,
 //             };
 //         } else if (selectedOption === 'HTML') {
 //             formData = new FormData();
@@ -204,8 +226,7 @@ export default function SubmitForm({ isOpen, onClose }) {
 //     useEffect(() => {
 //         if (postData) {
 //             console.log('전송 성공', postData);
-//             //router.push("/service");
-//             // 여기서 이동이 되나? 안됨
+//             router.reload(); // 페이지 새로고침
 //         } else if (postError) {
 //             console.log(postError);
 //             console.log('전송 실패', postError);
@@ -245,6 +266,10 @@ export default function SubmitForm({ isOpen, onClose }) {
 //         },
 //     };
 
+//     const handleCancel = () => {
+//         router.reload(); // 페이지 새로고침
+//     };
+
 //     return (
 //         <>
 //             <Drawer
@@ -257,7 +282,7 @@ export default function SubmitForm({ isOpen, onClose }) {
 //                 }}
 //                 extra={
 //                     <Space>
-//                         <Button onClick={onClose}>취소</Button>
+//                         <Button onClick={handleCancel}>취소</Button>
 //                         <Button form="submitForm" key="submit" htmlType="submit" type="primary">
 //                             제출
 //                         </Button>
@@ -265,75 +290,28 @@ export default function SubmitForm({ isOpen, onClose }) {
 //                 }
 //             >
 //                 <div style={{ marginBottom: 30 }}>
-//                     <Segmented
-//                         options={[{ label: 'URL', value: 'URL' }, { label: 'HTML', value: 'HTML' }]}
-//                         onChange={handleOptionChange}
-//                     />
+//                     <Segmented options={[{ label: 'URL', value: 'URL' }, { label: 'HTML', value: 'HTML' }]} onChange={handleOptionChange} />
 //                 </div>
 //                 <Form layout="vertical" onFinish={handleSubmit} id="submitForm">
 //                     {selectedOption === 'URL' && (
 //                         <>
 //                             <Row gutter={16}>
-//                                 <Form.Item
-//                                     name="title"
-//                                     label="북마크 이름"
-//                                     rules={[{ required: true, message: '북마크 이름을 입력하세요.' }]}
-//                                 >
+//                                 <Form.Item name="title" label="북마크 이름" rules={[{ required: true, message: '북마크 이름을 입력하세요.' }]}>
 //                                     <Input placeholder="북마크 이름을 입력하세요." />
 //                                 </Form.Item>
 //                             </Row>
 //                             <Row gutter={16}>
-//                                 <Form.Item
-//                                     name="url"
-//                                     label="URL"
-//                                     rules={[{ required: true, message: 'URL을 입력하세요.' }]}
-//                                 >
+//                                 <Form.Item name="url" label="URL" rules={[{ required: true, message: 'URL을 입력하세요.' }]}>
 //                                     <Input placeholder="URL을 입력하세요." />
 //                                 </Form.Item>
 //                             </Row>
 //                             <Row gutter={16}>
-//                                 <Form.Item
-//                                     name="is_public"
-//                                     label="공개 여부"
-//                                     rules={[{ required: true, message: '공개 여부를 선택하세요.' }]}
-//                                 >
+//                                 <Form.Item name="is_public" label="공개 여부" rules={[{ required: true, message: '공개 여부를 선택하세요.' }]}>
 //                                     <Select placeholder="선택" options={options} onChange={handleChange} />
 //                                 </Form.Item>
 //                             </Row>
 //                         </>
 //                     )}
-
-//                     {/* <Form layout="vertical" onFinish={(values) => handleSubmit(values)} id="submitForm">
-//                     {selectedOption === 'URL' && (
-//                         <>
-//                             <Row gutter={16}>
-//                                 <Input
-//                                     name="title"
-//                                     placeholder="북마크 이름을 입력하세요."
-//                                     style={{ width: '100%' }}
-//                                     required
-//                                 />
-//                             </Row>
-//                             <Row gutter={16}>
-//                                 <Input
-//                                     name="url"
-//                                     placeholder="URL을 입력하세요."
-//                                     style={{ width: '100%' }}
-//                                     required
-//                                 />
-//                             </Row>
-//                             <Row gutter={16}>
-//                                 <Select
-//                                     name="is_public"
-//                                     defaultValue="선택"
-//                                     style={{ width: '100%' }}
-//                                     onChange={handleChange}
-//                                     options={options}
-//                                     required
-//                                 />
-//                             </Row>
-//                         </> */}
-//                     {/* )} */}
 
 //                     {selectedOption === 'HTML' && (
 //                         <>
@@ -344,9 +322,12 @@ export default function SubmitForm({ isOpen, onClose }) {
 //                             </Upload>
 //                         </>
 //                     )}
-
 //                 </Form>
 //             </Drawer>
 //         </>
 //     );
 // }
+
+
+
+
