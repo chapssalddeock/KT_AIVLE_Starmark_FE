@@ -1,5 +1,6 @@
 import { Outer, ActiveInner2, ActiveInner3, ActiveInner4, UnderNavInner, Divider, 
-  PageBackGround, Wave, PageDark, Title, Content } from "../../../styles/PageScroll_Emotion";
+  PageBackGround, Wave, PageDark, Title, Content, FirstImg,
+  SecondImg, SecondTitle, SecondContent, ThirdImg, ThirdTitle, ThirdContent } from "../../../styles/PageScroll_Emotion";
 import LoginPage from "../SignIn/Login_Protect";
 import { useEffect, useRef, useState } from "react";
 import NavBar from '../NavBar/NavBar';
@@ -119,7 +120,7 @@ export default function PageScroll() {
       <NavBar onSignIn={handleSignIn} />
       <UnderNavInner className="Inner">
 
-        <PageBackGround>
+        {/* <PageBackGround>
           <Wave>
             <svg className="waves" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shapeRendering="auto">
               <defs>
@@ -143,20 +144,50 @@ export default function PageScroll() {
               starmark를 통해 효율적인 북마크 관리를 시작해 보세요
             </Content>
           </PageDark>
+        </PageBackGround> */}
 
+        <FirstImg></FirstImg>
 
+        <Title>
+          오늘도 <br/> 헤메는 <br/> 당신을 위해
+        </Title>
 
-        </PageBackGround>
-
-
-
-
+        <Content>
+          저장한 북마크 기록을 보면서 왜 자신이 저장했는지 이유를 <br/>찾았던 적이 있으신가요?
+          잊고 있던 북마크들을 정리하면서 <br/>필요한 북마크들을 손쉽게 찾아보세요
+        </Content>
 
       </UnderNavInner>
       <Divider className="Divider"></Divider>
-      <ActiveInner2 className="Inner" ></ActiveInner2>
+      <ActiveInner2 className="Inner" >
+      <SecondImg></SecondImg>
+
+        <SecondTitle>
+          정리된 북마크를 <br /> 태그를 통해 <br /> 사용해 보세요
+        </SecondTitle>
+
+        <SecondContent>
+          자신이 저장해 놓은 북마크들을 starmark에 업로드 해보세요 <br/>
+          업로드 하면 사용자가 올리신 북마크들의 주제에 따라 각각 태그들을 추출합니다.
+          추출된 태그를 사용해서 북마크를 검색해 필요한 북마크를 빠르게 찾아보세요
+        </SecondContent>
+        
+      </ActiveInner2>
       <Divider className="Divider"></Divider>
-      <ActiveInner3 className="Inner" ></ActiveInner3>
+      <ActiveInner3 className="Inner" >
+        <ThirdImg></ThirdImg>
+
+        <ThirdTitle>
+          사람들과 <br /> 서로의 북마크를 <br /> 공유해보세요
+        </ThirdTitle>
+
+        <ThirdContent>
+          자신이 저장한 북마크들과 태그들을 다른 사용자와 공유해 보세요
+          좋은 태그를 가지고 있는 사용자를 팔로우하고 팔로우한 사용자의 좋은 정보들을 사용해 보세요
+          다른 사람들과 공유하면서 좋은 정보를 찾아가세요
+        </ThirdContent>
+
+      </ActiveInner3>
       <Divider className="Divider"></Divider>
       <ActiveInner4 className="Inner" bgColor={"#b6d8f2"}>
         <LoginPageWithScrollToTop scrollToTop={scrollToTop} />
