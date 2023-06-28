@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, List } from 'antd';
+import { Avatar, List, Table, Tag } from 'antd';
 import VirtualList from 'rc-virtual-list';
 import UserDrawer from '../Modal/UserDrawer';
 import useGET from '../../axios/GET';
 
 const ContainerHeight = 750;
 
-
-export default function SocialListView() {
+export default function SocialListView({ searchResult }) {
     // 유저 리스트 불러오기 관련, tag를 빈 리스트로 보내면 전체 유저가 불러짐 (초기 화면)
     // 태그를 토글선택하면 tag : []에 추가하도록 로직을 짜면 될듯함
     // 즉, 사이드바에서 이벤트 발생하면 SocialListView로 넘어오도록!
@@ -16,19 +15,38 @@ export default function SocialListView() {
     const [users, setUsers] = useState([]);
     const { fetchData, data, error } = useGET();
     const { fetchData : AllfetchData, data: userListData, error: userListError } = useGET();
+    const { fetchData : BookfetchData, data : userBookData, error: userBookError } = useGET();
 
     useEffect(() => {
         fetchUserList();
     }, []);
 
-    const fetchUserList = async () => {
+    const fetchUserList = async (searchResult) => {
+        const config = {};
+        console.log('test', searchResult)
+        if (searchResult && searchResult.length > 0) {
+            config.params = {};
+            searchResult.forEach((item, index) => {
+                config.params['tag'] = item;
+            });
+        }
+            
+        
+        await AllfetchData('/search', config);
+    };
+    useEffect(() => {
+        fetchUserBook();
+    }, []);
+
+    const fetchUserBook = async () => {
         const config = {
             params: {
                 tag: []
             }
         }
-        await AllfetchData('/search', config);
+        await BookfetchData('/bookmark', config);
     };
+    
     
     useEffect(() => {
         if (userListData) {
@@ -43,7 +61,7 @@ export default function SocialListView() {
     // user_id를 기준으로 작동
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [userProfile, setUserProfile] = useState(null);
-
+    const [userBookMark, setUserBookMark] = useState([]);
     const handleOpenDrawer = async (id) => {
         const config = {
             params: {
@@ -87,6 +105,12 @@ export default function SocialListView() {
     return (
         <>
             <List bordered size='large' style={{ marginLeft: 40, marginRight: 30, width: 1050 }}>
+                <List.Item>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div style={{ fontSize: '20px' }}>NickName(email)</div>
+                        <div style={{ marginLeft: '585px', fontSize: '20px' }}>Tags</div>
+                    </div>
+                </List.Item>
                 <VirtualList
                     data={users}
                     height={ContainerHeight}
@@ -97,7 +121,7 @@ export default function SocialListView() {
                     {(item) => (
                         <List.Item key={item.email} actions={[
                             < a >
-                                View Profile
+                                Follow
                             </a>,
 
                             ]}
@@ -109,19 +133,37 @@ export default function SocialListView() {
                         >
                             <List.Item.Meta
                                 avatar={<Avatar src={'http://kt-aivle.iptime.org:40170' + item.profile_image} size={80} />}
-                                title={<div style={{ fontSize: '24px', marginTop: '8px' }}>{item.username}</div>}
+                                title={
+                                    <div style={{ fontSize: '24px', marginTop: '8px', marginRight: 'auto' }}>
+                                        {item.username}
+                                        
+                                    </div>
+                                }
                                 description={<div style={{ fontSize: '16px', marginTop: 0 }}>{item.email}</div>}
                             />
-                            <div>
-                                <div>주요 태그</div>
+                            {hoveredItem === item && (
+                                <div
+                                    style={{
+                                    position: 'absolute',
+                                    left: '50%',
+                                    transform: 'translateX(-50%)',
+                                    fontSize: '18px',
+                                    fontWeight: 'bold',
+                                    color: 'Black',
+                                    background: 'rgba(W, 0, 0, 0.7)',
+                                    padding: '5px 10px',
+                                    borderRadius: '4px',
+                                    }}
+                                >
+                                    View Tag
+                                </div>
+                            )}
+                            
+                            <div style={{ position: 'fixed',marginLeft: '750px', display: 'flex', alignItems: 'center', marginRight:'75px'}}>
+                                <div  style={{ marginRight: '10px' }}>주요 태그</div>
                                 {/* (item.tags.map((tag) => (<Tag key={tag} style={{ borderRadius: 20, height: 25 }}>{tag}</Tag>))) */}
                             </div>
-                            <div style={{ marginLeft: 30 }}>
-                                <div>{item.following_cnt}</div>
-                            </div>
-                            <div style={{ marginLeft: 30 }}>
-                                <div>{item.follower_cnt}</div>
-                            </div>
+                            
                         </List.Item>
                     )}
                 </VirtualList >
