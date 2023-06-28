@@ -4,6 +4,7 @@ import { Bell, PersonCircle } from 'react-bootstrap-icons';
 import { Badge, Dropdown } from 'antd';
 import usePUT from '../../AuthCommunicate/PUT';
 import useGET from '../../AuthCommunicate/GET';
+import AuthManager from "../../AuthContext/AuthManager";
 
 export default function Notification() {
     const router = useRouter();
@@ -13,9 +14,14 @@ export default function Notification() {
     const [isDotVisible, setIsDotVisible] = useState(true);
     const { fetchData : putFetchData, data: putData, error: putError } = usePUT();
     const { fetchData : getFetchData, data: getData, error: getError } = useGET();
+    const { LogOut } = AuthManager();
 
     const moveMyPage = () => {
         router.push("/mypage");
+    };
+
+    const moveLogOut = () => {
+        LogOut();
     };
 
     const items = [
@@ -30,7 +36,7 @@ export default function Notification() {
         {
             key: '2',
             label: (
-                <div onClick={moveMyPage}>
+                <div onClick={moveLogOut}>
                     로그아웃
                 </div>
             ),
