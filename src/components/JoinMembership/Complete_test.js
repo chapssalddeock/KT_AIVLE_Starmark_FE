@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { BackgroundPage, MainBlock, AlertPart, Content, ButtonBlock } from '../../../styles/Complete_Emotion';
 import { Button } from 'antd';
 import { useRouter } from 'next/router';
-import usePOST from '../../axios/POST';
+import usePOST from '../../AuthCommunicate/POST';
 
 const Complete = () => {
   const router = useRouter();

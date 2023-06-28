@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Space, Table, Tag, Pagination, Spin } from 'antd';
 import { BoxArrowUpRight } from 'react-bootstrap-icons';
-import useGET from '../../axios/GET';
+import useGET from '../../AuthCommunicate/GET';
 
 // 리스트 뷰에 보일 컬럼 정의
 const columns = [

@@ -9,7 +9,7 @@ import { EditOutlined } from '@ant-design/icons';
 import { useSpring, animated, config } from 'react-spring';
 import MpFollowView from '../MyPageFollow/MpFollow';
 import MpSideBar from '../MyPageSideBar/MpSideBar';
-import useGET from '../../axios/GET';
+import useGET from '../../AuthCommunicate/GET';
 
 export default function MpMain({ selectedItem }) {
   const [open, setOpen] = useState(false);

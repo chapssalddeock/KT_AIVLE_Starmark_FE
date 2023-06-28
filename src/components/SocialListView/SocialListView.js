@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Avatar, List } from 'antd';
 import VirtualList from 'rc-virtual-list';
 import UserDrawer from '../Modal/UserDrawer';
-import useGET from '../../axios/GET';
+import useGET from '../../AuthCommunicate/GET';
 
 const ContainerHeight = 750;
 
