@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import MpSideBar from '../MyPageSideBar/MpSideBar';
 import MpMain from '../MypageMain/MpMain';
+import MyPages from '../MypageMain/MyPages';
 import { Layout } from 'antd';
 const { Content, Sider } = Layout;
 
@@ -22,7 +23,8 @@ export default function MpContentArea() {
                 </Sider>
                 <Layout style={{ padding: '0 24px 24px', backgroundColor: "white" }}>
                     <Content style={{ padding: 4, margin: 0, }}>
-                        {selectedItem === 'sub1' && (
+                        <MyPages></MyPages>
+                        {/* {selectedItem === 'sub1' && (
 
                             <div className='Box_user' style={{ border: '10px outset skyblue', borderRadius: '15px', width: '70%', height: '90%', overflow: 'hidden' }}>
                                 <MpMain selectedItem={selectedItem} />
@@ -35,7 +37,7 @@ export default function MpContentArea() {
                         )}
                         {selectedItem !== 'sub1' && selectedItem !== 'sub3' && (
                             <MpMain selectedItem={selectedItem} />
-                        )}
+                        )} */}
                     </Content>
                 </Layout>
             </Layout>
