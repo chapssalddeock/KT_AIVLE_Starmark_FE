@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 import { Bell, PersonCircle } from 'react-bootstrap-icons';
+import { BellOutlined, UserOutlined } from '@ant-design/icons';
 import { Badge, Dropdown } from 'antd';
 import usePUT from '../../AuthCommunicate/PUT';
 import useGET from '../../AuthCommunicate/GET';
@@ -12,8 +13,8 @@ export default function Notification() {
     const [isBellClickable, setIsBellClickable] = useState(true);
     const [isDropdownDisabled, setIsDropdownDisabled] = useState(false);
     const [isDotVisible, setIsDotVisible] = useState(true);
-    const { fetchData : putFetchData, data: putData, error: putError } = usePUT();
-    const { fetchData : getFetchData, data: getData, error: getError } = useGET();
+    const { fetchData: putFetchData, data: putData, error: putError } = usePUT();
+    const { fetchData: getFetchData, data: getData, error: getError } = useGET();
     const { LogOut } = AuthManager();
 
     const moveMyPage = () => {
@@ -46,7 +47,7 @@ export default function Notification() {
     // 알림 전체 읽기
     const handleReadAllNotifications = async () => {
         const data = { msg_id: '0' }; // 전송할 데이터 객체
-        await putFetchData('/notice/', data);   
+        await putFetchData('/notice/', data);
     };
 
     useEffect(() => {
@@ -116,7 +117,7 @@ export default function Notification() {
                 <a onClick={(e) => e.preventDefault()}>
                     <div>
                         <Badge dot={isDotVisible}>
-                            <Bell size="24" style={{ cursor: isBellClickable ? "pointer" : "default", marginLeft: '20px' }} />
+                            <Bell style={{ cursor: isBellClickable ? "pointer" : "default", marginLeft: '20px', fontSize: '24px' }} />
                         </Badge>
                     </div>
                 </a>
@@ -128,7 +129,7 @@ export default function Notification() {
                 arrow={{ pointAtCenter: true }}
             >
                 <a onClick={(e) => e.preventDefault()}>
-                    <PersonCircle size="24" style={{ cursor: "pointer", marginLeft: '20px' }} />
+                    <PersonCircle style={{ cursor: "pointer", marginLeft: '20px', color: '#5eacf2', fontSize: '24px' }} />
                 </a>
             </Dropdown>
         </>

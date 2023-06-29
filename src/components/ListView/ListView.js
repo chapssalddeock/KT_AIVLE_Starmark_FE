@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Space, Table, Tag, Pagination } from 'antd';
 import { BoxArrowUpRight } from 'react-bootstrap-icons';
 import useGET from '../../AuthCommunicate/GET';
+import { CustomTag, BgLayout } from '../../../styles/View_Emotion';
 
 // 리스트 뷰에 보일 컬럼 정의
 const columns = [
@@ -9,7 +10,8 @@ const columns = [
         title: 'Title',
         dataIndex: 'title',
         key: 'title',
-        width: '10%',
+        width: '8%',
+
     },
     {
         title: 'Tags',
@@ -18,7 +20,8 @@ const columns = [
         render: (_, { tags }) => (
             <>
                 {tags.slice(0, 5).map((tag) => (
-                    <Tag key={tag} style={{ borderRadius: 20, height: 24 }}>
+                    <Tag key={tag}
+                        style={{ borderRadius: 20, height: 24, marginBottom: 4, color: '#5eacf2', border: 'solid #5eacf2 0.5px' }} color="white">
                         {tag}
                     </Tag>
                 ))}
@@ -92,21 +95,25 @@ export default function ListView({ searchResult }) {
     const currentPageData = data.slice(startIndex, endIndex);
 
     return (
-        <div>
-            <Table
-                columns={columns}
-                dataSource={currentPageData}
-                pagination={false}
-                loading={loading}
-                rowKey={(_, index) => index}
-            />
-            <Pagination
-                style={{ marginTop: 20, textAlign: 'right' }}
-                current={currentPage}
-                pageSize={pageSize}
-                total={data.length}
-                onChange={(page) => setCurrentPage(page)}
-            />
+        <div >
+            <div style={{ height: 480, overflowY: 'scroll' }}>
+                <Table
+                    columns={columns}
+                    dataSource={currentPageData}
+                    pagination={false}
+                    loading={loading}
+                    rowKey={(_, index) => index}
+                />
+            </div>
+            <div style={{ alignSelf: 'flex-end', marginRight: 0, marginTop: 0 }}>
+                <Pagination
+                    style={{ marginTop: 20, textAlign: 'right' }}
+                    current={currentPage}
+                    pageSize={pageSize}
+                    total={data.length}
+                    onChange={(page) => setCurrentPage(page)}
+                />
+            </div>
         </div>
     );
 }

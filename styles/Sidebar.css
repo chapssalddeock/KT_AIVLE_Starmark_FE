@@ -1,12 +1,16 @@
 .sidebar {
+  /* border: solid blue; */
     display: flex;
     flex-direction: column;
     width: 300px;
-    height: 90vh;
+    height: calc(100vh - 76px); /* 뷰포트의 높이에서 NavBar의 높이(76px)를 뺀 값으로 높이 설정 */
+    /* height: 90vh; */
     background-color: #ffffff;
     float: left;
     overflow: hidden;
+    box-shadow: '4px 4px 4px 4px rgba(0, 0, 0, 0.2)' ,
   }
+  
   /* .main-content {
     margin-left: 400px;
     margin-top: 700px; 
@@ -14,15 +18,18 @@
   } */
 
   .search-container {
+
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 15px; /* 모서리 둥글게 */
     border-color: #808080;
     width: 90%;
+    height:36px;
     padding: 5px;
     background-color: #f2f2f2; 
     color: rgba(0, 0, 0, 0.7); /* 반투명 */
+    margin-top: 15px;
     margin-bottom: 15px;
     margin-left: 15px;
     
@@ -113,6 +120,7 @@
     background-color: skyblue; /* 마우스 호버 시 배경색을 파란색으로 변경 */
   }
   .sidebar-main {
+    /* border:solid red; */
     flex-shrink: 0;
     width: 300px;
     height: 50%;
