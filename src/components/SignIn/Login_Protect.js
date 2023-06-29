@@ -1,22 +1,16 @@
 // ////////////////////////////////////////// 수정본
-import { CustomerPage, TitleSpace, LoginTitle, ButtonDesign, InputSpace, TopScroll, ClickToTop,
-  CustomForm } from "../../../styles/Login_Emotion"
+import {
+  CustomerPage, TitleSpace, LoginTitle, ButtonDesign, InputSpace, CustomForm
+} from "../../../styles/Login_Emotion"
 import { Form, Input, Spin } from 'antd';
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-
-
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import useAuth from "../../AuthHooks/useAuth";
-
 import AuthManager from "../../AuthContext/AuthManager";
 
-
-
-const LoginPage = ({ scrollToTop }) => {
+const LoginPage = () => {
   const [form] = Form.useForm();
   const router = useRouter();
-
   const { LogIn, AlertComponent } = AuthManager();
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -88,7 +82,7 @@ const LoginPage = ({ scrollToTop }) => {
               />
             </Form.Item>
             <Form.Item
-              wrapperCol={{ offset: 0,  span: 24,}}
+              wrapperCol={{ offset: 0, span: 24, }}
             >
               <ButtonDesign type="primary" htmlType="submit" className="login-form-button">
                 Sign in
@@ -98,9 +92,6 @@ const LoginPage = ({ scrollToTop }) => {
 
           </CustomForm>
         </InputSpace>
-        <TopScroll>
-          <ClickToTop onClick={scrollToTop}>맨 위로 이동</ClickToTop>
-        </TopScroll>
       </CustomerPage>
       {loading && (<div style={{
         position: 'fixed',
