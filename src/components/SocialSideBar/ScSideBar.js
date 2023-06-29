@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 
 //import { FaSearch } from 'react-icons/fa';
 import { Search } from 'react-bootstrap-icons';
-import useGET from '../../axios/GET';
+import useGET from '../../AuthCommunicate/GET';
 
 export default function SocialSideBar({ onSearch, onSuggestedItemClick, ToggleClick }) {
     const [searchQuery, setSearchQuery] = useState('');
@@ -49,6 +49,9 @@ export default function SocialSideBar({ onSearch, onSuggestedItemClick, ToggleCl
 
     };
 
+
+    
+
     // const items = ['수학', 'abc', 'def', 'fqw', 'vxcv', 'bgf', 'dfag', 'ax', 'uay', 'a안녕', '2a12312', 'a반가워요', 'aㅁㅁㄴㅇㅁㄴㅇ', 'a한찬규', 'a김채원', 'a박경덕', 'a김민성', 'a황소정', 'a정정해'];
 
     useEffect(() => {
@@ -75,6 +78,7 @@ export default function SocialSideBar({ onSearch, onSuggestedItemClick, ToggleCl
           const config = {
             params: {
               data: searchQuery,
+              target: 'out',
             },
           };
       
@@ -118,11 +122,11 @@ export default function SocialSideBar({ onSearch, onSuggestedItemClick, ToggleCl
       
       useEffect(() => {
         if (getTagData) {
-            console.log('abc', getTagData)
+            // console.log('abc', getTagData)
             const tags = getTagData
             
             setTags(tags);
-            console.log('Tags:', tags);
+            // console.log('Tags:', tags);
         } else if (getTagError) {
             console.error(getTagError);
         }

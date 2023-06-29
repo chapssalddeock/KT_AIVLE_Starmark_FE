@@ -11,54 +11,47 @@ export default function SocialListView({ searchResult }) {
     // 태그를 토글선택하면 tag : []에 추가하도록 로직을 짜면 될듯함
     // 즉, 사이드바에서 이벤트 발생하면 SocialListView로 넘어오도록!
     // 공통되는 통신 부분 및 config 함수화 필요
-
+    
     const [users, setUsers] = useState([]);
     const { fetchData, data, error } = useGET();
     const { fetchData : AllfetchData, data: userListData, error: userListError } = useGET();
     const { fetchData : BookfetchData, data : userBookData, error: userBookError } = useGET();
-
-    useEffect(() => {
-        fetchUserList();
-    }, []);
-
+    
+   
+    
     const fetchUserList = async (searchResult) => {
+       
         const config = {};
-        console.log('test', searchResult)
+
         if (searchResult && searchResult.length > 0) {
             config.params = {};
             searchResult.forEach((item, index) => {
-                config.params['tag'] = item;
+                config.params['data'] = item;
             });
         }
-            
+       
+        await AllfetchData('/search/', config);
+    };
+    useEffect(() => {
         
-        await AllfetchData('/search', config);
-    };
-    useEffect(() => {
-        fetchUserBook();
-    }, []);
-
-    const fetchUserBook = async () => {
-        const config = {
-            params: {
-                tag: []
-            }
-        }
-        await BookfetchData('/bookmark', config);
-    };
-    
-    
-    useEffect(() => {
         if (userListData) {
+            console.log('userListData', userListData)
             setUsers(userListData);
+            
         } else if (userListError) {
             console.error(userListError);
         }
     }, [userListData, userListError]);
+    useEffect(() => {
+        fetchUserList(searchResult);
+    }, [searchResult]);
+    
+    
+    
+    
+    
 
 
-    // 유저 프로필 보기 관련 (View Profile)
-    // user_id를 기준으로 작동
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [userProfile, setUserProfile] = useState(null);
     const [userBookMark, setUserBookMark] = useState([]);
@@ -68,13 +61,26 @@ export default function SocialListView({ searchResult }) {
                 user_id: id,
             },
         };
-        await fetchData('/userinfo', config);
+        await fetchData('/userinfo/', config);
     };
+
+
     
     useEffect(() => {
+        console.log('data', data)
         if (data) {
-          setUserProfile(data);
-          setIsDrawerOpen(true);
+            // const urls = [];
+            // const tagName = config.params.data;
+            // data.bookmark_list.forEach((bookmark) => {
+            // const tags = Object.values(bookmark)[0].tags;
+            // if (tags.includes(tagName)) {
+            //     const url = Object.values(bookmark)[0].url;
+            //     urls.push(url);
+            // }
+            // });
+            // console.log('url', urls)
+            setUserProfile(data);
+            setIsDrawerOpen(true);
         } else if (error) {
           console.error(error);
         }
@@ -159,9 +165,10 @@ export default function SocialListView({ searchResult }) {
                                 </div>
                             )}
                             
-                            <div style={{ position: 'fixed',marginLeft: '750px', display: 'flex', alignItems: 'center', marginRight:'75px'}}>
-                                <div  style={{ marginRight: '10px' }}>주요 태그</div>
-                                {/* (item.tags.map((tag) => (<Tag key={tag} style={{ borderRadius: 20, height: 25 }}>{tag}</Tag>))) */}
+                            <div style={{ position: 'fixed', marginLeft: '750px', display: 'flex', alignItems: 'center', marginRight: '75px' }}>
+                                {searchResult && searchResult.map((tag) => (
+                                    <Tag key={tag} style={{ marginRight: '10px', borderRadius: 20, height: 25 }}>{tag}</Tag>
+                                ))}
                             </div>
                             
                         </List.Item>

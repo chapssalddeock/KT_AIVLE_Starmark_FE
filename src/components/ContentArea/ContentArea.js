@@ -1,9 +1,9 @@
 import { Layout } from 'antd';
 import React, { useState, useEffect } from 'react';
 const { Content, Sider } = Layout;
-import ThumbnailView from '../ThumbnailView/ThumbnailView'
-import ListView from '../ListView/ListView'
-import SideBar from '../SideBar/SideBar'
+import ThumbnailView from '../ThumbnailView/ThumbnailView';
+import ListView from '../ListView/ListView';
+import SideBar from '../SideBar/SideBar';
 import MenuBar from '../MenuButton/MenuButton';
 
 

@@ -74,14 +74,15 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
             }, 500);
         };
         const fetchData = async () => {
-            const config = {
-                params: {
-                    data: searchQuery,
-                },
-            };
-
-            await getfetchData('/tag', config);
-            delayShowSuggestions();
+          const config = {
+            params: {
+              data: searchQuery,
+              target: 'in' ,
+            },
+          };
+      
+          await getfetchData('/tag', config);
+          delayShowSuggestions();
         };
 
         const delayFetchData = () => {
