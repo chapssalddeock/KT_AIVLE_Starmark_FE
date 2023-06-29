@@ -1,21 +1,19 @@
 import {
   Outer, ActiveInner2, ActiveInner3, ActiveInner4, UnderNavInner, Divider,
-  PageBackGround, Temp, Wave, PageDark, Title, Content, FirstImg,
-  SecondImg, SecondTitle, SecondContent, ThirdImg, ThirdTitle, ThirdContent, SquareParent, Square
+  PageBackGround, Temp, Wave, PageDark, Title, Content,
+  SecondImg, SecondTitle, SecondContent, ThirdImg, ThirdTitle, ThirdContent, Square
 } from "../../../styles/PageScroll_Emotion";
 import LoginPage from "../SignIn/Login_Protect";
 import { useEffect, useRef, useState } from "react";
 import NavBar from '../NavBar/NavBar';
 import 'animate.css';
+import ScrollToTopButton from './ScrollToTopButton';
 
 const DIVIDER_HEIGHT = 3;
 
-const LoginPageWithScrollToTop = ({ scrollToTop }) => (
-  <LoginPage scrollToTop={scrollToTop} />
-);
-
 export default function PageScroll() {
   const outerDivRef = useRef();
+  const [visible, setVisible] = useState(false); // visible 상태와 업데이트 함수
 
   useEffect(() => {
     const wheelHandler = (e) => {
@@ -96,10 +94,24 @@ export default function PageScroll() {
   const scrollToTop = () => {
     outerDivRef.current.scrollTo({
       top: 0,
-      left: 0,
       behavior: "smooth",
     });
   };
+
+  // Top 버튼용도 useEffect
+  useEffect(() => {
+    // 스크롤 이벤트를 추가하여 버튼을 표시하거나 숨깁니다.
+    const handleScroll = () => {
+      const scrollTop = outerDivRef.current.scrollTop;
+      setVisible(scrollTop > 300); // 스크롤 위치에 따라 버튼 표시 여부 결정
+    };
+
+    outerDivRef.current.addEventListener('scroll', handleScroll); // 스크롤 이벤트 핸들러 등록
+
+    return () => {
+      outerDivRef.current.removeEventListener('scroll', handleScroll); // 컴포넌트 언마운트 시 이벤트 핸들러 제거
+    };
+  }, []);
 
   const handleSignIn = () => {
     outerDivRef.current.scrollTo({
@@ -109,19 +121,11 @@ export default function PageScroll() {
     });
   };
 
-  // add
-  const [isFadeIn, setIsFadeIn] = useState(true);
-
-  const handleAnimationEnd = () => {
-    setIsFadeIn((prevIsFadeIn) => !prevIsFadeIn);
-  };
-
-
   return (
     <Outer ref={outerDivRef} className="outer">
       <NavBar onSignIn={handleSignIn} />
-      <UnderNavInner className="Inner">
 
+      <UnderNavInner className="Inner">
         <PageBackGround>
           <Temp/>
           <Wave>
@@ -137,7 +141,6 @@ export default function PageScroll() {
               </g>
             </svg>
           </Wave>
-
           <PageDark>
             <Title>
               오늘도 북마크를 헤메는 당신을 위해
@@ -148,60 +151,45 @@ export default function PageScroll() {
             </Content>
           </PageDark>
         </PageBackGround>
-
-        {/* <FirstImg></FirstImg>
-
-        <Title>
-          오늘도 <br /> 헤메는 <br /> 당신을 위해
-        </Title>
-
-        <Content>
-          저장한 북마크 기록을 보면서 왜 자신이 저장했는지 이유를 <br />찾았던 적이 있으신가요?
-          잊고 있던 북마크들을 정리하면서 <br />필요한 북마크들을 손쉽게 찾아보세요
-        </Content> */}
-
       </UnderNavInner>
+
       <Divider className="Divider"></Divider>
+
       <ActiveInner2 className="Inner" >
         <SecondImg></SecondImg>
-
         <SecondTitle>
           정리된 북마크를 <br /> 태그를 통해 <br /> 사용해 보세요
         </SecondTitle>
-
         <SecondContent>
           자신이 저장해 놓은 북마크들을 starmark에 업로드 해보세요 <br />
           업로드 하면 사용자가 올리신 북마크들의 주제에 따라 각각 태그들을 추출합니다.
           추출된 태그를 사용해서 북마크를 검색해 필요한 북마크를 빠르게 찾아보세요
         </SecondContent>
-
       </ActiveInner2>
+
       <Divider className="Divider"></Divider>
+
       <ActiveInner3 className="Inner" >
         <ThirdImg></ThirdImg>
-
         <ThirdTitle>
           사람들과 <br /> 서로의 북마크를 <br /> 공유해보세요
         </ThirdTitle>
-
         <ThirdContent>
           자신이 저장한 북마크들과 태그들을 다른 사용자와 공유해 보세요
           좋은 태그를 가지고 있는 사용자를 팔로우하고 팔로우한 사용자의 좋은 정보들을 사용해 보세요
           다른 사람들과 공유하면서 좋은 정보를 찾아가세요
         </ThirdContent>
-
       </ActiveInner3>
+
       <Divider className="Divider"></Divider>
       
       <ActiveInner4 className="Inner">
-        
-          <Square>
-          <LoginPageWithScrollToTop scrollToTop={scrollToTop} />
-          </Square>
-       
-        
+        <Square>
+          <LoginPage />
+        </Square>
       </ActiveInner4>
-      
+      <ScrollToTopButton visible={visible} scrollToTop={scrollToTop}/>
+
     </Outer>
 
   );
