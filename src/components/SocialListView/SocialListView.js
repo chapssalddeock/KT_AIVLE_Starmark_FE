@@ -16,31 +16,11 @@ export default function SocialListView({ searchResult }) {
     const { fetchData, data, error } = useGET();
     const { fetchData : AllfetchData, data: userListData, error: userListError } = useGET();
     const { fetchData : BookfetchData, data : userBookData, error: userBookError } = useGET();
-    const { fetchData : getFetchBookData, data: getBookData, error: getBookError } = useGET();
-    useEffect(() => {
-        const fetchBookMark = async () => {
-            await getFetchBookData('/bookmark');
-        };
     
-        fetchBookMark();
-      }, []);
-    
-    //   useEffect(() => {
-    //     if (getBookData) {
-    //         const tags = getTagData.map(item => item.tags);
-    //         const uniqueTags = [...new Set(tags)];
-    //         setTags(uniqueTags);
-    //         console.log('Tags:', tags);
-    //     } else if (getTagError) {
-    //         console.error(getTagError);
-    //     }
-    // }, [getTagData, getTagError]);
-    
-    
-    
+   
     
     const fetchUserList = async (searchResult) => {
-        // console.log('tag', searchResult)
+       
         const config = {};
 
         if (searchResult && searchResult.length > 0) {
@@ -65,26 +45,13 @@ export default function SocialListView({ searchResult }) {
     useEffect(() => {
         fetchUserList(searchResult);
     }, [searchResult]);
-    // useEffect(() => {
-    //     fetchUserBook();
-    // }, []);
     
-    
-    // const fetchUserBook = async () => {
-    //     const config = {
-    //         params: {
-    //             tag: []
-    //         }
-    //     }
-    //     await BookfetchData('/bookmark', config);
-    // };  추후에 일치하는 Tag들을 고를ㄸ ㅐ사용
     
     
     
     
 
-    // 유저 프로필 보기 관련 (View Profile)
-    // user_id를 기준으로 작동
+
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [userProfile, setUserProfile] = useState(null);
     const [userBookMark, setUserBookMark] = useState([]);
@@ -94,27 +61,26 @@ export default function SocialListView({ searchResult }) {
                 user_id: id,
             },
         };
-        await fetchData('/userinfo', config);
+        await fetchData('/userinfo/', config);
     };
-    const config_2 = {
-        params: {
-          tags: [],
-        },
-      };
-      
-      if (data && data.bookmark_list) {
-        const bookmarkList = data.bookmark_list;
-        // bookmark_list를 사용하는 추가 작업 수행
-        const tags = bookmarkList.map((item) => item.tags);
-        const urls = bookmarkList.map((item) => item.url);
-      }
-      
-    
+
+
     
     useEffect(() => {
+        console.log('data', data)
         if (data) {
-          setUserProfile(data);
-          setIsDrawerOpen(true);
+            // const urls = [];
+            // const tagName = config.params.data;
+            // data.bookmark_list.forEach((bookmark) => {
+            // const tags = Object.values(bookmark)[0].tags;
+            // if (tags.includes(tagName)) {
+            //     const url = Object.values(bookmark)[0].url;
+            //     urls.push(url);
+            // }
+            // });
+            // console.log('url', urls)
+            setUserProfile(data);
+            setIsDrawerOpen(true);
         } else if (error) {
           console.error(error);
         }
