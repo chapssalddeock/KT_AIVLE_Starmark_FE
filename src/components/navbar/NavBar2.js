@@ -34,9 +34,9 @@ export default function NavBar() {
 
             <Navbar collapseOnSelect bg="white" style={{ boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)' }}>
                 <Nav.Link onClick={moveHome} style={{ marginLeft: 20 }}><img src='img/defalut_logo.png' height={60}></img></Nav.Link>
-                <div style={{ position: 'absolute', top: 0, left: 0, right: 1240, bottom: 0, zIndex: 1, transform: 'scaleX(-1)' }}>
+                {/* <div style={{ position: 'absolute', top: 0, left: 0, right: 1240, bottom: 0, zIndex: 1, transform: 'scaleX(-1)' }}>
                     <div style={{ width: '32px', height: '76px', transform: 'skew(400deg)', background: 'rgba(94, 172, 242, 0.7)' }} />
-                </div>
+                </div> */}
 
                 <Navbar.Collapse className="justify-content-end" style={{ marginRight: 50 }}>
                     {!isOpenJoin && <Nav.Link style={{ marginRight: 20 }} onClick={moveSocial}>SOCIAL</Nav.Link>}
