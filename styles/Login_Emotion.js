@@ -31,7 +31,7 @@ export const TitleSpace = styled.div`
     width : 100%;
     height : 20%;
     align-items: center;
-    border : solid yellow;
+    // border : solid yellow;
 `
 export const LoginTitle = styled.div`
     ${normalFontStyles}
@@ -56,7 +56,7 @@ export const InputSpace = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    border : solid red;
+    // border : solid red;
     
 `
 
