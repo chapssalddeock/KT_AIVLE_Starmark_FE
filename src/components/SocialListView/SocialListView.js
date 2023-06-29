@@ -15,9 +15,21 @@ export default function SocialListView({ searchResult }) {
     const [users, setUsers] = useState([]);
     const { fetchData, data, error } = useGET();
     const { fetchData : AllfetchData, data: userListData, error: userListError } = useGET();
-    const { fetchData : BookfetchData, data : userBookData, error: userBookError } = useGET();
+    const { fetchData : fetchMydata, data : MyBookData, error: MyBookError } = useGET();
     
-   
+    const fetchMyBookList = async() => {
+        config = {
+            params: {
+                user_id: 0,
+            },
+        };
+        await fetchMydata('/userinfo/', config);
+    }
+    useEffect(() => {
+        fetchMyBookList();
+    }, []);
+    console.log('My', MyBookData['bookmark_list'].url)
+
     const [config, setConfig] = useState({});
     const fetchUserList = async (searchResult) => {
        
