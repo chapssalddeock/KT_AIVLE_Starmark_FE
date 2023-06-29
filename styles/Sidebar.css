@@ -130,14 +130,26 @@
     flex-direction: column;
   }
   
+
+
+/*  여기는 마이페이지 관련  */
+
+
+
+
   .mpsidebar {
+    display: flex;
+    flex-direction: column;
     width: 300px;
-    height: 90vh;
+    height: calc(100vh - 76px); 
     background-color: #ffffff;
     float: left;
+    overflow: hidden;
+    box-shadow: '4px 4px 4px 4px rgba(0, 0, 0, 0.2)' ,
   }
 
   .mpsidebar-menu {
+    border: '1px solid red';
     width: 300px;
     height: 62%;
     background-color: #ffffff;
@@ -167,6 +179,11 @@
     flex-direction: column;
   }
   
+/* 아래는 footer 관련 공통 부분 */
+
+
+
+
   .additional_menu {
     position: absolute;
     bottom: 2%;

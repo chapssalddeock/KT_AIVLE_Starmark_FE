@@ -342,15 +342,7 @@ export default function MpMain({ selectedItem }) {
 
             </div>
           </div>
-
-
-
-
-
-
-
-
-        )}
+)}
         {selectedItem === 'sub2' && (
           <div style={{ marginLeft: '-150px', marginTop: '120px' }}>
             <MpFollowView></MpFollowView>

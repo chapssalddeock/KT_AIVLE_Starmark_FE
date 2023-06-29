@@ -1,12 +1,12 @@
-import MpContentArea from "../../src/components/ContentArea/MpContentArea"
+//import MpContentArea from "../../src/components/ContentArea/MpContentArea"
 import RequireAuth from '../../src/AuthContext/RequireAuth'
-
+import MpLayout from '../../src/commons/layout/MyIndex'
 
 export default function MyPage() {
     return (
         <>
             <RequireAuth>
-                <MpContentArea />
+                <MpLayout />
             </RequireAuth>
 
         </>
