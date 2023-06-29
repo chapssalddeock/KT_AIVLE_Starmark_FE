@@ -8,7 +8,9 @@
     background-color: #ffffff;
     float: left;
     overflow: hidden;
+    box-shadow: '4px 4px 4px 4px rgba(0, 0, 0, 0.2)' ,
   }
+  
   /* .main-content {
     margin-left: 400px;
     margin-top: 700px; 
