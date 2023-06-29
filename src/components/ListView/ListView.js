@@ -21,7 +21,7 @@ const columns = [
             <>
                 {tags.slice(0, 5).map((tag) => (
                     <Tag key={tag}
-                        style={{ borderRadius: 20, height: 24, marginBottom: 4, color: '#5eacf2', border: ' solid #5eacf2 0.5px' }} color="white">
+                        style={{ borderRadius: 20, height: 24, marginBottom: 4, color: '#5eacf2', border: 'solid #5eacf2 0.5px' }} color="white">
                         {tag}
                     </Tag>
                 ))}
@@ -96,7 +96,7 @@ export default function ListView({ searchResult }) {
 
     return (
         <div >
-            <div style={{ height: 500, overflowY: 'scroll' }}>
+            <div style={{ height: 480, overflowY: 'scroll' }}>
                 <Table
                     columns={columns}
                     dataSource={currentPageData}

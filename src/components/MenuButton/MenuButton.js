@@ -1,76 +1,3 @@
-// const React = require('react');
-// const { useState } = require('react');
-// const useRouter = require('next/router').useRouter;
-// const Container = require('react-bootstrap/Container');
-// const Nav = require('react-bootstrap/Nav');
-// const Navbar = require('react-bootstrap/Navbar');
-// const { FiBell, FiMenu } = require('react-icons/fi');
-
-// export default function MenuBar() {
-//     const router = useRouter();
-//     const [isMenuOpen, setMenuOpen] = useState(false);
-
-//     const toggleMenu = () => {
-//         setMenuOpen(!isMenuOpen);
-//     };
-
-//     const moveToAboutPage = () => {
-//         router.push('/about');
-//     };
-
-//     return React.createElement(
-//         'div',
-//         { style: { border: 'solid 1px black' } },
-//         React.createElement(
-//             Navbar,
-//             null,
-//             React.createElement(
-//                 Container,
-//                 null,
-//                 React.createElement('img', {
-//                     src: require('C:\\Users\\User\\Desktop\\StarMark_front\\bigproject\\public\\img\\menu.png'),
-//                     width: 60,
-//                     height: 60,
-//                     onClick: toggleMenu,
-//                 }),
-//                 React.createElement(
-//                     Navbar.Brand,
-//                     { onClick: moveToAboutPage },
-//                     '네비게이션 바 영역'
-//                 ),
-//                 React.createElement(
-//                     Nav,
-//                     null,
-//                     React.createElement(
-//                         Nav.Link,
-//                         null,
-//                         React.createElement(FiBell, null),
-//                         ' ',
-//                         React.createElement(FiMenu, { onClick: toggleMenu })
-//                     )
-//                 )
-//             )
-//         ),
-//         isMenuOpen &&
-//         React.createElement(
-//             'div',
-//             { style: { background: '#f5f5f5', padding: '10px' } },
-//             React.createElement('p', null, 'Menu')
-//         ),
-//         !isMenuOpen &&
-//         React.createElement(
-//             'div',
-//             { style: { background: '#f5f5f5', padding: '10px' } },
-//             React.createElement('img', {
-//                 src: require('C:\\Users\\User\\Desktop\\StarMark_front\\bigproject\\public\\img\\about.png'),
-//                 width: 60,
-//                 height: 60,
-//                 onClick: moveToAboutPage,
-//             })
-//         )
-//     );
-// }
-
 import { Grid3x3GapFill, List } from 'react-bootstrap-icons';
 import Container from 'react-bootstrap/Container';
 import { Button, Select, Space, Segmented } from 'antd';
@@ -108,7 +35,10 @@ export default function MenuBar({ onSegmentedChange }) {
 
         <Container style={{ display: 'flex', }}>
             <Space wrap style={{ flex: 1, justifyContent: 'flex-start', marginLeft: 0 }}>
-                <Button classNames='add' size="large" onClick={handleOpenDrawer} style={{ width: 100, height: 35, borderRadius: 20 }}>ADD</Button>
+                <Button classNames='add' size="large" onClick={handleOpenDrawer}
+                    style={{ width: 100, height: 35, borderRadius: 20, color: '#5eacf2', border: 'solid #5eacf2 0.5px', fontWeight: 'bold', textAlign: 'center', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>ADD</span>
+                </Button>
                 <SubmitForm isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
             </Space>
             <Space wrap style={{ flex: 1, justifyContent: 'flex-end', }}>
@@ -121,7 +51,8 @@ export default function MenuBar({ onSegmentedChange }) {
                     {
                         value: 'Thumbnail',
                         icon: <Grid3x3GapFill size='20' />,
-                    },]} />
+                    },]}
+                />
             </Space >
         </Container >
 

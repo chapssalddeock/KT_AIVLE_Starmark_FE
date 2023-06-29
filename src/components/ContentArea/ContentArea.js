@@ -64,7 +64,7 @@ export default function ContentArea() {
                     <SideBar onSearch={handleSearch} onSuggestedItemClick={handleSuggestedItemClick} ToggleClick={handleSearchHistory} />
                 </Sider>
                 <Layout style={{ padding: '0 24px 24px', backgroundColor: "white" }}>
-                    <div style={{ margin: '12px 0  ', }}>
+                    <div style={{ margin: '16px 0  ', }}>
                         <MenuBar onSegmentedChange={handleSegmentedChange} />
                     </div>
                     <div style={{ borderTop: '1px solid #f0f0f0', marginBottom: '12px' }}></div>

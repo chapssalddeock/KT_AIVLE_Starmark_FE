@@ -32,9 +32,6 @@ const CustomCard = ({ title, desc, img, url, tags }) => {
 
                 <Meta title={title} description={<Text ellipsis>{truncatedDesc}</Text>} />
                 {/* Text 컴포넌트로 감싸고 ellipsis 속성 추가 */}
-                {/* <a href={url} style={{ fontSize: 16, fontWeight: 'bold', position: 'absolute', bottom: 20, right: 30 }}>
-                    GO
-                </a> */}
                 <a href={url} style={{ fontSize: 16, fontWeight: 'bold', position: 'absolute', bottom: 20, right: 30 }}>
                     <BoxArrowUpRight />
                 </a>
@@ -90,7 +87,7 @@ export default function ThumbnailView({ searchResult }) {
 
                     loading={loading}
                     grid={{ column: 3 }}
-                    style={{ height: 500, overflowY: 'scroll' }}
+                    style={{ height: 480, overflowY: 'scroll' }}
                     dataSource={currentPageData}
                     renderItem={(item, index) => (
                         <List.Item>
