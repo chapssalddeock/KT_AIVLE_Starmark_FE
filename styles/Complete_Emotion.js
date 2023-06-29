@@ -48,7 +48,6 @@ export const Content = styled.div`
 export const ButtonBlock = styled.div`
   width: 20%;
   height: 20%;
-
   position : relative;
   left:40%;
   display: flex;
