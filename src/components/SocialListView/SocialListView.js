@@ -55,8 +55,9 @@ export default function SocialListView({ searchResult }) {
     useEffect(() => {
         
         if (userListData) {
-            
+            console.log('userListData', userListData)
             setUsers(userListData);
+            
         } else if (userListError) {
             console.error(userListError);
         }
@@ -199,7 +200,7 @@ export default function SocialListView({ searchResult }) {
                             )}
                             
                             <div style={{ position: 'fixed', marginLeft: '750px', display: 'flex', alignItems: 'center', marginRight: '75px' }}>
-                                {searchResult.map((tag) => (
+                                {searchResult && searchResult.map((tag) => (
                                     <Tag key={tag} style={{ marginRight: '10px', borderRadius: 20, height: 25 }}>{tag}</Tag>
                                 ))}
                             </div>
