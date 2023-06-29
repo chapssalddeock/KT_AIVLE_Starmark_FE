@@ -12,7 +12,6 @@ export default function SocialListView({ searchResult }) {
     // 즉, 사이드바에서 이벤트 발생하면 SocialListView로 넘어오도록!
     // 공통되는 통신 부분 및 config 함수화 필요
     
-    
     const [users, setUsers] = useState([]);
     const { fetchData, data, error } = useGET();
     const { fetchData : AllfetchData, data: userListData, error: userListError } = useGET();
@@ -36,22 +35,35 @@ export default function SocialListView({ searchResult }) {
     //         console.error(getTagError);
     //     }
     // }, [getTagData, getTagError]);
-    console.log('tag', searchResult[0])
-    useEffect(() => {
-        fetchUserList();
-    }, []);
     
     
-    const fetchUserList = async () => {
-        const searchString = searchResult[0];
-        const config = {
-            params: {
-            data: searchString,
-            },
-        };
-        
-        await AllfetchData('/search', config);
+    
+    
+    const fetchUserList = async (searchResult) => {
+        // console.log('tag', searchResult)
+        const config = {};
+
+        if (searchResult && searchResult.length > 0) {
+            config.params = {};
+            searchResult.forEach((item, index) => {
+                config.params['data'] = item;
+            });
+        }
+       
+        await AllfetchData('/search/', config);
     };
+    useEffect(() => {
+        
+        if (userListData) {
+            
+            setUsers(userListData);
+        } else if (userListError) {
+            console.error(userListError);
+        }
+    }, [userListData, userListError]);
+    useEffect(() => {
+        fetchUserList(searchResult);
+    }, [searchResult]);
     // useEffect(() => {
     //     fetchUserBook();
     // }, []);
@@ -67,13 +79,7 @@ export default function SocialListView({ searchResult }) {
     // };  추후에 일치하는 Tag들을 고를ㄸ ㅐ사용
     
     
-    useEffect(() => {
-        if (userListData) {
-            setUsers(userListData);
-        } else if (userListError) {
-            console.error(userListError);
-        }
-    }, [userListData, userListError]);
+    
     
 
     // 유저 프로필 보기 관련 (View Profile)
@@ -192,9 +198,10 @@ export default function SocialListView({ searchResult }) {
                                 </div>
                             )}
                             
-                            <div style={{ position: 'fixed',marginLeft: '750px', display: 'flex', alignItems: 'center', marginRight:'75px'}}>
-                                <div  style={{ marginRight: '10px' }}>주요 태그</div>
-                                {/* (item.tags.map((tag) => (<Tag key={tag} style={{ borderRadius: 20, height: 25 }}>{tag}</Tag>))) */}
+                            <div style={{ position: 'fixed', marginLeft: '750px', display: 'flex', alignItems: 'center', marginRight: '75px' }}>
+                                {searchResult.map((tag) => (
+                                    <Tag key={tag} style={{ marginRight: '10px', borderRadius: 20, height: 25 }}>{tag}</Tag>
+                                ))}
                             </div>
                             
                         </List.Item>
