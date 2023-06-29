@@ -1,7 +1,7 @@
 import {
   Outer, ActiveInner2, ActiveInner3, ActiveInner4, UnderNavInner, Divider,
-  PageBackGround, Wave, PageDark, Title, Content, FirstImg,
-  SecondImg, SecondTitle, SecondContent, ThirdImg, ThirdTitle, ThirdContent, BgLayout
+  PageBackGround, Temp, Wave, PageDark, Title, Content, FirstImg,
+  SecondImg, SecondTitle, SecondContent, ThirdImg, ThirdTitle, ThirdContent, SquareParent, Square
 } from "../../../styles/PageScroll_Emotion";
 import LoginPage from "../SignIn/Login_Protect";
 import { useEffect, useRef, useState } from "react";
@@ -122,7 +122,8 @@ export default function PageScroll() {
       <NavBar onSignIn={handleSignIn} />
       <UnderNavInner className="Inner">
 
-        {/* <PageBackGround>
+        <PageBackGround>
+          <Temp/>
           <Wave>
             <svg className="waves" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shapeRendering="auto">
               <defs>
@@ -146,9 +147,9 @@ export default function PageScroll() {
               starmark를 통해 효율적인 북마크 관리를 시작해 보세요
             </Content>
           </PageDark>
-        </PageBackGround> */}
+        </PageBackGround>
 
-        <FirstImg></FirstImg>
+        {/* <FirstImg></FirstImg>
 
         <Title>
           오늘도 <br /> 헤메는 <br /> 당신을 위해
@@ -157,7 +158,7 @@ export default function PageScroll() {
         <Content>
           저장한 북마크 기록을 보면서 왜 자신이 저장했는지 이유를 <br />찾았던 적이 있으신가요?
           잊고 있던 북마크들을 정리하면서 <br />필요한 북마크들을 손쉽게 찾아보세요
-        </Content>
+        </Content> */}
 
       </UnderNavInner>
       <Divider className="Divider"></Divider>
@@ -191,11 +192,16 @@ export default function PageScroll() {
 
       </ActiveInner3>
       <Divider className="Divider"></Divider>
-      <BgLayout>
-        <ActiveInner4 className="Inner" bgColor={"#b6d8f2"}>
+      
+      <ActiveInner4 className="Inner">
+        
+          <Square>
           <LoginPageWithScrollToTop scrollToTop={scrollToTop} />
-        </ActiveInner4>
-      </BgLayout>
+          </Square>
+       
+        
+      </ActiveInner4>
+      
     </Outer>
 
   );
