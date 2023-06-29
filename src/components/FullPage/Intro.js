@@ -1,6 +1,8 @@
-import { Outer, ActiveInner2, ActiveInner3, ActiveInner4, UnderNavInner, Divider, 
+import {
+  Outer, ActiveInner2, ActiveInner3, ActiveInner4, UnderNavInner, Divider,
   PageBackGround, Wave, PageDark, Title, Content, FirstImg,
-  SecondImg, SecondTitle, SecondContent, ThirdImg, ThirdTitle, ThirdContent } from "../../../styles/PageScroll_Emotion";
+  SecondImg, SecondTitle, SecondContent, ThirdImg, ThirdTitle, ThirdContent, BgLayout
+} from "../../../styles/PageScroll_Emotion";
 import LoginPage from "../SignIn/Login_Protect";
 import { useEffect, useRef, useState } from "react";
 import NavBar from '../NavBar/NavBar';
@@ -149,29 +151,29 @@ export default function PageScroll() {
         <FirstImg></FirstImg>
 
         <Title>
-          오늘도 <br/> 헤메는 <br/> 당신을 위해
+          오늘도 <br /> 헤메는 <br /> 당신을 위해
         </Title>
 
         <Content>
-          저장한 북마크 기록을 보면서 왜 자신이 저장했는지 이유를 <br/>찾았던 적이 있으신가요?
-          잊고 있던 북마크들을 정리하면서 <br/>필요한 북마크들을 손쉽게 찾아보세요
+          저장한 북마크 기록을 보면서 왜 자신이 저장했는지 이유를 <br />찾았던 적이 있으신가요?
+          잊고 있던 북마크들을 정리하면서 <br />필요한 북마크들을 손쉽게 찾아보세요
         </Content>
 
       </UnderNavInner>
       <Divider className="Divider"></Divider>
       <ActiveInner2 className="Inner" >
-      <SecondImg></SecondImg>
+        <SecondImg></SecondImg>
 
         <SecondTitle>
           정리된 북마크를 <br /> 태그를 통해 <br /> 사용해 보세요
         </SecondTitle>
 
         <SecondContent>
-          자신이 저장해 놓은 북마크들을 starmark에 업로드 해보세요 <br/>
+          자신이 저장해 놓은 북마크들을 starmark에 업로드 해보세요 <br />
           업로드 하면 사용자가 올리신 북마크들의 주제에 따라 각각 태그들을 추출합니다.
           추출된 태그를 사용해서 북마크를 검색해 필요한 북마크를 빠르게 찾아보세요
         </SecondContent>
-        
+
       </ActiveInner2>
       <Divider className="Divider"></Divider>
       <ActiveInner3 className="Inner" >
@@ -189,10 +191,13 @@ export default function PageScroll() {
 
       </ActiveInner3>
       <Divider className="Divider"></Divider>
-      <ActiveInner4 className="Inner" bgColor={"#b6d8f2"}>
-        <LoginPageWithScrollToTop scrollToTop={scrollToTop} />
-      </ActiveInner4>
+      <BgLayout>
+        <ActiveInner4 className="Inner" bgColor={"#b6d8f2"}>
+          <LoginPageWithScrollToTop scrollToTop={scrollToTop} />
+        </ActiveInner4>
+      </BgLayout>
     </Outer>
+
   );
 }
 

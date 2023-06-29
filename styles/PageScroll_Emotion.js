@@ -31,7 +31,7 @@ const BasicInner = styled.div`
 `
 
 export const UnderNavInner = styled(BasicInner)`
-  background-color: #fffff;
+  background-color: '#fffff';
   height: calc(100vh - 76px); // 76
 `
 
@@ -183,8 +183,6 @@ export const ThirdContent = styled.div`
 
 export const ActiveInner4 = styled(BasicInner)`
   height: 100vh;
-  background-image: url(/img/Login_BG.png);
-  background-size: 1550px ;
   
 `
 
@@ -193,7 +191,11 @@ export const Divider = styled.div`
   height : 3px;
   background-color : gray;
 `
-
+export const BgLayout = styled.div`
+  background-image: url(/img/BG.jpg);
+  background-size: cover; /* 이미지를 가능한 한 크게 확대하여 채움 */
+  background-position: center; /* 이미지를 가운데로 정렬 */
+  height: 100%/*calc(100vh - 76px); 뷰포트의 높이에서 NavBar의 높이(76px)를 뺀 값으로 높이 설정*/
 
 // export const PageBackGround = styled.div`
 //   // border: solid;
