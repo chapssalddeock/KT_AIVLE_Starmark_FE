@@ -4,6 +4,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import 'animate.css';
 import ScrollToTopButton from './ScrollToTopButton';
+import NavBar from '../NavBar/NavBar';
 
 
 export default function PageScroll() {
@@ -18,11 +19,17 @@ export default function PageScroll() {
       setVisible(scrollTop > 300); // 스크롤 위치에 따라 버튼 표시 여부 결정
     };
 
-    outerDivRef.current.addEventListener('scroll', handleScroll); // 스크롤 이벤트 핸들러 등록
+    const divElement = outerDivRef.current; // div 요소를 변수에 할당
 
-    return () => {
-      outerDivRef.current.removeEventListener('scroll', handleScroll); // 컴포넌트 언마운트 시 이벤트 핸들러 제거
-    };
+  if (divElement) {
+    divElement.addEventListener('scroll', handleScroll);
+  }
+
+  return () => {
+    if (divElement) {
+      divElement.removeEventListener('scroll', handleScroll);
+    }
+  };
   }, []);
 
   const scrollToTop = () => {
@@ -35,6 +42,7 @@ export default function PageScroll() {
 
   return (
     <Outer ref={outerDivRef} className="outer">
+      
       <UnderNavInner className="Inner">
 
       </UnderNavInner>
