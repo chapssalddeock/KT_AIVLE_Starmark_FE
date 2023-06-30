@@ -28,8 +28,25 @@ export default function SocialListView({ searchResult }) {
     useEffect(() => {
         fetchMyBookList();
     }, []);
-    console.log('My', MyBookData['bookmark_list'].url)
+    const [urlList, setUrlList] = useState([]);
 
+    useEffect(() => {
+        const extractUrls = () => {
+            if (MyBookData && MyBookData.bookmark_list) {
+                const newUrlList = [];
+                const bookmarkList = MyBookData['bookmark_list'];
+                for (const item of bookmarkList) {
+                  const url = item.url;
+                  newUrlList.push(url);
+                }
+                setUrlList(newUrlList);
+                
+            }
+        };
+
+        extractUrls();
+    }, []);
+    console.log('asda', urlList)
     const [config, setConfig] = useState({});
     const fetchUserList = async (searchResult) => {
        
@@ -194,7 +211,7 @@ export default function SocialListView({ searchResult }) {
                     )}
                 </VirtualList >
             </List >
-            <UserDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} userProfile={userProfile} urls = {urls} />
+            <UserDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} userProfile={userProfile} urls = {urls} urlList={urlList} />
         </>
     );
 };
