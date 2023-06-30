@@ -37,7 +37,15 @@ export default function SubmitForm({ isOpen, onClose }) {
             };
         } else if (selectedOption === 'HTML') {
             formData = new FormData();
-            formData.append('file', fileList[0]);
+            formData.append('type', 'file');
+            formData.append('data', fileList[0]);
+
+            console.log("#################################")
+            for (let value of formData.values()) {
+                console.log(value);
+            }
+
+
         }
 
         await postFetchData('/bookmark/', formData);
@@ -58,34 +66,37 @@ export default function SubmitForm({ isOpen, onClose }) {
         const files = event.target.files;
         const newFileList = Array.from(files);
         setFileList(newFileList);
+
+
+        console.log("*************************************");
         console.log(newFileList);
     };
 
-    const props = {
-        name: 'file',
-        action: 'http://localhost:3000/',
-        headers: {
-            authorization: 'authorization-text',
-        },
-        onChange(info) {
-            if (info.file.status !== 'uploading') {
-                console.log(info.file, info.fileList);
-            }
-            if (info.file.status === 'done') {
-                message.success(`${info.file.name} 파일이 성공적으로 업로드되었습니다.`);
-            } else if (info.file.status === 'error') {
-                message.error(`${info.file.name} 파일 업로드에 실패했습니다.`);
-            }
-        },
-        progress: {
-            strokeColor: {
-                '0%': '#108ee9',
-                '100%': '#87d068',
-            },
-            strokeWidth: 3,
-            format: (percent) => percent && `${parseFloat(percent.toFixed(2))}%`,
-        },
-    };
+    // const props = {
+    //     name: 'file',
+    //     action: 'http://localhost:3000/',
+    //     headers: {
+    //         authorization: 'authorization-text',
+    //     },
+    //     onChange(info) {
+    //         if (info.file.status !== 'uploading') {
+    //             console.log(info.file, info.fileList);
+    //         }
+    //         if (info.file.status === 'done') {
+    //             message.success(`${info.file.name} 파일이 성공적으로 업로드되었습니다.`);
+    //         } else if (info.file.status === 'error') {
+    //             message.error(`${info.file.name} 파일 업로드에 실패했습니다.`);
+    //         }
+    //     },
+    //     progress: {
+    //         strokeColor: {
+    //             '0%': '#108ee9',
+    //             '100%': '#87d068',
+    //         },
+    //         strokeWidth: 3,
+    //         format: (percent) => percent && `${parseFloat(percent.toFixed(2))}%`,
+    //     },
+    // };
 
     const handleCancel = () => {
         onClose();
@@ -138,11 +149,14 @@ export default function SubmitForm({ isOpen, onClose }) {
 
                     {selectedOption === 'HTML' && (
                         <>
-                            <Upload {...props}>
-                                <Button icon={<UploadOutlined />} onChange={handleFileChange}>
+                            {/* <Upload {...props}> */}
+                            <Form.Item name="file" label="HTML 파일 업로드">
+                                <Button icon={<UploadOutlined />} onClick={() => document.getElementById('fileInput').click()}>
                                     파일 업로드
                                 </Button>
-                            </Upload>
+                                <input type="file" id="fileInput" style={{ display: 'none' }} onChange={handleFileChange} />
+                            </Form.Item>
+                            {/* </Upload> */}
                         </>
                     )}
                 </Form>
