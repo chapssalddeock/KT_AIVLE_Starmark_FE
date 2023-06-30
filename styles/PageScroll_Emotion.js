@@ -68,10 +68,9 @@ export const PageDark = styled.div`
 `
 
 export const Title = styled.div`
-  ${fontFaceStyles}
   font-family: 'KOTRA_BOLD-Bold';
   color : white;
-  font-size: 50px;
+  font-size: 7vmin;
   text-align: center;
 
   width: 100%;
@@ -89,7 +88,7 @@ export const Content = styled.div`
   ${normalFontStyles}
   font-family: 'KOTRA_GOTHIC';
   color : white;
-  font-size: 20px;
+  font-size: 3vmin;
 
   position: relative;
   // left: 40%;
@@ -149,7 +148,6 @@ export const SecondImg = styled.div`
 
 
 export const SecondTitle = styled.div`
-  ${fontFaceStyles}
   font-family: 'KOTRA_BOLD-Bold';
   color : #5eacf2;
   font-size: 7vmin;  
@@ -236,7 +234,7 @@ export const ActiveInner4 = styled(BasicInner)`
 export const Divider = styled.div`
   width : 100%;
   height : 3px;
-  background-color : gray;
+  background-color : white;
 `
 
 export const Square = styled.div`
