@@ -76,3 +76,16 @@ export const ContentFrame = styled.div`
   //margin: auto; /* 중앙 정렬을 위한 margin 설정 */
   
 `;
+
+
+
+export const FollowerFrame = styled.div`
+  grid-column: 1; /* 1열로 배치 */
+  background-color: red;
+`
+
+
+export const FollowingFrame = styled.div`
+  grid-column: 2; /* 2열로 배치 */
+  background-color: blue;
+`
