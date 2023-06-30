@@ -15,6 +15,7 @@ export const MainFrame = styled.div`
   width: calc(100vw - 400px);
   height: calc(100vh - 150px);
   border: solid;
+  margin-top: 30px;
 `;
 
 export const ImgFrame = styled.div`
@@ -81,11 +82,11 @@ export const ContentFrame = styled.div`
 
 export const FollowerFrame = styled.div`
   grid-column: 1; /* 1열로 배치 */
-  background-color: red;
+
 `
 
 
 export const FollowingFrame = styled.div`
   grid-column: 2; /* 2열로 배치 */
-  background-color: blue;
+
 `

@@ -1,14 +1,13 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { MainFrame, Frame, FollowerFrame, FollowingFrame } from '../../../styles/MyPage_Emotion';
-import { List, Avatar } from 'antd';
+import { List, Avatar, Button } from 'antd';
 import useGET from '../../AuthCommunicate/GET';
 
 export default function MyFollows() {
-    const [info, setInfo] = useState([]); // 나의 기본 소셜관련 불러오기 
+    const [info, setInfo] = useState([]);
     const { fetchData: getFetchData, data: getData, error: getError } = useGET();
 
-
-    // 기본적으로 나의 팔로우 팔로잉을 불러오는 부분
     const fetchData = async () => {
         await getFetchData('/follows/');
     };
@@ -25,9 +24,6 @@ export default function MyFollows() {
         fetchData();
     }, []);
 
-    // 언팔로우 및 팔로우가 가능하도록 통신하는 부분
-
-
 
 
 
@@ -36,35 +32,43 @@ export default function MyFollows() {
             <Frame>
                 <MainFrame>
                     <FollowerFrame>
+                        <h2 style={{ marginBottom: '20px' }}>Followers</h2>
+                        <div style={{ borderBottom: '1px solid #ccc', marginBottom: '10px' }}></div>
                         <List
                             dataSource={info.follower}
                             renderItem={follower => (
-                                <List.Item>
+                                <List.Item style={{ height: '100px', marginLeft: '28px' }}>
                                     <List.Item.Meta
-                                        avatar={<Avatar src={follower.profile_image} />}
-                                        title={follower.username}
+                                        avatar={<Avatar src={follower.profile_image} style={{ width: '60px', height: '60px' }} />}
+                                        title={<span style={{ fontSize: '18px', fontWeight: 'bold' }}>{follower.username}</span>}
+                                        description={<span>{follower.email}</span>}
                                     />
+                                    <Button style={{ marginRight: '40px' }}>임시</Button>
                                 </List.Item>
                             )}
+                            style={{ overflowY: 'scroll', height: 'calc(100% - 72px)', padding: '10px' }}
                         />
                     </FollowerFrame>
                     <FollowingFrame>
+                        <h2 style={{ marginBottom: '20px' }}>Following</h2>
+                        <div style={{ borderBottom: '1px solid #ccc', marginBottom: '10px' }}></div>
                         <List
                             dataSource={info.following}
                             renderItem={following => (
-                                <List.Item>
+                                <List.Item style={{ height: '100px', marginLeft: '28px' }}>
                                     <List.Item.Meta
-                                        avatar={<Avatar src={following.profile_image} />}
-                                        title={following.username}
+                                        avatar={<Avatar src={following.profile_image} style={{ width: '60px', height: '60px' }} />}
+                                        title={<span style={{ fontSize: '18px', fontWeight: 'bold' }}>{following.username}</span>}
+                                        description={<span>{following.email}</span>}
                                     />
+                                    <Button style={{ marginRight: '40px' }}>임시</Button>
                                 </List.Item>
                             )}
+                            style={{ overflowY: 'scroll', height: 'calc(100% - 72px)', padding: '10px' }}
                         />
                     </FollowingFrame>
                 </MainFrame>
             </Frame>
         </>
-
-    )
-
-};
+    );
+}
