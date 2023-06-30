@@ -22,9 +22,10 @@ export default function MpContentArea() {
                     <MpSideBar handleMenuItemClick={handleMenuClick} />
                 </Sider>
                 <Layout style={{ padding: '0 24px 24px', backgroundColor: "white" }}>
-                    {selectedItem === 'sub1' && <MyInfo style={{ padding: 4, margin: 0, }} />}
-                    {/* selectedItem에 따라 메뉴 이동 */}
-
+                    <Content style={{ padding: 4, margin: 0, }}>
+                        {selectedItem === 'sub1' && <MyInfo style={{ padding: 4, margin: 0, }} />}
+                        {/* selectedItem에 따라 메뉴 이동 */}
+                    </Content>
                 </Layout>
             </Layout>
         </Layout >
