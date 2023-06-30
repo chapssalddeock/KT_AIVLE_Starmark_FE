@@ -4,9 +4,13 @@
 import { useState, useEffect, useRef } from 'react';
 import {
     MainFrame, ImgFrame, TitleFrame, ContentFrame, ImgChangeButton, Frame,
-    GridContainer, FirstRow, SecondRow, ThirdRow, FourthRow
 } from '../../../styles/MyPage_Emotion';
 import useGET from '../../AuthCommunicate/GET';
+import usePUT from '../../AuthCommunicate/PUT';
+
+
+
+
 import { List, Button, Input, Form } from 'antd';
 
 
@@ -25,9 +29,10 @@ const dataList = [
 
 export default function MyInfo() {
 
-    const [data, setData] = useState([]); // 여기에 기본 정보가 들어감
+    const [info, setInfo] = useState([]); // 여기에 기본 정보가 들어감
     const [isEditing, setIsEditing] = useState(false); // 이건 기본정보 수정시에 필요한 state
     const { fetchData: getFetchData, data: getData, error: getError } = useGET();
+    const { fetchData: putFetchData, data: putData, error: putError } = usePUT();
 
     // 기본 정보 받아오는 파트
     const fetchData = async () => {
@@ -43,7 +48,7 @@ export default function MyInfo() {
 
     useEffect(() => {
         if (getData) {
-            setData(getData);
+            setInfo(getData);
         } else if (getError) {
             console.error(getError);
         }
@@ -53,21 +58,38 @@ export default function MyInfo() {
         fetchData();
     }, []);
 
-    console.log("확인용", data);
 
 
-    ////// 기본 정보 수정 파트
+    ////// 기본 정보 수정하는 파트
     const handleEditClick = () => {
         setIsEditing(true);
     };
 
-    const handleSaveClick = () => {
-        // put 통신 요청해서 수정한 뒤에 setIsEditing을 통해서 수정이 완료됨을 알림
-        setIsEditing(false);
+    const handleSaveClick = async () => {
+        const updatedData = {
+            target: 'username',
+            username: info.username, // 변경된 username을 추가
+        };
+        console.log(updatedData);
+
+        await putFetchData('/userinfo/', updatedData);
     };
 
-    const handleInputChange = (e) => {
-        setData(e.target.value);
+    useEffect(() => {
+        if (putData) {
+            setIsEditing(false); //수정 완료되면 수정모드 닫음
+
+        } else if (putError) {
+            console.log(putError);
+        }
+    }, [putData, putError]);
+
+
+    const handleInputChange = (key, value) => {
+        setInfo((prevData) => ({
+            ...prevData,
+            [key]: value,
+        }));
     };
 
     // 수정 취소
@@ -77,7 +99,7 @@ export default function MyInfo() {
 
 
 
-    /////////////////// 프로필 이미지 변경
+    /////////////////// 프로필 이미지 변경 파트
     const fileInputRef = useRef(null);
 
     const handleButtonClick = () => {
@@ -124,10 +146,10 @@ export default function MyInfo() {
             <Frame>
                 <MainFrame>
                     <TitleFrame>
-                        My Infomation
+                        My Information
                     </TitleFrame>
                     <ImgFrame>
-                        <img src={data.profile_image} style={{ width: 300, height: 300, borderRadius: 50 }}></img>
+                        <img src={info.profile_image} style={{ width: 300, height: 300, borderRadius: 50 }}></img>
                     </ImgFrame>
                     <ImgChangeButton>
                         <input
@@ -146,11 +168,12 @@ export default function MyInfo() {
                                     {dataList.map(({ label, key }) => (
                                         <Form.Item key={key} label={label} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
                                             {key === 'username' ? (
-                                                <Input defaultValue={data[key]} onChange={(e) => handleInputChange(key, e.target.value)} />
+                                                <Input value={info[key]} onChange={(e) => handleInputChange(key, e.target.value)} />
                                             ) : (
-                                                <span>{data[key]}</span>
+                                                <span>{info[key]}</span>
                                             )}
                                         </Form.Item>
+
                                     ))}
                                 </Form>
                                 <Button type="primary" onClick={handleSaveClick}>Submit</Button>
@@ -163,7 +186,7 @@ export default function MyInfo() {
                                     renderItem={({ label, key }) => (
                                         <List.Item key={key}>
                                             <p>{label}<br />
-                                                {data[key]}</p>
+                                                {info[key]}</p>
                                         </List.Item>
                                     )}
                                 />
