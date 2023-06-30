@@ -1,8 +1,13 @@
 .sidebar {
-    width: 300px;
-    height: 100vh;
-    background-color: #ffffff;
-    float: left;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: calc(100vh - 76px); /* 뷰포트의 높이에서 NavBar의 높이(76px)를 뺀 값으로 높이 설정 */
+  /* height: 90vh; */
+  background-color: #ffffff;
+  float: left;
+  overflow: hidden;
+  box-shadow: '4px 4px 4px 4px rgba(0, 0, 0, 0.2)' ,
   }
   .sidebar-main {
   

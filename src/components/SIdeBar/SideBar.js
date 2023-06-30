@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Search } from 'react-bootstrap-icons';
 import useGET from '../../AuthCommunicate/GET';
 
+
+
 export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchHistory, setSearchHistory] = useState([]);
@@ -16,7 +18,7 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
     const [hoveredItem, setHoveredItem] = useState(null);
     const [showHiddenRecords, setShowHiddenRecords] = useState(false);
     const [tags, setTags] = useState([]);
-    const { fetchData : getfetchData, data: getTagData, error: getTagError } = useGET();
+    const { fetchData: getfetchData, data: getTagData, error: getTagError } = useGET();
 
     const handleMouseEnter = (item) => {
         setHoveredItem(item);
@@ -68,31 +70,32 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
         const delayShowSuggestions = () => {
             clearTimeout(timerId);
             timerId = setTimeout(() => {
-              setShowSuggestions(true); // 0.5초 후에 suggestions 보여줌
+                setShowSuggestions(true); // 0.5초 후에 suggestions 보여줌
             }, 500);
-          };
+        };
         const fetchData = async () => {
           const config = {
             params: {
               data: searchQuery,
+              target: 'in' ,
             },
           };
       
           await getfetchData('/tag', config);
           delayShowSuggestions();
         };
-      
+
         const delayFetchData = () => {
-          clearTimeout(timerId);
-          timerId = setTimeout(fetchData, 100);
+            clearTimeout(timerId);
+            timerId = setTimeout(fetchData, 100);
         };
-      
+
         delayFetchData();
-      
+
         return () => {
-          clearTimeout(timerId);
+            clearTimeout(timerId);
         };
-      }, [searchQuery]);
+    }, [searchQuery]);
 
     const handleSearchHistory = (query) => {
         handleSearch();
@@ -100,7 +103,7 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
         setSearchHistory(updatedHistory);
         ToggleClick(query);
     };
-    
+
     // useEffect(() => {
     //     const config = {
     //         params : {
@@ -110,17 +113,17 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
     //     const fetchData = async () => {
     //         await getfetchData('/tag', config);
     //     };
-    
+
     //     fetchData();
     //   }, []);
-    
-    
-      
-      useEffect(() => {
+
+
+
+    useEffect(() => {
         if (getTagData) {
             console.log('abc', getTagData)
             const tags = getTagData
-            
+
             setTags(tags);
             console.log('Tags:', tags);
         } else if (getTagError) {
@@ -130,7 +133,8 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
 
 
     return (
-        <div>
+        <>
+
             <div className="sidebar">
 
                 <div className="search-container">
@@ -177,7 +181,8 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
                 </div>
 
             </div>
-        </div>
+
+        </>
     );
 
 }

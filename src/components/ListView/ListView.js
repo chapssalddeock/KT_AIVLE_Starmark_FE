@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Space, Table, Tag, Pagination, Spin } from 'antd';
+import { Space, Table, Tag, Pagination } from 'antd';
 import { BoxArrowUpRight } from 'react-bootstrap-icons';
 import useGET from '../../AuthCommunicate/GET';
+
 
 // 리스트 뷰에 보일 컬럼 정의
 const columns = [
@@ -9,6 +10,8 @@ const columns = [
         title: 'Title',
         dataIndex: 'title',
         key: 'title',
+        width: '8%',
+
     },
     {
         title: 'Tags',
@@ -16,8 +19,9 @@ const columns = [
         dataIndex: 'tags',
         render: (_, { tags }) => (
             <>
-                {tags.map((tag) => (
-                    <Tag key={tag} style={{ borderRadius: 20, height: 25 }}>
+                {tags.slice(0, 5).map((tag) => (
+                    <Tag key={tag}
+                        style={{ borderRadius: 20, height: 24, marginBottom: 4, color: '#5eacf2', border: 'solid #5eacf2 0.5px' }} color="white">
                         {tag}
                     </Tag>
                 ))}
@@ -28,6 +32,13 @@ const columns = [
         title: 'Desc',
         dataIndex: 'desc',
         key: 'desc',
+        render: (desc) => (
+            <div style={{ maxHeight: '3em', overflow: 'auto' }}>
+                {desc.split('\n').slice(0, 2).map((line, index) => (
+                    <span key={index}>{line}<br /></span>
+                ))}
+            </div>
+        ),
     },
     {
         title: 'Opts',
@@ -42,11 +53,13 @@ const columns = [
     },
 ];
 
+
 export default function ListView({ searchResult }) {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const { fetchData : getFetchData, data: getData, error: getError } = useGET();
+    const { fetchData: getFetchData, data: getData, error: getError } = useGET();
+    const pageSize = 5;
 
     const fetchData = async (searchResult) => {
         console.log(searchResult);
@@ -77,33 +90,30 @@ export default function ListView({ searchResult }) {
         fetchData(searchResult);
     }, [currentPage, searchResult]);
 
-    const startIndex = (currentPage - 1) * 6;
-    const endIndex = startIndex + 6;
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
     const currentPageData = data.slice(startIndex, endIndex);
 
     return (
-        <div>
-            <Table
-                columns={columns}
-                dataSource={currentPageData}
-                pagination={false}
-                loading={loading}
-                rowKey={(_, index) => index}
-            />
-
-            {/* {loading && (
-                <div style={{ textAlign: 'center', marginTop: 20 }}>
-                    <Spin />
-                </div>
-            )} */}
-
-            <Pagination
-                style={{ marginTop: 20, textAlign: 'right' }}
-                current={currentPage}
-                pageSize={6}
-                total={data.length}
-                onChange={(page) => setCurrentPage(page)}
-            />
+        <div >
+            <div style={{ height: 480, overflowY: 'scroll' }}>
+                <Table
+                    columns={columns}
+                    dataSource={currentPageData}
+                    pagination={false}
+                    loading={loading}
+                    rowKey={(_, index) => index}
+                />
+            </div>
+            <div style={{ alignSelf: 'flex-end', marginRight: 0, marginTop: 0 }}>
+                <Pagination
+                    style={{ marginTop: 20, textAlign: 'right' }}
+                    current={currentPage}
+                    pageSize={pageSize}
+                    total={data.length}
+                    onChange={(page) => setCurrentPage(page)}
+                />
+            </div>
         </div>
     );
 }
@@ -112,11 +122,11 @@ export default function ListView({ searchResult }) {
 
 
 
-
+/////////////////////////////////////////////////////////////// 스크롤 안 씀
 // import { useEffect, useState } from 'react';
-// import { Space, Table, Tag, Pagination, Spin } from 'antd';
+// import { Space, Table, Tag, Pagination } from 'antd';
 // import { BoxArrowUpRight } from 'react-bootstrap-icons';
-// import axios from 'axios';
+// import useGET from '../../AuthCommunicate/GET';
 
 // // 리스트 뷰에 보일 컬럼 정의
 // const columns = [
@@ -124,6 +134,7 @@ export default function ListView({ searchResult }) {
 //         title: 'Title',
 //         dataIndex: 'title',
 //         key: 'title',
+//         width: '10%',
 //     },
 //     {
 //         title: 'Tags',
@@ -131,8 +142,8 @@ export default function ListView({ searchResult }) {
 //         dataIndex: 'tags',
 //         render: (_, { tags }) => (
 //             <>
-//                 {tags.map((tag) => (
-//                     <Tag key={tag} style={{ borderRadius: 20, height: 25 }}>
+//                 {tags.slice(0, 5).map((tag) => (
+//                     <Tag key={tag} style={{ borderRadius: 20, height: 24 }}>
 //                         {tag}
 //                     </Tag>
 //                 ))}
@@ -143,6 +154,13 @@ export default function ListView({ searchResult }) {
 //         title: 'Desc',
 //         dataIndex: 'desc',
 //         key: 'desc',
+//         render: (desc) => (
+//             <div style={{ maxHeight: '3em', overflow: 'hidden' }}>
+//                 {desc.split('.').slice(0, 2).map((line, index) => (
+//                     <span key={index}>{line}<br /></span>
+//                 ))}
+//             </div>
+//         ),
 //     },
 //     {
 //         title: 'Opts',
@@ -156,49 +174,46 @@ export default function ListView({ searchResult }) {
 //         ),
 //     },
 // ];
+
 
 // export default function ListView({ searchResult }) {
 //     const [data, setData] = useState([]);
 //     const [loading, setLoading] = useState(false);
 //     const [currentPage, setCurrentPage] = useState(1);
+//     const { fetchData: getFetchData, data: getData, error: getError } = useGET();
+//     const pageSize = 5;
 
 //     const fetchData = async (searchResult) => {
 //         console.log(searchResult);
 //         setLoading(true);
-//         try {
-//             const config = {
-//                 headers: {
-//                     Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQyMzU4LCJpYXQiOjE2ODcyNDYzNTgsImp0aSI6ImI2YTU0OWJkOWQxYTQzMWFhNDE3NmFmMmFmMjVjYjQ2IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.cTZokEPKCxNTo6S-BXdv2pRakGRlnIBqzWAGHQKI6Nk',
-//                 },
-//             };
+//         const config = {};
 
-//             if (searchResult && searchResult.length > 0) {
-//                 config.params = {};
-//                 searchResult.forEach((item, index) => {
-//                     config.params['data'] = item;
-//                 });
-//             }
-
-
-//             console.log(config);
-
-//             const response = await axios.get('http://kt-aivle.iptime.org:40170/api/bookmark/', config);
-//             if (response.status === 200) {
-//                 setData(response.data);
-//                 console.log(response.data);
-//             }
-//         } catch (error) {
-//             console.error('Error fetching data:', error);
+//         if (searchResult && searchResult.length > 0) {
+//             config.params = {};
+//             searchResult.forEach((item, index) => {
+//                 config.params['data'] = item;
+//             });
 //         }
+
+//         console.log(config);
+//         await getFetchData('/bookmark/', config);
 //         setLoading(false);
 //     };
+
+//     useEffect(() => {
+//         if (getData) {
+//             setData(getData);
+//         } else if (getError) {
+//             console.error(getError);
+//         }
+//     }, [getData, getError]);
 
 //     useEffect(() => {
 //         fetchData(searchResult);
 //     }, [currentPage, searchResult]);
 
-//     const startIndex = (currentPage - 1) * 6;
-//     const endIndex = startIndex + 6;
+//     const startIndex = (currentPage - 1) * pageSize;
+//     const endIndex = startIndex + pageSize;
 //     const currentPageData = data.slice(startIndex, endIndex);
 
 //     return (
@@ -210,17 +225,10 @@ export default function ListView({ searchResult }) {
 //                 loading={loading}
 //                 rowKey={(_, index) => index}
 //             />
-
-//             {/* {loading && (
-//                 <div style={{ textAlign: 'center', marginTop: 20 }}>
-//                     <Spin />
-//                 </div>
-//             )} */}
-
 //             <Pagination
 //                 style={{ marginTop: 20, textAlign: 'right' }}
 //                 current={currentPage}
-//                 pageSize={6}
+//                 pageSize={pageSize}
 //                 total={data.length}
 //                 onChange={(page) => setCurrentPage(page)}
 //             />
@@ -228,113 +236,3 @@ export default function ListView({ searchResult }) {
 //     );
 // }
 
-
-
-
-// import { useEffect, useState } from 'react';
-// import { Space, Table, Tag, Pagination, Spin } from 'antd';
-// import { BoxArrowUpRight } from 'react-bootstrap-icons';
-// import axios from 'axios';
-
-// // 리스트 뷰에 보일 컬럼 정의
-// const columns = [
-//     {
-//         title: 'Title',
-//         dataIndex: 'title',
-//         key: 'title',
-//     },
-//     {
-//         title: 'Tags',
-//         key: 'tags',
-//         dataIndex: 'tags',
-//         render: (_, { tags }) => (
-//             <>
-//                 {tags.map((tag) => (<Tag key={tag} style={{ borderRadius: 20, height: 25 }}>{tag}</Tag>))}
-//             </>
-//         ),
-//     },
-//     {
-//         title: 'Desc',
-//         dataIndex: 'desc',
-//         key: 'desc',
-//     },
-//     {
-//         title: 'Opts',
-//         key: 'opts',
-//         render: (_, { url }) => (
-//             <Space size="middle">
-//                 <a href={url}>
-//                     <BoxArrowUpRight />
-//                 </a>
-//             </Space>
-//         ),
-//     },
-// ];
-
-// export default function ListView({ searchResult }) { //1. props 추가
-//     const [data, setData] = useState([]);
-//     const [loading, setLoading] = useState(false);
-//     const [currentPage, setCurrentPage] = useState(1);
-
-//     console.log("***************", searchResult)
-
-//     const fetchData = async (searchResult) => {
-//         setLoading(true);
-//         try {
-//             const config = {
-//                 headers: {
-//                     Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQyMzU4LCJpYXQiOjE2ODcyNDYzNTgsImp0aSI6ImI2YTU0OWJkOWQxYTQzMWFhNDE3NmFmMmFmMjVjYjQ2IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.cTZokEPKCxNTo6S-BXdv2pRakGRlnIBqzWAGHQKI6Nk'
-//                 },
-//             }
-
-//             if (searchResult && searchResult.length > 0) { // 2. props에 따른 로직 추가
-//                 config.params = {
-//                     tags: searchResult,
-//                 };
-//             }
-
-//             const response = await axios.get('http://kt-aivle.iptime.org:40170/api/bookmark/', config);
-//             if (response.status === 200) {
-//                 console.log(response.data);
-//                 setData(response.data);
-//             }
-//         } catch (error) {
-//             console.error('Error fetching data:', error);
-//         }
-//         setLoading(false);
-//     };
-
-//     useEffect(() => {
-//         fetchData();
-//     }, [currentPage]);
-
-//     const startIndex = (currentPage - 1) * 6;
-//     const endIndex = startIndex + 6;
-//     const currentPageData = data.slice(startIndex, endIndex);
-
-//     return (
-//         <div>
-//             <Table
-//                 columns={columns}
-//                 dataSource={currentPageData}
-//                 pagination={false}
-//                 loading={loading}
-//                 rowKey={(_, index) => index}
-//             />
-
-//             {loading && (
-//                 <div style={{ textAlign: 'center', marginTop: 20 }}>
-//                     <Spin />
-//                 </div>
-//             )}
-
-//             <Pagination
-//                 style={{ marginTop: 20, textAlign: 'right' }}
-//                 current={currentPage}
-//                 pageSize={6}
-//                 total={data.length}
-//                 onChange={(page) => setCurrentPage(page)}
-//             />
-//         </div>
-//     );
-// }

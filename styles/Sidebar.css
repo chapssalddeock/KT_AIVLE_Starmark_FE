@@ -2,17 +2,13 @@
     display: flex;
     flex-direction: column;
     width: 300px;
-    height: 90vh;
-    background-color: #ffffff;
+    height: calc(100vh - 76px); /* 뷰포트의 높이에서 NavBar의 높이(76px)를 뺀 값으로 높이 설정 */
+    background-color: #363739;
     float: left;
     overflow: hidden;
+    box-shadow: '4px 4px 4px 4px rgba(0, 0, 0, 0.2)' ,
   }
-  /* .main-content {
-    margin-left: 400px;
-    margin-top: 700px; 
-    display: 'flex'
-  } */
-
+  
   .search-container {
     display: flex;
     align-items: center;
@@ -20,12 +16,13 @@
     border-radius: 15px; /* 모서리 둥글게 */
     border-color: #808080;
     width: 90%;
+    height:36px;
     padding: 5px;
     background-color: #f2f2f2; 
     color: rgba(0, 0, 0, 0.7); /* 반투명 */
+    margin-top: 15px;
     margin-bottom: 15px;
     margin-left: 15px;
-    
   }
 
   .search-button{
@@ -34,7 +31,6 @@
     width: 16%;
     height: 20px;
     border:none;
-    /* background-color: #f2f2f2; */
     font-size:1em;
     outline:none;
     display:inline;
@@ -113,52 +109,40 @@
     background-color: skyblue; /* 마우스 호버 시 배경색을 파란색으로 변경 */
   }
   .sidebar-main {
+    /* border:solid red; */
     flex-shrink: 0;
     width: 300px;
     height: 50%;
-    background-color: #ffffff;
+    background-color: #363739;
     float: left;
     display: flex;
     flex-direction: column;
   }
   
+
+
+/*  여기는 마이페이지 관련  */
   .mpsidebar {
-    width: 300px;
-    height: 90vh;
-    background-color: #ffffff;
-    float: left;
-  }
-
-  .mpsidebar-menu {
-    width: 300px;
-    height: 62%;
-    background-color: #ffffff;
-    
-  }
-
-
-  /* .mpsidebar-main {
-    position: fixed;
-    flex: 1;
     display: flex;
     flex-direction: column;
     width: 300px;
-    height: 28%;
-    background-color: #ffffff;
+    height: calc(100vh - 76px); 
+    background-color: #363739;
     float: left;
-    display: flex;
-    flex-direction: column;
-  } */
+    overflow: hidden;
+    box-shadow: '4px 4px 4px 4px rgba(0, 0, 0, 0.2)' ,
+  }
   .mpsidebar-main {
     flex-shrink: 0;
     width: 300px;
     height: 50%;
-    background-color: #ffffff;
+    background-color: #363739;
     float: left;
     display: flex;
     flex-direction: column;
   }
   
+/* 아래는 footer 관련 공통 부분 */
   .additional_menu {
     position: absolute;
     bottom: 2%;
@@ -169,6 +153,7 @@
     font-size: 14px;
     text-align: center;
     padding: 10px;
+    /* background-color: #e7e7e7; */
     background-color: #e7e7e7;
     border-radius: 10px;
     display: flex;
@@ -205,62 +190,5 @@
     gap: 30px;
 }
 
-
-
-  /* .mpsidebar-footer {
-    position: fixed;
-    margin-top: auto;
-    z-index: 500;
-    bottom: 0;
-    width: 300px;
-    height: 105px;
-    background-color: #f2f2f2;
-    display: grid;
-    grid-template-rows: 2fr 2fr 1.5fr 1.5fr 1.5fr 1.5fr;
-    grid-gap: 1px; /* 기본 열 사이의 간격은 1px 
-    overflow: hidden;
-    
-  }
-  .mpsidebar-footer > * {
-    border-bottom: 1px solid white; // 구분선의 색상을 검은색(#000)으로 설정 
-    
-  }
-  
-  .mpsidebar-footer > *:nth-child(1) {
-    position: relative;
-    margin-top: 2px;
-    font-size: 20px;
-    font-weight: bold;
-    left: -160px;
-    right: 0px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    color: black;
-    
-  }
-  .mpsidebar-footer > *:nth-child(2) {
-    position: relative;
-    left: 50px;
-    right: 0;
-    margin-top: auto;
-    color: black; 
-  }
-  .mpsidebar-footer > *:nth-child(3) {
-    position: relative;
-    left: 50px;
-    right: 0;
-    margin-top: auto;
-    color: black;         
-  }
-  .mpsidebar-footer > *:nth-child(4) {
-    position: relative;
-    left: 50px;
-    right: 0;
-    margin-top: auto;
-    color: black;    
-    font-size: 13px;
-  } */
-  
 
   
