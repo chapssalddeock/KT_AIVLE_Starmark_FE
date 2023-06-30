@@ -15,23 +15,54 @@ export default function SocialListView({ searchResult }) {
     const [users, setUsers] = useState([]);
     const { fetchData, data, error } = useGET();
     const { fetchData : AllfetchData, data: userListData, error: userListError } = useGET();
-    const { fetchData : BookfetchData, data : userBookData, error: userBookError } = useGET();
+    const { fetchData : fetchMydata, data : MyBookData, error: MyBookError } = useGET();
     
-   
-    
+    const fetchMyBookList = async() => {
+        config = {
+            params: {
+                user_id: 0,
+            },
+        };
+        await fetchMydata('/userinfo/', config);
+    }
+    useEffect(() => {
+        fetchMyBookList();
+    }, []);
+    const [urlList, setUrlList] = useState([]);
+
+    useEffect(() => {
+        const extractUrls = () => {
+            if (MyBookData && MyBookData.bookmark_list) {
+                const newUrlList = [];
+                const bookmarkList = MyBookData['bookmark_list'];
+                for (const item of bookmarkList) {
+                  const url = item.url;
+                  newUrlList.push(url);
+                }
+                setUrlList(newUrlList);
+                
+            }
+        };
+
+        extractUrls();
+    }, []);
+    console.log('asda', urlList)
+    const [config, setConfig] = useState({});
     const fetchUserList = async (searchResult) => {
        
-        const config = {};
+        const newConfig  = {};
 
         if (searchResult && searchResult.length > 0) {
-            config.params = {};
+            newConfig .params = {};
             searchResult.forEach((item, index) => {
-                config.params['data'] = item;
+                newConfig .params['data'] = item;
             });
         }
        
-        await AllfetchData('/search/', config);
+        await AllfetchData('/search/', newConfig );
+        setConfig(newConfig);
     };
+    console.log('test', userListData)
     useEffect(() => {
         
         if (userListData) {
@@ -54,6 +85,7 @@ export default function SocialListView({ searchResult }) {
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [userProfile, setUserProfile] = useState(null);
+    const [urls, seturls] = useState([]);
     const [userBookMark, setUserBookMark] = useState([]);
     const handleOpenDrawer = async (id) => {
         const config = {
@@ -67,25 +99,29 @@ export default function SocialListView({ searchResult }) {
 
     
     useEffect(() => {
-        console.log('data', data)
-        if (data) {
-            // const urls = [];
-            // const tagName = config.params.data;
-            // data.bookmark_list.forEach((bookmark) => {
-            // const tags = Object.values(bookmark)[0].tags;
-            // if (tags.includes(tagName)) {
-            //     const url = Object.values(bookmark)[0].url;
-            //     urls.push(url);
-            // }
-            // });
-            // console.log('url', urls)
-            setUserProfile(data);
-            setIsDrawerOpen(true);
+        console.log('data', data);
+        if (data && searchResult && searchResult.length > 0) {
+          const urls = [];
+          const tagName = searchResult[0]; // Assuming you want to use the first tag from searchResult
+          
+          data.bookmark_list.forEach((bookmark) => {
+            
+            const tags = Object.values(bookmark)[10];
+            
+            if (tags && tags.includes(tagName)) {
+              const url = Object.values(bookmark)[3];
+              urls.push(url);
+            }
+          });
+          console.log('url', urls);
+          seturls(urls);
+          setUserProfile(data);
+          setIsDrawerOpen(true);
         } else if (error) {
           console.error(error);
         }
-      }, [data, error]);
-    
+      }, [data, error, searchResult]);
+      
 
     const handleCloseDrawer = () => {
         setIsDrawerOpen(false);
@@ -175,7 +211,7 @@ export default function SocialListView({ searchResult }) {
                     )}
                 </VirtualList >
             </List >
-            <UserDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} userProfile={userProfile} />
+            <UserDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} userProfile={userProfile} urls = {urls} urlList={urlList} />
         </>
     );
 };
