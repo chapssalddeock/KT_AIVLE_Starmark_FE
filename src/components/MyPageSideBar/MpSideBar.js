@@ -32,22 +32,20 @@ export default function MpSideBar({ handleMenuItemClick }) {
 
   return (
     <div className="mpsidebar">
-      <div className="mpsidebar-menu" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <Menu
+        mode="inline"
+        defaultSelectedKeys={['sub1']}
+        selectedKeys={[selectedItem]}
+        onClick={({ key }) => handleMenuClick(key)}
+        style={{ width: 300, backgroundColor: '#363739' }}
+      >
+        {items.map((item) => (
+          <Menu.Item key={item.key} icon={item.icon} style={{ fontSize: '18px', height: 80, color: 'white' }}>
+            {item.label}
+          </Menu.Item>
+        ))}
+      </Menu>
 
-        <Menu
-          mode="inline"
-          defaultSelectedKeys={['sub1']}
-          selectedKeys={[selectedItem]}
-          onClick={({ key }) => handleMenuClick(key)}
-          style={{ width: 300 }}
-        >
-          {items.map((item) => (
-            <Menu.Item key={item.key} icon={item.icon} style={{ fontSize: '18px', height: 80 }}>
-              {item.label}
-            </Menu.Item>
-          ))}
-        </Menu>
-      </div>
 
       <div className="mpsidebar-main">
         <footer className="mpsidebar-footer">

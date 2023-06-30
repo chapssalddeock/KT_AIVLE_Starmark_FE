@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import MpSideBar from '../MyPageSideBar/MpSideBar';
 import MpMain from '../MypageMain/MpMain';
-import MyPages from '../MypageMain/MyPages';
+
 import { Layout } from 'antd';
 const { Content, Sider } = Layout;
-
+import MyInfo from '../MypageMain/MyInfo'
 
 
 
@@ -23,25 +23,12 @@ export default function MpContentArea() {
                 </Sider>
                 <Layout style={{ padding: '0 24px 24px', backgroundColor: "white" }}>
                     <Content style={{ padding: 4, margin: 0, }}>
-                        <MyPages></MyPages>
-                        {/* {selectedItem === 'sub1' && (
-
-                            <div className='Box_user' style={{ border: '10px outset skyblue', borderRadius: '15px', width: '70%', height: '90%', overflow: 'hidden' }}>
-                                <MpMain selectedItem={selectedItem} />
-                            </div>
-                        )}
-                        {selectedItem === 'sub3' && (
-                            <div className='Box_user' style={{ border: '10px outset skyblue', borderRadius: '15px', width: '70%', height: '90%' }}>
-                                <MpMain selectedItem={selectedItem} />
-                            </div>
-                        )}
-                        {selectedItem !== 'sub1' && selectedItem !== 'sub3' && (
-                            <MpMain selectedItem={selectedItem} />
-                        )} */}
+                        {selectedItem === 'sub1' && <MyInfo style={{ padding: 4, margin: 0, }} />}
+                        {/* selectedItem에 따라 메뉴 이동 */}
                     </Content>
                 </Layout>
             </Layout>
-        </Layout>
+        </Layout >
     );
 };
 

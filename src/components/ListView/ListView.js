@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Space, Table, Tag, Pagination } from 'antd';
 import { BoxArrowUpRight } from 'react-bootstrap-icons';
 import useGET from '../../AuthCommunicate/GET';
-import { CustomTag, BgLayout } from '../../../styles/View_Emotion';
+
 
 // 리스트 뷰에 보일 컬럼 정의
 const columns = [
