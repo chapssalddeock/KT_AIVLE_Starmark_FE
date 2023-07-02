@@ -41,6 +41,7 @@ export const TitleSpace = styled.div`
     // border : solid yellow;
 `
 export const LoginTitle = styled.div`
+    ${fontFaceStyles}
     display : flex;
     justify-content : center;
     align-items : center;
@@ -84,6 +85,7 @@ export const CustomForm = styled(Form)`
 `
 
 export const GoRegister = styled.div`
+  ${normalFontStyles}
   font-family: 'KOTRA_GOTHIC';
   font-size: 1.9vmin;
 `
