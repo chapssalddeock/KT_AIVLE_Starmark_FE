@@ -6,9 +6,14 @@ import useGET from '../../AuthCommunicate/GET';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { UpOutlined, DownOutlined } from '@ant-design/icons';
 const ContainerHeight = 750;
-
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import SwiperCore, { Mousewheel, Pagination } from 'swiper/core';
+import { UpOutlined, DownOutlined } from '@ant-design/icons';
+SwiperCore.use([Mousewheel, Pagination]);
 export default function SocialListView({ searchResult }) {
     const [users, setUsers] = useState([]);
     const { fetchData, data, error } = useGET();
@@ -141,35 +146,8 @@ export default function SocialListView({ searchResult }) {
         setActiveIndex(activeIndex + 1);
       }
     };
-    const settings = {
-        dots: false,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 3, // 한 번에 보여줄 아이템 수
-        slidesToScroll: 1,
-        vertical: true,
-        verticalSwiping: true,
-        arrows: true,
-        onWheel: handleWheel,
-        prevArrow: (
-            <div className="slick-prev-wrapper" onClick={handlePrev}>
-              <UpOutlined className="slick-prev" />
-            </div>
-          ),
-          nextArrow: (
-            <div className="slick-next-wrapper" onClick={handleNext}>
-              <DownOutlined className="slick-next" />
-            </div>
-          ),
-        responsive: [
-          {
-            breakpoint: 768, // 뷰포트 너비가 768px 이하인 경우
-            settings: {
-              slidesToShow: 1, // 한 번에 보여줄 아이템 수
-            },
-          },
-        ],
-      };
+
+    const slides = Array.from(Array(9).keys()); // 슬라이드 개수에 맞게 수정
     
     const handleWheel = (e) => {
         const delta = Math.max(-1, Math.min(1, e.deltaY));
@@ -185,61 +163,103 @@ export default function SocialListView({ searchResult }) {
     return (
       <>
         <div style={{ marginLeft: 40, marginRight: 30, width: 1050 }}>
-            <Slider {...settings}>
-                {users.map((item, index) => (
-                    <Card
-                    key={item.email}
+          <Swiper
+              direction="vertical"
+              slidesPerView={1}
+              spaceBetween={30}
+              mousewheel={true}
+              pagination={{ clickable: true,
+                renderBullet: function (index, className) {
+                  return '<span class="' + className + '">' + (index + 1) + "</span>";
+                },
+               }}
+              className="mySwiper"
+              modules={[Mousewheel, Pagination]}
+              style={{ height: '800px' }}
+              // navigation={{
+              //   prevEl: '.swiper-button-prev',
+              //   nextEl: '.swiper-button-next',
+              // }}
+            >
+              {users.map((item, index) => (
+                <SwiperSlide key={item.email}>
+                  <Card
                     onClick={() => handleOpenDrawer(item.id)}
                     onMouseEnter={() => handleMouseEnter(item)}
                     onMouseLeave={handleMouseLeave}
                     className={hoveredItem === item ? 'active' : ''}
                     style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        left: index !== 0 ? '-100px' : 0,
-                        zIndex: users.length - Math.abs(activeIndex - index),
-                        transform: hoveredItem === item ? 'scale(1.05)' : 'scale(1)',
-                        transition: 'transform 0.3s ease',
-                        opacity: activeIndex === index ? 1 : 0.5,
-                        filter: activeIndex === index ? 'none' : 'blur(2px)',
-                        height: 350, // Adjust the height value as needed
-                        width: 400,
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      // zIndex: users.length - Math.abs(activeIndex - index),
+                      // transform: hoveredItem === item ? 'scale(1.05)' : 'scale(1)',
+                      // transition: 'transform 0.3s ease',
+                      // opacity: activeIndex === index ? 1 : 0.5,
+                      // filter: activeIndex === index ? 'none' : 'blur(2px)',
+                      height: 500, // 필요에 따라 높이 값을 조정하세요
+                      width: 700,
+                      position: 'absolute', // 절대 위치 설정
+                      top: '35%', // 수직 가운데 정렬
+                      left: '45%', // 수평 가운데 정렬
+                      transform: 'translate(-50%, -50%)', // 정중앙으로 이동
+                      border: '1px solid black',
                     }}
-                    >
+                  >
                     <Card.Meta
-                        avatar={<Avatar src={'http://kt-aivle.iptime.org:40170' + item.profile_image} size={80} />}
-                        title={<div style={{ fontSize: '24px', marginTop: '8px', marginRight: 'auto' }}>{item.username}</div>}
-                        description={<div style={{ fontSize: '16px', marginTop: '8px' }}>{item.email}</div>}
+                      avatar={<Avatar src={'http://kt-aivle.iptime.org:40170' + item.profile_image} size={80} />}
+                      title={<div style={{ fontSize: '24px', marginTop: '8px', marginRight: 'auto' }}>{item.username}</div>}
+                      description={<div style={{ fontSize: '16px', marginTop: 0 }}>{item.email}</div>}
                     />
                     {hoveredItem === item && (
-                        <div
+                      <div
                         style={{
-                            position: 'absolute',
-                            left: '50%',
-                            transform: 'translateX(-50%)',
-                            fontSize: '18px',
-                            fontWeight: 'bold',
-                            color: 'black',
-                            background: 'rgba(255, 0, 0, 0.7)',
-                            padding: '5px 10px',
-                            borderRadius: '4px',
+                          position: 'absolute',
+                          left: '50%',
+                          transform: 'translateX(-50%)',
+                          fontSize: '18px',
+                          fontWeight: 'bold',
+                          color: 'black',
+                          background: 'rgba(255, 0, 0, 0.7)',
+                          padding: '5px 10px',
+                          borderRadius: '4px',
                         }}
-                        >
-                        View Tag
-                        </div>
+                      >
+                        Bookmark
+                      </div>
                     )}
                     <div style={{ display: 'flex', alignItems: 'center', marginTop: 16 }}>
-                        {searchResult &&
+                      {searchResult &&
                         searchResult.map((tag) => (
-                            <Tag key={tag} style={{ marginRight: '10px', borderRadius: 20, border: 'none' }}>
+                          <Tag key={tag} style={{ marginRight: '10px', borderRadius: 20, border: 'none' }}>
                             {tag}
-                            </Tag>
+                          </Tag>
                         ))}
                     </div>
-                    </Card>
-                ))}
-            </Slider>
+                  </Card>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <style>
+              {`
+                .swiper-pagination-bullet {
+                  width: 20px;
+                  height: 20px;
+                  text-align: center;
+                  line-height: 20px;
+                  font-size: 12px;
+                  color: #000;
+                  opacity: 1;
+                  background: rgba(0, 0, 0, 0.2);
+                }
+
+                .swiper-pagination-bullet-active {
+                  color: #fff;
+                  background: #007aff;
+                }
+              `}
+            </style>
+        
         </div>
         <UserDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} userProfile={userProfile} urls={urls} urlList={urlList} />
       </>
