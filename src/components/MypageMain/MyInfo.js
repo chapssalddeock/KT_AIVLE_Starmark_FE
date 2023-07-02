@@ -22,6 +22,7 @@ export default function MyInfo() {
     const { fetchData: putFetchData, data: putData, error: putError } = usePUT();
     const { fetchData: postFetchData, data: postData, error: postError } = usePOST();
 
+    // 기본정보 불러오기
     const fetchData = async () => {
         const config = {
             params: {
@@ -43,6 +44,8 @@ export default function MyInfo() {
         fetchData();
     }, []);
 
+
+    // 기본정보 수정
     const handleEditClick = () => {
         setIsEditing(true);
     };
@@ -74,6 +77,8 @@ export default function MyInfo() {
         setIsEditing(false);
     };
 
+
+    /// 이미지
     const fileInputRef = useRef(null);
 
     const handleButtonClick = () => {

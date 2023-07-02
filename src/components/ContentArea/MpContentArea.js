@@ -5,6 +5,7 @@ import MpMain from '../MypageMain/MpMain';
 import { Layout } from 'antd';
 const { Content, Sider } = Layout;
 import MyInfo from '../MypageMain/MyInfo'
+import MyFollows from '../MypageMain/MyFollows';
 
 
 
@@ -24,6 +25,7 @@ export default function MpContentArea() {
                 <Layout style={{ padding: '0 24px 24px', backgroundColor: "white" }}>
                     <Content style={{ padding: 4, margin: 0, }}>
                         {selectedItem === 'sub1' && <MyInfo style={{ padding: 4, margin: 0, }} />}
+                        {selectedItem === 'sub2' && <MyFollows style={{ padding: 4, margin: 0, }} />}
                         {/* selectedItem에 따라 메뉴 이동 */}
                     </Content>
                 </Layout>
