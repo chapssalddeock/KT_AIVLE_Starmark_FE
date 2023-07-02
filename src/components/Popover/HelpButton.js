@@ -26,7 +26,7 @@ const HelpButton = ({ page }) => {
 
   const CustomContent = () =>
   page === 'service' ? (
-    <StyledScrollbar style={{ maxHeight: '40vh', maxWidth: '20vw', overflowY: 'auto' }}>
+    <StyledScrollbar style={{ maxHeight: '40vh', maxWidth: '25vw', overflowY: 'auto' }}>
       <StylePanel header="이 서비스에 대해" key="1">
         <div>
           사용자가 자신의 북마크를 등록하고 볼 수 있는 페이지입니다.
@@ -47,7 +47,27 @@ const HelpButton = ({ page }) => {
         목차나 썸네일로 보고 싶으면 오른쪽 위의 버튼으로 볼 수 있습니다.
       </StylePanel>
     </StyledScrollbar>
-  ) : null;
+  ) : (
+    <StyledScrollbar style={{ maxHeight: '40vh', maxWidth: '25vw', overflowY: 'auto' }}>
+      <StylePanel header="이 서비스에 대해" key="1">
+        <div>
+          사용자가 다른 사용자들을 찾을 수 있는 페이지 입니다.<br/>
+          검색 창에 태그를 통해 다른 사용자들을 찾을 수 있습니다.
+        </div>
+      </StylePanel>
+      <StylePanel header="사용자 검색하기" key="2">
+        <div>
+          
+        </div>
+      </StylePanel>
+      <StylePanel header="북마크 사용하기" key="3">
+        등록한 북마크는 태그와 요약이 생성됩니다. <br />
+        각 북마크별 생성된 태그를 사용해서 검색 창에 <br />
+        태그를 검색하면 태그와 관련된 북마크가 분류되어 보여집니다. <br />
+        목차나 썸네일로 보고 싶으면 오른쪽 위의 버튼으로 볼 수 있습니다.
+      </StylePanel>
+    </StyledScrollbar>
+  );
 
 
   return (
