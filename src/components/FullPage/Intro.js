@@ -3,7 +3,8 @@ import {
   PageBackGround, Temp, Wave, PageDark, Title, Content,
   FrameWrapper, ImgFrame,  TitleFrame, ContentFrame, 
   SecondImg, SecondTitle, SecondContent, 
-  ThirdImg, ThirdTitle, ThirdContent, Square
+  ThirdImg, ThirdTitle, ThirdContent, TagImgFrame, TagImg, 
+  Square, RectangleImg, Bubble
 } from "../../../styles/PageScroll_Emotion";
 import LoginPage from "../SignIn/Login_Protect";
 import { useEffect, useRef, useState } from "react";
@@ -176,8 +177,8 @@ export default function PageScroll() {
           <ContentFrame>
             <SecondContent>
               자신이 저장해 놓은 북마크들을 starmark에 업로드 해보세요 <br />
-              업로드 하면 사용자가 올리신 북마크들의 주제에 따라 각각 태그들을 추출합니다.
-              추출된 태그를 사용해서 북마크를 검색해 필요한 북마크를 빠르게 찾아보세요
+              업로드 하면 사용자가 올리신 북마크들의 주제에 따라 각각 태그들을  <br />추출합니다.
+              추출된 태그를 사용해서 북마크를 검색해 필요한 북마크를  <br />빠르게 찾아보세요
             </SecondContent>
           </ContentFrame>
         </FrameWrapper>
@@ -195,9 +196,9 @@ export default function PageScroll() {
           </TitleFrame>
           <ContentFrame>
             <ThirdContent>
-              자신이 저장한 북마크들과 태그들을 다른 사용자와 공유해 보세요
-              좋은 태그를 가지고 있는 사용자를 팔로우하고 팔로우한 사용자의 좋은 정보들을 사용해 보세요
-              다른 사람들과 공유하면서 좋은 정보를 찾아가세요
+              자신이 저장한 북마크들과 태그들을 다른 사용자와 공유해 보세요. <br />
+              좋은 태그를 가지고 있는 사용자를 팔로우하고 팔로우한 사용자의  <br />좋은 정보들을 사용해 보세요
+              다른 사람들과 공유하면서  <br />좋은 정보를 찾아가세요
             </ThirdContent>
           </ContentFrame>
         </FrameWrapper>
@@ -209,7 +210,11 @@ export default function PageScroll() {
       <Divider className="Divider"></Divider>
       
       <ActiveInner4 className="Inner">
+        <TagImgFrame><TagImg></TagImg></TagImgFrame>
+
         <Square>
+          <RectangleImg></RectangleImg>
+          <Bubble></Bubble>
           <LoginPage />
         </Square>
       </ActiveInner4>

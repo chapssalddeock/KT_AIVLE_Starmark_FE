@@ -149,14 +149,15 @@ export const SecondImg = styled.div`
 
 export const SecondTitle = styled.div`
   font-family: 'KOTRA_BOLD-Bold';
-  color : #5eacf2;
-  font-size: 7vmin;  
-
+  font-size: 7vmin;
+  text-align: right;
+  color: #0080d7;
+  
   width: 60vh;
   height: 30vh;
 
   position: absolute;
-  bottom: 0; /* 아래에 위치하도록 설정 */
+  bottom: 0%; /* 아래에 위치하도록 설정 */
   left: 15%; 
 
   // border : solid;
@@ -166,6 +167,7 @@ export const SecondContent = styled.div`
   ${normalFontStyles}
   font-family: 'KOTRA_GOTHIC';
   font-size: 2vmin;
+  text-align: right;
 
   width: 60vh;
   height: 15vh;
@@ -195,7 +197,7 @@ export const ThirdImg = styled.div`
 export const ThirdTitle = styled.div`
   ${fontFaceStyles}
   font-family: 'KOTRA_BOLD-Bold';
-  color : #5eacf2;
+  color : #0080d7;
   font-size: 7vmin;  
 
   width: 60vh;
@@ -229,17 +231,36 @@ export const ActiveInner4 = styled(BasicInner)`
   background-image: url(/img/BG.jpg);
   background-size: cover; /* 이미지를 가능한 한 크게 확대하여 채움 */
   background-position: center; /* 이미지를 가운데로 정렬 */
+  display: flex;
  ` 
 
-export const Divider = styled.div`
-  width : 100%;
-  height : 3px;
-  background-color : white;
+
+
+export const TagImgFrame = styled.div`
+  width: 60%;
+  height: 100%;
+
+  // border: solid red;
+`
+
+export const TagImg = styled.div`
+  width: 30vw;
+  height: 20vh;
+  background-image: url(/img/Group_61.png);
+  background-size: 100% 100%; /* 이미지를 가능한 한 크게 확대하여 채움 */
+  background-position: center; /* 이미지를 가운데로 정렬 */
+  margin: 0;
+
+  position : relative;
+  left : 10%; 
+  top : 10%;
+
+  // border: solid;
 `
 
 export const Square = styled.div`
   position: relative;
-  left: 60vh;
+  left: 0%;
   width: 70%;
   height: 100vh;
 
@@ -254,4 +275,41 @@ export const Square = styled.div`
     transform-origin: left bottom; /* 회전 중심을 왼쪽 아래로 지정 */
     transform: skew(-20deg); /* 왼쪽 편을 기울이는 회전 효과 */
   }
+
+  // border: solid;
+`
+
+export const RectangleImg = styled.div`
+  width: 40vw;
+  height: 55vh;
+  background-image: url(/img/Rectangle.png);
+  background-size: 100% 100%; /* 이미지를 가능한 한 크게 확대하여 채움 */
+  background-position: center; /* 이미지를 가운데로 정렬 */
+  
+  position: absolute;
+  left: 20%;
+  top: 40%;
+  z-index: 0;
+
+  // border: solid;
+`
+
+export const Bubble = styled.div`
+  width: 15vw;
+  height: 25vh;
+  background-image: url(/img/bubble.png);
+  background-size: 100% 100%; /* 이미지를 가능한 한 크게 확대하여 채움 */
+  background-position: center; /* 이미지를 가운데로 정렬 */
+
+  position: absolute;
+  left: 70%;
+  top: 12%;
+
+  // border: solid;
+`
+
+export const Divider = styled.div`
+  width : 100%;
+  height : 3px;
+  background-color : white;
 `
