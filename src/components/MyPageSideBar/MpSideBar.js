@@ -21,7 +21,7 @@ export default function MpSideBar({ handleMenuItemClick }) {
   const items = [
     getItem('User', 'sub1', <UserOutlined />),
     getItem('Follow', 'sub2', <TeamOutlined />),
-    getItem('Modify', 'sub3', <LockOutlined />),
+    // getItem('Modify', 'sub3', <LockOutlined />),
     getItem('DashBoard', 'sub4', <PieChartOutlined />),
   ];
   const [selectedItem, setSelectedItem] = useState('sub1');
