@@ -26,7 +26,10 @@
     "react-icons": "^4.9.0",
     "react-modal": "^3.16.1",
     "react-perfect-scrollbar": "^1.5.8",
+    "react-slick": "^0.29.0",
     "react-spring": "^9.7.2",
+    "slick-carousel": "^1.8.1",
+    "swiper": "^9.4.1",
     "vis": "^4.21.0-EOL",
     "vis-data": "^7.1.6",
     "vis-network": "^9.1.6"

@@ -107,7 +107,7 @@ export default function ListView({ searchResult }) {
             </div>
             <div style={{ alignSelf: 'flex-end', marginRight: 0, marginTop: 0 }}>
                 <Pagination
-                    style={{ marginTop: 20, textAlign: 'right' }}
+                    style={{ marginTop: 20, textAlign: 'left' }}
                     current={currentPage}
                     pageSize={pageSize}
                     total={data.length}

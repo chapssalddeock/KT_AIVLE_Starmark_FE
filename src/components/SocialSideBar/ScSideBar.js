@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-
+import {Tag} from 'antd';
 //import { FaSearch } from 'react-icons/fa';
 import { Search } from 'react-bootstrap-icons';
 import useGET from '../../AuthCommunicate/GET';
@@ -9,7 +9,7 @@ export default function SocialSideBar({ onSearch, onSuggestedItemClick, ToggleCl
     const [searchHistory, setSearchHistory] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
-    const MAX_HISTORY_LENGTH = 5;
+    const MAX_HISTORY_LENGTH = 10;
     const searchInputRef = useRef(null);
     const suggestedItemsRef = useRef(null);
     const [filteredItems, setFilteredItems] = useState([]);
@@ -145,11 +145,16 @@ export default function SocialSideBar({ onSearch, onSuggestedItemClick, ToggleCl
                 </div>
                 <div className="search-history-container">
                     <div className="search-history">
-                        <div className="search-record-wrapper">
+                        <div className="search-record-wrapper" >
                             {searchHistory.slice(0, MAX_HISTORY_LENGTH).map((query, index) => (
-                                <button key={index} className="search-record" onClick={() => handleSearchHistory(query)}>
+                                <Tag color="geekblue" key={index} className="search-record"
+                                    style= {{display: 'flex', marginBottom:'3%', justifyContent: 'center', alignItems: 'center', width: '255px'}} 
+                                    onMouseEnter={() => handleMouseEnter(query)}
+                                    onMouseLeave={handleMouseLeave}
+                                    onClick={() => handleSearchHistory(query)}>
                                     {query}
-                                </button>
+                                </Tag>
+                                
                             ))}
                         </div>
                     </div>

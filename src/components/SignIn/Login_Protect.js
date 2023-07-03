@@ -1,18 +1,20 @@
 // ////////////////////////////////////////// 수정본
 import {
-  CustomerPage, TitleSpace, LoginTitle, ButtonDesign, InputSpace, CustomForm
+  CustomerPage, LeftRibbonBadge, RibbonText, TitleSpace, LoginTitle, AlertSpace,
+  ButtonDesign, InputSpace, CustomForm, CustomInput, CustomInputPassword, OtherText, GoRegister
 } from "../../../styles/Login_Emotion"
-import { Form, Input, Spin } from 'antd';
+import { Form, Input, Spin, Alert, Button } from 'antd';
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import AuthManager from "../../AuthContext/AuthManager";
 
 const LoginPage = () => {
   const [form] = Form.useForm();
   const router = useRouter();
-  const { LogIn, AlertComponent } = AuthManager();
-  const [errorMessage, setErrorMessage] = useState(null);
+  const { LogIn } = AuthManager();
+  const [ errorMessage, setErrorMessage] = useState(null);
+  
 
   // 로딩 스피너
   const [loading, setLoading] = useState(false);
@@ -25,10 +27,16 @@ const LoginPage = () => {
       setLoading(false); // 로딩 종료
     } catch (error) {
       console.log(error);
-      setErrorMessage(error.message); // 에러 메세지 추가 작업
+      console.log(error.message);
+      setErrorMessage(error.message);
       setLoading(false); // 로딩 종료
     }
   }
+
+  // Alert Error MEssage handle
+  const handleClose = () => {
+    setErrorMessage(null);
+  };
 
   const handleRegisterClick = () => {
     router.push('/join'); // '/register'로 라우팅
@@ -37,57 +45,84 @@ const LoginPage = () => {
   return (
     <>
       <CustomerPage>
+      <LeftRibbonBadge text={<RibbonText>StarMark</RibbonText>} placement="start"/>
         <TitleSpace>
           <LoginTitle>
-            LOG IN
+            로그인
           </LoginTitle>
+          <AlertSpace>
+              {errorMessage !== null && (
+                <Alert
+                  message={errorMessage}
+                  type="error"
+                  closable
+                  afterClose={handleClose}
+                  showIcon
+                  style={{ width: '100%', height: '100%', fontSize: '1.9vmin' }}
+                />
+              )}
+          </AlertSpace>
         </TitleSpace>
         <InputSpace>
-          {errorMessage && (
-            <AlertComponent type="error" closable afterClose={() => setErrorMessage(null)} />
-          )}
           <CustomForm
             form={form}
             labelCol={{ span: 24, offset: 0 }}
             wrapperCol={{ span: 24, }}
-            style={{ maxWidth: 600, }}
+            style={{ maxWidth: 800, }}
             autoComplete="off"
             onFinish={handleSubmit}
-
           >
             <Form.Item
               name="email"
+              label={<span style={{ fontSize: '2vmin', fontWeight: 'bold' }}>이메일</span>}
               rules={[
-                { type: 'email', message: 'The input is not valid E-mail!' },
-                { required: true, message: 'Please input your E-mail!' },
+                { type: 'email', message: <OtherText>유효하지 않는 이메일 입니다</OtherText> },
+                { required: true, message: <OtherText>이메일을 입력해 주세요</OtherText> },
               ]}
+              style={{ width: '100%', height: '12vh', marginBottom: '0vh' }}
             >
-              <Input
+              <CustomInput allowClear
                 prefix={<UserOutlined />}
                 placeholder="Email"
                 required
-                style={{ width: '100%' }} // Input 컴포넌트의 너비 조정
+                inputBackgroundColor="#cae6fe"
+                style={{ width: '100%', height: '5vh', marginBottom: '0vh', 
+              fontSize: '2vmin', backgroundColor: '#cae6fe', borderRadius: '30px' }}
               />
             </Form.Item>
             <Form.Item
               name="password"
+              label={<span style={{ fontSize: '2vmin', fontWeight: 'bold' }}>비밀번호</span>}
               rules={[
-                { required: true, message: 'Please input your password!' },
+                { required: true, message: <OtherText>비밀번호를 입력해 주세요</OtherText> },
               ]}
+              style={{ width: '100%', height: '12vh', marginBottom: '2vh', marginTop: '1vh'}}
             >
-              <Input.Password
+              <CustomInputPassword allowClear
                 prefix={<LockOutlined />}
                 placeholder="Password"
                 required
+                inputBackgroundColor="#cae6fe"
+                style={{ width: '100%', height: '5vh', marginBottom: '0vh', 
+                fontSize: '2vmin', backgroundColor: '#cae6fe', borderRadius: '30px' }}
               />
             </Form.Item>
             <Form.Item
               wrapperCol={{ offset: 0, span: 24, }}
             >
-              <ButtonDesign type="primary" htmlType="submit" className="login-form-button">
+              <Button 
+                type="primary" 
+                htmlType="submit" 
+                 className="login-form-button"
+                 style={{ width: '30%', height: '100%', float: 'right', backgroundColor: 'white', 
+                  color: 'black', fontSize: '2vmin', fontWeight: 'bold', borderRadius: '20px',
+                  boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)'}} 
+                 >
                 Sign in
-              </ButtonDesign>
-              아직 회원이 아닌가요? <a href="#" onClick={handleRegisterClick}> 회원가입</a>
+              </Button>
+              <GoRegister>
+              아직 회원이 아닌가요? <a href="#" onClick={handleRegisterClick} style={{ textDecoration: 'none' }}> 회원가입</a>
+              </GoRegister>
             </Form.Item>
 
           </CustomForm>

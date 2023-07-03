@@ -15,7 +15,20 @@ export const MainFrame = styled.div`
   width: calc(100vw - 400px);
   height: calc(100vh - 150px);
   border: solid;
+  margin-top: 30px;
 `;
+
+
+export const ChartMainFrame = styled.div`
+  display: flex;
+  width: calc(100vw - 400px);
+  height: calc(100vh - 150px);
+  border: solid;
+  margin-top: 30px;
+`;
+
+
+
 
 export const ImgFrame = styled.div`
   grid-column: 1; /* 1열로 배치 */
@@ -76,3 +89,16 @@ export const ContentFrame = styled.div`
   //margin: auto; /* 중앙 정렬을 위한 margin 설정 */
   
 `;
+
+
+
+export const FollowerFrame = styled.div`
+  grid-column: 1; /* 1열로 배치 */
+
+`
+
+
+export const FollowingFrame = styled.div`
+  grid-column: 2; /* 2열로 배치 */
+
+`

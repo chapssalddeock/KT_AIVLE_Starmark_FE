@@ -1,24 +1,21 @@
-import { Button, Checkbox, Form, Input, Alert } from 'antd';
+import { Button, Checkbox, Form, Alert, } from 'antd';
 import { useState, useCallback } from 'react';
-import { SignUpFrame, BackgroundPage, InputSpace, TitleSpace, SingUpTitle, AlertSpace, BgLayout } from "../../../styles/Membership_Emotion"
+import { SignUpFrame, BackgroundPage, IMGFrame, InputImg, RegisterFrame, InputSpace, TitleSpace, SingUpTitle, AlertSpace,
+  CustomForm, CustomInput, CustomInputPassword, OtherText, LeftRibbonBadge, RibbonText, GoHome, GoButton
+} from "../../../styles/Membership_Emotion"
 
 import AuthManager from "../../AuthContext/AuthManager";
 import Agreement from '../Modal/Agreement';
-
+import { useRouter } from 'next/router';
 
 
 const formItemLayout = {
-  labelCol: { xs: { span: 24, }, sm: { span: 8, }, },
-  wrapperCol: { xs: { span: 24, }, sm: { span: 20, }, },
+  labelCol: { span: 24 }, // label의 컬럼 설정
+  wrapperCol: { span: 24 }, // Input의 컬럼 설정
 };
 
-const emailItemLayout = {
-  labelCol: { xs: { span: 24, }, sm: { span: 8, }, },
-  wrapperCol: { xs: { span: 24, offset: 0, }, sm: { span: 15, offset: 0, }, },
-}
-
 const tailFormItemLayout = {
-  wrapperCol: { xs: { span: 24, offset: 0, }, sm: { span: 16, offset: 10, }, },
+  wrapperCol: { xs: { span: 24, offset: 0, } },
 };
 
 const SignUp = ({ onSubmit }) => {
@@ -29,6 +26,10 @@ const SignUp = ({ onSubmit }) => {
   const [showFeedback, setShowFeedback] = useState(false); // 성공 실패 마크 표시 저장
   const [catchError, setCatchError] = useState(false); // 에러 메세지 받은 것 확인
   const [isFocused, setIsFocused] = useState(false);
+  const router = useRouter();
+  const handleGoToHome = () => {
+    router.push('/');
+  };
 
   const handleSubmit = useCallback(async (values) => {
     try {
@@ -64,7 +65,7 @@ const SignUp = ({ onSubmit }) => {
       } catch (error) {
         setShowFeedback(true);
         setCatchError(true);
-        return Promise.reject(new Error(error.message));
+        return Promise.reject(<OtherText>{error.message}</OtherText>);
       }
     }
     return Promise.resolve();
@@ -80,16 +81,16 @@ const SignUp = ({ onSubmit }) => {
       return Promise.resolve();
     }
     if (!notSpace.test(value)) {
-      return Promise.reject(new Error('공백은 허용하지 않습니다'));
+      return Promise.reject(<OtherText>공백은 허용하지 않습니다</OtherText>);
     }
     if (!charLength.test(value)) {
-      return Promise.reject(new Error('비밀번호는 8이상 16이하로 작성해 주세요'));
+      return Promise.reject(<OtherText>비밀번호는 8이상 16이하로 작성해 주세요</OtherText>);
     }
     if (!passwordRegex.test(value)) {
-      return Promise.reject(new Error('영문 대소문자, 숫자를 포함해야 합니다'));
+      return Promise.reject(<OtherText>영문 대소문자, 숫자를 포함해야 합니다</OtherText>);
     }
     if (!specailChar.test(value)) {
-      return Promise.reject(new Error('특수문자는 !@#$%^&* 만 사용 가능합니다'));
+      return Promise.reject(<OtherText>특수문자는 !@#$%^&* 만 사용 가능합니다</OtherText>);
     }
 
     return Promise.resolve();
@@ -106,128 +107,152 @@ const SignUp = ({ onSubmit }) => {
 
 
   return (
-    <BgLayout>
-      <BackgroundPage>
-        <SignUpFrame>
-          <AlertSpace>
-            <>
-              {errorMessage !== null && (
-                <Alert
-                  message={errorMessage}
-                  type="error"
-                  closable
-                  afterClose={handleClose}
-                  showIcon
-                />
-              )}
-            </>
-          </AlertSpace>
-          <TitleSpace>
-            <SingUpTitle>
-              Sign - Up
-            </SingUpTitle>
-          </TitleSpace>
-          <InputSpace>
-            <Form
-              {...formItemLayout}
-              form={form}
-              name="register"
-              onFinish={handleSubmit}
-              style={{ maxWidth: 600, }}
-              scrollToFirstError
+    <BackgroundPage>
+        <IMGFrame><InputImg></InputImg></IMGFrame>
+      <RegisterFrame>
+      <SignUpFrame>
+      <LeftRibbonBadge text={<RibbonText>StarMark</RibbonText>} placement="start"/>
+        <TitleSpace>
+        <AlertSpace>
+          {errorMessage !== null && (
+            <Alert
+              message={errorMessage}
+              type="error"
+              closable
+              afterClose={handleClose}
+              showIcon
+            />
+          )}
+        </AlertSpace>
+          <SingUpTitle>
+            회원가입
+          </SingUpTitle>
+        </TitleSpace>
+        <InputSpace>
+          <CustomForm
+            {...formItemLayout}
+            form={form}
+            name="register"
+            onFinish={handleSubmit}
+            style={{ maxWidth: 600, }}
+            scrollToFirstError
+          >
+            <Form.Item
+              name="email"
+              label={<span style={{ fontSize: '2vmin', fontWeight: 'bold' }}>이메일</span>}
+              rules={[
+                { required: true, message: <OtherText>E-mail을 입력해 주세요</OtherText>},
+                { validator: validateEmail }
+              ]}
+              hasFeedback={showFeedback}
+              validateStatus={showFeedback ? (catchError ? 'error' : 'success') : ''}
+              style={{ width: '100%', height: '12vh', marginBottom: '0vh' }}
             >
-              <Form.Item
-                name="email"
-                label="E-mail"
-                rules={[
-                  { required: true, message: 'E-mail을 입력해 주세요' },
-                  { validator: validateEmail }
-                ]}
-                hasFeedback={showFeedback}
-                validateStatus={showFeedback ? (catchError ? 'error' : 'success') : ''}
-              >
-                <Input allowClear onFocus={() => handleFocusChange(true)} onBlur={() => handleFocusChange(false)} />
-              </Form.Item>
+              <CustomInput allowClear onFocus={() => handleFocusChange(true)} onBlur={() => handleFocusChange(false)} 
+              inputBackgroundColor="#cae6fe"
+              style={{ width: '100%', height: '5vh', marginBottom: '0vh', 
+              fontSize: '2vmin', backgroundColor: '#cae6fe', borderRadius: '30px' }}
+              />
+            </Form.Item>
 
-              <Form.Item
-                name="password"
-                label="Password"
-                rules={[
-                  { required: true, message: 'password를 입력해 주세요', },
-                  { validator: validatePassword }
-                ]}
-                hasFeedback
-              >
-                <Input.Password allowClear />
-              </Form.Item>
+            <Form.Item
+              name="password"
+              label={<span style={{ fontSize: '2vmin', fontWeight: 'bold' }}>비밀번호</span>}
+              rules={[
+                { required: true, message: <OtherText>password를 입력해 주세요</OtherText> },
+                { validator: validatePassword }
+              ]}
+              hasFeedback
+              style={{ width: '100%', height: '12vh', marginBottom: '0vh', }}
+            >
+              <CustomInputPassword allowClear 
+              inputBackgroundColor="#cae6fe"
+              style={{ width: '100%', height: '5vh', marginBottom: '0vh', 
+              fontSize: '2vmin', backgroundColor: '#cae6fe', borderRadius: '30px' }}
+              />
+            </Form.Item>
 
-              <Form.Item
-                name="confirm"
-                label="Confirm Password"
-                dependencies={['password']}
-                hasFeedback
-                rules={[
-                  {
-                    required: true,
-                    message: '비밀번호 확인 칸에 입력해 주세요',
+            <Form.Item
+              name="confirm"
+              label={<span style={{ fontSize: '2vmin', fontWeight: 'bold' }}>비밀번호 확인</span>}
+              dependencies={['password']}
+              hasFeedback
+              rules={[
+                {
+                  required: true,
+                  message: <OtherText>비밀번호 확인 칸에 입력해 주세요</OtherText>,
+                },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue('password') === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(<OtherText>비밀번호가 일치하지 않습니다</OtherText>);
                   },
-                  ({ getFieldValue }) => ({
-                    validator(_, value) {
-                      if (!value || getFieldValue('password') === value) {
-                        return Promise.resolve();
-                      }
-                      return Promise.reject(new Error('비밀번호가 일치하지 않습니다'));
-                    },
-                  }),
-                ]}
-              >
-                <Input.Password allowClear />
-              </Form.Item>
-              <Form.Item
-                name="nickname"
-                label="Nickname"
-                tooltip="사용자가 사용할 별명"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Nickname을 입력해 주세요',
-                    whitespace: true,
-                  },
-                ]}
-              >
-                <Input allowClear />
-              </Form.Item>
+                }),
+              ]}
+              style={{ width: '100%', height: '12vh', marginBottom: '0vh', }}
+            >
+              <CustomInputPassword allowClear 
+              inputBackgroundColor="#cae6fe"
+              style={{ width: '100%', height: '5vh', marginBottom: '0vh', 
+              fontSize: '2vmin', backgroundColor: '#cae6fe', borderRadius: '30px' }}
+              />
+            </Form.Item>
+            <Form.Item
+              name="nickname"
+              label={<span style={{ fontSize: '2vmin', fontWeight: 'bold' }}>닉네임</span>}
+              tooltip={<OtherText>사용자가 사용할 별명</OtherText>}
+              rules={[
+                {
+                  required: true,
+                  message: <OtherText>Nickname을 입력해 주세요</OtherText>,
+                  whitespace: true,
+                },
+              ]}
+              style={{ width: '100%', height: '12vh', marginBottom: '0vh', }}
+            >
+              <CustomInput allowClear 
+              inputBackgroundColor="#cae6fe"
+              style={{ width: '100%', height: '5vh', marginBottom: '0vh', 
+              fontSize: '2vmin', backgroundColor: '#cae6fe', borderRadius: '30px' }}
+              />
+            </Form.Item>
 
-              <Form.Item
-                name="agreement"
-                valuePropName="checked"
-                rules={[
-                  {
-                    validator: (_, value) =>
-                      value ? Promise.resolve() : Promise.reject(new Error('약관에 동의하셔야 가입가능 합니다')),
-                  },
-                ]}
-                {...tailFormItemLayout}
-                style={{ textAlign: 'right' }}
-              // 스타일 추가 
-              >
-                <Checkbox>
-                  I have read the <a href="#" onClick={showModal}>agreement</a>
-                  {modalOpen && <Agreement modalOpen={modalOpen} setModalOpen={setModalOpen} />}
-                </Checkbox>
-                {/* 모달 관련 추가 */}
-              </Form.Item>
-              <Form.Item {...tailFormItemLayout}>
-                <Button style={{ float: 'right' }} type="primary" htmlType="submit">
-                  {/* 스타일 추가 */}
-                  Register
-                </Button>
-              </Form.Item>
-            </Form>
-          </InputSpace>
-        </SignUpFrame>
-      </BackgroundPage>
-    </BgLayout>
+            <Form.Item
+              name="agreement"
+              valuePropName="checked"
+              rules={[
+                {
+                  validator: (_, value) =>
+                    value ? Promise.resolve() : Promise.reject(<OtherText>약관에 동의하셔야 가입가능 합니다</OtherText>),
+                },
+              ]}
+              {...tailFormItemLayout}
+              style={{ textAlign: 'left' }}
+            // 스타일 추가 
+            >
+              <Checkbox>
+                <OtherText>약관을 읽고 <a href="#" onClick={showModal}>약관 동의</a> 하였습니다.</OtherText>
+                {modalOpen && <Agreement modalOpen={modalOpen} setModalOpen={setModalOpen} />}
+              </Checkbox>
+          
+            </Form.Item>
+            <Form.Item {...tailFormItemLayout}>
+              <Button style={{ width: '30%', height: '100%', float: 'right', backgroundColor: 'white', 
+              color: 'black', fontSize: '2vmin', fontWeight: 'bold', borderRadius: '20px',
+              boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)'}} 
+              
+              type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </CustomForm>
+        </InputSpace>
+      </SignUpFrame>
+      <GoHome><GoButton onClick={handleGoToHome}>Back to Home</GoButton></GoHome>
+      </RegisterFrame>
+    </BackgroundPage>
   );
 };
 export default SignUp;

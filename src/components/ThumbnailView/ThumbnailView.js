@@ -95,7 +95,7 @@ export default function ThumbnailView({ searchResult }) {
                                 key={index}
                                 title={item.title}
                                 desc={item.desc}
-                                img={item.img}
+                                img={"http://kt-aivle.iptime.org:40170" + item.img}
                                 tags={item.tags}
                                 url={item.url}
                             />
@@ -104,7 +104,7 @@ export default function ThumbnailView({ searchResult }) {
                 />
             </div>
 
-            <div style={{ alignSelf: 'flex-end', marginRight: 0, marginTop: 0 }}>
+            <div style={{ alignSelf: 'flex-start', marginRight: 0, marginTop: 0 }}>
                 <Pagination
                     showSizeChanger={false}
                     current={currentPage}

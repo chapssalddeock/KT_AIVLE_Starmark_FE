@@ -108,6 +108,11 @@
   .suggested-item:hover {
     background-color: skyblue; /* 마우스 호버 시 배경색을 파란색으로 변경 */
   }
+
+  .search-record:hover {
+    background-color: skyblue; /* hover됐을 때의 배경색 */
+    cursor: pointer;
+  }
   .sidebar-main {
     /* border:solid red; */
     flex-shrink: 0;

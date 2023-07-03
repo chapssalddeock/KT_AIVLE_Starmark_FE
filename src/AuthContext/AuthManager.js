@@ -1,22 +1,16 @@
 import axios from 'axios';
-import { Alert } from 'antd';
+import jwt_decode from "jwt-decode"
 import { useState, useRef } from 'react';
+
 import { useRouter } from "next/router";
 import useAuth from "../AuthHooks/useAuth";
 
 let errorMessage = "";
 const BASE_URL = "http://kt-aivle.iptime.org:40170/api";
 
-export const AuthManager = () => {
+const AuthManager = () => {
     const router = useRouter();
     const { setAuth } = useAuth();
-    const [visible, setVisible] = useState(true);
-
-    const alertRef = useRef(null); // Alert 컴포넌트에 대한 ref 생성
-
-    const handleClose = () => {
-        setVisible(false);
-    };
 
     const LogIn = async (values) => {
         let response;
@@ -37,10 +31,6 @@ export const AuthManager = () => {
             router.push("/service");
         } catch (error) {
             const temp = error.response.data.error[0].message
-
-            // 로그인 에러시 텍스트 전달 (나중에 필히 수정)
-            errorMessage = "Something went wrong!"; 
-            setVisible(true); // Show the Alert component
             throw { error, message: temp }; 
         }
 
@@ -93,27 +83,19 @@ export const AuthManager = () => {
       router.push("/");
     }
 
-    const AlertComponent = () => (
-      <div ref={alertRef}>
-        
-        <Alert
-          message={errorMessage}
-          type="error"
-          closable
-          afterClose={handleClose}
-          showIcon
-          style={{ display: visible ? 'block' : 'none' }}
-        />
-      
-      </div>
-    );
+    const UserInfo = () => {
+        const getToken = localStorage.getItem("TokenData");
+        const decodedValue = jwt_decode(JSON.parse(getToken).access);
+        return decodedValue.username;
+
+    }
 
     return {
         LogIn,
         EmailCheck,
         Register,
         LogOut,
-        AlertComponent,
+        UserInfo
     };
 
 }

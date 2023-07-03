@@ -1,7 +1,10 @@
 import {
   Outer, ActiveInner2, ActiveInner3, ActiveInner4, UnderNavInner, Divider,
   PageBackGround, Temp, Wave, PageDark, Title, Content,
-  SecondImg, SecondTitle, SecondContent, ThirdImg, ThirdTitle, ThirdContent, Square
+  FrameWrapper, ImgFrame,  TitleFrame, ContentFrame, 
+  SecondImg, SecondTitle, SecondContent, 
+  ThirdImg, ThirdTitle, ThirdContent, TagImgFrame, TagImg, 
+  Square, RectangleImg, Bubble
 } from "../../../styles/PageScroll_Emotion";
 import LoginPage from "../SignIn/Login_Protect";
 import { useEffect, useRef, useState } from "react";
@@ -106,10 +109,16 @@ export default function PageScroll() {
       setVisible(scrollTop > 300); // 스크롤 위치에 따라 버튼 표시 여부 결정
     };
 
-    outerDivRef.current.addEventListener('scroll', handleScroll); // 스크롤 이벤트 핸들러 등록
+    const divElement = outerDivRef.current; // div 요소를 변수에 할당
+
+    if (divElement) {
+      divElement.addEventListener('scroll', handleScroll);
+    }
 
     return () => {
-      outerDivRef.current.removeEventListener('scroll', handleScroll); // 컴포넌트 언마운트 시 이벤트 핸들러 제거
+      if (divElement) {
+        divElement.removeEventListener('scroll', handleScroll);
+      }
     };
   }, []);
 
@@ -156,35 +165,56 @@ export default function PageScroll() {
       <Divider className="Divider"></Divider>
 
       <ActiveInner2 className="Inner" >
-        <SecondImg></SecondImg>
-        <SecondTitle>
-          정리된 북마크를 <br /> 태그를 통해 <br /> 사용해 보세요
-        </SecondTitle>
-        <SecondContent>
-          자신이 저장해 놓은 북마크들을 starmark에 업로드 해보세요 <br />
-          업로드 하면 사용자가 올리신 북마크들의 주제에 따라 각각 태그들을 추출합니다.
-          추출된 태그를 사용해서 북마크를 검색해 필요한 북마크를 빠르게 찾아보세요
-        </SecondContent>
+        <ImgFrame>
+          <SecondImg />
+        </ImgFrame>
+        <FrameWrapper>
+          <TitleFrame>
+            <SecondTitle>
+              정리된 북마크를 <br /> 태그를 통해 <br /> 사용해 보세요
+            </SecondTitle>
+          </TitleFrame>
+          <ContentFrame>
+            <SecondContent>
+              자신이 저장해 놓은 북마크들을 starmark에 업로드 해보세요 <br />
+              업로드 하면 사용자가 올리신 북마크들의 주제에 따라 각각 태그들을  <br />추출합니다.
+              추출된 태그를 사용해서 북마크를 검색해 필요한 북마크를  <br />빠르게 찾아보세요
+            </SecondContent>
+          </ContentFrame>
+        </FrameWrapper>
+
       </ActiveInner2>
 
       <Divider className="Divider"></Divider>
 
       <ActiveInner3 className="Inner" >
-        <ThirdImg></ThirdImg>
-        <ThirdTitle>
-          사람들과 <br /> 서로의 북마크를 <br /> 공유해보세요
-        </ThirdTitle>
-        <ThirdContent>
-          자신이 저장한 북마크들과 태그들을 다른 사용자와 공유해 보세요
-          좋은 태그를 가지고 있는 사용자를 팔로우하고 팔로우한 사용자의 좋은 정보들을 사용해 보세요
-          다른 사람들과 공유하면서 좋은 정보를 찾아가세요
-        </ThirdContent>
+        <FrameWrapper>
+          <TitleFrame>
+            <ThirdTitle>
+              사람들과 <br /> 서로의 북마크를 <br /> 공유해보세요
+            </ThirdTitle>
+          </TitleFrame>
+          <ContentFrame>
+            <ThirdContent>
+              자신이 저장한 북마크들과 태그들을 다른 사용자와 공유해 보세요. <br />
+              좋은 태그를 가지고 있는 사용자를 팔로우하고 팔로우한 사용자의  <br />좋은 정보들을 사용해 보세요
+              다른 사람들과 공유하면서  <br />좋은 정보를 찾아가세요
+            </ThirdContent>
+          </ContentFrame>
+        </FrameWrapper>
+        <ImgFrame>
+          <ThirdImg />
+        </ImgFrame>
       </ActiveInner3>
 
       <Divider className="Divider"></Divider>
       
       <ActiveInner4 className="Inner">
+        <TagImgFrame><TagImg></TagImg></TagImgFrame>
+
         <Square>
+          <RectangleImg></RectangleImg>
+          <Bubble></Bubble>
           <LoginPage />
         </Square>
       </ActiveInner4>

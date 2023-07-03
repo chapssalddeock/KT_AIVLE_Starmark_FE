@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Segmented, Spin, Button, Drawer, Form, Input, Row, message, Upload, Select } from 'antd';
+import { Segmented, Spin, Button, Drawer, Form, Input, Row, Select } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import usePOST from '../../AuthCommunicate/POST';
 
@@ -12,13 +12,13 @@ const options = [
     { value: false, label: '비공개' },
 ];
 
-export default function SubmitForm({ isOpen, onClose }) {
+export default function SubmitForm({ isOpen, onClose, url }) {
     const [selectedOption, setSelectedOption] = useState('URL');
     const [fileList, setFileList] = useState([]);
     const { fetchData: postFetchData, data: postData, error: postError } = usePOST();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [form] = Form.useForm(); // Add form instance
-
+    console.log('url', url)
     const handleOptionChange = (value) => {
         setSelectedOption(value);
     };
@@ -32,20 +32,13 @@ export default function SubmitForm({ isOpen, onClose }) {
             formData = {
                 type: 'string',
                 title: values.title,
-                url: values.url,
+                url: values.url || url,
                 is_public: values.is_public,
             };
         } else if (selectedOption === 'HTML') {
             formData = new FormData();
             formData.append('type', 'file');
             formData.append('data', fileList[0]);
-
-            console.log("#################################")
-            for (let value of formData.values()) {
-                console.log(value);
-            }
-
-
         }
 
         await postFetchData('/bookmark/', formData);
@@ -66,37 +59,8 @@ export default function SubmitForm({ isOpen, onClose }) {
         const files = event.target.files;
         const newFileList = Array.from(files);
         setFileList(newFileList);
-
-
-        console.log("*************************************");
-        console.log(newFileList);
     };
 
-    // const props = {
-    //     name: 'file',
-    //     action: 'http://localhost:3000/',
-    //     headers: {
-    //         authorization: 'authorization-text',
-    //     },
-    //     onChange(info) {
-    //         if (info.file.status !== 'uploading') {
-    //             console.log(info.file, info.fileList);
-    //         }
-    //         if (info.file.status === 'done') {
-    //             message.success(`${info.file.name} 파일이 성공적으로 업로드되었습니다.`);
-    //         } else if (info.file.status === 'error') {
-    //             message.error(`${info.file.name} 파일 업로드에 실패했습니다.`);
-    //         }
-    //     },
-    //     progress: {
-    //         strokeColor: {
-    //             '0%': '#108ee9',
-    //             '100%': '#87d068',
-    //         },
-    //         strokeWidth: 3,
-    //         format: (percent) => percent && `${parseFloat(percent.toFixed(2))}%`,
-    //     },
-    // };
 
     const handleCancel = () => {
         onClose();
@@ -135,7 +99,7 @@ export default function SubmitForm({ isOpen, onClose }) {
                                 </Form.Item>
                             </Row>
                             <Row gutter={16}>
-                                <Form.Item name="url" label="URL" rules={[{ required: true, message: 'URL을 입력하세요.' }]}>
+                                <Form.Item name="url" label="URL" rules={[{ required: true, message: 'URL을 입력하세요.' }]} initialValue={url}>
                                     <Input placeholder="URL을 입력하세요." />
                                 </Form.Item>
                             </Row>
@@ -149,14 +113,12 @@ export default function SubmitForm({ isOpen, onClose }) {
 
                     {selectedOption === 'HTML' && (
                         <>
-                            {/* <Upload {...props}> */}
                             <Form.Item name="file" label="HTML 파일 업로드">
                                 <Button icon={<UploadOutlined />} onClick={() => document.getElementById('fileInput').click()}>
                                     파일 업로드
                                 </Button>
                                 <input type="file" id="fileInput" style={{ display: 'none' }} onChange={handleFileChange} />
                             </Form.Item>
-                            {/* </Upload> */}
                         </>
                     )}
                 </Form>
