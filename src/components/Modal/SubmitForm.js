@@ -12,13 +12,13 @@ const options = [
     { value: false, label: '비공개' },
 ];
 
-export default function SubmitForm({ isOpen, onClose }) {
+export default function SubmitForm({ isOpen, onClose, url }) {
     const [selectedOption, setSelectedOption] = useState('URL');
     const [fileList, setFileList] = useState([]);
     const { fetchData: postFetchData, data: postData, error: postError } = usePOST();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [form] = Form.useForm(); // Add form instance
-
+    console.log('url', url)
     const handleOptionChange = (value) => {
         setSelectedOption(value);
     };
@@ -32,7 +32,7 @@ export default function SubmitForm({ isOpen, onClose }) {
             formData = {
                 type: 'string',
                 title: values.title,
-                url: values.url,
+                url: values.url || url,
                 is_public: values.is_public,
             };
         } else if (selectedOption === 'HTML') {
@@ -99,7 +99,7 @@ export default function SubmitForm({ isOpen, onClose }) {
                                 </Form.Item>
                             </Row>
                             <Row gutter={16}>
-                                <Form.Item name="url" label="URL" rules={[{ required: true, message: 'URL을 입력하세요.' }]}>
+                                <Form.Item name="url" label="URL" rules={[{ required: true, message: 'URL을 입력하세요.' }]} initialValue={url}>
                                     <Input placeholder="URL을 입력하세요." />
                                 </Form.Item>
                             </Row>
