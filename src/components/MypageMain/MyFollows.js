@@ -19,7 +19,8 @@ export default function MyFollows() {
     useEffect(() => {
         if (getData) {
             setInfo(getData);
-            console.log("get 데이터 확인", info);
+            // console.log("get 데이터 확인", getData);
+            // console.log("팔로워 데이터 확인", getData.follower[0]['id']); // 이게 맞는 문법
         } else if (getError) {
             console.error(getError);
         }
@@ -45,8 +46,12 @@ export default function MyFollows() {
         }
     }, [deleteData, deleteError]);
 
+
     const handleFollow = async (user_id) => {
-        if (info.following.includes(user_id)) {
+
+        const followingIds = info.following.map(f => f.id);
+        // 그냥 주면 무조건 false임...
+        if (followingIds.includes(user_id)) {
             try {
                 const config = {
                     user_id: user_id,
@@ -93,7 +98,7 @@ export default function MyFollows() {
                                         description={<span>{follower.email}</span>}
                                     />
                                     <Button onClick={() => handleFollow(follower.id)}>
-                                        {info.following.includes(follower.id) ? '언팔로우' : '팔로우'}
+                                        {info.following.map(f => f.id).includes(follower.id) ? '언팔로우' : '팔로우'}
                                     </Button>
                                 </List.Item>
                             )}
@@ -113,7 +118,7 @@ export default function MyFollows() {
                                         description={<span>{following.email}</span>}
                                     />
                                     <Button onClick={() => handleFollow(following.id)}>
-                                        {info.following.includes(following.id) ? '언팔로우' : '팔로우'}
+                                        {info.following.map(f => f.id).includes(following.id) ? '언팔로우' : '팔로우'}
                                     </Button>
                                 </List.Item>
                             )}
@@ -127,6 +132,8 @@ export default function MyFollows() {
 }
 
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 // import React from 'react';
