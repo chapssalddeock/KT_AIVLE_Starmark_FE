@@ -5,7 +5,7 @@ import ThumbnailView from '../ThumbnailView/ThumbnailView';
 import ListView from '../ListView/ListView';
 import SideBar from '../SideBar/SideBar';
 import MenuBar from '../MenuButton/MenuButton';
-
+import HelpButton from '../Popover/HelpButton';
 
 export default function ContentArea() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -52,10 +52,6 @@ export default function ContentArea() {
 
     };
 
-
-
-
-
     return (
 
         <Layout style={{ marginTop: 2, }}>
@@ -72,6 +68,7 @@ export default function ContentArea() {
                     <Content style={{ padding: 4, margin: 0, }}>
                         {viewMode === 'List' ? <ListView searchResult={searchResult} /> : <ThumbnailView searchResult={searchResult} />} {/* 조건에 따라 썸네일 뷰 또는 리스트 뷰 렌더링 */}
                     </Content>
+                    <HelpButton page={'service'}/>
                 </Layout>
             </Layout>
         </Layout>

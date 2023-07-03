@@ -6,13 +6,13 @@ import {
 import { Form, Input, Spin, Alert, Button } from 'antd';
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import AuthManager from "../../AuthContext/AuthManager";
 
 const LoginPage = () => {
   const [form] = Form.useForm();
   const router = useRouter();
-  const { LogIn, AlertComponent } = AuthManager();
+  const { LogIn } = AuthManager();
   const [ errorMessage, setErrorMessage] = useState(null);
   
 
