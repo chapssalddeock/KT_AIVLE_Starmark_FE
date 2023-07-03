@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Drawer, Spin, Input, Avatar , Button, Modal, Form, Switch , Tooltip } from 'antd';
+import { Drawer, Spin, Input, Avatar , Button, Modal, Form, Tag} from 'antd';
 import FollowButton from '../Modal/FollowButton';
 import usePOST from '../../AuthCommunicate/POST';
 import SubmitForm from '../Modal/SubmitForm';
@@ -32,7 +32,6 @@ export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList
 }, [postData, postError]);
 
 
-
   return (
     <>
       <Drawer
@@ -44,18 +43,21 @@ export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList
         }}
       >
         {userProfile && (
-          <div>
-            <div className="site-description-item-profile-p">
+          <div style ={{ height: '100vh'}}>
+            <div className="site-description-item-profile-p" style= {{display: 'flex', justifyContent: 'center', alignItems: 'center',}}>
               <Avatar src={userProfile.profile_image} size={80} />
-              <span style={{ marginLeft: 10 }}>{userProfile.username}</span>
+              
             </div>
-            <div>
+            <div style= {{display: 'flex', justifyContent: 'center', alignItems: 'center',}}>
               <strong>UserName:</strong> {userProfile.username}
             </div>
-            <div>
+            <div  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <strong>Email:</strong> {userProfile.email}
-              <div>
-                <FollowButton user_isFollowing={userProfile.is_following} user_id={userProfile.id} />
+              <div >
+                <Tag style = {{display: 'flex', justifyContent: 'center', alignItems: 'center', height:'25px', width:'100%'}} color="geekblue">
+                  {userProfile.is_following ? 'Following' : 'Follow'}
+                </Tag>
+                
               </div>
               <strong>Url:</strong>
               {urls.map((url, index) => {
@@ -69,10 +71,11 @@ export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList
                       marginBottom: '20px',
                       opacity: isUrlInList ? 0.5 : 1,
                       pointerEvents: isUrlInList ? 'none' : 'auto',
+                      width: '80%',
                     }}
                   >
-                    <div style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{url}</div>
-                    <Button onClick={() => handleOpenDrawer(url)} type="primary" size="small" disabled={isUrlInList}>
+                    <div style={{ flex: 1, overflowX: 'hidden', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{url}</div>
+                    <Button onClick={() => handleOpenDrawer(url)} type="primary" size="small" disabled={isUrlInList} style = {{marginLeft: '20px'}}>
                       Add
                     </Button>
                     <SubmitForm url={url} isOpen={isDrawerOpen} onClose={handleCloseDrawer} />

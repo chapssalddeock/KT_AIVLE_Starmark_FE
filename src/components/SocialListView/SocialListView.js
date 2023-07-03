@@ -1,11 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Avatar, Tag,  Card, Button } from 'antd';
-import VirtualList from 'rc-virtual-list';
 import UserDrawer from '../Modal/UserDrawer';
 import useGET from '../../AuthCommunicate/GET';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import FollowButton from '../Modal/FollowButton';
 const ContainerHeight = 750;
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Pagination, Mousewheel } from "swiper";
@@ -13,9 +10,6 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import "swiper/css/effect-coverflow";
-// import SwiperCore, { Mousewheel } from 'swiper/core';
-import { UpOutlined, DownOutlined } from '@ant-design/icons';
-// SwiperCore.use([Mousewheel, Pagination]);
 export default function SocialListView({ searchResult }) {
     const [users, setUsers] = useState([]);
     const { fetchData, data, error } = useGET();
@@ -88,7 +82,11 @@ export default function SocialListView({ searchResult }) {
     const [urls, setUrls] = useState([]);
     const [userBookMark, setUserBookMark] = useState([]);
     const [activeIndex, setActiveIndex] = useState(0);
-    const handleOpenDrawer = async (id, index) => {
+    const handleOpenDrawer = async (id, index, event) => {
+      const isFollowButtonClicked = event.target.closest('.follow-button');
+      if (isFollowButtonClicked) {
+        return; // Do nothing if FollowButton is clicked
+      }
       const config = {
         params: {
           user_id: id,
@@ -149,8 +147,14 @@ export default function SocialListView({ searchResult }) {
     const handleMouseLeave = () => {
       setHoveredItem(null);
     };
-    
+    const handleFollowButtonClick = (event, user_id) => {
+      // Prevent the event from bubbling up to the Card and triggering handleOpenDrawer
+      event.stopPropagation();
   
+      
+      // Add your logic for handling the FollowButton click
+    };
+
     return (
       <>
         <div
@@ -193,7 +197,7 @@ export default function SocialListView({ searchResult }) {
             {users.map((item, index) => (
               <SwiperSlide key={item.email}>
                 <Card
-                  onClick={() => handleOpenDrawer(item.id, index)}
+                  onClick={(event) => handleOpenDrawer(item.id, index, event)}
                   onMouseEnter={() => handleMouseEnter(item)}
                   onMouseLeave={handleMouseLeave}
                   style={{
@@ -310,7 +314,11 @@ export default function SocialListView({ searchResult }) {
                           width: '300px'
                         }}
                       >
-                        <Button type="dashed">Follow</Button>
+                       
+                      <div className="follow-button">
+                        <FollowButton user_isFollowing={item.is_following} user_id={item.id} onClick={(event) => handleFollowButtonClick(event, item.id)} />
+                      </div>
+                     
                       </div>
                     </div>
                     
