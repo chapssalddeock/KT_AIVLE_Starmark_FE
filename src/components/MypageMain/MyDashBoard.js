@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect, useRef } from 'react';
-import { MainFrame, Frame, } from '../../../styles/MyPage_Emotion';
+import { MainFrame, Frame, ChartMainFrame } from '../../../styles/MyPage_Emotion';
 import { Network } from 'vis-network/';
 import { DataSet } from 'vis-data/';
 import { useSpring, animated } from 'react-spring';
@@ -90,9 +90,9 @@ export default function MyDashBoard() {
     return (<>
         <Frame>
             <animated.div style={springProps}>
-                <MainFrame id="mynetwork">
+                <ChartMainFrame id="mynetwork">
                     여기 대쉬보드 들어갈거임!!!
-                </MainFrame>
+                </ChartMainFrame>
             </animated.div>
         </Frame>
     </>

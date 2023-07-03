@@ -18,6 +18,18 @@ export const MainFrame = styled.div`
   margin-top: 30px;
 `;
 
+
+export const ChartMainFrame = styled.div`
+  display: flex;
+  width: calc(100vw - 400px);
+  height: calc(100vh - 150px);
+  border: solid;
+  margin-top: 30px;
+`;
+
+
+
+
 export const ImgFrame = styled.div`
   grid-column: 1; /* 1열로 배치 */
   width: 300px;
