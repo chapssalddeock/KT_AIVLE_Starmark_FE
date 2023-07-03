@@ -6,14 +6,14 @@ import usePUT from '../../AuthCommunicate/PUT';
 import useGET from '../../AuthCommunicate/GET';
 import AuthManager from "../../AuthContext/AuthManager";
 
-// PersonCircle 대신에 프사 넣기, 알림 확인하면 수정하기
+// 알림 확인하면 수정하기
 
 export default function Notification() {
     const router = useRouter();
     const [notifications, setNotifications] = useState([]);
     const [isBellClickable, setIsBellClickable] = useState(true);
-    const [isDropdownDisabled, setIsDropdownDisabled] = useState(false);
     const [isDotVisible, setIsDotVisible] = useState(true);
+
     const { fetchData: putFetchData, data: putData, error: putError } = usePUT();
     const { fetchData: getFetchData, data: getData, error: getError } = useGET();
     const { LogOut } = AuthManager();
@@ -54,7 +54,6 @@ export default function Notification() {
     useEffect(() => {
         if (putData) {
             setIsBellClickable(false); // 벨 아이콘 클릭 비활성화
-            setIsDropdownDisabled(true); // 드롭다운 클릭 비활성화
             setIsDotVisible(false); // 도트 숨김
             setNotifications([]);
         } else if (putError) {
@@ -67,7 +66,7 @@ export default function Notification() {
             await getFetchData('/notice/');
         };
 
-        const interval = setInterval(fetchNotifications, 60000);
+        const interval = setInterval(fetchNotifications, 30000);
         fetchNotifications();
 
         return () => {
@@ -81,12 +80,12 @@ export default function Notification() {
 
             if (getData.length === 0) {
                 setIsBellClickable(false); // 벨 아이콘 클릭 비활성화
-                setIsDropdownDisabled(true); // 드롭다운 클릭 비활성화
                 setIsDotVisible(false); // 도트 숨김
+
             } else {
                 setIsBellClickable(true); // 벨 아이콘 클릭 활성화
-                setIsDropdownDisabled(false); // 드롭다운 클릭 활성화
                 setIsDotVisible(true); // 도트 표시
+
 
                 const storeData = getData.map((notification) => ({
                     key: String(notification.id),
@@ -134,7 +133,8 @@ export default function Notification() {
                 placement="bottomRight"
                 trigger={['click']}
                 arrow={{ pointAtCenter: true }}
-                disabled={isDropdownDisabled} // 드롭다운 비활성화 여부
+                open={notifications.length > 0}
+
             >
                 <a onClick={(e) => e.preventDefault()}>
                     <div>
