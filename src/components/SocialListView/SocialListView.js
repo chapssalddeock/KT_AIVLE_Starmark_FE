@@ -82,9 +82,6 @@ export default function SocialListView({ searchResult }) {
     const [urls, setUrls] = useState([]);
     const [userBookMark, setUserBookMark] = useState([]);
     const [activeIndex, setActiveIndex] = useState(0);
-
-
-    
     const handleOpenDrawer = async (id, index, event) => {
       const isFollowButtonClicked = event.target.closest('.follow-button');
       if (isFollowButtonClicked) {
