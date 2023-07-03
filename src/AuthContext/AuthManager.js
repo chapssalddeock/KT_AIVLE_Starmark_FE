@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { Alert } from 'antd';
+import jwt_decode from "jwt-decode"
 import { useState, useRef } from 'react';
+
 import { useRouter } from "next/router";
 import useAuth from "../AuthHooks/useAuth";
 
@@ -82,11 +83,19 @@ const AuthManager = () => {
       router.push("/");
     }
 
+    const UserInfo = () => {
+        const getToken = localStorage.getItem("TokenData");
+        const decodedValue = jwt_decode(JSON.parse(getToken).access);
+        return decodedValue.username;
+
+    }
+
     return {
         LogIn,
         EmailCheck,
         Register,
         LogOut,
+        UserInfo
     };
 
 }

@@ -4,6 +4,8 @@ import React from 'react';
 const { Content, Sider } = Layout;
 import SocialListView from '../SocialListView/SocialListView';
 import SocialSideBar from '../SocialSideBar/ScSideBar';
+import HelpButton from '../Popover/HelpButton';
+
 export default function SocialContentArea() {
     const [searchQuery, setSearchQuery] = useState('');
     const MAX_HISTORY_LENGTH = 5;
@@ -54,6 +56,7 @@ export default function SocialContentArea() {
                     <Content style={{ padding: 24, margin: 0, }}>
                         <SocialListView searchResult={searchResult} />
                     </Content>
+                    <HelpButton page={'social'}/>
                 </Layout>
             </Layout>
         </Layout>
