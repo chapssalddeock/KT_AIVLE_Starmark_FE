@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
-import { Bell, PersonCircle } from 'react-bootstrap-icons';
+import { Bell } from 'react-bootstrap-icons';
 import { Badge, Dropdown } from 'antd';
 import usePUT from '../../AuthCommunicate/PUT';
 import useGET from '../../AuthCommunicate/GET';
 import AuthManager from "../../AuthContext/AuthManager";
-
-
-
 
 // PersonCircle 대신에 프사 넣기, 알림 확인하면 수정하기
 
@@ -107,6 +104,27 @@ export default function Notification() {
         }
     }, [getData, getError]);
 
+    // 프로필 이미지 읽기
+    const [imgData, setImgData] = useState('');
+    const { fetchData: getImgFetchData, data: getImgData, error: getImgError } = useGET();
+    const profileImg = async () => {
+        await getImgFetchData('/profile_img/');
+    };
+
+    useEffect(() => {
+        profileImg();
+    }, []);
+
+    useEffect(() => {
+        if (getImgData) {
+            const img_src = 'http://kt-aivle.iptime.org:40170' + getImgData.profile_image_url
+            setImgData(img_src);  // 데이터 받기
+        } else if (getImgError) {
+            console.error(getImgError);
+        }
+    }, [getImgData, getImgError]);
+
+
 
     return (
         <>
@@ -133,9 +151,9 @@ export default function Notification() {
                 arrow={{ pointAtCenter: true }}
             >
                 <a onClick={(e) => e.preventDefault()}>
-                    <PersonCircle style={{ cursor: "pointer", marginLeft: '20px', color: '#5eacf2', fontSize: '24px' }} />
+                    <img src={imgData} style={{ cursor: "pointer", marginLeft: '20px', height: "32px", width: "32px", borderRadius: "50%", border: "2px solid #5eacf2" }}></img>
                 </a>
-            </Dropdown>
+            </Dropdown >
         </>
     );
 }
