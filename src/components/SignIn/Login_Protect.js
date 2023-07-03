@@ -1,7 +1,7 @@
 // ////////////////////////////////////////// 수정본
 import {
-  CustomerPage, TitleSpace, LoginTitle, AlertSpace,
-  ButtonDesign, InputSpace, CustomForm, GoRegister
+  CustomerPage, LeftRibbonBadge, RibbonText, TitleSpace, LoginTitle, AlertSpace,
+  ButtonDesign, InputSpace, CustomForm, CustomInput, CustomInputPassword, OtherText, GoRegister
 } from "../../../styles/Login_Emotion"
 import { Form, Input, Spin, Alert, Button } from 'antd';
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
@@ -45,9 +45,10 @@ const LoginPage = () => {
   return (
     <>
       <CustomerPage>
+      <LeftRibbonBadge text={<RibbonText>StarMark</RibbonText>} placement="start"/>
         <TitleSpace>
           <LoginTitle>
-            LOG IN
+            로그인
           </LoginTitle>
           <AlertSpace>
               {errorMessage !== null && (
@@ -73,29 +74,37 @@ const LoginPage = () => {
           >
             <Form.Item
               name="email"
+              label={<span style={{ fontSize: '2vmin', fontWeight: 'bold' }}>이메일</span>}
               rules={[
-                { type: 'email', message: 'The input is not valid E-mail!' },
-                { required: true, message: 'Please input your E-mail!' },
+                { type: 'email', message: <OtherText>유효하지 않는 이메일 입니다</OtherText> },
+                { required: true, message: <OtherText>이메일을 입력해 주세요</OtherText> },
               ]}
+              style={{ width: '100%', height: '12vh', marginBottom: '0vh' }}
             >
-              <Input
+              <CustomInput allowClear
                 prefix={<UserOutlined />}
                 placeholder="Email"
                 required
-                style={{ width: '100%', height: '5vh', marginBottom: '1vh', fontSize: '2vmin' }} // Input 컴포넌트의 너비 조정
+                inputBackgroundColor="#cae6fe"
+                style={{ width: '100%', height: '5vh', marginBottom: '0vh', 
+              fontSize: '2vmin', backgroundColor: '#cae6fe', borderRadius: '30px' }}
               />
             </Form.Item>
             <Form.Item
               name="password"
+              label={<span style={{ fontSize: '2vmin', fontWeight: 'bold' }}>비밀번호</span>}
               rules={[
-                { required: true, message: 'Please input your password!' },
+                { required: true, message: <OtherText>비밀번호를 입력해 주세요</OtherText> },
               ]}
+              style={{ width: '100%', height: '12vh', marginBottom: '2vh', marginTop: '1vh'}}
             >
-              <Input.Password
+              <CustomInputPassword allowClear
                 prefix={<LockOutlined />}
                 placeholder="Password"
                 required
-                style={{ width: '100%', height: '5vh', marginBottom: '2vh', fontSize: '2vmin' }}
+                inputBackgroundColor="#cae6fe"
+                style={{ width: '100%', height: '5vh', marginBottom: '0vh', 
+                fontSize: '2vmin', backgroundColor: '#cae6fe', borderRadius: '30px' }}
               />
             </Form.Item>
             <Form.Item
@@ -105,7 +114,9 @@ const LoginPage = () => {
                 type="primary" 
                 htmlType="submit" 
                  className="login-form-button"
-                 style={{ width: '100%', height: '5vh', marginBottom: '2vh', fontSize: '2vmin' }}
+                 style={{ width: '30%', height: '100%', float: 'right', backgroundColor: 'white', 
+                  color: 'black', fontSize: '2vmin', fontWeight: 'bold', borderRadius: '20px',
+                  boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)'}} 
                  >
                 Sign in
               </Button>
