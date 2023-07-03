@@ -9,7 +9,7 @@ const handleChange = (value) => {
 };
 
 const options = [
-    { value: 1, label: '반대로..', },
+    { value: 1, label: 'oldest', },
     //{value: 2,label: '반대로..',},
 ]
 
@@ -42,7 +42,7 @@ export default function MenuBar({ onSegmentedChange }) {
                 <SubmitForm isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
             </Space>
             <Space wrap style={{ flex: 1, justifyContent: 'flex-end', }}>
-                <Select defaultValue="최신순" style={{ width: 120, height: 35, }} onChange={handleChange} options={options}></Select>
+                <Select defaultValue="latest" style={{ width: 120, height: 35, }} onChange={handleChange} options={options}></Select>
                 <Segmented onChange={handleSegmentedChange} style={{ height: 35, }}
                     options={[{
                         value: 'List',

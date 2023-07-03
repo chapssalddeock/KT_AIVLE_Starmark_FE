@@ -12,6 +12,7 @@ export default function MyFollows() {
     const { fetchData: postFetchData, data: postData, error: postError } = usePOST();
     const { fetchData: deleteFetchData, data: deleteData, error: deleteError } = useDELETE();
 
+    // 기본적인 팔로잉, 팔로워 정보 불러오기
     const fetchData = async () => {
         await getFetchData('/follows/');
     };
@@ -19,7 +20,6 @@ export default function MyFollows() {
     useEffect(() => {
         if (getData) {
             setInfo(getData);
-            console.log("get 데이터 확인", info);
         } else if (getError) {
             console.error(getError);
         }
@@ -29,9 +29,13 @@ export default function MyFollows() {
         fetchData();
     }, []);
 
+    // 여기서부턴 팔로우 언팔로우 로직
     useEffect(() => {
         if (postData) {
-            setInfo(postData);
+            //setInfo(postData);
+            console.log("팔로우 성공");
+            // 요청이 성공한 후에 fetchData 호출
+            fetchData();
         } else if (postError) {
             console.error('팔로우 중 오류 발생:', postError);
         }
@@ -39,18 +43,20 @@ export default function MyFollows() {
 
     useEffect(() => {
         if (deleteData) {
-            setInfo(deleteData);
+            //setInfo(deleteData);
+            console.log("언팔로우 성공");
+            // 요청이 성공한 후에 fetchData 호출
+            fetchData();
         } else if (deleteError) {
             console.error('언팔로우 중 오류 발생:', deleteError);
         }
     }, [deleteData, deleteError]);
 
     const handleFollow = async (user_id) => {
-        if (info.following.includes(user_id)) {
+        const followingIds = info.following.map(f => f.id); // 배열 형태라서 이렇게 줘야함.
+        if (followingIds.includes(user_id)) {
             try {
-                const config = {
-                    user_id: user_id,
-                };
+                const config = { data: { user_id: user_id } }; // 언팔로우는 data 형식 필수 
                 await deleteFetchData('/follows/', config);
                 setInfo(prevState => ({
                     ...prevState,
@@ -75,7 +81,6 @@ export default function MyFollows() {
         }
     };
 
-
     return (
         <>
             <Frame>
@@ -92,8 +97,9 @@ export default function MyFollows() {
                                         title={<span style={{ fontSize: '18px', fontWeight: 'bold' }}>{follower.username}</span>}
                                         description={<span>{follower.email}</span>}
                                     />
+
                                     <Button onClick={() => handleFollow(follower.id)}>
-                                        {info.following.includes(follower.id) ? '언팔로우' : '팔로우'}
+                                        {info.following.map(f => f.id).includes(follower.id) ? '언팔로우' : '팔로우'}
                                     </Button>
                                 </List.Item>
                             )}
@@ -112,8 +118,9 @@ export default function MyFollows() {
                                         title={<span style={{ fontSize: '18px', fontWeight: 'bold' }}>{following.username}</span>}
                                         description={<span>{following.email}</span>}
                                     />
+
                                     <Button onClick={() => handleFollow(following.id)}>
-                                        {info.following.includes(following.id) ? '언팔로우' : '팔로우'}
+                                        {info.following.map(f => f.id).includes(following.id) ? '언팔로우' : '팔로우'}
                                     </Button>
                                 </List.Item>
                             )}
@@ -127,6 +134,7 @@ export default function MyFollows() {
 }
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 // import React from 'react';
