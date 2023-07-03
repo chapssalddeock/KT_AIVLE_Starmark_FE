@@ -25,7 +25,7 @@ export const ChartMainFrame = styled.div`
   display: flex;
   width: calc(100vw - 400px);
   height: calc(100vh - 150px);
-  border: solid;
+  /* border: solid; */
   margin-top: 30px;
 `;
 
@@ -82,8 +82,6 @@ export const ImgChangeButton = styled.div`
 `;
 
 export const ContentFrame = styled.div`
-
-
   grid-column: 2; /* 2열로 배치 */
   grid-row: 1 / span 2; /* 1행부터 2행까지 확장 */
   width: 30vw;
@@ -91,7 +89,6 @@ export const ContentFrame = styled.div`
   /* border: solid yellow; */
   margin-top: 60px;
   margin: auto; /* 중앙 정렬을 위한 margin 설정 */
-  
 `;
 
 export const TitleFrame = styled.div`
