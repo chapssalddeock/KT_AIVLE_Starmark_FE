@@ -1,6 +1,16 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+//////// font
+export const normalFontStyles = css`
+  @font-face {
+    font-family: 'KOTRA_GOTHIC';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/KOTRA_GOTHIC.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+`
+
 // _MainFrame 정중앙 위치용
 export const Frame = styled.div`
   display: flex;
@@ -23,6 +33,7 @@ export const ChartMainFrame = styled.div`
 ////////////////////////////////////////////////////////////////////////////////////////////
 // MyInfo.js 프레임용
 export const MainFrame = styled.div`
+
   display: grid;
   grid-template-columns: 1fr 1fr; /* 2열로 설정 */
   /* grid-template-rows: auto; 1행으로 설정 */
@@ -60,6 +71,7 @@ export const ImgFrame = styled.div`
 `;
 
 export const ImgChangeButton = styled.div`
+
   width: 300px;
   height: 50px;
   display: flex;
@@ -70,6 +82,8 @@ export const ImgChangeButton = styled.div`
 `;
 
 export const ContentFrame = styled.div`
+
+
   grid-column: 2; /* 2열로 배치 */
   grid-row: 1 / span 2; /* 1행부터 2행까지 확장 */
   width: 30vw;
@@ -110,13 +124,3 @@ export const FollowingFrame = styled.div`
 
 `
 
-
-//////// font
-const normalFontStyles = css`
-  @font-face {
-    font-family: 'KOTRA_GOTHIC';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/KOTRA_GOTHIC.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-  }
-`

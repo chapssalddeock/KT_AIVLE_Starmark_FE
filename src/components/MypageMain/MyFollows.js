@@ -1,10 +1,14 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { MainFrame, Frame, FollowerFrame, FollowingFrame } from '../../../styles/MyPage_Emotion';
+import { MainFrame, Frame, FollowerFrame, FollowingFrame, normalFontStyles } from '../../../styles/MyPage_Emotion';
 import { List, Avatar, Button } from 'antd';
 import useGET from '../../AuthCommunicate/GET';
 import usePOST from '../../AuthCommunicate/POST';
 import useDELETE from '../../AuthCommunicate/DELETE';
+import { Global } from "@emotion/react";
+
+
+
 
 export default function MyFollows() {
     const [info, setInfo] = useState([]);
@@ -84,10 +88,11 @@ export default function MyFollows() {
     return (
         <>
             <Frame>
+                <Global styles={normalFontStyles} ></Global>
                 <MainFrame>
                     <FollowerFrame>
-                        <h2 style={{ marginBottom: '20px' }}>Followers</h2>
-                        <div style={{ borderBottom: '1px solid #ccc', marginBottom: '10px' }}></div>
+                        <h2 style={{ marginBottom: '20px', display: 'flex', justifyContent: 'center' }}>Followers</h2>
+                        <div style={{ borderBottom: '1px solid #ccc', marginBottom: '10px', }}></div>
                         <List
                             dataSource={info.follower}
                             renderItem={follower => (
@@ -98,16 +103,16 @@ export default function MyFollows() {
                                         description={<span>{follower.email}</span>}
                                     />
 
-                                    <Button onClick={() => handleFollow(follower.id)}>
-                                        {info.following.map(f => f.id).includes(follower.id) ? '언팔로우' : '팔로우'}
+                                    <Button style={{ borderRadius: 30, marginRight: 30 }} onClick={() => handleFollow(follower.id)}>
+                                        {info.following.map(f => f.id).includes(follower.id) ? '팔로잉' : '팔로우하기'}
                                     </Button>
                                 </List.Item>
                             )}
                             style={{ overflowY: 'scroll', height: 'calc(100% - 72px)', padding: '10px' }}
                         />
                     </FollowerFrame>
-                    <FollowingFrame>
-                        <h2 style={{ marginBottom: '20px' }}>Following</h2>
+                    <FollowingFrame >
+                        <h2 style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}> Following </h2>
                         <div style={{ borderBottom: '1px solid #ccc', marginBottom: '10px' }}></div>
                         <List
                             dataSource={info.following}
@@ -119,8 +124,8 @@ export default function MyFollows() {
                                         description={<span>{following.email}</span>}
                                     />
 
-                                    <Button onClick={() => handleFollow(following.id)}>
-                                        {info.following.map(f => f.id).includes(following.id) ? '언팔로우' : '팔로우'}
+                                    <Button style={{ borderRadius: 30, marginRight: 30 }} onClick={() => handleFollow(following.id)}>
+                                        {info.following.map(f => f.id).includes(following.id) ? '팔로잉' : '팔로우하기'}
                                     </Button>
                                 </List.Item>
                             )}

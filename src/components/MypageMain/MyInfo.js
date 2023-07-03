@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
-import { MainFrame, ImgFrame, TitleFrame, ContentFrame, ImgChangeButton, Frame, ImgMainFrame } from '../../../styles/MyPage_Emotion';
+import { MainFrame, ImgFrame, ContentFrame, ImgChangeButton, Frame, ImgMainFrame, normalFontStyles } from '../../../styles/MyPage_Emotion';
 import useGET from '../../AuthCommunicate/GET';
 import usePUT from '../../AuthCommunicate/PUT';
 import usePOST from '../../AuthCommunicate/POST';
 import { List, Button, Input, Form } from 'antd';
+import { Global } from "@emotion/react";
 
 const dataList = [
     { label: 'Username', key: 'username' },
@@ -114,7 +115,7 @@ export default function MyInfo() {
         <>
             <Frame>
                 <MainFrame>
-                    {/* <TitleFrame>My Information</TitleFrame> */}
+                    <Global styles={normalFontStyles} ></Global>
                     <ImgMainFrame>
                         <ImgFrame>
                             <img src={info.profile_image} style={{ width: 300, height: 300, borderRadius: 150 }} alt="Profile" />
