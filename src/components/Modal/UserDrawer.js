@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Drawer, Spin, Input, Avatar , Button, Modal, Form, Switch , Tooltip } from 'antd';
 import FollowButton from '../Modal/FollowButton';
 import usePOST from '../../AuthCommunicate/POST';
-
+import SubmitForm from '../Modal/SubmitForm';
 
 // id, email, username, profile_image, is_following, following_cnt, follower_cnt, bookmark_cnt 넘어옴
 export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList }) {
@@ -11,29 +11,16 @@ export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { fetchData: postFetchData, data: postData, error: postError } = usePOST();
   const [form] = Form.useForm();
-  const handleAddButtonClick = (url) => {
+ 
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const handleOpenDrawer = (url) => {
     setSelectedUrl(url);
-    setModalVisible(true);
+    setIsDrawerOpen(true);
+  };
+  const handleCloseDrawer = () => {
+    setIsDrawerOpen(false);
   };
 
-  const handleModalClose = () => {
-    setSelectedUrl('');
-    setModalVisible(false);
-  };
-
-  const handleSubmit = async (values) => {
-    setIsSubmitting(true);
-    const formData = {
-      type: 'string',
-      title: values.title,
-      url: selectedUrl,
-      is_public: values.is_public,
-    };
-    
-  
-    await postFetchData('/bookmark/', formData);
-    form.resetFields(); // Reset the form fields
-  };
   useEffect(() => {
     if (postData) {
         console.log('전송 성공', postData);
@@ -43,6 +30,7 @@ export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList
         setIsSubmitting(false); // Reset the submission state
     }
 }, [postData, postError]);
+
 
 
   return (
@@ -84,9 +72,10 @@ export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList
                     }}
                   >
                     <div style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{url}</div>
-                    <Button onClick={() => handleAddButtonClick(url)} type="primary" size="small" disabled={isUrlInList}>
+                    <Button onClick={() => handleOpenDrawer(url)} type="primary" size="small" disabled={isUrlInList}>
                       Add
                     </Button>
+                    <SubmitForm url={url} isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
                   </div>
                 );
               })}
@@ -99,55 +88,8 @@ export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList
           <p className="site-description-item-profile-p">유저 정보를 불러오는 중입니다...</p>
         )}
       </Drawer>
-      <Modal
-        visible={modalVisible}
-        onCancel={handleModalClose}
-        onOk={handleSubmit}
-        onFinish={handleSubmit}
-        title="Add Data"
-        
-      >
-        <Form form={form} layout="vertical">
-          <Form.Item
-            name="title"
-            label="Title"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter a title',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item name="url" label="URL">
-            <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-              <Input value={selectedUrl} disabled addonAfter={selectedUrl} />
-            </div>
-          </Form.Item>
-          <Form.Item name="is_public" label="Is Public" valuePropName="checked">
-            <Switch />
-          </Form.Item>
-        </Form>
-      </Modal>
-      {isSubmitting && (
-                <div
-                    style={{
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        background: 'rgba(0, 0, 0, 0.1)',
-                        zIndex: 9999,
-                    }}
-                >
-                    <Spin size="large" />
-                </div>
-            )}
+
+      
     </>
   );
 };

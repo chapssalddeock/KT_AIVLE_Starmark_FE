@@ -37,22 +37,23 @@ export default function SocialListView({ searchResult }) {
   
     const [urlList, setUrlList] = useState([]);
   
-    useEffect(() => {
-      const extractUrls = () => {
-        if (MyBookData && MyBookData.bookmark_list) {
-          const newUrlList = [];
-          const bookmarkList = MyBookData['bookmark_list'];
-          for (const item of bookmarkList) {
-            const url = item.url;
-            newUrlList.push(url);
-          }
-          setUrlList(newUrlList);
+    const extractUrls = () => {
+      if (MyBookData && MyBookData.bookmark_list) {
+        const newUrlList = [];
+        const bookmarkList = MyBookData.bookmark_list;
+        for (const item of bookmarkList) {
+          const url = item.url;
+          newUrlList.push(url);
         }
-      };
-  
+        setUrlList(newUrlList);
+      }
+    };
+    
+    useEffect(() => {
       extractUrls();
-    }, []);
-    console.log('MyBookData', MyBookData)
+    }, [MyBookData]);
+    
+    
   
     const [config, setConfig] = useState({});
   
@@ -106,16 +107,16 @@ export default function SocialListView({ searchResult }) {
         console.error(error);
       }
       };
-    console.log('users', users)
   
+    
     useEffect(() => {
       if (data && searchResult && searchResult.length > 0) {
         const urls = [];
         const tagName = searchResult[0]; // Assuming you want to use the first tag from searchResult
   
         data.bookmark_list.forEach((bookmark) => {
-          const tags = Object.values(bookmark)[10];
-  
+      
+          const tags = Object.values(bookmark)[9];
           if (tags && tags.includes(tagName)) {
             const url = Object.values(bookmark)[3];
             urls.push(url);
