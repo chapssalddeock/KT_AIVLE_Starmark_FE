@@ -17,7 +17,11 @@ const Complete = () => {
             이제 홈 화면으로 돌아가 편리한 북마크 정리 생활을 시작하세요!
           </Content>
           <ButtonBlock>
-            <Button type="primary" block onClick={() => router.push('/')}>
+            <Button type="primary" block onClick={() => router.push('/')}
+            style={{ width: '100%', height: '60%', backgroundColor: 'white', 
+            color: 'black', fontWeight: 'bold', borderRadius: '20px',
+            boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)', fontSize: '1.8vmin'}}
+            >
               Go to Home
             </Button>
           </ButtonBlock>
