@@ -239,8 +239,8 @@ const SignUp = ({ onSubmit }) => {
           
             </Form.Item>
             <Form.Item {...tailFormItemLayout}>
-              <Button style={{ float: 'right', backgroundColor: 'white', 
-              color: 'black', fontWeight: 'bold', borderRadius: '20px',
+              <Button style={{ width: '30%', height: '100%', float: 'right', backgroundColor: 'white', 
+              color: 'black', fontSize: '2vmin', fontWeight: 'bold', borderRadius: '20px',
               boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)'}} 
               
               type="primary" htmlType="submit">

@@ -11,48 +11,55 @@ export const BackgroundPage = styled.div`
   height: 100vh;
 `
 export const MainBlock = styled.div`
-  width: 40%;
-  height: 50%;
+  width: 50vw;
+  height: 40vh;
   border-radius: 30px;
-  //border: solid;
   background-color: white; /* 배경을 흰색으로 설정 */
   position : relative;
-  left : 32%; 
+  left : 28%; 
   top : 15%;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 그림자 효과 추가 */
+
+  // border: solid;
 `
 export const AlertPart = styled.div`
   width: 100%;
   height: 30%;
-  /* border: solid red; */
+  
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight : bold;
-  font-size: 24px;
+  font-size: 4vmin;
+  background-color: #cae6fe;
+  border-radius: 30px 30px 0 0;
 
 `
 export const Content = styled.div`
   width: 100%;
   height: 50%;
-  display: flex;
-  justify-content: center;
+
   position : relative;
-  top : 10%;
-  text-align: center;
-  /* display: flex;
+  display: flex;
   align-items: center;
-  justify-content: center; */
-  /* border: solid yellow; */
+  justify-content: center; 
+  text-align: center;
+
+  font-size: 2.5vmin;
+  font-weight: bold;
 `
 export const ButtonBlock = styled.div`
-  width: 20%;
+  width: 100%;
   height: 20%;
+
   position : relative;
-  left:40%;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  /* border: solid blue; */
+  padding: 0 40% 0 40%;
+
+  font-size: 5vmin;
+
+  // border: solid blue;
 `
