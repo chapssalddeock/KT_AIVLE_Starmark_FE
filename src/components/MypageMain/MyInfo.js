@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
-import { MainFrame, ImgFrame, TitleFrame, ContentFrame, ImgChangeButton, Frame } from '../../../styles/MyPage_Emotion';
+import { MainFrame, ImgFrame, ContentFrame, ImgChangeButton, Frame, ImgMainFrame, normalFontStyles } from '../../../styles/MyPage_Emotion';
 import useGET from '../../AuthCommunicate/GET';
 import usePUT from '../../AuthCommunicate/PUT';
 import usePOST from '../../AuthCommunicate/POST';
 import { List, Button, Input, Form } from 'antd';
+import { Global } from "@emotion/react";
 
 const dataList = [
     { label: 'Username', key: 'username' },
@@ -114,15 +115,17 @@ export default function MyInfo() {
         <>
             <Frame>
                 <MainFrame>
-                    <TitleFrame>My Information</TitleFrame>
-                    <ImgFrame>
-                        <img src={info.profile_image} style={{ width: 300, height: 300, borderRadius: 150 }} alt="Profile" />
-                    </ImgFrame>
-                    <ImgChangeButton>
-                        <input type="file" accept="image/*" onChange={handleImageChange} ref={fileInputRef} style={{ display: 'none' }} />
-                        <Button onClick={handleButtonClick}>Change Profile Picture</Button>
-                    </ImgChangeButton>
+                    <ImgMainFrame>
+                        <ImgFrame>
+                            <img src={info.profile_image} style={{ width: 300, height: 300, borderRadius: 150 }} alt="Profile" />
+                        </ImgFrame>
+                        <ImgChangeButton>
+                            <input type="file" accept="image/*" onChange={handleImageChange} ref={fileInputRef} style={{ display: 'none' }} />
+                            <Button onClick={handleButtonClick} style={{ borderRadius: 30 }}>Change Profile Picture</Button>
+                        </ImgChangeButton>
+                    </ImgMainFrame>
                     <ContentFrame>
+
                         {isEditing ? (
                             <div>
                                 <Form layout="vertical">
@@ -136,8 +139,10 @@ export default function MyInfo() {
                                         </Form.Item>
                                     ))}
                                 </Form>
-                                <Button type="primary" onClick={handleSaveClick}>Save</Button>
-                                <Button onClick={handleCancelClick}>Cancel</Button>
+                                <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 100 }}>
+                                    <Button type="primary" onClick={handleSaveClick} style={{ borderRadius: 30, marginRight: 20 }}>Save</Button>
+                                    <Button onClick={handleCancelClick} style={{ borderRadius: 30 }}>Cancel</Button>
+                                </div>
                             </div>
                         ) : (
                             <div>
@@ -146,13 +151,15 @@ export default function MyInfo() {
                                     renderItem={({ label, key }) => (
                                         <List.Item key={key}>
                                             <p>
-                                                {label}<br />
+                                                <strong style={{ fontWeight: 'bold' }}>{label}</strong> | <br />
                                                 {info[key]}
                                             </p>
                                         </List.Item>
                                     )}
                                 />
-                                <Button type="primary" onClick={handleEditClick}>Edit</Button>
+                                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                    <Button type="primary" onClick={handleEditClick} style={{ borderRadius: 30 }}>Edit</Button>
+                                </div>
                             </div>
                         )}
                     </ContentFrame>

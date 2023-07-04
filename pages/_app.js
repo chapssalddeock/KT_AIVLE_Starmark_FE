@@ -1,4 +1,5 @@
 import '../styles/globals.css'
+
 ////import Layout from "../src/commons/layout";
 import 'bootstrap/dist/css/bootstrap.min.css';;
 
@@ -16,6 +17,7 @@ export default function App({ Component, pageProps }) {
         <title>STARMARK</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <Component {...pageProps} />
     </AuthProvider>
 
