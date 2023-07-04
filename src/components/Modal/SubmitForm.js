@@ -87,7 +87,8 @@ export default function SubmitForm({ isOpen, onClose, url }) {
                         >
                             취소
                         </Button>
-                        <Button form="submitForm" key="submit" htmlType="submit" type="primary" loading={isSubmitting}
+                        {/*  loading={isSubmitting}가 원래 밑에 제출버튼에 있었음 */}
+                        <Button form="submitForm" key="submit" htmlType="submit" type="primary"
                             style={{
                                 width: '25%', height: '100%', marginRight: '0.5vw', backgroundColor: 'white',
                                 color: 'black', fontSize: '1.5vh', fontWeight: 'bold', borderRadius: '20px', padding: '0.5vh 0.5vw',
