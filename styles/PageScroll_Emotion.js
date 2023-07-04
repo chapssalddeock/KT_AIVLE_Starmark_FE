@@ -139,10 +139,10 @@ export const SecondImg = styled.div`
   
   // position: relative;
   
-  background-image: url(/img/Intro_Search.png);
+  background-image: url(/img/Search_IMG.png);
   background-size: 100% 100%;
 
-  border-radius: 5%;
+  // border-radius: 5%;
   // border: solid yellow;
 `
 
