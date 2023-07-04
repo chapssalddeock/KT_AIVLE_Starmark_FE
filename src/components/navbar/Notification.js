@@ -30,7 +30,7 @@ export default function Notification() {
         {
             key: '1',
             label: (
-                <div onClick={moveMyPage}>
+                <div style={{ fontFamily: 'KOTRA_GOTHIC' }} onClick={moveMyPage}>
                     마이페이지
                 </div>
             ),
@@ -38,7 +38,7 @@ export default function Notification() {
         {
             key: '2',
             label: (
-                <div onClick={moveLogOut}>
+                <div style={{ fontFamily: 'KOTRA_GOTHIC' }} onClick={moveLogOut}>
                     로그아웃
                 </div>
             ),
@@ -135,6 +135,7 @@ export default function Notification() {
                 arrow={{ pointAtCenter: true }}
                 open={notifications.length > 0}
                 zIndex={900}
+                style={{ fontFamily: 'KOTRA_GOTHIC' }}
 
             >
                 <a onClick={(e) => e.preventDefault()}>

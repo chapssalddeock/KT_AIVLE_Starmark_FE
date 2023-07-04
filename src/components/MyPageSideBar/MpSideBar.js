@@ -40,7 +40,7 @@ export default function MpSideBar({ handleMenuItemClick }) {
         style={{ width: 300, backgroundColor: '#363739' }}
       >
         {items.map((item) => (
-          <Menu.Item key={item.key} icon={item.icon} style={{ fontSize: '18px', height: 80, color: 'white' }}>
+          <Menu.Item key={item.key} icon={item.icon} style={{ fontSize: '18px', height: 80, color: 'white', fontFamily: 'KOTRA_GOTHIC' }}>
             {item.label}
           </Menu.Item>
         ))}
