@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import { Collapse } from 'antd';
 
 //////// font
 export const normalFontStyles = css`
@@ -11,6 +12,21 @@ export const normalFontStyles = css`
     font-style: normal;
   }
 `
+
+
+
+export const titleStyles = css`
+  font-family: 'KOTRA_GOTHIC';
+  font-size: 18px;
+  font-weight: bold;
+`;
+
+export const descriptionStyles = css`
+  font-family: 'KOTRA_GOTHIC';
+`;
+
+
+
 
 // _MainFrame 정중앙 위치용
 export const Frame = styled.div`
@@ -139,3 +155,25 @@ export const FollowingFrame = styled.div`
 
 `
 
+//////////////////////////////// 스크롤바
+
+export const StyledScrollbar = styled(Collapse)`
+  /* 스크롤바 전체 스타일 */
+  &::-webkit-scrollbar {
+    /* width: 0.5em; */
+    display: none; 
+  }
+
+  /* 스크롤 막대 스타일 */
+  /* &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 4px;
+  }
+
+  /* 스크롤 막대 외부 스타일 */
+  /* &::-webkit-scrollbar-track {
+    display: none; 
+    background-color: none;
+    border-radius: 4px;
+  }  */
+`

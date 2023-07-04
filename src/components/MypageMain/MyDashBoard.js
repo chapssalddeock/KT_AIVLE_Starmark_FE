@@ -90,9 +90,14 @@ export default function MyDashBoard() {
     // 4. 네트워크 차트 구성 
     return (<>
         <Frame>
-            <animated.div style={springProps}>
-                <ChartMainFrame id="mynetwork" />
-            </animated.div>
+            <ChartMainFrame>
+                <animated.div style={springProps}>
+                    {/* <ChartMainFrame id="mynetwork" > */}
+                    <h2 style={{ marginTop: '10px', display: 'flex', justifyContent: 'center' }}>My Tags Chart</h2>
+                    <div id="mynetwork" />
+                    {/* </ChartMainFrame> */}
+                </animated.div>
+            </ChartMainFrame>
         </Frame >
     </>
     )
