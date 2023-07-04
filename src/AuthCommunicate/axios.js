@@ -1,60 +1,65 @@
 import axios from 'axios';
 import { useState, useEffect } from "react";
-import dayjs from "dayjs";
+import { useRouter } from "next/router";
 import useAuth from '../AuthHooks/useAuth';
 
 const baseURL = 'http://kt-aivle.iptime.org:40170/api';
 
 export const AXIOS = () => {
-  const [serverTime, setServerTime] = useState(null);
   const { auth, setAuth } = useAuth();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${baseURL}/timestamp/`, {
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        });
-        setServerTime(response.data.timestamp);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const router = useRouter();
 
   const axiosInstance = axios.create({
     baseURL,
     headers: { Authorization: `Bearer ${auth?.access}` }
   });
 
-  axiosInstance.interceptors.request.use(async req => {
-    const isExpired = auth.access_expires - serverTime < 60;
+  const source = axios.CancelToken.source();
 
-    if (!isExpired) return req;
+ axiosInstance.interceptors.request.use(async (req) => {
+      try {
+        const response = await axios.get(`${baseURL}/timestamp/`, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          cancelToken: source.token, // 취소 토큰 설정
+        });
+        const isExpired = auth.access_expires - response.data.timestamp < 60;
+        console.log('accessEX', isExpired);
+        console.log('server', response.data.timestamp);
 
-    try {
-      const response = await axios.post(`${baseURL}/token/refresh2/`, {
-        refresh: auth.refresh
-      });
+        if (!isExpired) return req;
 
-      const { access, access_expires } = response.data;
-      const merge = { ...auth, access, access_expires };
+        console.log('restart');
 
-      localStorage.setItem("TokenData", JSON.stringify(merge));
+        try {
+          const response = await axios.post(`${baseURL}/token/refresh2/`, {
+            refresh: auth.refresh
+          }, {
+            cancelToken: source.token, // 취소 토큰 설정
+          });
 
-      setAuth(merge);
+          const { access, access_expires } = response.data;
+          const merge = { ...auth, access, access_expires };
 
-      req.headers.Authorization = `Bearer ${response.data.access}`;
+          localStorage.setItem("TokenData", JSON.stringify(merge));
 
-      return req;
-    } catch (error) {
-      console.log(error);
-    }
-  });
+          setAuth(merge);
+
+          req.headers.Authorization = `Bearer ${response.data.access}`;
+
+          return req;
+        } catch (error) {
+          router.push('/fail');
+          throw error; // 에러 다시 던지기
+        }
+      } catch (error) {
+        console.log(error);
+        console.log(auth);
+        router.push('/fail');
+        throw error;
+      }
+    });
 
   return axiosInstance;
 };
@@ -65,7 +70,68 @@ export const AXIOS = () => {
 
 
 
+// import axios from 'axios';
+// import { useState, useEffect } from "react";
+// import dayjs from "dayjs";
+// import useAuth from '../AuthHooks/useAuth';
 
+// const baseURL = 'http://kt-aivle.iptime.org:40170/api';
+
+// export const AXIOS = () => {
+//   const [serverTime, setServerTime] = useState(null);
+//   const { auth, setAuth } = useAuth();
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const response = await axios.get(`${baseURL}/timestamp/`, {
+//           headers: {
+//             'Content-Type': 'application/json',
+//           }
+//         });
+//         setServerTime(response.data.timestamp);
+//       } catch (error) {
+//         console.log(error);
+//       }
+//     };
+
+//     fetchData();
+//   }, []);
+
+//   const axiosInstance = axios.create({
+//     baseURL,
+//     headers: { Authorization: `Bearer ${auth?.access}` }
+//   });
+
+//   axiosInstance.interceptors.request.use(async req => {
+//     const isExpired = auth.access_expires - serverTime < 60;
+//     console.log('accessEX', isExpired);
+//     console.log('server', serverTime);
+
+//     if (!isExpired) return req;
+
+//     try {
+//       const response = await axios.post(`${baseURL}/token/refresh2/`, {
+//         refresh: auth.refresh
+//       });
+
+//       const { access, access_expires } = response.data;
+//       const merge = { ...auth, access, access_expires };
+
+//       localStorage.setItem("TokenData", JSON.stringify(merge));
+
+//       setAuth(merge);
+
+//       req.headers.Authorization = `Bearer ${response.data.access}`;
+
+//       return req;
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   });
+
+//   return axiosInstance;
+// };
 
 
 
