@@ -33,28 +33,59 @@ export default function MenuBar({ onSegmentedChange }) {
 
     return (
 
-        <Container style={{ display: 'flex', }}>
-            <Space wrap style={{ flex: 1, justifyContent: 'flex-start', marginLeft: 0 }}>
+        <div style={{ margin: 0, height: '100%', width: '100%' }}>
+            <Space wrap style={{ flex: 1, justifyContent: 'flex-start', width:  '50%'}}>
                 <Button classNames='add' size="large" onClick={handleOpenDrawer}
-                    style={{ width: 100, height: 35, borderRadius: 20, color: '#5eacf2', border: 'solid #5eacf2 0.5px', fontWeight: 'bold', textAlign: 'center', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    style={{ width: 100, height: 35, borderRadius: 20, color: '#3170c7', border: 'solid #3170c7 0.5px', fontWeight: 'bold', textAlign: 'center', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>ADD</span>
                 </Button>
                 <SubmitForm isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
             </Space>
-            <Space wrap style={{ flex: 1, justifyContent: 'flex-end', }}>
+            <Space wrap style={{ flex: 1, justifyContent: 'flex-end', width: '50%'}}>
                 <Select defaultValue="latest" style={{ width: 120, height: 35, }} onChange={handleChange} options={options}></Select>
                 <Segmented onChange={handleSegmentedChange} style={{ height: 35, }}
-                    options={[{
-                        value: 'List',
-                        icon: <List size='25' />,
-                    },
-                    {
-                        value: 'Thumbnail',
-                        icon: <Grid3x3GapFill size='20' />,
-                    },]}
-                />
+                    options={[{ value: 'List', icon: <List size='25' />, },
+                    { value: 'Thumbnail', icon: <Grid3x3GapFill size='20' />, },]} />
             </Space >
-        </Container >
+        </div >
 
     )
 }
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+{/* <Container style={{ margin: 0, height: '100%', width: '100%', }}>
+    <Space wrap style={{ flex: 1, justifyContent: 'flex-start', width: '25%', marginRight: '25%' }}>
+        <Button classNames='add' size="large" onClick={handleOpenDrawer}
+            style={{ width: 100, height: 35, borderRadius: 20, color: '#3170c7', border: 'solid #3170c7 0.5px', fontWeight: 'bold', textAlign: 'center', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>ADD</span>
+        </Button>
+        <SubmitForm isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
+    </Space>
+    <Space wrap style={{ float: 'right', flex: 1, justifyContent: 'flex-end', width: '25%', marginLeft: '25%' }}>
+        <Select defaultValue="latest" style={{ width: 120, height: 35, }} onChange={handleChange} options={options}></Select>
+        <Segmented onChange={handleSegmentedChange} style={{ height: 35, }}
+            options={[{
+                value: 'List',
+                icon: <List size='25' />,
+            },
+            {
+                value: 'Thumbnail',
+                icon: <Grid3x3GapFill size='20' />,
+            },]}
+        />
+    </Space >
+</Container > */}

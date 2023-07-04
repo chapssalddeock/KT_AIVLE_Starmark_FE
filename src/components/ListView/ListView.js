@@ -7,21 +7,30 @@ import useGET from '../../AuthCommunicate/GET';
 // 리스트 뷰에 보일 컬럼 정의
 const columns = [
     {
-        title: 'Title',
+        title: () => <span style={{ fontSize: '1.9vh', fontWeight: 'bold', }}>Title</span>,
         dataIndex: 'title',
         key: 'title',
         width: '8%',
-
+        render: (text) => <span style={{ fontSize: '1.8vh', }}>{text}</span>,
     },
     {
-        title: 'Tags',
+        title: () => <span style={{ fontSize: '1.9vh', fontWeight: 'bold', }}>Tags</span>,
         key: 'tags',
         dataIndex: 'tags',
         render: (_, { tags }) => (
             <>
-                {tags.slice(0, 5).map((tag) => (
+                {tags.slice(0, 5).map((tag, index) => (
                     <Tag key={tag}
-                        style={{ borderRadius: 20, height: 24, marginBottom: 4, color: '#5eacf2', border: 'solid #5eacf2 0.5px' }} color="white">
+                        //style={{ borderRadius: 20, height: 24, marginBottom: 4, color: '#5eacf2', border: 'solid #5eacf2 0.5px' }} color="white"
+                        style={{
+                            borderRadius: 20,
+                            height: '2vh',
+                            marginBottom: 4,
+                            fontSize: '1.4vh',
+                            color: index % 2 === 0 ? '#5eacf2' : '#3170c7',
+                            border: `solid ${index % 2 === 0 ? '#5eacf2' : '#3170c7'} 0.5px`,
+                          }}
+                        >
                         {tag}
                     </Tag>
                 ))}
@@ -29,7 +38,7 @@ const columns = [
         ),
     },
     {
-        title: 'Desc',
+        title: () => <span style={{ fontSize: '1.9vh', fontWeight: 'bold', }}>Desc</span>,
         dataIndex: 'desc',
         key: 'desc',
         render: (desc) => (
@@ -41,7 +50,7 @@ const columns = [
         ),
     },
     {
-        title: 'Opts',
+        title: () => <span style={{ fontSize: '1.9vh', fontWeight: 'bold', }}>Opts</span>,
         key: 'opts',
         render: (_, { url }) => (
             <Space size="middle">
@@ -95,8 +104,8 @@ export default function ListView({ searchResult }) {
     const currentPageData = data.slice(startIndex, endIndex);
 
     return (
-        <div >
-            <div style={{ height: 480, overflowY: 'scroll' }}>
+        <div style={{height: '100%'}}>
+            <div style={{ height: '90%', overflowY: 'scroll' }}>
                 <Table
                     columns={columns}
                     dataSource={currentPageData}

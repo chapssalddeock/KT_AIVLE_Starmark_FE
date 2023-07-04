@@ -54,23 +54,24 @@ export default function ContentArea() {
 
     return (
 
-        <Layout style={{ marginTop: 2, }}>
-            <Layout>
-                <Sider width={300} style={{ color: "white", boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.1)' }}>
-                    <SideBar onSearch={handleSearch} onSuggestedItemClick={handleSuggestedItemClick} ToggleClick={handleSearchHistory} />
-                </Sider>
-                <Layout style={{ padding: '0 24px 24px', backgroundColor: "white" }}>
-                    <div style={{ margin: '16px 0  ', }}>
-                        <MenuBar onSegmentedChange={handleSegmentedChange} />
-                    </div>
-                    <div style={{ borderTop: '1px solid #f0f0f0', marginBottom: '12px' }}></div>
-                    {/* 회색 선 추가 */}
-                    <Content style={{ padding: 4, margin: 0, }}>
-                        {viewMode === 'List' ? <ListView searchResult={searchResult} /> : <ThumbnailView searchResult={searchResult} />} {/* 조건에 따라 썸네일 뷰 또는 리스트 뷰 렌더링 */}
-                    </Content>
-                    <HelpButton page={'service'}/>
-                </Layout>
+        <Layout style={{ height: `calc(100vh - 76px)`}}>
+            <Sider width={300} style={{ color: "white", boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.1)' }}>
+                <SideBar onSearch={handleSearch} onSuggestedItemClick={handleSuggestedItemClick} ToggleClick={handleSearchHistory} />
+            </Sider>
+
+            <Layout style={{ padding: '2vh 4vw 5vh', backgroundColor: 'white', width: 'calc(100vw - 300px)', 
+                            backgroundImage: 'url(/img/Flag_Background.png)',  backgroundSize: "100% 100%", backgroundPosition:  'center', }}>
+                <div style={{ width: '100%', padding: 0, margin: '5vh 0 2vh 0', }}>
+                    <MenuBar onSegmentedChange={handleSegmentedChange} />
+                </div>
+                <div style={{ borderTop: '0.3vh solid #e5e5e5', marginBottom: '12px' }}></div>
+                {/* 회색 선 추가 */}
+                <Content style={{ padding: 4, margin: 0, }}>
+                    {viewMode === 'List' ? <ListView searchResult={searchResult} /> : <ThumbnailView searchResult={searchResult} />} {/* 조건에 따라 썸네일 뷰 또는 리스트 뷰 렌더링 */}
+                </Content>
+                <HelpButton page={'service'} />
             </Layout>
+            
         </Layout>
     );
 };

@@ -32,7 +32,7 @@ export default function NavBar() {
 
         <div>
 
-            <Navbar collapseOnSelect bg="white" style={{ boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)' }}>
+            <Navbar collapseOnSelect bg="white" style={{ boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)' , height: '76px'}}>
                 <Nav.Link onClick={moveHome} style={{ marginLeft: 20 }}><img src='img/defalut_logo.png' height={60}></img></Nav.Link>
                 {/* <div style={{ position: 'absolute', top: 0, left: 0, right: 1240, bottom: 0, zIndex: 1, transform: 'scaleX(-1)' }}>
                     <div style={{ width: '32px', height: '76px', transform: 'skew(400deg)', background: 'rgba(94, 172, 242, 0.7)' }} />
