@@ -167,7 +167,7 @@ export default function MyInfo() {
                     </ContentFrame>
 
                 </MainFrame>
-                <Wave style={{
+                {/* <Wave style={{
                     position: 'absolute', zIndex: -1, bottom: 0,
                     left: 0,
                     width: '100%',
@@ -184,7 +184,7 @@ export default function MyInfo() {
                             <use xlinkHref="#gentle-wave" x="48" y="7" fill="#fff" />
                         </g>
                     </svg>
-                </Wave>
+                </Wave> */}
             </Frame >
         </>
     );
