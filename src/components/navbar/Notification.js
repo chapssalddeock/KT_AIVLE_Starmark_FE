@@ -66,7 +66,7 @@ export default function Notification() {
             await getFetchData('/notice/');
         };
 
-        const interval = setInterval(fetchNotifications, 30000);
+        const interval = setInterval(fetchNotifications, 10000);
         fetchNotifications();
 
         return () => {
