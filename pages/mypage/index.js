@@ -1,4 +1,3 @@
-//import MpContentArea from "../../src/components/ContentArea/MpContentArea"
 import RequireAuth from '../../src/AuthContext/RequireAuth'
 import MpLayout from '../../src/commons/layout/MyIndex'
 
