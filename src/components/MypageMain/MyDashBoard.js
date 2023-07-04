@@ -33,6 +33,7 @@ export default function MyDashBoard() {
     // 3. 빼낸 정보들로 네트워크 차트에 들어갈 데이터 구성
     useEffect(() => {
         if (getData) {
+            console.log("data", getData)
             setData(getData);  // 데이터 받기
         } else if (getError) {
             console.error(getError);
@@ -42,7 +43,7 @@ export default function MyDashBoard() {
 
     useEffect(() => {
         if (data) { // 받은 데이터가 잘 들어갔다면
-
+            console.log("들어갔나?data", data)
             const container = document.getElementById('mynetwork');
 
             // 데이터셋 만들기
@@ -57,8 +58,10 @@ export default function MyDashBoard() {
                     shape: "dot",
                     size: 30,
                     font: {
+
                         size: 16,
                     },
+                    fontFamily: 'KOTRA_GOTHIC',
                     borderWidth: 2,
                 },
                 edges: {
@@ -94,7 +97,7 @@ export default function MyDashBoard() {
                 <animated.div style={springProps}>
                     {/* <ChartMainFrame id="mynetwork" > */}
                     <h2 style={{ marginTop: '10px', display: 'flex', justifyContent: 'center' }}>My Tags Chart</h2>
-                    <div id="mynetwork" style={{ fontFamily: 'KOTRA_GOTHIC' }} />
+                    <div id="mynetwork" />
                     {/* </ChartMainFrame> */}
                 </animated.div>
             </ChartMainFrame>

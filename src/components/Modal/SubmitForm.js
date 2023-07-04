@@ -69,7 +69,7 @@ export default function SubmitForm({ isOpen, onClose, url }) {
     return (
         <>
             <Drawer
-                title={<div style={{ fontSize: '2vmin', fontWeight: 'bold', width: '10vw' }}>북마크 입력</div>}
+                title={<div style={{ fontSize: '2vmin', fontWeight: 'bold', width: '10vw', fontFamily: 'KOTRA_GOTHIC' }}>북마크 입력</div>}
                 width={500}
                 onClose={handleCancel}
                 open={isOpen}
@@ -79,17 +79,19 @@ export default function SubmitForm({ isOpen, onClose, url }) {
                 extra={
                     <div style={{ textAlign: 'right', width: '10vw' }}>
                         <Button onClick={handleCancel}
-                            style={{ width: '25%', height: '100%', marginRight: '0.5vw', backgroundColor: 'white',
+                            style={{
+                                width: '25%', height: '100%', marginRight: '0.5vw', backgroundColor: 'white',
                                 color: 'black', fontSize: '1.5vh', fontWeight: 'bold', borderRadius: '20px', padding: '0.5vh 0.5vw',
-                                boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)'
+                                boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)', fontFamily: 'KOTRA_GOTHIC'
                             }}
                         >
                             취소
                         </Button>
                         <Button form="submitForm" key="submit" htmlType="submit" type="primary" loading={isSubmitting}
-                            style={{ width: '25%', height: '100%', marginRight: '0.5vw', backgroundColor: 'white',
+                            style={{
+                                width: '25%', height: '100%', marginRight: '0.5vw', backgroundColor: 'white',
                                 color: 'black', fontSize: '1.5vh', fontWeight: 'bold', borderRadius: '20px', padding: '0.5vh 0.5vw',
-                                boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)'
+                                boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)', fontFamily: 'KOTRA_GOTHIC'
                             }}
                         >
                             제출
@@ -104,33 +106,33 @@ export default function SubmitForm({ isOpen, onClose, url }) {
                     {selectedOption === 'URL' && (
                         <>
                             <Row gutter={16}>
-                                <Form.Item name="title" label={<span style={{ fontSize: '1.8vmin'}}>북마크 이름</span>}
-                                rules={[{ required: true, message: '북마크 이름을 입력하세요.' }]}
-                                style={{ width: '80%', height: '5vh',  marginBottom: '5vh'}}
+                                <Form.Item name="title" label={<span style={{ fontSize: '1.8vmin', fontFamily: 'KOTRA_GOTHIC' }}>북마크 이름</span>}
+                                    rules={[{ required: true, message: '북마크 이름을 입력하세요.' }]}
+                                    style={{ width: '80%', height: '5vh', marginBottom: '5vh' }}
                                 >
-                                    <Input placeholder="북마크 이름을 입력하세요." 
-                                        style={{ width: '100%',  fontSize: '1.8vmin'}}
+                                    <Input placeholder="북마크 이름을 입력하세요."
+                                        style={{ width: '100%', fontSize: '1.8vmin' }}
                                     />
                                 </Form.Item>
                             </Row>
                             <Row gutter={16}>
-                                <Form.Item name="url" label={<span style={{ fontSize: '1.8vmin'}}>URL</span>}
-                                 rules={[{ required: true, message: 'URL을 입력하세요.' }]} initialValue={url}
-                                style={{ width: '80%', height: '5vh',  marginBottom: '5vh'}}
+                                <Form.Item name="url" label={<span style={{ fontSize: '1.8vmin', fontFamily: 'KOTRA_GOTHIC' }}>URL</span>}
+                                    rules={[{ required: true, message: 'URL을 입력하세요.' }]} initialValue={url}
+                                    style={{ width: '80%', height: '5vh', marginBottom: '5vh' }}
                                 >
-                                    <Input placeholder="URL을 입력하세요." 
-                                        style={{ width: '100%',  fontSize: '1.8vmin' }}
+                                    <Input placeholder="URL을 입력하세요."
+                                        style={{ width: '100%', fontSize: '1.8vmin' }}
                                     />
                                 </Form.Item>
                             </Row>
                             <Row gutter={16}>
-                                <Form.Item name="is_public" label={<span style={{ fontSize: '1.8vmin'}}>공개여부</span>} 
-                                rules={[{ required: true, message: '공개 여부를 선택하세요.' }]}
-                                style={{ width: '80%', marginBottom: '5vh'}}
+                                <Form.Item name="is_public" label={<span style={{ fontSize: '1.8vmin', fontFamily: 'KOTRA_GOTHIC' }}>공개여부</span>}
+                                    rules={[{ required: true, message: '공개 여부를 선택하세요.' }]}
+                                    style={{ width: '80%', marginBottom: '5vh' }}
                                 >
                                     <Select placeholder="선택" options={options} onChange={handleChange}
-                                    style={{ width: '100%' }}                                      
-                                     />
+                                        style={{ width: '100%' }}
+                                    />
                                 </Form.Item>
                             </Row>
                         </>
@@ -138,8 +140,9 @@ export default function SubmitForm({ isOpen, onClose, url }) {
 
                     {selectedOption === 'HTML' && (
                         <>
-                            <Form.Item name="file" label="HTML 파일 업로드">
-                                <Button icon={<UploadOutlined />} onClick={() => document.getElementById('fileInput').click()}>
+                            {/* label="HTML 파일 업로드"가 Form.Item에 있었음 */}
+                            <Form.Item name="file"  >
+                                <Button style={{ fontFamily: 'KOTRA_GOTHIC' }} icon={<UploadOutlined />} onClick={() => document.getElementById('fileInput').click()}>
                                     파일 업로드
                                 </Button>
                                 <input type="file" id="fileInput" style={{ display: 'none' }} onChange={handleFileChange} />
@@ -261,7 +264,7 @@ export default function SubmitForm({ isOpen, onClose, url }) {
 //                 zIndex={2000}
 //                 extra={
 //                     <div style={{ textAlign: 'right', width: '10vw' }}>
-//                         <Button onClick={handleCancel} 
+//                         <Button onClick={handleCancel}
 //                         style={{ width: '25%', height: '100%', marginRight: '0.5vw', backgroundColor: 'white',
 //                             color: 'black', fontSize: '1.5vh', fontWeight: 'bold', borderRadius: '20px', padding: '0.5vh 0.5vw',
 //                             boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)'

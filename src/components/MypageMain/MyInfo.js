@@ -123,7 +123,11 @@ export default function MyInfo() {
                         </ImgFrame>
                         <ImgChangeButton>
                             <input type="file" accept="image/*" onChange={handleImageChange} ref={fileInputRef} style={{ display: 'none' }} />
-                            <Button onClick={handleButtonClick} style={{ borderRadius: 30 }}>Change Profile Picture</Button>
+                            <Button onClick={handleButtonClick} style={{
+                                         height: '100%', marginRight: '0.5vw', backgroundColor: 'white',
+                                        color: 'black', fontSize: '1.5vh', fontWeight: 'bold', borderRadius: '20px', padding: '0.5vh 0.5vw',
+                                        boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)', fontFamily: 'KOTRA_GOTHIC'
+                                    }}>Change Profile Picture</Button>
                         </ImgChangeButton>
                     </ImgMainFrame>
                     <ContentFrame>
@@ -142,8 +146,16 @@ export default function MyInfo() {
                                     ))}
                                 </Form>
                                 <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 100 }}>
-                                    <Button type="primary" onClick={handleSaveClick} style={{ borderRadius: 30, marginRight: 20 }}>Save</Button>
-                                    <Button onClick={handleCancelClick} style={{ borderRadius: 30 }}>Cancel</Button>
+                                    <Button type="primary" onClick={handleSaveClick} style={{
+                                        width: '25%', height: '100%', marginRight: '0.5vw', backgroundColor: 'white',
+                                        color: 'black', fontSize: '1.5vh', fontWeight: 'bold', borderRadius: '20px', padding: '0.5vh 0.5vw',
+                                        boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)', fontFamily: 'KOTRA_GOTHIC'
+                                    }}>Save</Button>
+                                    <Button onClick={handleCancelClick} style={{
+                                        width: '25%', height: '100%', marginRight: '0.5vw', backgroundColor: 'white',
+                                        color: 'black', fontSize: '1.5vh', fontWeight: 'bold', borderRadius: '20px', padding: '0.5vh 0.5vw',
+                                        boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)', fontFamily: 'KOTRA_GOTHIC'
+                                    }}>Cancel</Button>
                                 </div>
                             </div>
                         ) : (
@@ -160,7 +172,11 @@ export default function MyInfo() {
                                     )}
                                 />
                                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                    <Button type="primary" onClick={handleEditClick} style={{ borderRadius: 30 }}>Edit</Button>
+                                    <Button type="primary" onClick={handleEditClick} style={{
+                                        width: '25%', height: '100%', marginRight: '0.5vw', backgroundColor: 'white',
+                                        color: 'black', fontSize: '1.5vh', fontWeight: 'bold', borderRadius: '20px', padding: '0.5vh 0.5vw',
+                                        boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)', fontFamily: 'KOTRA_GOTHIC'
+                                    }}>Edit</Button>
                                 </div>
                             </div>
                         )}
