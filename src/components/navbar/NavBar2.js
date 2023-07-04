@@ -8,6 +8,7 @@ import Notification from "./Notification";
 const HiddenJoin = [
     "/join",
     "/join#",
+    "/fail",
 ]
 
 

@@ -21,7 +21,6 @@ const CustomCard = ({ title, desc, img, url, tags }) => {
                     />
                 }
             >
-                {/* ant-card-body  이게 뭐길래 날 괴롭게 해 padding 없애고 싶은데 어떻게 하냐고 ㅠㅠ*/}
                 <div style={{ marginTop: 0, marginBottom: 10, padding: 0 }}>
                     {tags.slice(0, 5).map((tag, index) => (
                         <Tag key={index} style={{ fontFamily: 'KOTRA_GOTHIC', borderRadius: 20, height: '2.5vh', marginBottom: 4, fontSize: '1.5vh', color: '#5eacf2', border: ' solid #5eacf2 0.5px', }} color="white">
