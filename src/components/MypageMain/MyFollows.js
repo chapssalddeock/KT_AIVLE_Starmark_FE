@@ -88,7 +88,6 @@ export default function MyFollows() {
     return (
         <>
             <Frame>
-                <Global styles={normalFontStyles} ></Global>
                 <MainFrame>
                     <FollowerFrame>
                         <h2 style={{ marginBottom: '20px', display: 'flex', justifyContent: 'center' }}>Followers</h2>

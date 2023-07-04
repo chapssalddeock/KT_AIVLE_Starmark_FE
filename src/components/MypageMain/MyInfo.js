@@ -115,7 +115,6 @@ export default function MyInfo() {
         <>
             <Frame>
                 <MainFrame>
-                    <Global styles={normalFontStyles} ></Global>
                     <ImgMainFrame>
                         <ImgFrame>
                             <img src={info.profile_image} style={{ width: 300, height: 300, borderRadius: 150 }} alt="Profile" />

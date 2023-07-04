@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 
 //////// font
 export const normalFontStyles = css`
+
   @font-face {
     font-family: 'KOTRA_GOTHIC';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/KOTRA_GOTHIC.woff') format('woff');
@@ -13,6 +14,8 @@ export const normalFontStyles = css`
 
 // _MainFrame 정중앙 위치용
 export const Frame = styled.div`
+  ${normalFontStyles}
+  font-family: 'KOTRA_GOTHIC';
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,6 +25,8 @@ export const Frame = styled.div`
 /////////////////////////////////////////////////////////////////////////////////////////////
 // MyDashBoard.js 프레임용
 export const ChartMainFrame = styled.div`
+  ${normalFontStyles}
+  font-family: 'KOTRA_GOTHIC';
   display: flex;
   width: calc(100vw - 400px);
   height: calc(100vh - 150px);
@@ -33,7 +38,8 @@ export const ChartMainFrame = styled.div`
 ////////////////////////////////////////////////////////////////////////////////////////////
 // MyInfo.js 프레임용
 export const MainFrame = styled.div`
-
+  ${normalFontStyles}
+  font-family: 'KOTRA_GOTHIC';
   display: grid;
   grid-template-columns: 1fr 1fr; /* 2열로 설정 */
   /* grid-template-rows: auto; 1행으로 설정 */
@@ -45,6 +51,8 @@ export const MainFrame = styled.div`
 `;
 
 export const ImgMainFrame = styled.div`
+  ${normalFontStyles}
+  font-family: 'KOTRA_GOTHIC';
   grid-column: 1; /* 1열로 배치 */
   grid-row: 1 / span 2; /* 1행부터 2행까지 확장 */
   width: 20vw;
@@ -59,6 +67,8 @@ export const ImgMainFrame = styled.div`
 `
 
 export const ImgFrame = styled.div`
+  ${normalFontStyles}
+  font-family: 'KOTRA_GOTHIC';
   width: 300px;
   height: 300px;
   display: flex;
@@ -71,6 +81,8 @@ export const ImgFrame = styled.div`
 `;
 
 export const ImgChangeButton = styled.div`
+  ${normalFontStyles}
+  font-family: 'KOTRA_GOTHIC';
 
   width: 300px;
   height: 50px;
@@ -82,6 +94,8 @@ export const ImgChangeButton = styled.div`
 `;
 
 export const ContentFrame = styled.div`
+  ${normalFontStyles}
+  font-family: 'KOTRA_GOTHIC';
   grid-column: 2; /* 2열로 배치 */
   grid-row: 1 / span 2; /* 1행부터 2행까지 확장 */
   width: 30vw;
@@ -113,10 +127,14 @@ export const TitleFrame = styled.div`
 ////////////////////////////////////////////////////////////////////////////
 // MyFollow.js용 
 export const FollowerFrame = styled.div`
+  ${normalFontStyles}
+  font-family: 'KOTRA_GOTHIC';
   grid-column: 1; /* 1열로 배치 */
 
 `
 export const FollowingFrame = styled.div`
+  ${normalFontStyles}
+  font-family: 'KOTRA_GOTHIC';
   grid-column: 2; /* 2열로 배치 */
 
 `
