@@ -3,9 +3,9 @@ import { Drawer, Spin, Input, Avatar , Button, Modal, Form, Tag} from 'antd';
 import FollowButton from '../Modal/FollowButton';
 import usePOST from '../../AuthCommunicate/POST';
 import SubmitForm from '../Modal/SubmitForm';
-
+import { StyledScrollbar } from '../../../styles/HelpButton_Emotion';
 // id, email, username, profile_image, is_following, following_cnt, follower_cnt, bookmark_cnt 넘어옴
-export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList }) {
+export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList, allurls, userdataProfile }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedUrl, setSelectedUrl] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -20,6 +20,7 @@ export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList
   const handleCloseDrawer = () => {
     setIsDrawerOpen(false);
   };
+  const valuesList = Object.values(allurls)
 
   useEffect(() => {
     if (postData) {
@@ -30,20 +31,21 @@ export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList
         setIsSubmitting(false); // Reset the submission state
     }
 }, [postData, postError]);
-
-
+ 
   return (
     <>
       <Drawer
         width={500}
         onClose={onClose}
         open={isOpen}
-        bodyStyle={{
-          paddingBottom: 80,
-        }}
+        style={{
+          maxHeight:'100vh',
+          overflowY: 'hidden'
+      }}
+        
       >
         {userProfile && (
-          <div style ={{ height: '100vh'}}>
+          <div style ={{  display: 'flex', justifyContent: 'center', alignItems: 'center',flexDirection: 'column',  height: '80vh'}}>
             <div className="site-description-item-profile-p" style= {{display: 'flex', justifyContent: 'center', alignItems: 'center',}}>
               <Avatar src={userProfile.profile_image} size={80} />
               
@@ -54,41 +56,111 @@ export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList
             <div  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <strong>Email:</strong> {userProfile.email}
               <div >
-                <Tag style = {{display: 'flex', justifyContent: 'center', alignItems: 'center', height:'25px', width:'100%'}} color="geekblue">
+                <Tag style = {{display: 'flex', justifyContent: 'center', alignItems: 'center', height:'25px', width:'100%', borderRadius: 20, height: 24, marginBottom: 4, color: '#5eacf2', border: 'solid #5eacf2 0.5px'}} color="white">
                   {userProfile.is_following ? 'Following' : 'Follow'}
                 </Tag>
                 
               </div>
               <strong>Url:</strong>
-              {urls.map((url, index) => {
-                const isUrlInList = urlList.includes(url);
-                return (
-                  <div
-                    key={index}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      marginBottom: '20px',
-                      opacity: isUrlInList ? 0.5 : 1,
-                      pointerEvents: isUrlInList ? 'none' : 'auto',
-                      width: '80%',
-                    }}
-                  >
-                    <div style={{ flex: 1, overflowX: 'hidden', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{url}</div>
-                    <Button onClick={() => handleOpenDrawer(url)} type="primary" size="small" disabled={isUrlInList} style = {{marginLeft: '20px'}}>
-                      Add
-                    </Button>
-                    <SubmitForm url={url} isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
-                  </div>
-                );
-              })}
+              <StyledScrollbar style={{overflowY:'scroll', height:'30vh', width: '450px'}}>
+                <div>
+                  {urls.map((url, index) => {
+                    const isUrlInList = urlList.includes(url);
+                    return (
+                      <div
+                        key={index}
+                        style={{
+                          marginLeft:'2vw',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          marginTop: '3vh',
+                          marginBottom: '3vh',
+                          opacity: isUrlInList ? 0.5 : 1,
+                          pointerEvents: isUrlInList ? 'none' : 'auto',
+                          width: '90%',
+                        }}
+                      >
+                        <div style={{ flex: 1, overflowX: 'hidden', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{url}</div>
+                        <Button onClick={() => handleOpenDrawer(url)} type="primary" size="small" disabled={isUrlInList} style={{ width: '25%', height: '100%', backgroundColor: 'white',
+                                color: 'black', fontSize: '1.5vh', fontWeight: 'bold', borderRadius: '20px', padding: '0.5vh 0.5vw',
+                                boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)'
+                            }}>
+                          Add
+                        </Button>
+                        <SubmitForm url={url} isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
+                      </div>
+                    );
+                  })}
+                </div>
+               
+              </StyledScrollbar>
+              
             </div>
             {/* 추가적인 유저 정보를 표시하는 코드를 작성하세요 */}
           </div>
         )}
 
-        {!userProfile && (
-          <p className="site-description-item-profile-p">유저 정보를 불러오는 중입니다...</p>
+        {!userProfile && userdataProfile && (
+          <div style ={{  display: 'flex', justifyContent: 'center', alignItems: 'center',flexDirection: 'column',  height: '80vh'}}>
+            <div className="site-description-item-profile-p" style= {{display: 'flex', justifyContent: 'center', alignItems: 'center',}}>
+              <Avatar src={userdataProfile.profile_image} size={80} />
+              
+            </div>
+            <div style= {{display: 'flex', justifyContent: 'center', alignItems: 'center',}}>
+              <strong>UserName:</strong> {userdataProfile.username}
+            </div>
+            <div  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <strong>Email:</strong> {userdataProfile.email}
+              <div >
+                <Tag style = {{display: 'flex', justifyContent: 'center', alignItems: 'center', height:'25px', width:'100%', borderRadius: 20, height: 24, marginBottom: 4, color: '#5eacf2', border: 'solid #5eacf2 0.5px'}} color="white">
+                  {userdataProfile.is_following ? 'Following' : 'Follow'}
+                </Tag>
+                
+              </div>
+              <div style={{ width:'100%',display: 'flex', flexDirection: 'row' }}>
+                <div style={{ fontWeight: 'bold',marginLeft:'5%' }}>Main Tag</div>
+                <div style={{ fontWeight: 'bold', marginLeft:'30%' }}>Url</div>
+              </div>
+              <StyledScrollbar style={{overflowY:'scroll', height:'30vh', width: '450px'}}>
+                <div>
+                  {Object.entries(allurls).map(([key, value]) => {
+                    const isUrlInList = urlList.includes(allurls);
+                    return (
+                      <div
+                        
+                        style={{
+                          marginLeft:'2vw',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          marginTop: '3vh',
+                          marginBottom: '3vh',
+                          opacity: isUrlInList ? 0.5 : 1,
+                          pointerEvents: isUrlInList ? 'none' : 'auto',
+                          width: '90%',
+                        }}
+                      >
+                        <div key={key} style={{ fontFamily: 'KOTRA_GOTHIC', flex: 1, overflowX: 'hidden', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          {key}: {value}
+                        </div>
+                        <Button onClick={() => handleOpenDrawer(allurls)} type="primary" size="small" disabled={isUrlInList} style={{ width: '25%', height: '100%', backgroundColor: 'white',
+                                color: 'black', fontSize: '1.5vh', fontWeight: 'bold', borderRadius: '20px', padding: '0.5vh 0.5vw',
+                                boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)'
+                            }}>
+                          Add
+                        </Button>
+                        <SubmitForm url={valuesList} isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
+                      </div>
+                    );
+                  })}
+                </div>
+               
+              </StyledScrollbar>
+              
+            </div>
+            
+          </div>
         )}
       </Drawer>
 

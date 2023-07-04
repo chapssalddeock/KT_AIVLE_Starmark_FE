@@ -9,7 +9,7 @@ export default function SocialSideBar({ onSearch, onSuggestedItemClick, ToggleCl
     const [searchHistory, setSearchHistory] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
-    const MAX_HISTORY_LENGTH = 10;
+    const MAX_HISTORY_LENGTH = 6;
     const searchInputRef = useRef(null);
     const suggestedItemsRef = useRef(null);
     const [filteredItems, setFilteredItems] = useState([]);
@@ -138,7 +138,7 @@ export default function SocialSideBar({ onSearch, onSuggestedItemClick, ToggleCl
             <div className="sidebar">
 
                 <div className="search-container">
-                    <input className="search-input" type="text" placeholder="Search" value={searchQuery} onChange={handleSearchInput} ref={searchInputRef} />
+                    <input className="search-input" type="text" style={{fontFamily: 'KOTRA_GOTHIC'}} placeholder="Search Tag for Users" value={searchQuery} onChange={handleSearchInput} ref={searchInputRef} />
                     <button className="search-button" type="button" onClick={handleSearch}>
                         <Search />
                     </button>
@@ -148,7 +148,7 @@ export default function SocialSideBar({ onSearch, onSuggestedItemClick, ToggleCl
                         <div className="search-record-wrapper" >
                             {searchHistory.slice(0, MAX_HISTORY_LENGTH).map((query, index) => (
                                 <Tag color="geekblue" key={index} className="search-record"
-                                    style= {{display: 'flex', marginBottom:'3%', justifyContent: 'center', alignItems: 'center', width: '255px'}} 
+                                    style= {{display: 'flex', marginBottom:'3%', justifyContent: 'center', alignItems: 'center', width: '255px', fontFamily: 'KOTRA_GOTHIC', color: '#5eacf2', border: 'solid #5eacf2 0.5px'}} 
                                     onMouseEnter={() => handleMouseEnter(query)}
                                     onMouseLeave={handleMouseLeave}
                                     onClick={() => handleSearchHistory(query)}>
@@ -162,6 +162,7 @@ export default function SocialSideBar({ onSearch, onSuggestedItemClick, ToggleCl
                         <div id="suggestion-box">
                             {tags.map((item, index) => (
                                 <div key={index} className="suggested-item"
+                                style={{fontFamily: 'KOTRA_GOTHIC'}}
                                     onMouseEnter={() => handleMouseEnter(item)}
                                     onMouseLeave={handleMouseLeave}
                                     onClick={() => handleSuggestedItemClick(item)}

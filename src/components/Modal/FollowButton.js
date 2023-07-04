@@ -46,8 +46,12 @@ export default function FollowButton({ user_isFollowing, user_id }) {
 
 
     return (
-        <Button onClick={isFollowing ? () => handleUnfollow(user_id) : () => handleFollow(user_id)}>
-            {isFollowing ? 'Following' : 'Follow'}
+        <Button 
+        onClick={isFollowing ? () => handleUnfollow(user_id) : () => handleFollow(user_id)}
+        type={!isFollowing ? "primary" : "default"}
+        style={{fontFamily: 'KOTRA_GOTHIC'}}
+        >
+        {isFollowing ? 'Following' : 'Follow'}
         </Button>
     );
 };
