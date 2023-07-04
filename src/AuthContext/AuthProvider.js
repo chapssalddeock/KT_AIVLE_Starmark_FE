@@ -1,19 +1,47 @@
 import { createContext, useState, useEffect } from "react";
+import axios from 'axios';
+import { useRouter } from "next/router";
+const baseURL = 'http://kt-aivle.iptime.org:40170/api';
+
 
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState();
     const [loading, setLoading] = useState(true);
+    const router = useRouter();    
 
-    useEffect(() => {      
-        const getToken = localStorage.getItem("TokenData");
-        if (getToken) {
-            // 여기에다가 require Auth expires 확인
-            // 만약 유효기간이 지났으면 localStorage, auth 모두 비움
-            console.log("ifprovide");
-            setAuth(JSON.parse(getToken));
-        }
+    useEffect(() => {        
+        const getToken = async () => {
+            const tokenData = localStorage.getItem("TokenData");
+            console.log(auth);
+            if (tokenData) {
+                try {
+                    const response = await axios.get(`${baseURL}/timestamp/`, {
+                      headers: {
+                        'Content-Type': 'application/json',
+                      }
+                    });
+
+                    const isExpired = JSON.parse(tokenData).refresh_expires - response.data.timestamp < 60;
+
+                    if (!isExpired) {
+                        console.log(JSON.parse(tokenData).refresh_expires);
+                        console.log(response.data.timestamp);
+                        setAuth(JSON.parse(tokenData));
+                    } else {
+                        console.log('end');
+                        setAuth(null);
+                        localStorage.removeItem("TokenData");
+                        router.push("/");
+                    }
+                  } catch (error) {
+                    console.log(error);
+                  }                
+            }
+        };
+
+        getToken();
         setLoading(false);
     }, []);
     
