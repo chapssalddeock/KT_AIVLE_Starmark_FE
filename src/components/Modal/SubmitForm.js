@@ -76,6 +76,7 @@ export default function SubmitForm({ isOpen, onClose, url }) {
                 bodyStyle={{
                     paddingBottom: 80,
                 }}
+                zIndex={2000}
                 extra={
                     <div style={{ textAlign: 'right' }}>
                         <Button onClick={handleCancel} style={{ marginRight: 8 }}>
