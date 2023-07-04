@@ -94,7 +94,7 @@ export default function MyDashBoard() {
                 <animated.div style={springProps}>
                     {/* <ChartMainFrame id="mynetwork" > */}
                     <h2 style={{ marginTop: '10px', display: 'flex', justifyContent: 'center' }}>My Tags Chart</h2>
-                    <div id="mynetwork" />
+                    <div id="mynetwork" style={{ fontFamily: 'KOTRA_GOTHIC' }} />
                     {/* </ChartMainFrame> */}
                 </animated.div>
             </ChartMainFrame>

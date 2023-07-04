@@ -7,14 +7,14 @@ import useGET from '../../AuthCommunicate/GET';
 // 리스트 뷰에 보일 컬럼 정의
 const columns = [
     {
-        title: () => <span style={{ fontSize: '1.9vh', fontWeight: 'bold', }}>Title</span>,
+        title: () => <span style={{ fontSize: '1.9vh', fontWeight: 'bold', fontFamily: 'KOTRA_GOTHIC' }}>Title</span>,
         dataIndex: 'title',
         key: 'title',
         width: '10%',
-        render: (text) => <span style={{ fontSize: '1.8vh', }}>{text}</span>,
+        render: (text) => <span style={{ fontSize: '1.8vh', fontFamily: 'KOTRA_GOTHIC' }}>{text}</span>,
     },
     {
-        title: () => <span style={{ fontSize: '1.9vh', fontWeight: 'bold', }}>Tags</span>,
+        title: () => <span style={{ fontSize: '1.9vh', fontWeight: 'bold', fontFamily: 'KOTRA_GOTHIC' }}>Tags</span>,
         key: 'tags',
         dataIndex: 'tags',
         width: '20%',
@@ -29,8 +29,8 @@ const columns = [
                             fontSize: '1.3vh',
                             color: index % 2 === 0 ? '#5eacf2' : '#3170c7',
                             border: `solid ${index % 2 === 0 ? '#5eacf2' : '#3170c7'} 0.5px`,
-                          }}
-                        >
+                        }}
+                    >
                         {tag}
                     </Tag>
                 ))}
@@ -38,12 +38,12 @@ const columns = [
         ),
     },
     {
-        title: () => <span style={{ fontSize: '1.9vh', fontWeight: 'bold', }}>Desc</span>,
+        title: () => <span style={{ fontSize: '1.9vh', fontWeight: 'bold', fontFamily: 'KOTRA_GOTHIC' }}>Desc</span>,
         dataIndex: 'desc',
         key: 'desc',
         width: '60%',
         render: (desc) => (
-            <div style={{ height: 'auto', fontSize: '1.8vh' }}>
+            <div style={{ height: 'auto', fontSize: '1.8vh', fontFamily: 'KOTRA_GOTHIC' }}>
                 {desc.split('\n').slice(0, 2).map((line, index) => (
                     <span key={index}>{line}<br /></span>
                 ))}
@@ -57,7 +57,7 @@ const columns = [
         render: (_, { url }) => (
             <Space size="middle">
                 <a href={url}>
-                    <BoxArrowUpRight style={{ fontSize: '1.9vh'}} />
+                    <BoxArrowUpRight style={{ fontSize: '1.9vh' }} />
                 </a>
             </Space>
         ),
@@ -125,22 +125,22 @@ export default function ListView({ searchResult }) {
             border-radius: 4px;
           }
         `;
-      
+
         const style = document.createElement('style');
         style.appendChild(document.createTextNode(scrollbarStyle));
         document.head.appendChild(style);
-      };
-      
-      // 컴포넌트가 마운트된 후 스크롤바 스타일을 적용
-      useEffect(() => {
+    };
+
+    // 컴포넌트가 마운트된 후 스크롤바 스타일을 적용
+    useEffect(() => {
         applyScrollbarStyle();
-      }, []);
+    }, []);
 
 
 
 
     return (
-        <div style={{height: '100%'}}>
+        <div style={{ height: '100%' }}>
             <div style={{ height: '90%', overflow: 'hidden' }}>
                 <Table
                     columns={columns}
@@ -148,14 +148,15 @@ export default function ListView({ searchResult }) {
                     pagination={false}
                     loading={loading}
                     rowKey={(_, index) => index}
-                    scroll={{ y: 'calc(100vh - 45vh)',
-                }} 
+                    scroll={{
+                        y: 'calc(100vh - 45vh)',
+                    }}
                     style={{ height: '100%' }}
                 />
             </div>
             <div style={{ alignSelf: 'flex-end', marginRight: 0, marginTop: 0 }}>
                 <Pagination
-                    style={{ marginTop: 20, textAlign: 'left', color: '#3170c7',}}
+                    style={{ marginTop: 20, textAlign: 'left', color: '#3170c7', }}
                     current={currentPage}
                     pageSize={pageSize}
                     total={data.length}

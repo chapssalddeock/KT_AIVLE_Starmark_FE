@@ -99,11 +99,11 @@ export default function MyFollows() {
                                 <List.Item style={{ height: '100px', marginLeft: '28px' }}>
                                     <List.Item.Meta
                                         avatar={<Avatar src={follower.profile_image} style={{ width: '60px', height: '60px' }} />}
-                                        title={<span style={{ fontSize: '18px', fontWeight: 'bold' }}>{follower.username}</span>}
-                                        description={<span>{follower.email}</span>}
+                                        title={<span style={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'KOTRA_GOTHIC' }}>{follower.username}</span>}
+                                        description={<span style={{ fontFamily: 'KOTRA_GOTHIC' }}>{follower.email}</span>}
                                     />
 
-                                    <Button style={{ borderRadius: 30, marginRight: 30 }} onClick={() => handleFollow(follower.id)}>
+                                    <Button style={{ borderRadius: 30, marginRight: 30, fontFamily: 'KOTRA_GOTHIC' }} onClick={() => handleFollow(follower.id)}>
                                         {info.following.map(f => f.id).includes(follower.id) ? '팔로잉' : '팔로우하기'}
                                     </Button>
                                 </List.Item>
@@ -121,11 +121,11 @@ export default function MyFollows() {
                                 <List.Item style={{ height: '100px', marginLeft: '28px' }}>
                                     <List.Item.Meta
                                         avatar={<Avatar src={following.profile_image} style={{ width: '60px', height: '60px' }} />}
-                                        title={<span style={{ fontSize: '18px', fontWeight: 'bold' }}>{following.username}</span>}
-                                        description={<span>{following.email}</span>}
+                                        title={<span style={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'KOTRA_GOTHIC' }}>{following.username}</span>}
+                                        description={<span style={{ fontFamily: 'KOTRA_GOTHIC' }}>{following.email}</span>}
                                     />
 
-                                    <Button style={{ borderRadius: 30, marginRight: 30 }} onClick={() => handleFollow(following.id)}>
+                                    <Button style={{ borderRadius: 30, marginRight: 30, fontFamily: 'KOTRA_GOTHIC' }} onClick={() => handleFollow(following.id)}>
                                         {info.following.map(f => f.id).includes(following.id) ? '팔로잉' : '팔로우하기'}
                                     </Button>
                                 </List.Item>
