@@ -19,7 +19,8 @@ const dataList = [
 export default function MyInfo() {
     const [info, setInfo] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
-    const [isImageUploaded, setIsImageUploaded] = useState(false);
+    const [uploadedImage, setUploadedImage] = useState(null);
+
 
     const { fetchData: getFetchData, data: getData, error: getError } = useGET();
     const { fetchData: putFetchData, data: putData, error: putError } = usePUT();
@@ -101,17 +102,19 @@ export default function MyInfo() {
 
         try {
             await postFetchData('/profile_img/', formData);
-            setIsImageUploaded(true);
+            setUploadedImage(image);
+
         } catch (error) {
             console.error('Image upload failed:', error);
         }
     };
 
     useEffect(() => {
-        if (isImageUploaded) {
-            window.location.reload(); // 프로필 사진이 업로드된 후 페이지 새로고침
+        if (uploadedImage) {
+            fetchData();
+            // 프로필 사진 업로드 후 재통신
         }
-    }, [isImageUploaded]);
+    }, [uploadedImage]);
 
     return (
         <>
@@ -124,10 +127,10 @@ export default function MyInfo() {
                         <ImgChangeButton>
                             <input type="file" accept="image/*" onChange={handleImageChange} ref={fileInputRef} style={{ display: 'none' }} />
                             <Button onClick={handleButtonClick} style={{
-                                         height: '100%', marginRight: '0.5vw', backgroundColor: 'white',
-                                        color: 'black', fontSize: '1.5vh', fontWeight: 'bold', borderRadius: '20px', padding: '0.5vh 0.5vw',
-                                        boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)', fontFamily: 'KOTRA_GOTHIC'
-                                    }}>Change Profile Picture</Button>
+                                height: '100%', marginRight: '0.5vw', backgroundColor: 'white',
+                                color: 'black', fontSize: '1.5vh', fontWeight: 'bold', borderRadius: '20px', padding: '0.5vh 0.5vw',
+                                boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)', fontFamily: 'KOTRA_GOTHIC'
+                            }}>Change Profile Picture</Button>
                         </ImgChangeButton>
                     </ImgMainFrame>
                     <ContentFrame>
