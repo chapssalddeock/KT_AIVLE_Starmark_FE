@@ -1,5 +1,5 @@
 import { Layout } from 'antd';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 const { Content, Sider } = Layout;
 import ThumbnailView from '../ThumbnailView/ThumbnailView';
 import ListView from '../ListView/ListView';

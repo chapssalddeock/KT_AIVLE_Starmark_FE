@@ -1,5 +1,5 @@
 import { Layout } from 'antd';
-import { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import React from 'react';
 const { Content, Sider } = Layout;
 import SocialListView from '../SocialListView/SocialListView';
@@ -48,16 +48,17 @@ export default function SocialContentArea() {
                 <Sider width={300} style={{ color: "white", boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.1)' }}>
                     <SocialSideBar onSearch={handleSearch} onSuggestedItemClick={handleSuggestedItemClick} ToggleClick={handleSearchHistory} />
                 </Sider>
-                <Layout style={{ padding: '0 24px 24px', backgroundColor: "white", width: 'calc(100vw - 300px)', 
-                            backgroundImage: 'url(/img/Flag_Background.png)',  backgroundSize: "100% 100%", backgroundPosition:  'center', }}>
+                <Layout style={{
+                    padding: '0 24px 24px', backgroundColor: "white", width: 'calc(100vw - 300px)',
+                    backgroundImage: 'url(/img/Flag_Background.png)', backgroundSize: "100% 100%", backgroundPosition: 'center',
+                }}>
                     <div style={{ margin: '12px 0  ', }}>
                     </div>
                     <div style={{ borderTop: '1px solid #f0f0f0', marginBottom: '12px' }}></div>
-                    {/* 바로 위 div는 회색선이라 보고 빼던가 넣던가 하기 */}
                     <Content style={{ padding: 24, margin: 0, }}>
                         <SocialListView searchResult={searchResult} />
                     </Content>
-                    <HelpButton page={'social'}/>
+                    <HelpButton page={'social'} />
                 </Layout>
             </Layout>
         </Layout>
