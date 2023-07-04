@@ -39,8 +39,8 @@ export default function NavBar() {
                 </div> */}
 
                 <Navbar.Collapse className="justify-content-end" style={{ marginRight: 50 }}>
-                    {!isOpenJoin && <Nav.Link style={{ marginRight: 20 }} onClick={moveSocial}>SOCIAL</Nav.Link>}
-                    {!isOpenJoin && <Nav.Link style={{ marginRight: 10 }} onClick={moveService}>SERVICE</Nav.Link>}
+                    {!isOpenJoin && <Nav.Link style={{ marginRight: 20 }} onClick={moveSocial}>COMMUNITY</Nav.Link>}
+                    {!isOpenJoin && <Nav.Link style={{ marginRight: 10 }} onClick={moveService}>BOOKMARK</Nav.Link>}
                     {!isOpenJoin && <Notification />}
                 </Navbar.Collapse>
 
