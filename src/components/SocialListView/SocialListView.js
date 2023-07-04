@@ -3,6 +3,7 @@ import { Avatar, Tag,  Card, Button } from 'antd';
 import UserDrawer from '../Modal/UserDrawer';
 import useGET from '../../AuthCommunicate/GET';
 import FollowButton from '../Modal/FollowButton';
+import { MainFrame, Frame, FollowerFrame, FollowingFrame } from '../../../styles/MyPage_Emotion';
 const ContainerHeight = 750;
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Pagination, Mousewheel } from "swiper";
@@ -10,6 +11,8 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import "swiper/css/effect-coverflow";
+import { Wave } from "../../../styles/PageScroll_Emotion";
+import 'animate.css';
 export default function SocialListView({ searchResult }) {
     const [users, setUsers] = useState([]);
     const { fetchData, data, error } = useGET();
@@ -106,30 +109,62 @@ export default function SocialListView({ searchResult }) {
       }
       };
   
+    const [allurls, setallUrls] = useState([]);
+    useEffect(() => {
+      if (data) {
+        const urls = {};
+         // Assuming you want to use the first tag from searchResult
+  
+        data.bookmark_list.forEach((bookmark) => {
+          
+          const tags = Object.values(bookmark)[9];
+          const url = Object.values(bookmark)[3];
+
+          if (tags) {
+              urls[tags[0]] = url;
+          } else {
+              urls['No tag'] = url;
+          }
+          
+          
+
+        });
+  
+        setallUrls(urls);
+        
+      } else if (error) {
+        console.error(error);
+      }
+    }, [data]);
+
     
+    const [userdataProfile, setuserdataProfile] = useState(null);
     useEffect(() => {
       if (data && searchResult && searchResult.length > 0) {
         const urls = [];
         const tagName = searchResult[0]; // Assuming you want to use the first tag from searchResult
   
         data.bookmark_list.forEach((bookmark) => {
-      
+          
           const tags = Object.values(bookmark)[9];
+          
           if (tags && tags.includes(tagName)) {
             const url = Object.values(bookmark)[3];
             urls.push(url);
           }
 
         });
-  
         setUrls(urls);
         setUserProfile(data);
         
+        
       } else if (error) {
         console.error(error);
+      } else if (data) {
+        setuserdataProfile(data);
       }
     }, [data, error, searchResult]);
-  
+
     const handleCloseDrawer = () => {
       setIsDrawerOpen(false);
     };
@@ -154,20 +189,23 @@ export default function SocialListView({ searchResult }) {
       
       // Add your logic for handling the FollowButton click
     };
-
+    
     return (
       <>
-        <div
+        <Frame
         style={{
-          marginTop: '8%',
+          
+          // marginTop: '8%',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          height: '50vh',
+          width: '100%',
+          height: '80vh',
           position: 'relative',
         }}
-      >
-        {users.length > 0 && searchResult.length > 0 ? (
+        >
+        
+        
           <Swiper
             onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
             ref={swiperRef}
@@ -192,7 +230,7 @@ export default function SocialListView({ searchResult }) {
             }}
             className="mySwiper"
             modules={[Mousewheel, Pagination, EffectCoverflow]}
-            style={{ marginTop: '0%', height: '150%', width: '100%' }}
+            style={{ marginTop: '-8%', width: '100%' }}
           >
             {users.map((item, index) => (
               <SwiperSlide key={item.email}>
@@ -201,24 +239,43 @@ export default function SocialListView({ searchResult }) {
                   onMouseEnter={() => handleMouseEnter(item)}
                   onMouseLeave={handleMouseLeave}
                   style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    // boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)',
+                    alignItems: 'center',
                     width: '80%',
                     marginLeft: '5%',
                     borderRadius: '10px',
-                    marginTop: '10%',
-                    height: '80%',
+                     
+                    transition: 'background-color 0.3s ease',
+                    height: '60vh',
                     background: '#fff',
-                    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+                    boxShadow: '0px 4px 6px rgba(94, 172, 242, 0.2)',
                     overflow: 'hidden',
                   }}
+                  className = "Card_Users"
                 >
+                  <Wave style={{position: 'absolute', zIndex:'0', bottom:0, left:0, width:'100%', height:'30%'}}>
+                    <svg className="waves" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shapeRendering="auto">
+                      <defs>
+                        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                      </defs>
+                      <g className="parallax">
+                        <use xlinkHref="#gentle-wave" x="48" y="0" fill="rgba(94, 172, 242, 0.1)" />
+                        <use xlinkHref="#gentle-wave" x="48" y="3" fill="rgba(94, 172, 242, 0.2)" />
+                        <use xlinkHref="#gentle-wave" x="48" y="5" fill="rgba(94, 172, 242, 0.3)" />
+                        <use xlinkHref="#gentle-wave" x="48" y="7" fill="#fff" />
+                      </g>
+                    </svg>
+                  </Wave>
                   <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10%' }}>
-                    <Avatar size={128} src={'http://kt-aivle.iptime.org:40170' + item.profile_image}/>
+                    <Avatar size={128} src={item.profile_image}/>
                   </div>
                   <div style={{ marginTop: '5%', textAlign: 'center' }}>
-                    <h3 style={{ color: '#777', textAlign: 'center',  marginBottom: '2%' }}>{item.username}</h3>
-                    <p style={{ color: '#777' }}>{item.email}</p>
+                    <h3 style={{ color: '#777', textAlign: 'center',  marginBottom: '2%',fontFamily: 'KOTRA_GOTHIC' }}>{item.username}</h3>
+                    <p style={{ color: '#777',fontFamily: 'KOTRA_GOTHIC' }}>{item.email}</p>
                   </div>
-                  {userBookMark.id === item.id ? (
+                  {hoveredItem === item ? (
                     <div
                       style={{
                         display: 'flex',
@@ -226,18 +283,20 @@ export default function SocialListView({ searchResult }) {
                         alignItems: 'center',
                         marginTop: '10%',
                         padding: '8px',
-                        background: '#007aff',
-                        color: '#fff',
+                        background: 'white',
+                        color: '#5eacf2',
                         borderRadius: '4px',
                         cursor: 'pointer',
+                        fontFamily: 'KOTRA_GOTHIC'
                       }}
                     >
-                      View Bookmarks
+                      Click View for Bookmarks
                     </div>
                   ) : (
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', marginTop: '0', padding: '8px' }}>
                       <div
                         style={{
+                          
                           flex: 1,
                           display: 'flex',
                           justifyContent: 'flex-start',
@@ -246,12 +305,13 @@ export default function SocialListView({ searchResult }) {
                           color: '#777',
                           cursor: 'pointer',
                           marginBottom: '10px',
-                          width: '300px'
+                          width: '300px',
+                          fontFamily: 'KOTRA_GOTHIC'
                         }}
                       >
                         Search Tag :
-                        {searchResult.map((tag) => (
-                          <Tag key={tag} color="geekblue" style={{ marginLeft: '18%' }}>
+                        {searchResult && searchResult.map((tag) => (
+                          <Tag key={tag} color="white" style={{ marginLeft: '18%', borderRadius: 20, height: 24, marginBottom: 4, color: '#5eacf2', border: 'solid #5eacf2 0.5px' }}>
                             {tag}
                           </Tag>
                         ))}
@@ -268,13 +328,13 @@ export default function SocialListView({ searchResult }) {
                           cursor: 'pointer',
                           marginBottom: '10px',
                           width: '300px',
-                          
+                          fontFamily: 'KOTRA_GOTHIC'
                         }}
                       >
                         
                         All Bookmark :
                          
-                          <Tag  color="geekblue" style={{ marginLeft: '18%' }}>
+                          <Tag  color="white" style={{ zIndex:'1', marginLeft: '18%',borderRadius: 20, height: 24, marginBottom: 4, color: '#5eacf2', border: 'solid #5eacf2 0.5px' }}>
                             {item.bookmark_cnt}
                           </Tag>
                       </div>
@@ -287,16 +347,16 @@ export default function SocialListView({ searchResult }) {
                           background: 'white',
                           color: '#777',
                           cursor: 'pointer',
-                          marginBottom: '10px',
+                          marginBottom: '5px',
                           width: '300px',
-                          
+                          fontFamily: 'KOTRA_GOTHIC'
                         }}
                       >
                         count of tags :
                         {item.tag_list.map((tag) => (
                           searchResult.includes(tag.name) && (
                             
-                            <Tag key={tag.name} color="geekblue" style={{ marginLeft: '18%' }}>
+                            <Tag key={tag.name} color="white" style={{ marginLeft: '18%',borderRadius: 20, height: 24, marginBottom: 4, color: '#5eacf2', border: 'solid #5eacf2 0.5px' }}>
                               {tag.num_bookmarks}
                             </Tag>
                           )
@@ -310,12 +370,12 @@ export default function SocialListView({ searchResult }) {
                           alignItems: 'center',
                           background: 'white',
                           cursor: 'pointer',
-                          marginBottom: '10px',
+                          marginBottom: '0px',
                           width: '300px'
                         }}
                       >
                        
-                      <div className="follow-button">
+                      <div className = 'follow-button'>
                         <FollowButton user_isFollowing={item.is_following} user_id={item.id} onClick={(event) => handleFollowButtonClick(event, item.id)} />
                       </div>
                      
@@ -328,11 +388,7 @@ export default function SocialListView({ searchResult }) {
               </SwiperSlide>
             ))}
           </Swiper>
-        ) : (
-          <div style={{ textAlign: 'center', fontSize: '20px' }}>
-            {users.length === 0 ? 'Please Search Tag' : 'No users found'}
-          </div>
-        )}
+       
         <div className="swiper-pagination" style={{
           display: 'flex',
           justifyContent: 'center',
@@ -340,7 +396,7 @@ export default function SocialListView({ searchResult }) {
           position: 'absolute',
           height: '20px',
           width: '100%',
-          bottom: '-30%',
+          bottom: '5%', 
           left: '-2%',
         }} />
         <style>
@@ -366,174 +422,10 @@ export default function SocialListView({ searchResult }) {
             }
           `}
         </style>
-      </div>
-        <UserDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} userProfile={userProfile} urls={urls} urlList={urlList} />
+      </Frame>
+        <UserDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} userdataProfile = {userdataProfile} userProfile={userProfile} urls={urls} urlList={urlList} allurls = {allurls}/>
       </>
     );
   };
 
-
-
-
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-
-// import { Avatar, List } from 'antd';
-// import VirtualList from 'rc-virtual-list';
-// import UserDrawer from '../Modal/UserDrawer';
-
-// const ContainerHeight = 750;
-
-
-// export default function SocialListView() {
-
-//     // 유저 리스트 불러오기 관련, tag를 빈 리스트로 보내면 전체 유저가 불러짐 (초기 화면)
-//     // 태그를 토글선택하면 tag : []에 추가하도록 로직을 짜면 될듯함
-//     // 즉, 사이드바에서 이벤트 발생하면 SocialListView로 넘어오도록!
-//     // 공통되는 통신 부분 및 config 함수화 필요
-
-//     const [users, setUsers] = useState([]);
-
-//     useEffect(() => {
-//         fetchUserList();
-//     }, []);
-
-//     const fetchUserList = async () => {
-//         try {
-//             const config = {
-//                 headers: {
-//                     Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQyMzU4LCJpYXQiOjE2ODcyNDYzNTgsImp0aSI6ImI2YTU0OWJkOWQxYTQzMWFhNDE3NmFmMmFmMjVjYjQ2IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.cTZokEPKCxNTo6S-BXdv2pRakGRlnIBqzWAGHQKI6Nk'
-//                 },
-//                 params: {
-//                     tag: []
-//                 }
-//             }
-//             const response = await axios.get('http://kt-aivle.iptime.org:40170/api/search/', config);
-//             // api/search/에서는 id, email, username, profile_image, following_cnt, follower_cnt, bookmark_cnt 리턴
-
-//             if (response.status === 200) {
-//                 const userList = response.data;
-//                 setUsers(userList);
-
-//             } else {
-//                 console.error('Failed to fetch user list');
-//             }
-//         } catch (error) {
-//             console.error('Error fetching user list:', error);
-//         }
-//     };
-
-
-
-//     // 유저 프로필 보기 관련 (View Profile)
-//     // user_id를 기준으로 작동
-//     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-//     const [userProfile, setUserProfile] = useState(null);
-
-//     const handleOpenDrawer = async (id) => {
-//         try {
-//             const config = {
-//                 headers: {
-//                     Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQyMzU4LCJpYXQiOjE2ODcyNDYzNTgsImp0aSI6ImI2YTU0OWJkOWQxYTQzMWFhNDE3NmFmMmFmMjVjYjQ2IiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJcdWQxNGNcdWMyYTRcdWQyYjgwMyJ9.cTZokEPKCxNTo6S-BXdv2pRakGRlnIBqzWAGHQKI6Nk'
-//                 },
-//                 params: {
-//                     user_id: id
-//                 }
-//             };
-
-//             const response = await axios.get('http://kt-aivle.iptime.org:40170/api/userinfo/', config);
-//             // api/userinfo/에서는 id, email, username, profile_image, is_following, following_cnt, follower_cnt, bookmark_cnt 리턴
-
-//             if (response.status === 200) {
-//                 setUserProfile(response.data);
-//                 setIsDrawerOpen(true);
-//             } else {
-//                 console.error('Failed to fetch user profile');
-//             }
-//         } catch (error) {
-//             console.error(error);
-//         }
-//     };
-
-//     const handleCloseDrawer = () => {
-//         setIsDrawerOpen(false);
-//     };
-
-
-
-
-//     return (
-//         <>
-//             <List bordered size='large' style={{ marginLeft: 40, marginRight: 30, width: 1050 }}>
-//                 <VirtualList
-//                     data={users}
-//                     height={ContainerHeight}
-//                     itemHeight={80}
-//                     itemKey="email"
-//                 >
-//                     {(item) => (
-//                         <List.Item key={item.email} actions={[
-//                             < a onClick={() => handleOpenDrawer(item.id)}  >
-//                                 View Profile
-//                             </a>,
-
-//                         ]}>
-//                             <List.Item.Meta
-//                                 avatar={<Avatar src={'http://kt-aivle.iptime.org:40170' + item.profile_image} size={80} />}
-//                                 title={<div style={{ fontSize: '24px', marginTop: '8px' }}>{item.username}</div>}
-//                                 description={<div style={{ fontSize: '16px', marginTop: 0 }}>{item.email}</div>}
-//                             />
-//                             <div>
-//                                 <div>주요 태그</div>
-//                                 {/* (item.tags.map((tag) => (<Tag key={tag} style={{ borderRadius: 20, height: 25 }}>{tag}</Tag>))) */}
-//                             </div>
-//                             <div style={{ marginLeft: 30 }}>
-//                                 <div>{item.following_cnt}</div>
-//                             </div>
-//                             <div style={{ marginLeft: 30 }}>
-//                                 <div>{item.follower_cnt}</div>
-//                             </div>
-//                         </List.Item>
-//                     )}
-//                 </VirtualList >
-//             </List >
-//             <UserDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} userProfile={userProfile} />
-//         </>
-//     );
-// };
-
-
-
-
-
-    //     if (response.status === 200) {
-    //         const body = response.data;
-    //         setData(data.concat(body.results));
-    //         //setData((prevData) => prevData.concat(body.results));
-    //         message.success(`${body.results.length} more user loaded!`);
-    //     } else {
-    //         console.error('Error fetching data:', response.status);
-    //     }
-
-    // } catch (error) {
-    //     console.error('Error fetching data:', error);
-    // }
-
-    // fetch(fakeDataUrl)
-    //     .then((res) => res.json())
-    //     .then((body) => {
-    //         setData(data.concat(body.results));
-    //         message.success(`${body.results.length} more items loaded!`);
-    //     });
-
-
-    // useEffect(() => {
-    //     appendData();
-    // }, []);
-
-
-    // const onScroll = (e) => {
-    //     if (e.currentTarget.scrollHeight - e.currentTarget.scrollTop === ContainerHeight) {
-    //         appendData();
-    //     }
-    // };
+  
