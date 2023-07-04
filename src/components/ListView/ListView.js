@@ -94,6 +94,8 @@ export default function ListView({ searchResult }) {
     const endIndex = startIndex + pageSize;
     const currentPageData = data.slice(startIndex, endIndex);
 
+    console.log("아제발ㄹㄹㄹㄹㄹ", data)
+
     return (
         <div >
             <div style={{ height: 480, overflowY: 'scroll' }}>

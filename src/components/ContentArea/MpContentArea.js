@@ -18,7 +18,7 @@ export default function MpContentArea() {
 
     return (
         <Layout style={{ marginTop: 2 }}>
-            <Layout>
+            <Layout >
                 <Sider width={300} style={{ color: "white", boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.1)' }}>
                     <MpSideBar handleMenuItemClick={handleMenuClick} />
                 </Sider>
