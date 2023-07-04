@@ -1,11 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { MainFrame, Frame, FollowerFrame, FollowingFrame, normalFontStyles } from '../../../styles/MyPage_Emotion';
+import { MainFrame, Frame, FollowerFrame, FollowingFrame, titleStyles, descriptionStyles } from '../../../styles/MyPage_Emotion';
 import { List, Avatar, Button } from 'antd';
 import useGET from '../../AuthCommunicate/GET';
 import usePOST from '../../AuthCommunicate/POST';
 import useDELETE from '../../AuthCommunicate/DELETE';
-import { Global } from "@emotion/react";
+import { css } from '@emotion/react';
 
 
 
@@ -92,6 +92,7 @@ export default function MyFollows() {
                     <FollowerFrame>
                         <h2 style={{ marginBottom: '20px', display: 'flex', justifyContent: 'center' }}>Followers</h2>
                         <div style={{ borderBottom: '1px solid #ccc', marginBottom: '10px', }}></div>
+
                         <List
                             dataSource={info.follower}
                             renderItem={follower => (
@@ -109,6 +110,7 @@ export default function MyFollows() {
                             )}
                             style={{ overflowY: 'scroll', height: 'calc(100% - 72px)', padding: '10px' }}
                         />
+
                     </FollowerFrame>
                     <FollowingFrame >
                         <h2 style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}> Following </h2>
