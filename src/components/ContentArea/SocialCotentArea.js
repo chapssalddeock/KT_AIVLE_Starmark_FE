@@ -48,7 +48,8 @@ export default function SocialContentArea() {
                 <Sider width={300} style={{ color: "white", boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.1)' }}>
                     <SocialSideBar onSearch={handleSearch} onSuggestedItemClick={handleSuggestedItemClick} ToggleClick={handleSearchHistory} />
                 </Sider>
-                <Layout style={{ padding: '0 24px 24px', backgroundColor: "white" }}>
+                <Layout style={{ padding: '0 24px 24px', backgroundColor: "white", width: 'calc(100vw - 300px)', 
+                            backgroundImage: 'url(/img/Flag_Background.png)',  backgroundSize: "100% 100%", backgroundPosition:  'center', }}>
                     <div style={{ margin: '12px 0  ', }}>
                     </div>
                     <div style={{ borderTop: '1px solid #f0f0f0', marginBottom: '12px' }}></div>
