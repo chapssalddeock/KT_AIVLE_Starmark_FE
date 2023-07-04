@@ -134,6 +134,7 @@ export default function Notification() {
                 trigger={['click']}
                 arrow={{ pointAtCenter: true }}
                 open={notifications.length > 0}
+                zIndex={900}
 
             >
                 <a onClick={(e) => e.preventDefault()}>
