@@ -75,7 +75,7 @@ export default function SocialListView({ searchResult }) {
         console.error(userListError);
       }
     }, [userListData, userListError]);
-  
+    
     useEffect(() => {
       fetchUserList(searchResult);
     }, [searchResult]);
@@ -117,9 +117,9 @@ export default function SocialListView({ searchResult }) {
   
         data.bookmark_list.forEach((bookmark) => {
           
-          const tags = Object.values(bookmark)[9];
+          const tags = Object.values(bookmark)[10];
           const url = Object.values(bookmark)[3];
-
+          
           if (tags) {
               urls[tags[0]] = url;
           } else {
@@ -136,7 +136,7 @@ export default function SocialListView({ searchResult }) {
         console.error(error);
       }
     }, [data]);
-
+    console.log('asdasdasd', allurls)
     
     const [userdataProfile, setuserdataProfile] = useState(null);
     useEffect(() => {
@@ -146,7 +146,7 @@ export default function SocialListView({ searchResult }) {
   
         data.bookmark_list.forEach((bookmark) => {
           
-          const tags = Object.values(bookmark)[9];
+          const tags = Object.values(bookmark)[10];
           
           if (tags && tags.includes(tagName)) {
             const url = Object.values(bookmark)[3];
@@ -165,8 +165,11 @@ export default function SocialListView({ searchResult }) {
       }
     }, [data, error, searchResult]);
 
-    const handleCloseDrawer = () => {
+    const handleCloseDrawer = async () => {
       setIsDrawerOpen(false);
+    
+      // fetchUserList 함수를 호출하여 재통신을 수행합니다.
+      await fetchUserList(searchResult);
     };
   
     const handleItemClick = (item) => {
@@ -189,7 +192,16 @@ export default function SocialListView({ searchResult }) {
       
       // Add your logic for handling the FollowButton click
     };
-    
+    const [followButtonHovered, setFollowButtonHovered] = useState(false);
+
+    // FollowButton 관련 이벤트 핸들러 수정
+    const handleFollowButtonMouseEnter = () => {
+      setFollowButtonHovered(true);
+    };
+
+    const handleFollowButtonMouseLeave = () => {
+      setFollowButtonHovered(false);
+    };
     return (
       <>
         <Frame
@@ -261,10 +273,10 @@ export default function SocialListView({ searchResult }) {
                         <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
                       </defs>
                       <g className="parallax">
-                        <use xlinkHref="#gentle-wave" x="48" y="0" fill="rgba(94, 172, 242, 0.1)" />
+                        <use xlinkHref="#gentle-wave" x="48" y="0" fill="rgba(94, 172, 242, 0.2)" />
                         <use xlinkHref="#gentle-wave" x="48" y="3" fill="rgba(94, 172, 242, 0.2)" />
                         <use xlinkHref="#gentle-wave" x="48" y="5" fill="rgba(94, 172, 242, 0.3)" />
-                        <use xlinkHref="#gentle-wave" x="48" y="7" fill="#fff" />
+                        <use xlinkHref="#gentle-wave" x="48" y="7" fill="rgba(94, 172, 242, 0.1)" />
                       </g>
                     </svg>
                   </Wave>
@@ -276,9 +288,105 @@ export default function SocialListView({ searchResult }) {
                     <p style={{ color: '#777',fontFamily: 'KOTRA_GOTHIC' }}>{item.email}</p>
                   </div>
                   {hoveredItem === item ? (
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', marginTop: '0', padding: '8px' }}>
+                    <div
+                      style={{
+                        
+                        flex: 1,
+                        display: 'flex',
+                        justifyContent: 'flex-start',
+                        alignItems: 'center',
+                        background: 'white',
+                        color: '#777',
+                        cursor: 'pointer',
+                        marginBottom: '10px',
+                        width: '300px',
+                        fontFamily: 'KOTRA_GOTHIC'
+                      }}
+                    >
+                      Search Tag :
+                      {searchResult && searchResult.map((tag) => (
+                        <Tag key={tag} color="white" style={{ marginLeft: '18%', borderRadius: 20, height: 24, marginBottom: 4, color: '#5eacf2', border: 'solid #5eacf2 0.5px' }}>
+                          {tag}
+                        </Tag>
+                      ))}
+                      
+                    </div>
+                    <div
+                      style={{
+                        flex: 1,
+                        display: 'flex',
+                        justifyContent: 'flex-start',
+                        alignItems: 'center',
+                        background: 'white',
+                        color: '#777',
+                        cursor: 'pointer',
+                        marginBottom: '10px',
+                        width: '300px',
+                        fontFamily: 'KOTRA_GOTHIC'
+                      }}
+                    >
+                      
+                      All Bookmark :
+                       
+                        <Tag  color="white" style={{ zIndex:'1', marginLeft: '18%',borderRadius: 20, height: 24, marginBottom: 4, color: '#5eacf2', border: 'solid #5eacf2 0.5px' }}>
+                          {item.bookmark_cnt}
+                        </Tag>
+                    </div>
+                    <div
+                      style={{
+                        flex: 1,
+                        display: 'flex',
+                        justifyContent: 'flex-start',
+                        alignItems: 'center',
+                        background: 'white',
+                        color: '#777',
+                        cursor: 'pointer',
+                        marginBottom: '5px',
+                        width: '300px',
+                        fontFamily: 'KOTRA_GOTHIC'
+                      }}
+                    >
+                      count of tags :
+                      {item.tag_list.map((tag) => (
+                        searchResult.includes(tag.name) && (
+                          
+                          <Tag key={tag.name} color="white" style={{ marginLeft: '18%',borderRadius: 20, height: 24, marginBottom: 4, color: '#5eacf2', border: 'solid #5eacf2 0.5px' }}>
+                            {tag.num_bookmarks}
+                          </Tag>
+                        )
+                      ))}
+                    </div>
+                    <div
+                      style={{
+                        flex: 1,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        background: 'white',
+                        cursor: 'pointer',
+                        marginBottom: '0px',
+                        width: '300px'
+                      }}
+                    >
+                    
+                    <div 
+                        className = 'follow-button'
+                    >
+                      
+                      <Tag style = {{display: 'flex', justifyContent: 'center', alignItems: 'center', height:'25px', width:'100%', borderRadius: 20, height: 24, marginBottom: 4, color: '#5eacf2', border: 'solid #5eacf2 0.5px', backgroundColor: item.is_following ? 'white' : '#8a3df5',}} color="white">
+                        {item.is_following ? 'Following' : 'Follow'}
+                      </Tag>
+                    </div>
+                   
+                    </div>
+                  </div>
+                    
+                  ) : (
                     <div
                       style={{
                         display: 'flex',
+                        flexDirection: 'column',
                         justifyContent: 'center',
                         alignItems: 'center',
                         marginTop: '10%',
@@ -288,99 +396,17 @@ export default function SocialListView({ searchResult }) {
                         borderRadius: '4px',
                         cursor: 'pointer',
                         fontFamily: 'KOTRA_GOTHIC'
+                        
                       }}
                     >
+                      <div>
                       Click View for Bookmarks
                     </div>
-                  ) : (
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', marginTop: '0', padding: '8px' }}>
-                      <div
-                        style={{
-                          
-                          flex: 1,
-                          display: 'flex',
-                          justifyContent: 'flex-start',
-                          alignItems: 'center',
-                          background: 'white',
-                          color: '#777',
-                          cursor: 'pointer',
-                          marginBottom: '10px',
-                          width: '300px',
-                          fontFamily: 'KOTRA_GOTHIC'
-                        }}
-                      >
-                        Search Tag :
-                        {searchResult && searchResult.map((tag) => (
-                          <Tag key={tag} color="white" style={{ marginLeft: '18%', borderRadius: 20, height: 24, marginBottom: 4, color: '#5eacf2', border: 'solid #5eacf2 0.5px' }}>
-                            {tag}
-                          </Tag>
-                        ))}
-                        
-                      </div>
-                      <div
-                        style={{
-                          flex: 1,
-                          display: 'flex',
-                          justifyContent: 'flex-start',
-                          alignItems: 'center',
-                          background: 'white',
-                          color: '#777',
-                          cursor: 'pointer',
-                          marginBottom: '10px',
-                          width: '300px',
-                          fontFamily: 'KOTRA_GOTHIC'
-                        }}
-                      >
-                        
-                        All Bookmark :
-                         
-                          <Tag  color="white" style={{ zIndex:'1', marginLeft: '18%',borderRadius: 20, height: 24, marginBottom: 4, color: '#5eacf2', border: 'solid #5eacf2 0.5px' }}>
-                            {item.bookmark_cnt}
-                          </Tag>
-                      </div>
-                      <div
-                        style={{
-                          flex: 1,
-                          display: 'flex',
-                          justifyContent: 'flex-start',
-                          alignItems: 'center',
-                          background: 'white',
-                          color: '#777',
-                          cursor: 'pointer',
-                          marginBottom: '5px',
-                          width: '300px',
-                          fontFamily: 'KOTRA_GOTHIC'
-                        }}
-                      >
-                        count of tags :
-                        {item.tag_list.map((tag) => (
-                          searchResult.includes(tag.name) && (
-                            
-                            <Tag key={tag.name} color="white" style={{ marginLeft: '18%',borderRadius: 20, height: 24, marginBottom: 4, color: '#5eacf2', border: 'solid #5eacf2 0.5px' }}>
-                              {tag.num_bookmarks}
-                            </Tag>
-                          )
-                        ))}
-                      </div>
-                      <div
-                        style={{
-                          flex: 1,
-                          display: 'flex',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          background: 'white',
-                          cursor: 'pointer',
-                          marginBottom: '0px',
-                          width: '300px'
-                        }}
-                      >
-                       
-                      <div className = 'follow-button'>
-                        <FollowButton user_isFollowing={item.is_following} user_id={item.id} onClick={(event) => handleFollowButtonClick(event, item.id)} />
-                      </div>
-                     
-                      </div>
+                    <div>
+                      or Mouse Hover for users
                     </div>
+                    </div>
+                    
                     
                   )}
                   
