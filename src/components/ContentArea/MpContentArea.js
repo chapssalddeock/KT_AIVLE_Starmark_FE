@@ -18,7 +18,7 @@ export default function MpContentArea() {
 
     return (
         <Layout style={{ marginTop: 2 }}>
-            <Layout>
+            <Layout >
                 <Sider width={300} style={{ color: "white", boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.1)' }}>
                     <MpSideBar handleMenuItemClick={handleMenuClick} />
                 </Sider>
@@ -27,7 +27,6 @@ export default function MpContentArea() {
                         {selectedItem === 'sub1' && <MyInfo style={{ padding: 4, margin: 0, }} />}
                         {selectedItem === 'sub2' && <MyFollows style={{ padding: 4, margin: 0, }} />}
                         {selectedItem === 'sub4' && <MyDashBoard style={{ padding: 4, margin: 0, }} />}
-                        {/* selectedItem에 따라 메뉴 이동 */}
                     </Content>
                 </Layout>
             </Layout>

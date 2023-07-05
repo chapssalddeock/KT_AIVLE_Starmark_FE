@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Segmented, Spin, Button, Drawer, Form, Input, Row, Select } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
 import usePOST from '../../AuthCommunicate/POST';
 
 const handleChange = (value) => {
@@ -13,49 +12,38 @@ const options = [
     { value: false, label: '비공개' },
 ];
 
-export default function SubmitForm({ isOpen, onClose}) {
+
+export default function SubmitForm_Social({ isOpen, onClose, url }) {
     const router = useRouter();
-    const [selectedOption, setSelectedOption] = useState('URL');
-    const [fileList, setFileList] = useState([]);
+    
+    const [fileList, setFileList] = useState(url);
     const { fetchData: postFetchData, data: postData, error: postError } = usePOST();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [form] = Form.useForm(); // Add form instance
-    
-    const handleOptionChange = (value) => {
-        setSelectedOption(value);
-    };
-    
+ 
     const handleSubmit = async (values) => {
         setIsSubmitting(true);
         
-        let formData = null;
-
-        if (selectedOption === 'URL') {
-            formData = {
-                type: 'string',
-                title: values.title,
-                url: values.url,
-                is_public: values.is_public,
-            };
-        } else if (selectedOption === 'HTML') {
-            formData = new FormData();
-            formData.append('type', 'file');
-            formData.append('data', fileList[0]);
-
-        }
+        const formData = {
+            type: 'string',
+            title: values.title,
+            url: values.url,
+            is_public: values.is_public,
+        };
 
         await postFetchData('/bookmark/', formData);
-        form.resetFields();
+        form.resetFields(); // Reset the form fields
+
     };
 
     useEffect(() => {
         if (postData) {
             console.log('전송 성공', postData);
-            setIsSubmitting(false);
-            router.reload();
+            setIsSubmitting(false); // Reset the submission state
+            router.reload(); // 페이지 새로고침
         } else if (postError) {
             console.log('전송 실패', postError);
-            setIsSubmitting(false);
+            setIsSubmitting(false); // Reset the submission state
         }
     }, [postData, postError]);
 
@@ -64,6 +52,7 @@ export default function SubmitForm({ isOpen, onClose}) {
         const newFileList = Array.from(files);
         setFileList(newFileList);
     };
+
 
     const handleCancel = () => {
         onClose();
@@ -103,10 +92,9 @@ export default function SubmitForm({ isOpen, onClose}) {
                 }
             >
                 <div style={{ marginBottom: 30 }}>
-                    <Segmented options={[{ label: 'URL', value: 'URL' }, { label: 'HTML', value: 'HTML' }]} onChange={handleOptionChange} />
+                    <Segmented options={[{ label: 'URL', value: 'URL' }]}/>
                 </div>
-                <Form layout="vertical" onFinish={handleSubmit} id="submitForm" form={form}>
-                    {selectedOption === 'URL' && (
+                <Form layout="vertical" onFinish={handleSubmit} id="submitForm" form={form}> {/* Pass form instance to the Form */}
                         <>
                             <Row gutter={16}>
                                 <Form.Item name="title" label={<span style={{ fontSize: '1.8vmin', fontFamily: 'KOTRA_GOTHIC' }}>북마크 이름</span>}
@@ -120,7 +108,7 @@ export default function SubmitForm({ isOpen, onClose}) {
                             </Row>
                             <Row gutter={16}>
                                 <Form.Item name="url" label={<span style={{ fontSize: '1.8vmin', fontFamily: 'KOTRA_GOTHIC' }}>URL</span>}
-                                    rules={[{ required: true, message: 'URL을 입력하세요.' }]}
+                                    rules={[{ required: true, message: 'URL을 입력하세요.' }]} initialValue={url}
                                     style={{ width: '80%', height: '5vh', marginBottom: '5vh' }}
                                 >
                                     <Input placeholder="URL을 입력하세요."
@@ -139,27 +127,7 @@ export default function SubmitForm({ isOpen, onClose}) {
                                 </Form.Item>
                             </Row>
                         </>
-                    )}
-
-                    {selectedOption === 'HTML' && (
-                        <>
-                            <Row gutter={16}>
-                                <Form.Item>
-                                    <Button style={{ fontFamily: 'KOTRA_GOTHIC' }} icon={<UploadOutlined />} onClick={() => document.getElementById('fileInput').click()}>
-                                        파일 업로드
-                                    </Button>
-                                    <input type="file" id="fileInput" style={{ display: 'none' }} onChange={handleFileChange} />
-                                </Form.Item>
-                            </Row>
-                            {fileList.length > 0 && (
-                                <Row gutter={16} style={{ marginTop: '1rem' }}>
-                                    <p style={{ fontFamily: 'KOTRA_GOTHIC', fontSize: '1.8vmin', marginBottom: 0 }}>
-                                        선택된 파일: {fileList[0].name}
-                                    </p>
-                                </Row>
-                            )}
-                        </>
-                    )}
+                
                 </Form>
             </Drawer>
             {isSubmitting && (
@@ -183,14 +151,4 @@ export default function SubmitForm({ isOpen, onClose}) {
         </>
     );
 }
-
-
-
-
-
-
-
-
-
-
 

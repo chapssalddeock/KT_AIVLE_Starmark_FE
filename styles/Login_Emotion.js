@@ -54,11 +54,8 @@ export const RibbonText = styled.span`
 `;
 
 export const TitleSpace = styled.div`
-
-    width : 100%;
-    height : 25%;
-    
-    // border : solid yellow;
+  width : 100%;
+  height : 25%;
 `
 export const LoginTitle = styled.div`
     display : flex;
@@ -71,8 +68,6 @@ export const LoginTitle = styled.div`
     height: 60%;
     position : relative;
     top: 20%;
-
-    // border: solid blue;
 `
 
 export const AlertSpace = styled.div`
@@ -81,40 +76,34 @@ export const AlertSpace = styled.div`
   padding: 0 10% 0 10%;
   float : right;
   align-items: center;
-  // border: solid;
 `
 
 export const InputSpace = styled.div`
-
     width : 100%;
     height : 75%;
     float : right;
     display: flex;
     justify-content: center;
-    align-items: center;
-
-    // border : solid red;
-    
+    align-items: center;    
 `
 
 export const CustomForm = styled(Form)`
   width: 80%; /* 원하는 너비로 조정 */
   height: 100%;
-  // border: solid green;
 `
 
 export const CustomInput = styled(Input)`
-  ${({ inputBackgroundColor }) => css`
+  ${({ inputbackgroundcolor }) => css`
     input {
-      background-color: ${inputBackgroundColor};
+      background-color: ${inputbackgroundcolor};
     }
   `}
  `
 
 export const CustomInputPassword = styled(Input.Password)`
-  ${({ inputBackgroundColor }) => css`
+  ${({ inputbackgroundcolor }) => css`
     input {
-      background-color: ${inputBackgroundColor};
+      background-color: ${inputbackgroundcolor};
     }
   `}
  `

@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
-import { MainFrame, ImgFrame, TitleFrame, ContentFrame, ImgChangeButton, Frame } from '../../../styles/MyPage_Emotion';
+import { MainFrame, ImgFrame, ContentFrame, ImgChangeButton, Frame, ImgMainFrame } from '../../../styles/MyPage_Emotion';
 import useGET from '../../AuthCommunicate/GET';
 import usePUT from '../../AuthCommunicate/PUT';
 import usePOST from '../../AuthCommunicate/POST';
 import { List, Button, Input, Form } from 'antd';
+import 'animate.css';
+
 
 const dataList = [
     { label: 'Username', key: 'username' },
@@ -16,7 +18,8 @@ const dataList = [
 export default function MyInfo() {
     const [info, setInfo] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
-    const [isImageUploaded, setIsImageUploaded] = useState(false);
+    const [uploadedImage, setUploadedImage] = useState(null);
+
 
     const { fetchData: getFetchData, data: getData, error: getError } = useGET();
     const { fetchData: putFetchData, data: putData, error: putError } = usePUT();
@@ -98,46 +101,64 @@ export default function MyInfo() {
 
         try {
             await postFetchData('/profile_img/', formData);
-            setIsImageUploaded(true);
+            setUploadedImage(image);
+
         } catch (error) {
             console.error('Image upload failed:', error);
         }
     };
 
     useEffect(() => {
-        if (isImageUploaded) {
-            window.location.reload(); // 프로필 사진이 업로드된 후 페이지 새로고침
+        if (uploadedImage) {
+            fetchData();
+            // 프로필 사진 업로드 후 재통신
         }
-    }, [isImageUploaded]);
+    }, [uploadedImage]);
 
     return (
         <>
             <Frame>
                 <MainFrame>
-                    <TitleFrame>My Information</TitleFrame>
-                    <ImgFrame>
-                        <img src={info.profile_image} style={{ width: 300, height: 300, borderRadius: 150 }} alt="Profile" />
-                    </ImgFrame>
-                    <ImgChangeButton>
-                        <input type="file" accept="image/*" onChange={handleImageChange} ref={fileInputRef} style={{ display: 'none' }} />
-                        <Button onClick={handleButtonClick}>Change Profile Picture</Button>
-                    </ImgChangeButton>
+                    <ImgMainFrame>
+                        <ImgFrame>
+                            <img src={info.profile_image} style={{ width: 300, height: 300, borderRadius: 150 }} alt="Profile" />
+                        </ImgFrame>
+                        <ImgChangeButton>
+                            <input type="file" accept="image/*" onChange={handleImageChange} ref={fileInputRef} style={{ display: 'none' }} />
+                            <Button onClick={handleButtonClick} style={{
+                                height: '100%', marginRight: '0.5vw', backgroundColor: 'white',
+                                color: 'black', fontSize: '1.5vh', fontWeight: 'bold', borderRadius: '20px', padding: '0.5vh 0.5vw',
+                                boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)', fontFamily: 'KOTRA_GOTHIC'
+                            }}>Change Profile Picture</Button>
+                        </ImgChangeButton>
+                    </ImgMainFrame>
                     <ContentFrame>
+
                         {isEditing ? (
                             <div>
-                                <Form layout="vertical">
+                                <Form layout="vertical" >
                                     {dataList.map(({ label, key }) => (
-                                        <Form.Item key={key} label={label} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
+                                        <Form.Item key={key} label={label} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ fontFamily: 'KOTRA_GOTHIC', fontWeight: 'bold' }} >
                                             {key === 'username' ? (
-                                                <Input value={info[key]} onChange={(e) => handleInputChange(key, e.target.value)} />
+                                                <Input style={{ fontFamily: 'KOTRA_GOTHIC' }} value={info[key]} onChange={(e) => handleInputChange(key, e.target.value)} />
                                             ) : (
-                                                <span>{info[key]}</span>
+                                                <span style={{ fontFamily: 'KOTRA_GOTHIC' }}>{info[key]}</span>
                                             )}
                                         </Form.Item>
                                     ))}
                                 </Form>
-                                <Button type="primary" onClick={handleSaveClick}>Save</Button>
-                                <Button onClick={handleCancelClick}>Cancel</Button>
+                                <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 100 }}>
+                                    <Button type="primary" onClick={handleSaveClick} style={{
+                                        width: '25%', height: '100%', marginRight: '0.5vw', backgroundColor: 'white',
+                                        color: 'black', fontSize: '1.5vh', fontWeight: 'bold', borderRadius: '20px', padding: '0.5vh 0.5vw',
+                                        boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)', fontFamily: 'KOTRA_GOTHIC'
+                                    }}>Save</Button>
+                                    <Button onClick={handleCancelClick} style={{
+                                        width: '25%', height: '100%', marginRight: '0.5vw', backgroundColor: 'white',
+                                        color: 'black', fontSize: '1.5vh', fontWeight: 'bold', borderRadius: '20px', padding: '0.5vh 0.5vw',
+                                        boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)', fontFamily: 'KOTRA_GOTHIC'
+                                    }}>Cancel</Button>
+                                </div>
                             </div>
                         ) : (
                             <div>
@@ -146,18 +167,25 @@ export default function MyInfo() {
                                     renderItem={({ label, key }) => (
                                         <List.Item key={key}>
                                             <p>
-                                                {label}<br />
-                                                {info[key]}
+                                                <strong style={{ fontWeight: 'bold', fontFamily: 'KOTRA_GOTHIC' }}>{label}</strong> | <br />
+                                                <div style={{ fontFamily: 'KOTRA_GOTHIC' }}>{info[key]}</div>
                                             </p>
                                         </List.Item>
                                     )}
                                 />
-                                <Button type="primary" onClick={handleEditClick}>Edit</Button>
+                                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                    <Button type="primary" onClick={handleEditClick} style={{
+                                        width: '25%', height: '100%', marginRight: '0.5vw', backgroundColor: 'white',
+                                        color: 'black', fontSize: '1.5vh', fontWeight: 'bold', borderRadius: '20px', padding: '0.5vh 0.5vw',
+                                        boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)', fontFamily: 'KOTRA_GOTHIC'
+                                    }}>Edit</Button>
+                                </div>
                             </div>
                         )}
                     </ContentFrame>
+
                 </MainFrame>
-            </Frame>
+            </Frame >
         </>
     );
 }

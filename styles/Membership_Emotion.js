@@ -31,15 +31,11 @@ export const BackgroundPage = styled.div`
 export const IMGFrame = styled.div`
   width: 50%;
   height: 100%;
-
-  // border: solid;
 `
 
 export const RegisterFrame = styled.div`
   width: 50%;
   height: 100%;
-
-  // border: solid yellow;
 `
 
 export const InputImg = styled.div`
@@ -92,8 +88,6 @@ export const TitleSpace = styled.div`
     height : 15%;
     float : right;
     align-items: center;
-    
-    // border : solid yellow;
 `
 
 export const AlertSpace = styled.div`
@@ -102,8 +96,6 @@ export const AlertSpace = styled.div`
   padding: 0 10% 0 10%;
   float : right;
   align-items: center;
-  
-  // border: solid;
 `
 
 export const SingUpTitle = styled.div`
@@ -118,10 +110,7 @@ export const SingUpTitle = styled.div`
   width: 100%;
   height: 70%;
   position : relative;
-  bottom: 20%;
-
-  // border: solid green;
-    
+  bottom: 20%;    
 `
 
 export const InputSpace = styled.div`
@@ -130,30 +119,25 @@ export const InputSpace = styled.div`
   display: flex;
   flex-direction: column; // 수직 방향으로 정렬
   align-items: center; // 세로 중앙 정렬
-  justify-content: center; // 가로 중앙 정렬
-  
-  // border : solid red;
-    
+  justify-content: center; // 가로 중앙 정렬    
 `
 
 export const CustomForm = styled(Form)`
   height: 100%;
-  
-  // border: solid blue;
 `;
 
 export const CustomInput = styled(Input)`
-  ${({ inputBackgroundColor }) => css`
+  ${({ inputbackgroundcolor }) => css`
     input {
-      background-color: ${inputBackgroundColor};
+      background-color: ${inputbackgroundcolor};
     }
   `}
  `
 
 export const CustomInputPassword = styled(Input.Password)`
-  ${({ inputBackgroundColor }) => css`
+  ${({ inputbackgroundcolor }) => css`
     input {
-      background-color: ${inputBackgroundColor};
+      background-color: ${inputbackgroundcolor};
     }
   `}
  `

@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import {Tag} from 'antd';
-//import { FaSearch } from 'react-icons/fa';
 import { Search } from 'react-bootstrap-icons';
 import useGET from '../../AuthCommunicate/GET';
 
@@ -11,7 +10,7 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
     const [searchHistory, setSearchHistory] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
-    const MAX_HISTORY_LENGTH = 10;
+    const MAX_HISTORY_LENGTH = 6;
     const searchInputRef = useRef(null);
     const suggestedItemsRef = useRef(null);
     const [filteredItems, setFilteredItems] = useState([]);
@@ -30,9 +29,9 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
 
     const handleSearch = () => {
         if (searchQuery.trim() === '') {
-            return; // 검색어가 비어있으면 동작하지 않음
+            return; 
         }
-        // 검색 로직 구현
+
         ;
         const updatedHistory = [searchQuery, ...searchHistory.slice(0, MAX_HISTORY_LENGTH - 1)];
         setSearchHistory(updatedHistory);
@@ -51,7 +50,7 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
 
     };
 
-    // const items = ['수학', 'abc', 'def', 'fqw', 'vxcv', 'bgf', 'dfag', 'ax', 'uay', 'a안녕', '2a12312', 'a반가워요', 'aㅁㅁㄴㅇㅁㄴㅇ', 'a한찬규', 'a김채원', 'a박경덕', 'a김민성', 'a황소정', 'a정정해'];
+   
 
     useEffect(() => {
         if (searchInputRef.current) {
@@ -104,28 +103,16 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
         ToggleClick(query);
     };
 
-    // useEffect(() => {
-    //     const config = {
-    //         params : {
-    //             data: searchQuery,
-    //         }
-    //     }
-    //     const fetchData = async () => {
-    //         await getfetchData('/tag', config);
-    //     };
-
-    //     fetchData();
-    //   }, []);
 
 
 
     useEffect(() => {
         if (getTagData) {
-            console.log('abc', getTagData)
+            
             const tags = getTagData
 
             setTags(tags);
-            console.log('Tags:', tags);
+            
         } else if (getTagError) {
             console.error(getTagError);
         }
@@ -138,7 +125,7 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
             <div className="sidebar">
 
                 <div className="search-container">
-                    <input className="search-input" type="text" placeholder="Search" value={searchQuery} onChange={handleSearchInput} ref={searchInputRef} />
+                    <input className="search-input" type="text" style={{fontFamily: 'KOTRA_GOTHIC'}} placeholder="Search Tag for Bookmarks" value={searchQuery} onChange={handleSearchInput} ref={searchInputRef} />
                     <button className="search-button" type="button" onClick={handleSearch}>
                         <Search />
                     </button>
@@ -148,7 +135,7 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
                         <div className="search-record-wrapper" >
                             {searchHistory.slice(0, MAX_HISTORY_LENGTH).map((query, index) => (
                                 <Tag color="geekblue" key={index} className="search-record"
-                                    style= {{display: 'flex', marginBottom:'3%', justifyContent: 'center', alignItems: 'center', width: '255px'}} 
+                                    style= {{display: 'flex', marginBottom:'3%', justifyContent: 'center', alignItems: 'center', width: '255px', fontFamily: 'KOTRA_GOTHIC', color: '#5eacf2', border: 'solid #5eacf2 0.5px' }} 
                                     onMouseEnter={() => handleMouseEnter(query)}
                                     onMouseLeave={handleMouseLeave}
                                     onClick={() => handleSearchHistory(query)}>
@@ -162,6 +149,7 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
                         <div id="suggestion-box">
                             {tags.map((item, index) => (
                                 <div key={index} className="suggested-item"
+                                style={{fontFamily: 'KOTRA_GOTHIC'}}
                                     onMouseEnter={() => handleMouseEnter(item)}
                                     onMouseLeave={handleMouseLeave}
                                     onClick={() => handleSuggestedItemClick(item)}

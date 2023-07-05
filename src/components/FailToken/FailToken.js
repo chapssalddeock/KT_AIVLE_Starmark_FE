@@ -1,19 +1,28 @@
+// Complete.js
 import React from "react";
 import { BackgroundPage, MainBlock, AlertPart, Content, ButtonBlock, BgLayout } from "../../../styles/Complete_Emotion";
 import { Button } from 'antd';
 import { useRouter } from 'next/router';
+import { useEffect } from "react";
+import useAuth from '../../AuthHooks/useAuth';
 
-const Complete = () => {
+const FailToken = () => {
   const router = useRouter();
+  const { auth, setAuth } = useAuth();
+
+  useEffect(() => {
+    setAuth(null);
+    localStorage.removeItem("TokenData");
+  }, []);
 
   return (
     <BgLayout>
       <BackgroundPage>
         <MainBlock>
-          <AlertPart>회원가입 완료</AlertPart>
+          <AlertPart>로그인 만료</AlertPart>
           <Content>
-            StarMark의 회원이 되신 걸 축하합니다!<br />
-            이제 홈 화면으로 돌아가 편리한 북마크 정리 생활을 시작하세요!
+            로그인이 만료되었습니다.<br/>
+            다시 로그인 해주세요
           </Content>
           <ButtonBlock>
             <Button type="primary" block onClick={() => router.push('/')}
@@ -30,4 +39,4 @@ const Complete = () => {
   );
 };
 
-export default Complete;
+export default FailToken;
