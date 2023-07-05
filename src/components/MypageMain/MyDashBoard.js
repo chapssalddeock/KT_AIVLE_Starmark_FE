@@ -61,7 +61,7 @@ export default function MyDashBoard() {
 
                         size: 16,
                     },
-                    fontFamily: 'KOTRA_GOTHIC',
+
                     borderWidth: 2,
                 },
                 edges: {
