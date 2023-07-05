@@ -1,5 +1,5 @@
 import { Layout } from 'antd';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import React from 'react';
 const { Content, Sider } = Layout;
 import SocialListView from '../SocialListView/SocialListView';
