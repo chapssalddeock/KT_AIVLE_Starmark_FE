@@ -2,8 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Avatar, Tag,  Card, Button } from 'antd';
 import UserDrawer from '../Modal/UserDrawer';
 import useGET from '../../AuthCommunicate/GET';
-import FollowButton from '../Modal/FollowButton';
-import { MainFrame, Frame, FollowerFrame, FollowingFrame } from '../../../styles/MyPage_Emotion';
+import { Frame} from '../../../styles/MyPage_Emotion';
 const ContainerHeight = 750;
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Pagination, Mousewheel } from "swiper";
@@ -88,7 +87,7 @@ export default function SocialListView({ searchResult }) {
     const handleOpenDrawer = async (id, index, event) => {
       const isFollowButtonClicked = event.target.closest('.follow-button');
       if (isFollowButtonClicked) {
-        return; // Do nothing if FollowButton is clicked
+        return; 
       }
       const config = {
         params: {
@@ -96,8 +95,8 @@ export default function SocialListView({ searchResult }) {
         },
       };
       if (index !== activeIndex) {
-        setActiveIndex(index); // 선택한 슬라이드의 인덱스를 활성화
-        swiperRef.current.swiper.slideTo(index); // 선택한 슬라이드를 중앙으로 이동
+        setActiveIndex(index); 
+        swiperRef.current.swiper.slideTo(index); 
       } else {
         setIsDrawerOpen(true);
       }
@@ -113,7 +112,7 @@ export default function SocialListView({ searchResult }) {
     useEffect(() => {
       if (data) {
         const urls = {};
-         // Assuming you want to use the first tag from searchResult
+        
   
         data.bookmark_list.forEach((bookmark) => {
           
@@ -142,7 +141,7 @@ export default function SocialListView({ searchResult }) {
     useEffect(() => {
       if (data && searchResult && searchResult.length > 0) {
         const urls = [];
-        const tagName = searchResult[0]; // Assuming you want to use the first tag from searchResult
+        const tagName = searchResult[0]; 
   
         data.bookmark_list.forEach((bookmark) => {
           
@@ -168,7 +167,7 @@ export default function SocialListView({ searchResult }) {
     const handleCloseDrawer = async () => {
       setIsDrawerOpen(false);
     
-      // fetchUserList 함수를 호출하여 재통신을 수행합니다.
+  
       await fetchUserList(searchResult);
     };
   
@@ -186,15 +185,14 @@ export default function SocialListView({ searchResult }) {
       setHoveredItem(null);
     };
     const handleFollowButtonClick = (event, user_id) => {
-      // Prevent the event from bubbling up to the Card and triggering handleOpenDrawer
       event.stopPropagation();
   
       
-      // Add your logic for handling the FollowButton click
+     
     };
     const [followButtonHovered, setFollowButtonHovered] = useState(false);
 
-    // FollowButton 관련 이벤트 핸들러 수정
+  
     const handleFollowButtonMouseEnter = () => {
       setFollowButtonHovered(true);
     };
@@ -207,7 +205,7 @@ export default function SocialListView({ searchResult }) {
         <Frame
         style={{
           
-          // marginTop: '8%',
+       
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -253,7 +251,7 @@ export default function SocialListView({ searchResult }) {
                   style={{
                     display: 'flex',
                     justifyContent: 'center',
-                    // boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)',
+                  
                     alignItems: 'center',
                     width: '80%',
                     marginLeft: '5%',

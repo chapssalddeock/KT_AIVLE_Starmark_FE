@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import {Tag} from 'antd';
-//import { FaSearch } from 'react-icons/fa';
 import { Search } from 'react-bootstrap-icons';
 import useGET from '../../AuthCommunicate/GET';
 
@@ -30,9 +29,9 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
 
     const handleSearch = () => {
         if (searchQuery.trim() === '') {
-            return; // 검색어가 비어있으면 동작하지 않음
+            return; 
         }
-        // 검색 로직 구현
+
         ;
         const updatedHistory = [searchQuery, ...searchHistory.slice(0, MAX_HISTORY_LENGTH - 1)];
         setSearchHistory(updatedHistory);
@@ -51,7 +50,7 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
 
     };
 
-    // const items = ['수학', 'abc', 'def', 'fqw', 'vxcv', 'bgf', 'dfag', 'ax', 'uay', 'a안녕', '2a12312', 'a반가워요', 'aㅁㅁㄴㅇㅁㄴㅇ', 'a한찬규', 'a김채원', 'a박경덕', 'a김민성', 'a황소정', 'a정정해'];
+   
 
     useEffect(() => {
         if (searchInputRef.current) {
@@ -104,18 +103,6 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
         ToggleClick(query);
     };
 
-    // useEffect(() => {
-    //     const config = {
-    //         params : {
-    //             data: searchQuery,
-    //         }
-    //     }
-    //     const fetchData = async () => {
-    //         await getfetchData('/tag', config);
-    //     };
-
-    //     fetchData();
-    //   }, []);
 
 
 
