@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Card, Col, Tag, Pagination, List, Typography } from 'antd';
 const { Meta } = Card;
-const { Text } = Typography;
 import { BoxArrowUpRight } from 'react-bootstrap-icons';
 import useGET from '../../AuthCommunicate/GET';
 
 // 반복되는 카드 컴포넌트 새로 정의
 const CustomCard = ({ title, desc, img, url, tags }) => {
-    const truncatedDesc = desc.length > 20 ? desc.slice(0, 50) + '...' : desc; // 최대 ㅜ글자까지 보여줌
+    const truncatedDesc = desc.length > 20 ? desc.slice(0, 50) + '...' : desc; // 최대 글자수 제한
     return (
         <Col span={6}>
             <Card
