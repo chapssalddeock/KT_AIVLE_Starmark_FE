@@ -13,7 +13,6 @@ const FailToken = () => {
   useEffect(() => {
     setAuth(null);
     localStorage.removeItem("TokenData");
-    console.log(auth);
   }, []);
 
   return (
