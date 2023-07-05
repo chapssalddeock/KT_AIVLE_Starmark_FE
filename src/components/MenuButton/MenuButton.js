@@ -1,21 +1,13 @@
 import { Grid3x3GapFill, List } from 'react-bootstrap-icons';
-import Container from 'react-bootstrap/Container';
-import { Button, Select, Space, Segmented } from 'antd';
+import { Button,  Space, Segmented } from 'antd';
 import { useState } from 'react';
 import SubmitForm from '../Modal/SubmitForm';
 
-const handleChange = (value) => {
-    console.log(`selected ${value}`);
-};
 
-const options = [
-    { value: 1, label: 'oldest', },
-    //{value: 2,label: '반대로..',},
-]
 
 
 export default function MenuBar({ onSegmentedChange }) {
-    ///////////////////////////////////// 폼 관련'
+    //폼 관련
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
     const handleOpenDrawer = () => {
@@ -42,7 +34,6 @@ export default function MenuBar({ onSegmentedChange }) {
                 <SubmitForm isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
             </Space>
             <Space wrap style={{ flex: 1, justifyContent: 'flex-end', width: '50%'}}>
-                {/* <Select defaultValue="latest" style={{ width: 120, height: 35, }} onChange={handleChange} options={options}></Select> */}
                 <Segmented onChange={handleSegmentedChange} style={{ height: 35, }}
                     options={[{ value: 'List', icon: <List size='2vh' style={{ color: '#3170c7'}} />, },
                     { value: 'Thumbnail', icon: <Grid3x3GapFill size='2vh' style={{ color: '#3485f3'}} />, },]} />

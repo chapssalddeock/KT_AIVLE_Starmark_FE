@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Segmented, Spin, Button, Drawer, Form, Input, Row, Select } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
 import usePOST from '../../AuthCommunicate/POST';
 
 const handleChange = (value) => {
@@ -80,7 +79,6 @@ export default function SubmitForm_Social({ isOpen, onClose, url }) {
                         >
                             취소
                         </Button>
-                        {/*  loading={isSubmitting}가 원래 밑에 제출버튼에 있었음 */}
                         <Button form="submitForm" key="submit" htmlType="submit" type="primary"
                             style={{
                                 width: '25%', height: '100%', marginRight: '0.5vw', backgroundColor: 'white',
