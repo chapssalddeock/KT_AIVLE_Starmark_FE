@@ -27,7 +27,6 @@ export default function MpContentArea() {
                         {selectedItem === 'sub1' && <MyInfo style={{ padding: 4, margin: 0, }} />}
                         {selectedItem === 'sub2' && <MyFollows style={{ padding: 4, margin: 0, }} />}
                         {selectedItem === 'sub4' && <MyDashBoard style={{ padding: 4, margin: 0, }} />}
-                        {/* selectedItem에 따라 메뉴 이동 */}
                     </Content>
                 </Layout>
             </Layout>

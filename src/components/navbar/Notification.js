@@ -6,7 +6,7 @@ import usePUT from '../../AuthCommunicate/PUT';
 import useGET from '../../AuthCommunicate/GET';
 import AuthManager from "../../AuthContext/AuthManager";
 
-// 알림 확인하면 수정하기
+
 
 export default function Notification() {
     const router = useRouter();

@@ -1,10 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
-import { MainFrame, ImgFrame, ContentFrame, ImgChangeButton, Frame, ImgMainFrame, normalFontStyles } from '../../../styles/MyPage_Emotion';
+import { MainFrame, ImgFrame, ContentFrame, ImgChangeButton, Frame, ImgMainFrame } from '../../../styles/MyPage_Emotion';
 import useGET from '../../AuthCommunicate/GET';
 import usePUT from '../../AuthCommunicate/PUT';
 import usePOST from '../../AuthCommunicate/POST';
 import { List, Button, Input, Form } from 'antd';
-import { Wave } from "../../../styles/PageScroll_Emotion";
 import 'animate.css';
 
 
