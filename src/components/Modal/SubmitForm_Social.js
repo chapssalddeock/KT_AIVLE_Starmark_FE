@@ -21,8 +21,7 @@ export default function SubmitForm_Social({ isOpen, onClose, url }) {
     const { fetchData: postFetchData, data: postData, error: postError } = usePOST();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [form] = Form.useForm(); // Add form instance
-    console.log('file111', url)
-    console.log('file', fileList)
+ 
     const handleSubmit = async (values) => {
         setIsSubmitting(true);
         

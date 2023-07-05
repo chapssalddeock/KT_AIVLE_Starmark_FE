@@ -121,11 +121,11 @@ export default function SideBar({ onSearch, onSuggestedItemClick, ToggleClick })
 
     useEffect(() => {
         if (getTagData) {
-            console.log('abc', getTagData)
+            
             const tags = getTagData
 
             setTags(tags);
-            console.log('Tags:', tags);
+            
         } else if (getTagError) {
             console.error(getTagError);
         }

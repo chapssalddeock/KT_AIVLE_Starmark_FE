@@ -130,7 +130,7 @@ export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList
                     const isUrlInList_2 = urlList.includes(value);
                     const handleButtonClick = () => {
                       handleOpenDrawer(value);
-                      console.log('value',value)
+                      
                     };
                     
                     return (

@@ -136,7 +136,7 @@ export default function SocialListView({ searchResult }) {
         console.error(error);
       }
     }, [data]);
-    console.log('asdasdasd', allurls)
+   
     
     const [userdataProfile, setuserdataProfile] = useState(null);
     useEffect(() => {
