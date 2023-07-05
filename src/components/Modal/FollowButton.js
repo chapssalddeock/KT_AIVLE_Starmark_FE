@@ -2,13 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { Button } from 'antd';
 import usePOST from '../../AuthCommunicate/POST';
 import useDELETE from '../../AuthCommunicate/DELETE';
-
+import useGET from '../../AuthCommunicate/GET';
 export default function FollowButton({ user_isFollowing, user_id }) {
     const [isFollowing, setIsFollowing] = useState([]);
+    const { fetchData: getFetchData, data: getData, error: getError } = useGET();
     const { fetchData : postFetchData, data: postData, error: postError } = usePOST();
     const { fetchData : deleteFetchData, data: deleteData, error: deleteError } = useDELETE();
 
+    console.log('item.is_following', user_isFollowing)
 
+    const fetchData = async () => {
+        await getFetchData('/follows/');
+    };
     useEffect(() => {
         const fetchFollowStatus = async () => {
             setIsFollowing(user_isFollowing);
@@ -42,7 +47,7 @@ export default function FollowButton({ user_isFollowing, user_id }) {
         } else if (deleteError) {
             console.log(deleteError);
         }
-    }, [deleteData, postError]);
+    }, [deleteData, deleteError]);
 
 
     return (

@@ -13,28 +13,28 @@ const options = [
     { value: false, label: '비공개' },
 ];
 
-export default function SubmitForm({ isOpen, onClose, url }) {
+export default function SubmitForm({ isOpen, onClose}) {
     const router = useRouter();
     const [selectedOption, setSelectedOption] = useState('URL');
     const [fileList, setFileList] = useState([]);
     const { fetchData: postFetchData, data: postData, error: postError } = usePOST();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [form] = Form.useForm(); // Add form instance
-
+    
     const handleOptionChange = (value) => {
         setSelectedOption(value);
     };
-
+    
     const handleSubmit = async (values) => {
         setIsSubmitting(true);
-
+        
         let formData = null;
 
         if (selectedOption === 'URL') {
             formData = {
                 type: 'string',
                 title: values.title,
-                url: values.url || url,
+                url: values.url,
                 is_public: values.is_public,
             };
         } else if (selectedOption === 'HTML') {
@@ -122,7 +122,7 @@ export default function SubmitForm({ isOpen, onClose, url }) {
                             </Row>
                             <Row gutter={16}>
                                 <Form.Item name="url" label={<span style={{ fontSize: '1.8vmin', fontFamily: 'KOTRA_GOTHIC' }}>URL</span>}
-                                    rules={[{ required: true, message: 'URL을 입력하세요.' }]} initialValue={url}
+                                    rules={[{ required: true, message: 'URL을 입력하세요.' }]}
                                     style={{ width: '80%', height: '5vh', marginBottom: '5vh' }}
                                 >
                                     <Input placeholder="URL을 입력하세요."

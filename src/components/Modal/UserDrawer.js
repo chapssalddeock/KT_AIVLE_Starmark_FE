@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Drawer, Spin, Input, Avatar , Button, Modal, Form, Tag} from 'antd';
 import FollowButton from '../Modal/FollowButton';
 import usePOST from '../../AuthCommunicate/POST';
-import SubmitForm from '../Modal/SubmitForm';
+import SubmitForm_Social from '../Modal/SubmitForm_Social';
 import { StyledScrollbar } from '../../../styles/HelpButton_Emotion';
+
 // id, email, username, profile_image, is_following, following_cnt, follower_cnt, bookmark_cnt 넘어옴
 export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList, allurls, userdataProfile }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -11,7 +12,7 @@ export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { fetchData: postFetchData, data: postData, error: postError } = usePOST();
   const [form] = Form.useForm();
- 
+  
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const handleOpenDrawer = (url) => {
     setSelectedUrl(url);
@@ -19,9 +20,12 @@ export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList
   };
   const handleCloseDrawer = () => {
     setIsDrawerOpen(false);
+    
+    
   };
-  const valuesList = Object.values(allurls)
-
+  
+  // const valuesList = Object.values(allurls)
+  
   useEffect(() => {
     if (postData) {
         console.log('전송 성공', postData);
@@ -31,7 +35,7 @@ export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList
         setIsSubmitting(false); // Reset the submission state
     }
 }, [postData, postError]);
- 
+
   return (
     <>
       <Drawer
@@ -56,9 +60,7 @@ export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList
             <div  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <strong>Email:</strong> {userProfile.email}
               <div >
-                <Tag style = {{display: 'flex', justifyContent: 'center', alignItems: 'center', height:'25px', width:'100%', borderRadius: 20, height: 24, marginBottom: 4, color: '#5eacf2', border: 'solid #5eacf2 0.5px'}} color="white">
-                  {userProfile.is_following ? 'Following' : 'Follow'}
-                </Tag>
+              <FollowButton user_isFollowing={userProfile.is_following} user_id={userProfile.id} />
                 
               </div>
               <strong>Url:</strong>
@@ -66,6 +68,7 @@ export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList
                 <div>
                   {urls.map((url, index) => {
                     const isUrlInList = urlList.includes(url);
+                    
                     return (
                       <div
                         key={index}
@@ -88,7 +91,7 @@ export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList
                             }}>
                           Add
                         </Button>
-                        <SubmitForm url={url} isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
+                        <SubmitForm_Social url={url} isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
                       </div>
                     );
                   })}
@@ -113,9 +116,8 @@ export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList
             <div  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <strong>Email:</strong> {userdataProfile.email}
               <div >
-                <Tag style = {{display: 'flex', justifyContent: 'center', alignItems: 'center', height:'25px', width:'100%', borderRadius: 20, height: 24, marginBottom: 4, color: '#5eacf2', border: 'solid #5eacf2 0.5px'}} color="white">
-                  {userdataProfile.is_following ? 'Following' : 'Follow'}
-                </Tag>
+              <FollowButton user_isFollowing={userdataProfile.is_following} user_id={userdataProfile.id} />
+                
                 
               </div>
               <div style={{ width:'100%',display: 'flex', flexDirection: 'row' }}>
@@ -125,7 +127,12 @@ export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList
               <StyledScrollbar style={{overflowY:'scroll', height:'30vh', width: '450px'}}>
                 <div>
                   {Object.entries(allurls).map(([key, value]) => {
-                    const isUrlInList = urlList.includes(allurls);
+                    const isUrlInList_2 = urlList.includes(value);
+                    const handleButtonClick = () => {
+                      handleOpenDrawer(value);
+                      console.log('value',value)
+                    };
+                    
                     return (
                       <div
                         
@@ -136,21 +143,16 @@ export default function UserDrawer({ isOpen, onClose, userProfile, urls, urlList
                           alignItems: 'center',
                           marginTop: '3vh',
                           marginBottom: '3vh',
-                          opacity: isUrlInList ? 0.5 : 1,
-                          pointerEvents: isUrlInList ? 'none' : 'auto',
+                          opacity: isUrlInList_2 ? 0.5 : 1,
+                          pointerEvents: isUrlInList_2 ? 'none' : 'auto',
                           width: '90%',
                         }}
                       >
                         <div key={key} style={{ fontFamily: 'KOTRA_GOTHIC', flex: 1, overflowX: 'hidden', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                           {key}: {value}
                         </div>
-                        <Button onClick={() => handleOpenDrawer(allurls)} type="primary" size="small" disabled={isUrlInList} style={{ width: '25%', height: '100%', backgroundColor: 'white',
-                                color: 'black', fontSize: '1.5vh', fontWeight: 'bold', borderRadius: '20px', padding: '0.5vh 0.5vw',
-                                boxShadow: '2px 2px 2px rgba(11, 153, 255, 0.7)'
-                            }}>
-                          Add
-                        </Button>
-                        <SubmitForm url={valuesList} isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
+                        
+                       
                       </div>
                     );
                   })}
