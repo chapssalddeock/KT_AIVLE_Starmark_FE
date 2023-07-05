@@ -149,7 +149,7 @@ const SignUp = ({ onSubmit }) => {
               style={{ width: '100%', height: '12vh', marginBottom: '0vh' }}
             >
               <CustomInput allowClear onFocus={() => handleFocusChange(true)} onBlur={() => handleFocusChange(false)} 
-              inputBackgroundColor="#cae6fe"
+              inputbackgroundcolor="#cae6fe"
               style={{ width: '100%', height: '5vh', marginBottom: '0vh', 
               fontSize: '2vmin', backgroundColor: '#cae6fe', borderRadius: '30px' }}
               />
@@ -166,7 +166,7 @@ const SignUp = ({ onSubmit }) => {
               style={{ width: '100%', height: '12vh', marginBottom: '0vh', }}
             >
               <CustomInputPassword allowClear 
-              inputBackgroundColor="#cae6fe"
+              inputbackgroundcolor="#cae6fe"
               style={{ width: '100%', height: '5vh', marginBottom: '0vh', 
               fontSize: '2vmin', backgroundColor: '#cae6fe', borderRadius: '30px' }}
               />
@@ -194,7 +194,7 @@ const SignUp = ({ onSubmit }) => {
               style={{ width: '100%', height: '12vh', marginBottom: '0vh', }}
             >
               <CustomInputPassword allowClear 
-              inputBackgroundColor="#cae6fe"
+              inputbackgroundcolor="#cae6fe"
               style={{ width: '100%', height: '5vh', marginBottom: '0vh', 
               fontSize: '2vmin', backgroundColor: '#cae6fe', borderRadius: '30px' }}
               />
@@ -213,7 +213,7 @@ const SignUp = ({ onSubmit }) => {
               style={{ width: '100%', height: '12vh', marginBottom: '0vh', }}
             >
               <CustomInput allowClear 
-              inputBackgroundColor="#cae6fe"
+              inputbackgroundcolor="#cae6fe"
               style={{ width: '100%', height: '5vh', marginBottom: '0vh', 
               fontSize: '2vmin', backgroundColor: '#cae6fe', borderRadius: '30px' }}
               />

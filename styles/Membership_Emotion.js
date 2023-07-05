@@ -143,17 +143,17 @@ export const CustomForm = styled(Form)`
 `;
 
 export const CustomInput = styled(Input)`
-  ${({ inputBackgroundColor }) => css`
+  ${({ inputbackgroundcolor }) => css`
     input {
-      background-color: ${inputBackgroundColor};
+      background-color: ${inputbackgroundcolor};
     }
   `}
  `
 
 export const CustomInputPassword = styled(Input.Password)`
-  ${({ inputBackgroundColor }) => css`
+  ${({ inputbackgroundcolor }) => css`
     input {
-      background-color: ${inputBackgroundColor};
+      background-color: ${inputbackgroundcolor};
     }
   `}
  `

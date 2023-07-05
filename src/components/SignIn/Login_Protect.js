@@ -85,7 +85,7 @@ const LoginPage = () => {
                 prefix={<UserOutlined />}
                 placeholder="Email"
                 required
-                inputBackgroundColor="#cae6fe"
+                inputbackgroundcolor="#cae6fe"
                 style={{ width: '100%', height: '5vh', marginBottom: '0vh', 
               fontSize: '2vmin', backgroundColor: '#cae6fe', borderRadius: '30px' }}
               />
@@ -102,7 +102,7 @@ const LoginPage = () => {
                 prefix={<LockOutlined />}
                 placeholder="Password"
                 required
-                inputBackgroundColor="#cae6fe"
+                inputbackgroundcolor="#cae6fe"
                 style={{ width: '100%', height: '5vh', marginBottom: '0vh', 
                 fontSize: '2vmin', backgroundColor: '#cae6fe', borderRadius: '30px' }}
               />
