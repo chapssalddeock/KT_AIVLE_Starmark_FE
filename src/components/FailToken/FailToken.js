@@ -3,7 +3,7 @@ import React from "react";
 import { BackgroundPage, MainBlock, AlertPart, Content, ButtonBlock, BgLayout } from "../../../styles/Complete_Emotion";
 import { Button } from 'antd';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import useAuth from '../../AuthHooks/useAuth';
 
 const FailToken = () => {

@@ -20,7 +20,6 @@ export const MainBlock = styled.div`
   top : 15%;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 그림자 효과 추가 */
 
-  // border: solid;
 `
 export const AlertPart = styled.div`
   width: 100%;
@@ -60,6 +59,4 @@ export const ButtonBlock = styled.div`
   padding: 0 40% 0 40%;
 
   font-size: 5vmin;
-
-  // border: solid blue;
 `

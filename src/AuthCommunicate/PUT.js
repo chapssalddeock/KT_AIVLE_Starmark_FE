@@ -1,5 +1,5 @@
 // usePUT.js
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AXIOS } from './axios';
 
 const usePUT = () => {

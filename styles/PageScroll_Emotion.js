@@ -27,7 +27,6 @@ export const Outer = styled.div`
 const BasicInner = styled.div`
   display: flex;
   justify-content: center;
-  // align-items: center;
 `
 
 export const UnderNavInner = styled(BasicInner)`
@@ -36,20 +35,14 @@ export const UnderNavInner = styled(BasicInner)`
 `
 
 export const PageBackGround = styled.div`
-  // border: solid;
   width: 100%;
   height: 100%;
-  // background-color: #63a3dc;
-  background: linear-gradient(180deg, #04fafd, 5%, #119dff, 50%, #030423);
-  // position : relative;
-  // left: 10%;
-  
+  background: linear-gradient(180deg, #04fafd, 5%, #119dff, 50%, #030423);  
 `
 
 export const Temp = styled.div`
   width: 100%;
   height: 68%;
-  // border : solid;
 `
 
 export const Wave = styled.div`
@@ -58,8 +51,6 @@ export const Wave = styled.div`
 `
 
 export const PageDark = styled.div`
-  // border: solid red;
-
   position : relative;
   bottom: 100%;
   width: 100%;
@@ -80,8 +71,6 @@ export const Title = styled.div`
   position: relative;
   left: 0%;
   top: 30%;
-  
-  // border: solid;
 `
 
 export const Content = styled.div`
@@ -91,7 +80,6 @@ export const Content = styled.div`
   font-size: 3vmin;
 
   position: relative;
-  // left: 40%;
   top: 40%;
   text-align: center;
 `
@@ -106,15 +94,12 @@ export const ImgFrame = styled.div`
   display : flex;
 	justify-content: center;
   align-items : center;
-
-  // border: solid;
 `
 
 export const FrameWrapper = styled.div`
   width: 50%;
   display: flex;
   flex-direction: column;
-  // border: blue;
 `;
 
 export const TitleFrame = styled.div`
@@ -122,28 +107,19 @@ export const TitleFrame = styled.div`
   height: 50vh;
 
   position: relative;
-
-  // border : solid yellow;
 `
 
 export const ContentFrame = styled.div`
   width: 100%;
   height: 50vh;
-
-  // border : solid red;
 `
 
 export const SecondImg = styled.div`
   width: 60vh;
   height: 70vh;
   
-  // position: relative;
-  
   background-image: url(/img/Search_IMG.png);
   background-size: 100% 100%;
-
-  // border-radius: 5%;
-  // border: solid yellow;
 `
 
 
@@ -160,7 +136,6 @@ export const SecondTitle = styled.div`
   bottom: 0%; /* 아래에 위치하도록 설정 */
   left: 15%; 
 
-  // border : solid;
 `
 
 export const SecondContent = styled.div`
@@ -175,8 +150,6 @@ export const SecondContent = styled.div`
   position: relative;
   left: 15%;
   top: 25%;
-
-  // border: solid;
 `
 
 export const ActiveInner3 = styled(BasicInner)`
@@ -207,7 +180,6 @@ export const ThirdTitle = styled.div`
   bottom: 0;
   left: 25%;
 
-  // border : solid;
 `
 
 export const ThirdContent = styled.div`
@@ -221,8 +193,6 @@ export const ThirdContent = styled.div`
   position: relative;
   left: 25%;
   top: 25%;
-
-  // border: solid;
 `
 
 
@@ -239,8 +209,6 @@ export const ActiveInner4 = styled(BasicInner)`
 export const TagImgFrame = styled.div`
   width: 60%;
   height: 100%;
-
-  // border: solid red;
 `
 
 export const TagImg = styled.div`
@@ -254,8 +222,6 @@ export const TagImg = styled.div`
   position : relative;
   left : 10%; 
   top : 10%;
-
-  // border: solid;
 `
 
 export const Square = styled.div`
@@ -276,7 +242,6 @@ export const Square = styled.div`
     transform: skew(-20deg); /* 왼쪽 편을 기울이는 회전 효과 */
   }
 
-  // border: solid;
 `
 
 export const RectangleImg = styled.div`
@@ -290,8 +255,6 @@ export const RectangleImg = styled.div`
   left: 20%;
   top: 40%;
   z-index: 0;
-
-  // border: solid;
 `
 
 export const Bubble = styled.div`
@@ -304,8 +267,6 @@ export const Bubble = styled.div`
   position: absolute;
   left: 70%;
   top: 12%;
-
-  // border: solid;
 `
 
 export const Divider = styled.div`

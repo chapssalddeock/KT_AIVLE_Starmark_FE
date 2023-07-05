@@ -1,11 +1,9 @@
 import axios from 'axios';
 import jwt_decode from "jwt-decode"
-import { useState, useRef } from 'react';
 
 import { useRouter } from "next/router";
 import useAuth from "../AuthHooks/useAuth";
 
-let errorMessage = "";
 const BASE_URL = "http://kt-aivle.iptime.org:40170/api";
 
 const AuthManager = () => {

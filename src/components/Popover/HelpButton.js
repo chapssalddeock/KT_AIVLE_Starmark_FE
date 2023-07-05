@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AuthManager from '../../AuthContext/AuthManager';
-import { Popover, Button, Collapse } from 'antd';
+import { Popover, Button } from 'antd';
 import { QuestionCircleFilled } from '@ant-design/icons';
 import { Title, TitleContent, StylePanel, StyledScrollbar } from '../../../styles/HelpButton_Emotion';
 
@@ -8,8 +8,6 @@ import { Title, TitleContent, StylePanel, StyledScrollbar } from '../../../style
 const HelpButton = ({ page }) => {
   const { UserInfo } = AuthManager();
   const [info, setInfo] = useState('');
-  const [isPanelOpen, setIsPanelOpen] = useState(false);
-  const [popoverHeight, setPopoverHeight] = useState('30vh');
 
   const fetchData = () => {
     const value = UserInfo();
