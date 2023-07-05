@@ -1,4 +1,3 @@
-// Complete.js
 import React from "react";
 import { BackgroundPage, MainBlock, AlertPart, Content, ButtonBlock, BgLayout } from "../../../styles/Complete_Emotion";
 import { Button } from 'antd';
@@ -26,7 +25,6 @@ const Complete = () => {
             </Button>
           </ButtonBlock>
         </MainBlock>
-        {/* <GET /> */}
       </BackgroundPage>
     </BgLayout>
   );

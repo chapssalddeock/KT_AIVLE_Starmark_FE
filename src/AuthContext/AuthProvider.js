@@ -14,7 +14,6 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {        
         const getToken = async () => {
             const tokenData = localStorage.getItem("TokenData");
-            console.log(auth);
             if (tokenData) {
                 try {
                     const response = await axios.get(`${baseURL}/timestamp/`, {
@@ -26,21 +25,16 @@ export const AuthProvider = ({ children }) => {
                     const isExpired = JSON.parse(tokenData).refresh_expires - response.data.timestamp < 60;
 
                     if (!isExpired) {
-                        console.log(JSON.parse(tokenData).refresh_expires);
-                        console.log(response.data.timestamp);
                         setAuth(JSON.parse(tokenData));
                     } else {
-                        console.log('end');
                         setAuth(null);
                         localStorage.removeItem("TokenData");
                         router.push("/");
                     }
                   } catch (error) {
-                    console.log(error);
                   }                
             }
         };
-
         getToken();
         setLoading(false);
     }, []);

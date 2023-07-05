@@ -1,6 +1,6 @@
 import {
   CustomerPage, LeftRibbonBadge, RibbonText, TitleSpace, LoginTitle, AlertSpace,
-  ButtonDesign, InputSpace, CustomForm, CustomInput, CustomInputPassword, OtherText, GoRegister
+  InputSpace, CustomForm, CustomInput, CustomInputPassword, OtherText, GoRegister
 } from "../../../styles/Login_Emotion"
 import { Form, Input, Spin, Alert, Button } from 'antd';
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
