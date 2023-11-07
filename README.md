@@ -7,17 +7,15 @@ BE, AI가 포함된 완성본은 저작권 상 전체 공개가 불가능합니�
 Frontend : React, Next.js
 
 ### INIT
+```bash
 git clone {{ repository_url }}
-
+yarn install
+```
 ### LOCAL
 First, run the development server:
 
 ```bash
-npm run dev
-# or
 yarn dev
-# or
-pnpm dev
 ```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
