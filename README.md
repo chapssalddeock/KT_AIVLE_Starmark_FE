@@ -1,7 +1,15 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🌟 STARMARK : 북마크 최적화 관리보조 솔루션
 
-## Getting Started
+프론트엔드 부분만 있는 리포지토리입니다.
+BE, AI가 포함된 완성본은 저작권 상 전체 공개가 불가능합니다. 
 
+## 🐣 Getting Started
+Frontend : React, Next.js
+
+### INIT
+git clone {{ repository_url }}
+
+### LOCAL
 First, run the development server:
 
 ```bash
@@ -11,28 +19,9 @@ yarn dev
 # or
 pnpm dev
 ```
-
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Licence 관련
+디자인 요소는 미리캔버스를 참조하였습니다. 
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+과학기술정보통신부와 한국지능정보사회진흥원의「지능정보산업 인프라 조성」사업의 일환으로 마련된 Ai-hub(https://aihub.or.kr/)의 데이터셋을 참조하였습니다.
