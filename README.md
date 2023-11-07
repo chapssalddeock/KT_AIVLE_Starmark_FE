@@ -22,5 +22,6 @@ pnpm dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Licence 관련
-디자인 요소는 미리캔버스를 참조하였습니다.
+디자인 요소는 미리캔버스를 참조하였습니다. 
+
 과학기술정보통신부와 한국지능정보사회진흥원의「지능정보산업 인프라 조성」사업의 일환으로 마련된 Ai-hub(https://aihub.or.kr/)의 데이터셋을 참조하였습니다.
