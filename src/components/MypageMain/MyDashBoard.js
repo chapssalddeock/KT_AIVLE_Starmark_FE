@@ -9,13 +9,11 @@ import useGET from '../../AuthCommunicate/GET';
 
 export default function MyDashBoard() {
 
-    const [data, setData] = useState([]);
+    // const [data, setData] = useState([]);
     const { fetchData: getFetchData, data: getData, error: getError } = useGET();
-
-
     const networkRef = useRef();
     const springProps = useSpring({ opacity: 1, from: { opacity: 0 } });
-    const [selectedNode, setSelectedNode] = useState(null);
+    // const [selectedNode, setSelectedNode] = useState(null);
 
 
     // 데이터 받는 get 함수 정의
@@ -31,22 +29,12 @@ export default function MyDashBoard() {
 
     useEffect(() => {
         if (getData) {
-            console.log("data", getData)
-            setData(getData);  // 데이터 받기
-        } else if (getError) {
-            console.error(getError);
-        }
-    }, [getData, getError]);
-
-
-    useEffect(() => {
-        if (data) { // 받은 데이터가 잘 들어갔다면
-            console.log("들어갔나?data", data)
+            // console.log("data get", getData)
             const container = document.getElementById('mynetwork');
 
             // 데이터셋 만들기
-            const nodesData = (data.nodes);
-            const edgesData = (data.edges);
+            const nodesData = (getData.nodes);
+            const edgesData = (getData.edges);
 
             const nodes = new DataSet(nodesData);
             const edges = new DataSet(edgesData);
@@ -72,19 +60,14 @@ export default function MyDashBoard() {
 
             networkRef.current = network;
 
-            networkRef.current.on('click', (event) => {
-                if (event.nodes.length > 0) {
-                    const nodeId = event.nodes[0];
-                    const selectedNode = nodes.get(nodeId);
-                    setSelectedNode(selectedNode);
-
-                }
-            });
-        }
-        else {
+            // setData(getData); 
+        } else if (getError) {
+            console.error(getError);
             networkRef.current = null;
         }
-    }, []);
+    }, [getData, getError]);
+
+
 
 
 
@@ -102,4 +85,4 @@ export default function MyDashBoard() {
         </Frame >
     </>
     )
-};
+}; 

@@ -7,10 +7,12 @@ BE, AI가 포함된 완성본은 저작권 상 전체 공개가 불가능합니�
 Frontend : React, Next.js
 
 ### INIT
+
 ```bash
 git clone {{ repository_url }}
 yarn install
 ```
+
 ### LOCAL
 First, run the development server:
 
